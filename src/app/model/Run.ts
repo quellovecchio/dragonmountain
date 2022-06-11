@@ -7,13 +7,13 @@ export class Run {
     party: [];
     level: number;
     stage: Stage;
-    time: Time;
+    time: number;               // TODO work with time data
 
     constructor (player: Character,
         party: [],
         level: number,
         stage: Stage,
-        time: Time) {
+        time: number) {
             this.player = player;
             this.party =  party;
             this.level = level;

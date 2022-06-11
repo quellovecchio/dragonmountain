@@ -30,4 +30,8 @@ export class ViewportComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  pushText(text: string) {
+    //this.textArea.pushText(text);
+  }
+
 }
