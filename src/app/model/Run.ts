@@ -1,5 +1,6 @@
 import { Time } from "@angular/common";
 import { Character } from "./Character";
+import { Stage } from "./Stage";
 
 export class Run {
     player: Character;
