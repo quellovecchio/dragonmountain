@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ViewportComponent } from './viewport/viewport.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dragon-mountain';
+
+  @ViewChild(ViewportComponent)
+  viewport: ViewportComponent;
+
+  constructor(viewport: ViewportComponent) {
+    this.viewport = viewport;
+  }
 }
