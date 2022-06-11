@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextAreaComponent implements OnInit {
 
-  constructor() { }
+  currentText: string;
+
+  constructor(currentText: string) { 
+    this.currentText = currentText;
+  }
 
   ngOnInit(): void {
+  }
+
+  pushText(text: string) {
+    this.currentText = text;
   }
 
 }
