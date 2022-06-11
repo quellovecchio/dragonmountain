@@ -31,12 +31,14 @@ export class AppComponent {
   }
 
   generateTestRun(): Run {
+    console.log("generateTestRun() - start")
     this.viewport.pushText("Generating run...");
     let newPlayerStats = new Stats(10,10,10,10,10,10);
     let newPlayer = new Character("test_run", 1, 0, newPlayerStats, [], []);
     let firstStage = new Stage("first_stage", [], "", "");
     let newRun = new Run(newPlayer, [], 1, firstStage, 0);
     this.viewport.pushText("Run loaded.");
+    console.log("generateTestRun() - end")
     return newRun;
   }
 }

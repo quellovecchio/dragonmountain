@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-text-area',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextAreaComponent implements OnInit {
 
+  textArea = new FormGroup({
+    currentText: new FormControl('')
+  });
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  pushText(text: string) {
+    this.textArea.controls.currentText.setValue(text);
   }
 
 }

@@ -31,7 +31,7 @@ export class ViewportComponent implements OnInit {
   }
 
   pushText(text: string) {
-    //this.textArea.pushText(text);
+    this.textArea.pushText(text);
   }
 
 }

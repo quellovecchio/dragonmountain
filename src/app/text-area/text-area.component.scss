@@ -1,6 +1,26 @@
 .spacing {
     width: 600px;  
-    height: 1500px;
+    height: 150px;
     font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
     font-size: 30px;
 }
+
+textarea {
+    resize: none;
+    overflow: hidden;
+    width: 525px;  
+    height: 175px;
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 6%;
+  }
