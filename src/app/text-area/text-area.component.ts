@@ -8,9 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class TextAreaComponent implements OnInit {
 
-  textArea = new FormGroup({
-    currentText: new FormControl('')
-  });
+  currentText = new FormControl('');
 
   constructor() { }
 
@@ -18,7 +16,7 @@ export class TextAreaComponent implements OnInit {
   }
 
   pushText(text: string) {
-    this.textArea.controls.currentText.setValue(text);
+    this.currentText.setValue(text);
   }
 
 }

@@ -25,6 +25,7 @@ export class AppComponent {
   constructor(viewport: ViewportComponent) {
     this.viewport = viewport;
     this.run = this.generateTestRun();
+    this.viewport.refreshInfoBox(this.run);
   }
 
   ngOnInit() {
