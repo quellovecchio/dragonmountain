@@ -8,17 +8,12 @@ export class Character {
     items: [];
     spells: [];
 
-    constructor(name: string,
-        level: number,
-        experience: 0,
-        stats: Stats,
-        items: [],
-        spells: []) {
-            this.name = name;
-            this.level = level;
-            this.experience = experience;
-            this.stats = stats;
-            this.items = items;
-            this.spells = spells;
+    constructor() {
+            this.name = "test_character";
+            this.level = 0;
+            this.experience = 0;
+            this.stats = new Stats();
+            this.items = [];
+            this.spells = [];
         } 
 }
