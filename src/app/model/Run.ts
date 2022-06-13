@@ -9,21 +9,10 @@ export class Run {
     stage: Stage;
     time: number;               // TODO work with time data
 
-    /*constructor (player: Character,
-        party: [],
-        level: number,
-        stage: Stage,
-        time: number) {
-            this.player = player;
-            this.party =  party;
-            this.level = level;
-            this.stage = stage;
-            this.time = time;
-        }*/
     constructor() {
         this.player = new Character();
         this.party = [];
-        this.level = 9;
+        this.level = 0;
         this.stage = new Stage();
         this.time = 0;
     }

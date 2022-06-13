@@ -25,10 +25,10 @@ export class AppComponent {
   constructor(viewport: ViewportComponent) {
     this.viewport = viewport;
     this.run = this.generateTestRun();
-    this.viewport.refreshInfoBox(this.run);
-  }
-
-  ngOnInit() {
+    setInterval(() => {
+      this.viewport.pushText(Math.round(Math.random() * 10).toString());
+      this.viewport.refreshInfoBox(this.run);
+    }, 2000);
   }
 
   generateTestRun(): Run {
