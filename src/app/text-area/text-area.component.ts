@@ -19,6 +19,7 @@ export class TextAreaComponent implements OnInit {
   pushText(text: string) {
     this.currentText = this.currentText + "&#10;" + text;
     if(this.textArea != undefined) {
+      this.ref.detectChanges();
       this.textArea.nativeElement.scrollTop = this.textArea.nativeElement.scrollHeight;
     }
   }

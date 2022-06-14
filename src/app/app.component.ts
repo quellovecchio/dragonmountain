@@ -28,7 +28,7 @@ export class AppComponent {
     setInterval(() => {
       this.viewport.pushText(Math.round(Math.random() * 1000).toString());
       this.viewport.refreshInfoBox(this.run);
-    }, 1000);
+    }, 600);
   }
 
   generateTestRun(): Run {
