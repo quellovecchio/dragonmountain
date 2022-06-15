@@ -1,13 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { InfoBoxComponent } from './info-box/info-box.component';
-import { Character } from './model/Character';
 import { Run } from './model/Run';
-import { Stats } from './model/Stats';
-import { SceneComponent } from './scene/scene.component';
-import { TextAreaComponent } from './text-area/text-area.component';
+import { Location } from './model/Location';
 import { ViewportComponent } from './viewport/viewport.component';
-import { Time } from "@angular/common";
-import { Stage } from './model/Stage';
 
 @Component({
   selector: 'app-root',
@@ -25,9 +19,11 @@ export class AppComponent {
   constructor(viewport: ViewportComponent) {
     this.viewport = viewport;
     this.run = this.generateTestRun();
+    this.viewport.refreshInfoBox(this.run);
+    this.viewport.refreshScene(this.run);
     setInterval(() => {
       this.viewport.pushText(Math.round(Math.random() * 1000).toString());
-      this.viewport.refreshInfoBox(this.run);
+      this.viewport.refreshScene(this.run);
     }, 600);
   }
 
@@ -35,6 +31,9 @@ export class AppComponent {
     console.log("generateTestRun() - start");
     this.viewport.pushText("Generating run...");
     let newRun = new Run();
+    for(var i = 0; i < 5; i++){
+      newRun.stage.locations.push(new Location());
+    }
     this.viewport.pushText("Run loaded.");
     console.log("generateTestRun() - end");
     return newRun;

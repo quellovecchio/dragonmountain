@@ -1,6 +1,18 @@
+img {
+    max-width: 100%;
+    max-height: 100%; 
+    display: block;
+    position: relative;
+}
+
 .spacing {
+    margin-top: 100px;
     width: 600px;  
     height: 500px;
     font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
     font-size: 30px;
+}
+
+.location {
+    position: absolute;
 }

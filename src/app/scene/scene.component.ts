@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Run } from '../model/Run';
 
 @Component({
   selector: 'app-scene',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SceneComponent implements OnInit {
 
-  constructor() { }
+  @Input() run: Run;
+
+  constructor() {
+    this.run = new Run();
+   }
 
   ngOnInit(): void {
+  }
+
+  update(updatedRun: Run) {
+    this.run = updatedRun;
   }
 
 }

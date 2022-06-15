@@ -1,4 +1,3 @@
-import { Time } from "@angular/common";
 import { Character } from "./Character";
 import { Stage } from "./Stage";
 
@@ -8,23 +7,21 @@ export class Run {
     level: number;
     stage: Stage;
     time: number;               // TODO work with time data
+    state: RunState;
 
-    /*constructor (player: Character,
-        party: [],
-        level: number,
-        stage: Stage,
-        time: number) {
-            this.player = player;
-            this.party =  party;
-            this.level = level;
-            this.stage = stage;
-            this.time = time;
-        }*/
     constructor() {
         this.player = new Character();
         this.party = [];
         this.level = 9;
         this.stage = new Stage();
         this.time = 0;
+        this.state = RunState.Neutral;
     }
+  }
+
+  enum RunState {
+    Neutral,
+    Exploration,
+    Fight,
+    Location
   }

@@ -39,4 +39,8 @@ export class ViewportComponent implements OnInit {
     this.infoBox.update(run)
   }
 
+  refreshScene(run: Run) {
+    this.scene.update(run)
+  }
+
 }
