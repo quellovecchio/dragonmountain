@@ -1,6 +1,17 @@
 <div class="spacing">
+    <table mat-table [dataSource]="run.stage.locations">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Locations </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
     <img src="{{run.stage.backgroundPath}}">
     <div class="location" *ngFor="let location of run.stage.locations index as i; first as isFirst">
-        prova location <br>
+        <app-location></app-location>
     </div>
 </div>
