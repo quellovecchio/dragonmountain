@@ -9,9 +9,7 @@ import { Run } from '../model/Run';
 export class SceneComponent implements OnInit {
 
   @Input() run: Run;
-
-  displayedColumns: string[] = ['name'];
-
+  
   constructor() {
     this.run = new Run();
    }
