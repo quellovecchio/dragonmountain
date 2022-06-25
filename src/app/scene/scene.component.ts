@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Run } from '../model/Run';
+import { RunState } from '../model/RunState';
 
 @Component({
   selector: 'app-scene',
@@ -9,6 +10,7 @@ import { Run } from '../model/Run';
 export class SceneComponent implements OnInit {
 
   @Input() run: Run;
+  @Output() pushTextEvent = new EventEmitter<string>();
   
   constructor() {
     this.run = new Run();
@@ -19,6 +21,12 @@ export class SceneComponent implements OnInit {
 
   update(updatedRun: Run) {
     this.run = updatedRun;
+  }
+
+  explore() {
+    console.log("prova");
+    this.run.state = RunState.Location;
+    this.pushTextEvent.emit("prova");
   }
 
 }

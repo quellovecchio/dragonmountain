@@ -3,8 +3,7 @@
         <p class="header">{{locationData.name}}</p>
         <img src="{{locationData.backgroundPath}}">
         <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
+            <button mat-menu-item (click)="explore()">Explore</button>
         </mat-menu>
     </button>
 </div>

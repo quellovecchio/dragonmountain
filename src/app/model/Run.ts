@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
 export class Run {
@@ -17,11 +18,5 @@ export class Run {
         this.time = 0;
         this.state = RunState.Neutral;
     }
-  }
 
-  enum RunState {
-    Neutral,
-    Exploration,
-    Fight,
-    Location
   }
