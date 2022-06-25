@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InfoBoxComponent } from './info-box/info-box.component';
-import { LocationComponent } from './location/location.component';
+import { LocationPreviewComponent } from './location/location-preview.component';
 import { SceneComponent } from './scene/scene.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { ViewportComponent } from './viewport/viewport.component';
@@ -20,7 +20,7 @@ import { ViewportComponent } from './viewport/viewport.component';
     SceneComponent,
     TextAreaComponent,
     ViewportComponent,
-    LocationComponent
+    LocationPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -34,14 +34,14 @@ import { ViewportComponent } from './viewport/viewport.component';
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    LocationComponent
+    LocationPreviewComponent
   ],
   providers: [
     ViewportComponent,
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    LocationComponent
+    LocationPreviewComponent
   ],
   bootstrap: [AppComponent]
 })

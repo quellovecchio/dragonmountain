@@ -1,9 +1,13 @@
 <div class="spacing">
 
-    <div class="location" *ngFor="let location of run.stage.locations">
-        <app-location [locationData]="location" (exploreSignal)="explore(location)"></app-location>
+    <div class="map" *ngIf="run.state == 'exploration'">
+        <div class="location" *ngFor="let location of run.stage.locations">
+            <app-location-preview [locationData]="location" (exploreSignal)="explore(location)"></app-location-preview>
+        </div>
     </div>
-
+    <div class="map" *ngIf="run.state == 'location'">
+        prova
+    </div>
     <!-- <img src="{{run.stage.backgroundPath}}"> -->
     
 </div>

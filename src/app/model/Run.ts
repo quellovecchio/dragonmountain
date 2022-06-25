@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { Item } from "./Item";
 import { Location } from "./Location";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";
@@ -6,15 +7,20 @@ import { Stage } from "./Stage";
 export class Run {
     player: Character;
     party: [];
+    items: Item[];
     level: number;
     stage: Stage;
     time: number;               // TODO work with time data
     state: RunState;
     currentLocation: Location;
 
+    // options
+    textSpeed: number = 1;
+
     constructor() {
         this.player = new Character();
         this.party = [];
+        this.items = [];
         this.level = 9;
         this.stage = new Stage();
         this.time = 0;

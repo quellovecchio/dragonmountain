@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Run } from './model/Run';
 import { Location } from './model/Location';
 import { ViewportComponent } from './viewport/viewport.component';
+import { RunState } from './model/RunState';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,6 @@ export class AppComponent {
   viewport: ViewportComponent;
 
   loadedSavedData: boolean = false;
-  textSpeed: number = 1;
   run: Run;
 
   constructor(viewport: ViewportComponent) {
@@ -40,10 +40,10 @@ export class AppComponent {
   
   greetPlayer() {
     var that = this;
-    setTimeout(function() { that.viewport.pushText("The first Stage of your journey is " + that.run.stage.name + "...") }, 1000 * that.textSpeed);
-    setTimeout(function() { that.viewport.pushText("And it's full of Locations you can Explore!") }, 2000 * that.textSpeed);
-    setTimeout(function() { that.viewport.pushText("What is our first destination?") }, 3000 * that.textSpeed);
-    setTimeout(function() { that.viewport.refreshScene(that.run) }, 4000 * that.textSpeed);
+    setTimeout(function() { that.viewport.pushText("The first Stage of your journey is " + that.run.stage.name + "...") }, 1000 * that.run.textSpeed);
+    setTimeout(function() { that.viewport.pushText("And it's full of Locations you can Explore!") }, 2000 * that.run.textSpeed);
+    setTimeout(function() { that.viewport.pushText("What is our first destination?") }, 3000 * that.run.textSpeed);
+    setTimeout(function() { that.viewport.refreshScene(that.run); that.run.state = RunState.Exploration }, 4000 * that.run.textSpeed);
   }
 
 }

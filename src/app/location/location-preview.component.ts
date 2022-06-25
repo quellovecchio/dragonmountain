@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
 import { Location } from "../model/Location";
 
 @Component({
-  selector: 'app-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  selector: 'app-location-preview',
+  templateUrl: './location-preview.component.html',
+  styleUrls: ['./location-preview.component.scss']
 })
-export class LocationComponent implements OnInit {
+export class LocationPreviewComponent implements OnInit {
 
   @Input() locationData!: Location;
   @Output() exploreSignal = new EventEmitter<string>();

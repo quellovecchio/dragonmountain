@@ -25,16 +25,19 @@ export class SceneComponent implements OnInit {
   }
 
   explore(location: Location) {
-    this.run.state = RunState.Location;
     this.run.currentLocation = location;
-    this.pushTextEvent.emit("The party has moved to the " + location.name + ".");
+    setTimeout(() => { this.pushTextEvent.emit("The party has moved to the " + location.name + "."); this.run.state = RunState.Location }, 200 * this.run.textSpeed);
     if(location.hasFight) {
       // fight
       console.log("a");
     }
-    if(location.hasLoot) {
-      // loot
-      console.log("b");
+    if(location.hasLoot()) {
+      // add loot to party inventory
+      location.loot.forEach(el => {
+        this.run.items.push(el);
+        setTimeout(() => { this.pushTextEvent.emit("You found a " + el.name + "!"); }, 1200 * this.run.textSpeed);
+        setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
+      });
     }
     if(location.hasPeople()) {
       // people

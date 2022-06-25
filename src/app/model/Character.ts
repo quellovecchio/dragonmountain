@@ -5,7 +5,6 @@ export class Character {
     level: number;
     experience: 0;
     stats: Stats;
-    items: [];
     spells: [];
 
     constructor() {
@@ -13,7 +12,6 @@ export class Character {
             this.level = 0;
             this.experience = 0;
             this.stats = new Stats();
-            this.items = [];
             this.spells = [];
         } 
 }
