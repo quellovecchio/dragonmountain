@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InfoBoxComponent } from './info-box/info-box.component';
-import { LocationPreviewComponent } from './location/location-preview.component';
+import { LocationPreviewComponent } from './location-preview/location-preview.component';
 import { SceneComponent } from './scene/scene.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { ViewportComponent } from './viewport/viewport.component';
