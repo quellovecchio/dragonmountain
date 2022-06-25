@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { Location } from "./Location";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
@@ -9,6 +10,7 @@ export class Run {
     stage: Stage;
     time: number;               // TODO work with time data
     state: RunState;
+    currentLocation: Location;
 
     constructor() {
         this.player = new Character();
@@ -17,6 +19,7 @@ export class Run {
         this.stage = new Stage();
         this.time = 0;
         this.state = RunState.Neutral;
+        this.currentLocation = new Location();
     }
 
   }

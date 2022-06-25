@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Run } from '../model/Run';
 import { RunState } from '../model/RunState';
+import { Location } from '../model/Location';
 
 @Component({
   selector: 'app-scene',
@@ -23,10 +24,22 @@ export class SceneComponent implements OnInit {
     this.run = updatedRun;
   }
 
-  explore() {
-    console.log("prova");
+  explore(location: Location) {
     this.run.state = RunState.Location;
-    this.pushTextEvent.emit("prova");
+    this.run.currentLocation = location;
+    this.pushTextEvent.emit("The party has moved to the " + location.name + ".");
+    if(location.hasFight) {
+      // fight
+      console.log("a");
+    }
+    if(location.hasLoot) {
+      // loot
+      console.log("b");
+    }
+    if(location.hasPeople()) {
+      // people
+      console.log("c");
+    }
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="spacing">
 
     <div class="location" *ngFor="let location of run.stage.locations">
-            <app-location [locationData]="location" (exploreSignal)="explore()"></app-location>
+        <app-location [locationData]="location" (exploreSignal)="explore(location)"></app-location>
     </div>
 
     <!-- <img src="{{run.stage.backgroundPath}}"> -->
