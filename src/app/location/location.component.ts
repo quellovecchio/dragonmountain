@@ -9,8 +9,9 @@ import { Location } from '../model/Location';
 })
 export class LocationComponent implements OnInit {
 
-  @Input() locationData!: Location;
+  @Input() locationData?: Location;
   @Output() interactSignal = new EventEmitter<Character>();
+  @Output() backSignal = new EventEmitter<Location>();
 
   constructor() { }
 
@@ -19,6 +20,10 @@ export class LocationComponent implements OnInit {
 
   interact(character: Character) {
     this.interactSignal.emit(character);
+  }
+
+  goBackToScene() {
+    this.backSignal.emit(this.locationData);
   }
 
 }

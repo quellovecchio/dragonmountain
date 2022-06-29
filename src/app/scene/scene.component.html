@@ -5,8 +5,8 @@
             <app-location-preview [locationData]="location" (exploreSignal)="explore(location)"></app-location-preview>
         </div>
     </div>
-    <div class="map" *ngIf="run.state == 'location'">
-        <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)"></app-location>
+    <div class="location" *ngIf="run.state == 'location'">
+        <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)" (backSignal)="returnToMap($event)"></app-location>
     </div>
     <!-- <img src="{{run.stage.backgroundPath}}"> -->
     

@@ -6,12 +6,14 @@ export class Location {
     backgroundPath: string = "";
     hasFight: boolean = false;
     loot: Item[] = [ new Item];
-    actors: Actor[] = [ new Actor ];
+    actors?: Actor[] = [ new Actor ];
 
     constructor() {
     } 
     
     hasActors() {
+        if(!this.actors)
+            return false;
         return this.actors.length > 0;
     }
 

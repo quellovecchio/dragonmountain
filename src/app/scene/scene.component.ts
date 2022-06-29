@@ -46,6 +46,14 @@ export class SceneComponent implements OnInit {
     }
   }
 
+  returnToMap(location: Location) {
+    this.run.state = RunState.Exploration;
+    this.run.currentLocation = undefined;
+    if(location)
+      setTimeout(() => { this.pushTextEvent.emit("The party is back from the " + location.name + ".") }, 200 * this.run.textSpeed);
+    setTimeout(() => { this.pushTextEvent.emit("What's our next move?") }, 1200 * this.run.textSpeed);
+  }
+
   interact(character: Character) {
     setTimeout(() => { this.pushTextEvent.emit("Interacted with " + character.name + "."); this.run.state = RunState.Location }, 200 * this.run.textSpeed);
   }

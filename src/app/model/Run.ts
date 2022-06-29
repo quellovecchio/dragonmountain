@@ -12,7 +12,7 @@ export class Run {
     stage: Stage;
     time: number;               // TODO work with time data
     state: RunState;
-    currentLocation: Location;
+    currentLocation?: Location;
 
     // options
     textSpeed: number = 0.1;
