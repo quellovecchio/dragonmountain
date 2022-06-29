@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Run } from '../model/Run';
 import { RunState } from '../model/RunState';
 import { Location } from '../model/Location';
+import { Character } from '../model/Actors/Character';
 
 @Component({
   selector: 'app-scene',
@@ -39,10 +40,14 @@ export class SceneComponent implements OnInit {
         setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
       });
     }
-    if(location.hasPeople()) {
+    if(location.hasActors()) {
       // people
       console.log("c");
     }
+  }
+
+  interact(character: Character) {
+    setTimeout(() => { this.pushTextEvent.emit("Interacted with " + character.name + "."); this.run.state = RunState.Location }, 200 * this.run.textSpeed);
   }
 
 }

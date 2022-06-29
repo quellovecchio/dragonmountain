@@ -12,6 +12,7 @@ import { LocationPreviewComponent } from './location-preview/location-preview.co
 import { SceneComponent } from './scene/scene.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { ViewportComponent } from './viewport/viewport.component';
+import { LocationComponent } from './location/location.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ViewportComponent } from './viewport/viewport.component';
     SceneComponent,
     TextAreaComponent,
     ViewportComponent,
-    LocationPreviewComponent
+    LocationPreviewComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Character } from "./Character";
+import { Character } from "./Actors/Character";
 import { Item } from "./Item";
 import { Location } from "./Location";
 import { RunState } from "./RunState";

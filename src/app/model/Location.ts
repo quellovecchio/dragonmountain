@@ -1,24 +1,18 @@
-import { Character } from "./Character";
+import { Actor } from "./Actors/Actor";
 import { Item } from "./Item";
 
 export class Location {
-    name: string;
-    backgroundPath: string;
-    hasFight: boolean;
-    loot: Item[];
-    people: Character[];
+    name: string = "test_location";
+    backgroundPath: string = "";
+    hasFight: boolean = false;
+    loot: Item[] = [];
+    actors: Actor[] = [];
 
     constructor() {
-            this.name = "test_location";
-            this.backgroundPath = "";
-            this.hasFight = false;
-            this.loot = [];
-            this.loot.push(new Item());
-            this.people = [];
-        } 
+    } 
     
-    hasPeople() {
-        return this.people.length > 0;
+    hasActors() {
+        return this.actors.length > 0;
     }
 
     hasLoot() {

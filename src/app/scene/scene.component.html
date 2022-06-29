@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="map" *ngIf="run.state == 'location'">
-        prova
+        <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)"></app-location>
     </div>
     <!-- <img src="{{run.stage.backgroundPath}}"> -->
     
