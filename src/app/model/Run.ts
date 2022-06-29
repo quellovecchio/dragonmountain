@@ -15,7 +15,7 @@ export class Run {
     currentLocation: Location;
 
     // options
-    textSpeed: number = 1;
+    textSpeed: number = 0.1;
 
     constructor() {
         this.player = new Character();

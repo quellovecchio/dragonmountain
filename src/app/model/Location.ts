@@ -5,8 +5,8 @@ export class Location {
     name: string = "test_location";
     backgroundPath: string = "";
     hasFight: boolean = false;
-    loot: Item[] = [];
-    actors: Actor[] = [];
+    loot: Item[] = [ new Item];
+    actors: Actor[] = [ new Actor ];
 
     constructor() {
     } 

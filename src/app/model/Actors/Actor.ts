@@ -5,7 +5,7 @@ export class Actor {
     name: string = "test_actor";
     level: number = 0;
     loot: Item[] = [];
-    actions: Action[] = [];
+    actions: Action[] = [ new Action ];
 
     constructor() {
         } 
