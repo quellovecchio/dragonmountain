@@ -1,0 +1,13 @@
+<div class="space">
+    <div class="location" *ngFor="let actor of locationData.actors">
+        <button [matMenuTriggerFor]="menu">
+            <p class="header">{{actor.name}}</p>
+            <!-- <img src="{{character.thumbnailPath}}"> -->
+            <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+                <div class="location" *ngFor="let action of actor.actions">
+                    <button mat-menu-item (click)="action.fire()">{{action.name}}</button>
+                </div>
+            </mat-menu>
+        </button>
+    </div>
+</div>
