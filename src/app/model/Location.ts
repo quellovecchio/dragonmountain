@@ -1,11 +1,13 @@
 import { Actor } from "./Actors/Actor";
+import { Character } from "./Actors/Character";
+import { TestEnemy } from "./Actors/Test/TestEnemy";
 import { Item } from "./Item";
 
 export class Location {
     name: string = "test_location";
     backgroundPath: string = "";
-    hasFight: boolean = false;
-    loot: Item[] = [ new Item];
+    fight: Character[] = [ new TestEnemy ];
+    loot: Item[] = [ new Item ];
     actors?: Actor[] = [ new Actor ];
 
     constructor() {
@@ -19,5 +21,9 @@ export class Location {
 
     hasLoot() {
         return this.loot.length > 0;
+    }
+
+    hasFight() {
+        return this.fight.length > 0;
     }
 }

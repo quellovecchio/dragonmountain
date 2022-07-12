@@ -13,6 +13,7 @@ import { SceneComponent } from './scene/scene.component';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { LocationComponent } from './location/location.component';
+import { FightComponent } from './fight/fight.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LocationComponent } from './location/location.component';
     TextAreaComponent,
     ViewportComponent,
     LocationPreviewComponent,
-    LocationComponent
+    LocationComponent,
+    FightComponent
   ],
   imports: [
     BrowserModule,

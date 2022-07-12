@@ -1,10 +1,12 @@
 export class Stats {
+
     strength: number;
     dexterity: number;
     constitution: number;
     intelligence: number;
     wisdom: number;
     charisma: number;
+    healthPoints: number;
 
     constructor () {
             this.strength = 0;
@@ -13,5 +15,6 @@ export class Stats {
             this.intelligence = 0;
             this.wisdom = 0;
             this.charisma = 0;
+            this.healthPoints = 10;
         }
   }

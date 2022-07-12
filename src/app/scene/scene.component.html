@@ -2,11 +2,14 @@
 
     <div class="map" *ngIf="run.state == 'exploration'">
         <div class="location" *ngFor="let location of run.stage.locations">
-            <app-location-preview [locationData]="location" (exploreSignal)="explore(location)"></app-location-preview>
+            <app-location-preview [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
         </div>
     </div>
     <div class="location" *ngIf="run.state == 'location'">
         <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)" (backSignal)="returnToMap($event)"></app-location>
+    </div>
+    <div class="fight" *ngIf="run.state == 'fight'">
+        <app-fight [fightData]="run.currentFight" [partyData]="run.party" (attackSignal)="attack($event)" (fleeSignal)="flee()"></app-fight>
     </div>
     <!-- <img src="{{run.stage.backgroundPath}}"> -->
     
