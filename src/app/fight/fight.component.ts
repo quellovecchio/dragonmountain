@@ -1,0 +1,27 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Actor } from '../model/Actors/Actor';
+import { Character } from '../model/Actors/Character';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
+
+@Component({
+  selector: 'app-fight',
+  templateUrl: './fight.component.html',
+  styleUrls: ['./fight.component.scss']
+})
+export class FightComponent implements OnInit {
+
+  @Input() fightData?: Actor[] = [];
+  @Input() partyData: PlayingCharacter[] = [];
+
+  @Output() attackSignal = new EventEmitter<any>();
+  
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  attack(character: Character) {
+    this.attackSignal.emit(character);
+  }
+
+}

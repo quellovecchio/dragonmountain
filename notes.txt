@@ -1,0 +1,60 @@
+- every class of playingcharacter can use every weapon
+- every class has a damage bonus on two kinds of weapon and a passive skill (ex: rogue -> bonus arc, knives; skill vel + 15%)
+
+- max party size = 3 (including Hero)
+
+- magic damage does true damage ignoring defence. mages will have lower speed.
+
+Potential marketing material:
+- https://twitter.com/JacobJanerka/status/1543139295560888321
+Tristan Elwell
+Douglas Beekman
+artwork with witches and wizards behind a 80ies ibm pc
+
+Ask for Leocorno's help for the writing process!!!!!
+
+
+
+
+Milestones:
+
+0.02		-	locations and fights are playable
+0.03		-	basic game logic done (you can play a run from start to end)
+0.04		-	ui components: inventory, party, health bars
+				\____________________
+					during every state of the game the inventory and the party icons will be visualized
+					clicking on a party member will open the equip and stats window that will be rendered on top of the scene
+					clicking on the inventory will open the inventory window that will be rendered on top of the scene. the inventory window will show all items in party's inventory.
+0.1		-	basic graphics
+0.11		-	basic animations
+0.12		-	textBuffer implementation
+
+	------------------------------
+		START TIKTOK MARKETING
+	------------------------------
+
+0.21		-	actors logic partially done (interactions, shops)
+0.22		-	fight logic partially done (party, turns, damage, offensive spells, leveling)
+0.23		- 	items logic partially done (use, equip)
+0.24		-	character logic partially done (ai)
+0.25		-	characters classes logic
+0.25		-	rng based generation of stages, locations and characters
+0.3		-	actors, locations and items
+
+0.3->0.9	-	polish, implement missing gamplay functions
+0.9->1.0	-	auth system and donations interface
+
+	-------------------------------
+		PUBLISHING
+	-------------------------------
+
+future ideas:
+	
+	- customization tool
+	- ranking system
+	- forum & chat
+	- multiplayer
+	- cheats
+	- expansion packs
+	- battle pass
+
