@@ -40,7 +40,7 @@ export class SceneComponent implements OnInit {
       this.run.state = RunState.Fight;
       setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".") }, 1200 * this.run.textSpeed);
       this.fightManager.startFight(location.fight, this.run.party);
-      setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter + "'s turn. What will be his next Action?" ) }, 2200 * this.run.textSpeed);
+      setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?" ) }, 2200 * this.run.textSpeed);
     } else {
       this.explore(location);
     }
@@ -54,10 +54,10 @@ export class SceneComponent implements OnInit {
         setTimeout(() => { this.pushTextEvent.emit("You found a " + el.name + "!"); }, 1200 * this.run.textSpeed);
         setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
       });
+      location.loot = [];
     }
     if (location.hasActors()) {
-      // people
-      console.log("c");
+      this.run.state = RunState.Location;
     }
   }
 
@@ -80,14 +80,13 @@ export class SceneComponent implements OnInit {
     setTimeout(() => { this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!" ) }, 200 * this.run.textSpeed);
     if(this.fightManager.isBattleOver()) {
     this.fightManager.endFight();
+    if(this.run.currentLocation)
+      this.run.currentLocation.fight = [];
     this.run.state = RunState.Location;
     setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!") }, 1200 * this.run.textSpeed);
     // TODO experience calculation
     if (this.run.currentLocation)
       this.explore(this.run.currentLocation);
-    }
-    else {
-      // check if number of enemies is the same as before, update enemies with the ones of the service and go on with the fight
     }
   }
 
