@@ -76,14 +76,18 @@ export class SceneComponent implements OnInit {
   // Fight actions
 
   attack(defendingCharacter: Character) {
-    let damage = this.fightManager.calculateDamage(defendingCharacter);
+    let damage = this.fightManager.processAttack(defendingCharacter);
     setTimeout(() => { this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!" ) }, 200 * this.run.textSpeed);
     if(this.fightManager.isBattleOver()) {
     this.fightManager.endFight();
+    this.run.state = RunState.Location;
     setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!") }, 1200 * this.run.textSpeed);
     // TODO experience calculation
     if (this.run.currentLocation)
       this.explore(this.run.currentLocation);
+    }
+    else {
+      // check if number of enemies is the same as before, update enemies with the ones of the service and go on with the fight
     }
   }
 

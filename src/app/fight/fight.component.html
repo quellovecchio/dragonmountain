@@ -1,1 +1,15 @@
-<p>fight works!</p>
+<div class="space">
+    <div class="actorsSpace" *ngIf="fightData">
+        <div class="enemy" *ngFor="let actor of fightData">
+            <button [matMenuTriggerFor]="menu">
+                <p class="header">{{actor.name}}</p>
+                <!-- <img src="{{character.thumbnailPath}}"> -->
+                <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
+                    <button mat-menu-item (click)="attack(actor)">attack</button>
+                    <!-- spells -->
+                    <!-- items -->
+                </mat-menu>
+            </button>
+        </div>
+    </div>
+</div>

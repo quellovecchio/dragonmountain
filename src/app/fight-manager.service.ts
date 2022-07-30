@@ -27,7 +27,24 @@ export class FightManagerService {
     return this.party[0];
   }
 
+  processAttack(character: Character) {
+    // TODO change name with id for filtering
+    let itemIndex = this.enemies.findIndex(item => item.name == character.name);
+    let updatedEnemy = this.enemies[itemIndex];
+    let updatedHealthPoints = updatedEnemy.stats.healthPoints - this.calculateDamage(character);
+    if(updatedHealthPoints > 0) {
+      // TODO to swap with current health points (stats gives you the maximum)
+      updatedEnemy.stats.healthPoints = updatedEnemy.stats.healthPoints - this.calculateDamage(character);
+      this.enemies[itemIndex] = updatedEnemy;
+    }
+    else {
+      delete this.enemies[itemIndex];
+    }
+    return this.calculateDamage(character);
+  }
+
   calculateDamage(character: Character) {
+    // TODO real damage calculation
     return 10;
   }
 

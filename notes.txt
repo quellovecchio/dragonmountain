@@ -26,6 +26,10 @@ Milestones:
 					clicking on a party member will open the equip and stats window that will be rendered on top of the scene
 					clicking on the inventory will open the inventory window that will be rendered on top of the scene. the inventory window will show all items in party's inventory.
 0.1		-	basic graphics
+				\____________________
+					work on firsts locations, npc and enemies, put images for those
+					images for ui
+					css textures on ui components to simulate stone and foliage
 0.11		-	basic animations
 0.12		-	textBuffer implementation
 
