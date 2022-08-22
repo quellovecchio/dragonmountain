@@ -13,18 +13,65 @@ artwork with witches and wizards behind a 80ies ibm pc
 
 Ask for Leocorno's help for the writing process!!!!!
 
+Ideas:
+	"Steal" skill will open a new option for characters interactions to steal items. You can use that in battle too.
 
+Test stage 1:
+	
+	location 1 - Cursed church:
+		battle:
+			3x lesser demon
+		exploration loot:
+			1x holy water (damages undeads)
+		npcs:
+			sacristan:
+				you can talk to her but she's in a shock status.
+			priest:
+				thanks the party for saving the church from the demons attack, and tells them that the demons are attacking the city
+				since a strange statue has been brought in the city by a merchant. He gives the party a talisman and tells them to use
+				it on the statue to check if it has been possessed.
+	location 2 - Tavern:
+		npcs:
+			Sir Thomas (knight):
+				he's drunk and if you will be rude he will attack you. drops potions. if you win the fight he'll join the party.
+			innkeeper: 
+				makes your party rest at the price of money.
+	location 3 - Shop:
+		npcs:
+			Merchant:
+				he will sell you items for money
+			Unsettling Statue:
+				if you interact with that, there will be a description. Air is sick around that, one random element of the party could be poisoned.
+				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops rusty keys), the merchant will tell you that he traded
+				the statue with the mine owner, which has suffered from bankruptcy so was selling all of his worthy goods. He ask you to go there to 
+				check if everything is ok. 
+	location 4 - Abandoned mine:
+		battle:
+			3x goblin
+		loot:
+			money
+		npcs:
+			rusted trap door: 
+				need keys to open.
+				if rusted keys are used on that, boss stage will be unlocked.
+	location 5 (locked/boss stage) - Necromancer's cave:
+		battle - boss fight:
+			1x Necromancer
+			2x lesser demon
+		loot:
+			2x Belladonna 			
 
 
 Milestones:
 
 0.02		-	locations and fights are playable
-0.03		-	basic game logic done (you can play a run from start to end)
+0.03		-	basic game logic done (you can play a stage from start to end)
 0.04		-	ui components: inventory, party, health bars
 				\____________________
 					during every state of the game the inventory and the party icons will be visualized
 					clicking on a party member will open the equip and stats window that will be rendered on top of the scene
 					clicking on the inventory will open the inventory window that will be rendered on top of the scene. the inventory window will show all items in party's inventory.
+0.20		-	build a small database of characters, items, locations for testing purposes
 0.1		-	basic graphics
 				\____________________
 					work on firsts locations, npc and enemies, put images for those
@@ -40,6 +87,7 @@ Milestones:
 0.21		-	actors logic partially done (interactions, shops)
 0.22		-	fight logic partially done (party, turns, damage, offensive spells, leveling)
 0.23		- 	items logic partially done (use, equip)
+0.24		- 	game logic done (you can play a game from start to end)
 0.24		-	character logic partially done (ai)
 0.25		-	characters classes logic
 0.25		-	rng based generation of stages, locations and characters
