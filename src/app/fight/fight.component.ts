@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FightManagerService } from '../fight-manager.service';
 import { Actor } from '../model/Actors/Actor';
 import { Character } from '../model/Actors/Character';
@@ -27,7 +28,24 @@ export class FightComponent implements OnInit {
   }
 
   attack(actor: Actor) {
+
+    const attackSignal$ = new Observable<void>((observer) => {
+      this.attackSignal.subscribe(() => {
+        observer.next();
+        observer.complete();
+      });
+    });
+
+    attackSignal$.subscribe(() => {
+      // is the enemy defeated?
+      if(this.fightManager.enemies.findIndex((enemy) => enemy.name == actor.name) == -1) {
+        this.fightData = this.fightData?.filter(item => item);
+        let i = this.fightData?.findIndex((enemy) => enemy.name == actor.name);
+        if(this.fightData && i)
+        delete this.fightData[i];
+      }
+    });
+
     this.attackSignal.emit(actor);
   }
-
 }

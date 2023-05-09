@@ -39,6 +39,7 @@ export class FightManagerService {
     }
     else {
       delete this.enemies[itemIndex];
+      this.enemies = this.enemies.filter(item => item);
     }
     return this.calculateDamage(character);
   }
