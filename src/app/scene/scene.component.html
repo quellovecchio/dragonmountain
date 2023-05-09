@@ -5,7 +5,7 @@
             <app-location-preview [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
         </div>
     </div>
-    <div class="location" *ngIf="run.state == 'location'">
+    <div class="location-map" *ngIf="run.state == 'location'">
         <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)" (backSignal)="returnToMap($event)"></app-location>
     </div>
     <div class="fight" *ngIf="run.state == 'fight'">

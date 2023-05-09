@@ -1,15 +1,15 @@
 <div class="space">
-    <div class="actorsSpace" *ngIf="fightData">
-        <div class="enemy" *ngFor="let actor of fightData">
-            <button [matMenuTriggerFor]="menu">
-                <p class="header">{{actor.name}}</p>
+    <div class="actorsSpace" *ngIf="fightData" style="height: 100%;">
+        <div class="enemy" *ngFor="let actor of fightData" [style]="'width: ' + getActorWidth() + '%;'"> <!-- fightData.length - 3 because 3 is max umber of enemies-->
+            <mat-card class="mat-elevation-z1 space" [matMenuTriggerFor]="menu">
+                <h6 class="header">{{actor.name}}</h6>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
                     <button mat-menu-item (click)="attack(actor)">attack</button>
                     <!-- spells -->
                     <!-- items -->
                 </mat-menu>
-            </button>
+            </mat-card>
         </div>
     </div>
 </div>

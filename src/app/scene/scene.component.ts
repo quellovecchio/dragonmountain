@@ -47,7 +47,7 @@ export class SceneComponent implements OnInit {
   }
 
   private explore(location: Location) {
-    if (location.hasLoot()) {
+    if (location.loot.length > 0) {
       // add loot to party inventory
       location.loot.forEach(el => {
         this.run.items.push(el);
@@ -56,7 +56,7 @@ export class SceneComponent implements OnInit {
       });
       location.loot = [];
     }
-    if (location.hasActors()) {
+    if (location.actors && location.actors?.length > 0) {
       this.run.state = RunState.Location;
     }
   }

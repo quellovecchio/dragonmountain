@@ -7,4 +7,18 @@
 .background {
     background-image: url("app/resources/images/background.jpeg");
     background-color: #cccccc;
-   }
+}
+
+
+.mat-card {
+    backdrop-filter: blur(2px);
+    background-color: #ffffff9c;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.header {
+    text-align: center;
+}

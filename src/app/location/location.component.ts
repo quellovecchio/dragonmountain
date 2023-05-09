@@ -26,4 +26,15 @@ export class LocationComponent implements OnInit {
     this.backSignal.emit(this.locationData);
   }
 
+  // duped code, TODO implement interface with method
+  getActorWidth(): number {
+    if (this.locationData?.actors?.length == 3) {
+       return 33;
+    } else if (this.locationData?.actors?.length == 2) {
+      return 50;
+    } else {
+      return 100;
+    }
+  }
+
 }

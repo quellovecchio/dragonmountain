@@ -48,4 +48,15 @@ export class FightComponent implements OnInit {
 
     this.attackSignal.emit(actor);
   }
+
+  // duped code, TODO implement interface with method
+  getActorWidth(): number {
+    if (this.fightData?.length == 3) {
+       return 33;
+    } else if (this.fightData?.length == 2) {
+      return 50;
+    } else {
+      return 100;
+    }
+  }
 }
