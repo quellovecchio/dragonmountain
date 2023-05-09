@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Location } from "../model/Location";
 
 @Component({
@@ -11,7 +12,10 @@ export class LocationPreviewComponent implements OnInit {
   @Input() locationData!: Location;
   @Output() exploreSignal = new EventEmitter<string>();
 
-  constructor() { }
+  xMenuPosition: number = 0;
+  yMenuPosition: number = 0;
+
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
   }

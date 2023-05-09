@@ -35,7 +35,7 @@ export class SceneComponent implements OnInit {
   moveTo(location: Location) {
     this.run.currentLocation = location;
     setTimeout(() => { this.pushTextEvent.emit("The party has moved to the " + location.name + ".") }, 200 * this.run.textSpeed);
-    if(location.hasFight()) {
+    if(location.fight.length > 0) {
       // start fight
       this.run.state = RunState.Fight;
       setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".") }, 1200 * this.run.textSpeed);

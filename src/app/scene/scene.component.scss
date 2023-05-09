@@ -5,16 +5,22 @@ img {
     position: relative;
 }
 
-.spacing {
-    margin-top: 100px;
+.view {
+    margin-top: 80px;
     width: 600px;  
     height: 500px;
     font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
     font-size: 30px;
+    background-image: url("/assets/images/splash_art.png");
+    background-size: 685px;
 }
 
 .location {
-    width: 20%;
+    width: 33%;
     height: 100%;
     display: inline-block;
+}
+
+.map {
+    height: 100%;
 }

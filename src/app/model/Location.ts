@@ -11,7 +11,7 @@ export class Location {
     actors?: Actor[] = [ new Actor ];
 
     constructor() {
-    } 
+    }
     
     hasActors() {
         if(!this.actors)
@@ -21,9 +21,5 @@ export class Location {
 
     hasLoot() {
         return this.loot.length > 0;
-    }
-
-    hasFight() {
-        return this.fight.length > 0;
     }
 }

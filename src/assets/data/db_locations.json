@@ -1,0 +1,200 @@
+[
+    {
+        "name": "location1",
+        "backgroundPath": "/images/location1-bg.jpg",
+        "fight": [
+            {
+                "name": "enemy1",
+                "level": 4,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 8,
+                    "strength": 6,
+                    "constitution": 7,
+                    "dexterity": 5,
+                    "intelligence": 9,
+                    "healthPoints": 40
+                },
+                "spells": []
+            },
+            {
+                "name": "enemy2",
+                "level": 3,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 2,
+                    "strength": 8,
+                    "constitution": 6,
+                    "dexterity": 7,
+                    "intelligence": 1,
+                    "healthPoints": 30
+                },
+                "spells": []
+            }
+        ],
+        "loot": [
+            {
+                "name": "item1",
+                "description": "This is item 1",
+                "value": 5
+            },
+            {
+                "name": "item2",
+                "description": "This is item 2",
+                "value": 7
+            }
+        ],
+        "actors": [
+            {
+                "name": "actor1",
+                "level": 2,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 9,
+                    "strength": 3,
+                    "constitution": 5,
+                    "dexterity": 7,
+                    "intelligence": 2,
+                    "healthPoints": 25
+                },
+                "spells": []
+            },
+            {
+                "name": "actor2",
+                "level": 6,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 4,
+                    "strength": 9,
+                    "constitution": 3,
+                    "dexterity": 6,
+                    "intelligence": 8,
+                    "healthPoints": 60
+                },
+                "spells": []
+            }
+        ]
+    },
+    {
+        "name": "location2",
+        "backgroundPath": "/images/location2-bg.jpg",
+        "fight": [
+            {
+                "name": "enemy3",
+                "level": 8,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 3,
+                    "strength": 9,
+                    "constitution": 5,
+                    "dexterity": 6,
+                    "intelligence": 2,
+                    "healthPoints": 80
+                },
+                "spells": []
+            }
+        ],
+        "loot": [
+            {
+                "name": "item3",
+                "description": "This is item 3",
+                "value": 10
+            }
+        ],
+        "actors": [
+            {
+                "name": "actor3",
+                "level": 4,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 8,
+                    "strength": 6,
+                    "constitution": 7,
+                    "dexterity": 5,
+                    "intelligence": 9,
+                    "healthPoints": 40
+                },
+                "spells": []
+            }
+        ]
+    },
+    {
+        "name": "Location A",
+        "backgroundPath": "/assets/images/location_a.jpg",
+        "fight": [
+            {
+                "name": "Enemy 1",
+                "level": 2,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 3,
+                    "strength": 6,
+                    "constitution": 2,
+                    "dexterity": 4,
+                    "intelligence": 5,
+                    "healthPoints": 25
+                }
+            },
+            {
+                "name": "Enemy 2",
+                "level": 5,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 8,
+                    "strength": 2,
+                    "constitution": 9,
+                    "dexterity": 7,
+                    "intelligence": 1,
+                    "healthPoints": 50
+                }
+            }
+        ],
+        "loot": [],
+        "actors": [
+            {
+                "name": "Actor 1",
+                "level": 3,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 5,
+                    "strength": 8,
+                    "constitution": 6,
+                    "dexterity": 2,
+                    "intelligence": 7,
+                    "healthPoints": 30
+                }
+            }
+        ]
+    },
+    {
+        "name": "Location B",
+        "backgroundPath": "/assets/images/location_b.jpg",
+        "fight": [
+            {
+                "name": "Enemy 3",
+                "level": 8,
+                "loot": [],
+                "actions": [],
+                "stats": {
+                    "charisma": 9,
+                    "strength": 5,
+                    "constitution": 7,
+                    "dexterity": 4,
+                    "intelligence": 2,
+                    "healthPoints": 70
+                }
+            }
+        ],
+        "loot": [],
+        "actors": []
+    }
+]

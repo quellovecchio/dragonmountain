@@ -17,6 +17,7 @@ export class Run {
 
     // options
     textSpeed: number = 0.1;
+    //textSpeed: number = 1;
 
     constructor() {
     }

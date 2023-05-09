@@ -1,3 +1,12 @@
 .space {
-    background-color: whitesmoke;
+    height: 80%;
+}
+
+.mat-card {
+    backdrop-filter: blur(2px);
+    background-color: #ffffff9c;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
 }

@@ -1,9 +1,8 @@
-<div class="space">
-    <button [matMenuTriggerFor]="menu">
-        <p class="header">{{locationData.name}}</p>
-        <img src="{{locationData.backgroundPath}}">
-        <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-            <button mat-menu-item (click)="explore()">Explore</button>
-        </mat-menu>
-    </button>
-</div>
+<mat-card class="mat-elevation-z1 space" [matMenuTriggerFor]="menu">
+    <h6>{{locationData.name}}</h6>
+    <img src="{{locationData.backgroundPath}}">
+</mat-card>
+
+<mat-menu #menu="matMenu" xPosition="before" yPosition="above" overlapTrigger="true">
+    <button mat-menu-item (click)="explore()">Explore</button>
+</mat-menu>
