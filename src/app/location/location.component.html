@@ -5,8 +5,13 @@
                 <h6 class="header">{{actor.name}}</h6>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-                    <div class="location" *ngFor="let action of actor.actions">
-                        <button mat-menu-item (click)="action.fire()">{{action.name}}</button>
+                    <div>
+                        <!-- talk action -->
+                        <button mat-menu-item *ngIf="hasDialogue(actor)" (click)="talk(actor)"> TALK </button>
+                        <!-- fight action (if is fightable -> has stats)-->
+                        <!-- shop action (if npc has items in shop property) -->
+                        <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
+                        <!-- spells action (if someone in party has spells)-->
                     </div>
                 </mat-menu>
             </mat-card>

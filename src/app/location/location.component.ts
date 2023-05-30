@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Character } from '../model/Actors/Character';
 import { Location } from '../model/Location';
+import { Actor } from '../model/Actors/Actor';
 
 @Component({
   selector: 'app-location',
@@ -24,6 +25,14 @@ export class LocationComponent implements OnInit {
 
   goBackToScene() {
     this.backSignal.emit(this.locationData);
+  }
+
+  talk(a: Actor) {
+    return a.dialogue;
+  }
+
+  hasDialogue(a: Actor) {
+    return a.dialogue? true : false;
   }
 
   // duped code, TODO implement interface with method

@@ -41,9 +41,9 @@ Test stage 1:
 			Merchant:
 				he will sell you items for money
 			Unsettling Statue:
-				if you interact with that, there will be a description. Air is sick around that, one random element of the party could be poisoned.
-				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops rusty keys), the merchant will tell you that he traded
-				the statue with the mine owner, which has suffered from bankruptcy so was selling all of his worthy goods. He ask you to go there to 
+				if you interact with that, there will be a description. Air is sick around that, one random element of the 					party could be poisoned.
+				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops rusty 					keys), the merchant will tell you that he traded
+				the statue with the mine owner, which has suffered from bankruptcy so was selling all of his worthy goods. 					He ask you to go there to 
 				check if everything is ok. 
 	location 4 - Abandoned mine:
 		battle:
@@ -64,21 +64,21 @@ Test stage 1:
 
 Milestones:
 
-0.02		-	locations and fights are playable
-0.03		-	basic game logic done (you can play a stage from start to end)
+0.02	OK	-	locations and fights are playable
+0.03	OK	-	basic game logic done (you can play a stage from start to end)
 0.04		-	ui components: inventory, party, health bars
 				\____________________
-					during every state of the game the inventory and the party icons will be visualized
-					clicking on a party member will open the equip and stats window that will be rendered on top of the scene
+					- during every state of the game the inventory and the party icons will be visualized
+					- clicking on a party member will open the equip and stats window that will be rendered on top of 						the scene
 					clicking on the inventory will open the inventory window that will be rendered on top of the scene. the inventory window will show all items in party's inventory.
-0.20		-	build a small database of characters, items, locations for testing purposes
+0.20  OK	-	build a small database of characters, items, locations for testing purposes
 0.1		-	basic graphics
 				\____________________
 					work on firsts locations, npc and enemies, put images for those
 					images for ui
 					css textures on ui components to simulate stone and foliage
 0.11		-	basic animations
-0.12		-	textBuffer implementation
+0.12		-	textBuffer refinements
 
 	------------------------------
 		START TIKTOK MARKETING
@@ -102,11 +102,14 @@ Milestones:
 
 future ideas:
 	
+	- dev blog    
 	- customization tool
+	- mod marketplace
 	- ranking system
 	- forum & chat
 	- multiplayer
 	- cheats
 	- expansion packs
 	- battle pass
+	- ai generated run (possible only with good training data, maybe need marketplace)
 

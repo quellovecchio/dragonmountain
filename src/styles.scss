@@ -3,6 +3,11 @@
     src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype");
 }
 
+* {
+    font-family: "Enchanted-Land" !important;
+    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype") !important;
+    /* Add !important to overwrite all elements */
+}
 
 .background {
     background-image: url("app/resources/images/background.jpeg");

@@ -16,8 +16,8 @@ export class Run {
     currentFight?: Character[];
 
     // options
-    textSpeed: number = 0.1;
-    //textSpeed: number = 1;
+    //textSpeed: number = 0.1;
+    textSpeed: number = 1;
 
     constructor() {
     }
