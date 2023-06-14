@@ -11,8 +11,9 @@ img {
     height: 500px;
     font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
     font-size: 30px;
-    background-image: url("/assets/images/splash_art.png");
     background-position: bottom;
+    -webkit-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
 }
 
 .location {

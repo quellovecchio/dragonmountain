@@ -1,5 +1,12 @@
 .space {
     height: 80%;
+    transition: transform .2s;
+}
+
+.space:hover {
+    transform: scale(1.03);
+    filter: none;
+    -webkit-filter: none;
 }
 
 .enemy {

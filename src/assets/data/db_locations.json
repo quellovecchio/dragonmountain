@@ -1,72 +1,59 @@
 [
     {
-        "name": "location1",
-        "backgroundPath": "/images/location1-bg.jpg",
+        "name": "Cursed Church",
+        "backgroundPath": "/assets/images/location1-bg.png",
         "fight": [
             {
-                "name": "enemy1",
-                "level": 4,
+                "name": "Lesser Demon",
+                "level": 1,
                 "loot": [],
                 "dialogue": "hello world",
                 "stats": {
-                    "charisma": 8,
-                    "strength": 6,
-                    "constitution": 7,
-                    "dexterity": 5,
-                    "intelligence": 9,
-                    "healthPoints": 40
+                    "charisma": 1,
+                    "strength": 3,
+                    "constitution": 2,
+                    "dexterity": 6,
+                    "intelligence": 1,
+                    "healthPoints": 15
                 },
                 "spells": []
             },
             {
-                "name": "enemy2",
-                "level": 3,
+                "name": "Lesser Demon",
+                "level": 1,
                 "loot": [],
                 "dialogue": "hello world",
                 "stats": {
-                    "charisma": 2,
-                    "strength": 8,
-                    "constitution": 6,
-                    "dexterity": 7,
+                    "charisma": 1,
+                    "strength": 3,
+                    "constitution": 2,
+                    "dexterity": 6,
                     "intelligence": 1,
-                    "healthPoints": 30
+                    "healthPoints": 15
                 },
                 "spells": []
             }
         ],
         "loot": [
             {
-                "name": "item1",
-                "description": "This is item 1",
+                "name": "Holy Water",
+                "description": "Repels udeads and evil forces",
                 "value": 5
-            },
-            {
-                "name": "item2",
-                "description": "This is item 2",
-                "value": 7
             }
         ],
         "actors": [
             {
-                "name": "actor1",
+                "name": "Citizen",
                 "level": 2,
                 "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 9,
-                    "strength": 3,
-                    "constitution": 5,
-                    "dexterity": 7,
-                    "intelligence": 2,
-                    "healthPoints": 25
-                },
+                "dialogue": "[She can't talk as she is too scared to stop rattling]",
                 "spells": []
             },
             {
-                "name": "actor2",
-                "level": 6,
+                "name": "Priest",
+                "level": 2,
                 "loot": [],
-                "dialogue": "hello world",
+                "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
                 "stats": {
                     "charisma": 4,
                     "strength": 9,
@@ -80,45 +67,36 @@
         ]
     },
     {
-        "name": "location2",
-        "backgroundPath": "/images/location2-bg.jpg",
-        "fight": [
+        "name": "Tavern",
+        "backgroundPath": "/assets/images/location2-bg.png",
+        "actors": [
             {
-                "name": "enemy3",
-                "level": 8,
+                "name": "Innkeeper",
+                "level": 1,
                 "loot": [],
-                "dialogue": "hello world",
+                "dialogue": "INNKEEPER: if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
                 "stats": {
-                    "charisma": 3,
-                    "strength": 9,
+                    "charisma": 2,
+                    "strength": 7,
                     "constitution": 5,
-                    "dexterity": 6,
-                    "intelligence": 2,
+                    "dexterity": 2,
+                    "intelligence": 3,
                     "healthPoints": 80
                 },
                 "spells": []
-            }
-        ],
-        "loot": [
+            },
             {
-                "name": "item3",
-                "description": "This is item 3",
-                "value": 10
-            }
-        ],
-        "actors": [
-            {
-                "name": "actor3",
-                "level": 4,
+                "name": "Hairy Thomas",
+                "level": 3,
                 "loot": [],
-                "dialogue": "hello world",
+                "dialogue": "[he's drunk as fuck] HAIRY THOMAS: Hic! You seem ready for a fight... Come taste my sword! Hic!",
                 "stats": {
-                    "charisma": 8,
-                    "strength": 6,
-                    "constitution": 7,
-                    "dexterity": 5,
-                    "intelligence": 9,
-                    "healthPoints": 40
+                    "charisma": 2,
+                    "strength": 7,
+                    "constitution": 5,
+                    "dexterity": 2,
+                    "intelligence": 3,
+                    "healthPoints": 80
                 },
                 "spells": []
             }
@@ -126,7 +104,7 @@
     },
     {
         "name": "Location A",
-        "backgroundPath": "/assets/images/location_a.jpg",
+        "backgroundPath": "/assets/assets/images/location_a.png",
         "fight": [
             {
                 "name": "Enemy 1",
@@ -177,7 +155,7 @@
     },
     {
         "name": "Location B",
-        "backgroundPath": "/assets/images/location_b.jpg",
+        "backgroundPath": "/assets/assets/images/location_b.png",
         "fight": [
             {
                 "name": "Enemy 3",

@@ -13,6 +13,8 @@ export class LocationComponent implements OnInit {
   @Input() locationData?: Location;
   @Output() interactSignal = new EventEmitter<Character>();
   @Output() backSignal = new EventEmitter<Location>();
+  @Output() talkSignal = new EventEmitter<Actor>();
+  @Output() fightSignal = new EventEmitter<Actor>();
 
   constructor() { }
 
@@ -28,22 +30,29 @@ export class LocationComponent implements OnInit {
   }
 
   talk(a: Actor) {
-    return a.dialogue;
+    this.talkSignal.emit(a);
+  }
+
+  engageCombat(a: Actor): any {
+    this.fightSignal.emit(a);
   }
 
   hasDialogue(a: Actor) {
-    return a.dialogue? true : false;
+    return a.dialogue ? true : false;
   }
 
   // duped code, TODO implement interface with method
   getActorWidth(): number {
     if (this.locationData?.actors?.length == 3) {
-       return 33;
+      return 33;
     } else if (this.locationData?.actors?.length == 2) {
-      return 50;
+      return 49;
     } else {
-      return 100;
+      return 99;
     }
   }
 
+  isFightable(a: Actor): any {
+    return (a as Character).stats;
+  }
 }

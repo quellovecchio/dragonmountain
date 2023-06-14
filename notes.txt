@@ -3,7 +3,108 @@
 
 - max party size = 3 (including Hero)
 
-- magic damage does true damage ignoring defence. mages will have lower speed.
+- magic damage does true damage ignoring defence.
+	- weapons that does magic damage
+
+- spells can be learned using tomes on characters. Every character can learn every spell, but every spell has a minimun wisdom
+	value to use it
+
+FUTURE IDEAS:
+
+DIY UPDATE: (
+- custom run database available
+- community documentation release
+)
+
+CLASSES UPDATE: (
+- damage type (fire, ice ecc ecc) and type weaknesses
+- classes -> implements typ weaknesses
+- Vampire City stage, Florence inspired city with powerful vampires (class, weak to fire and light) leading the Town Hall.
+)
+
+COMMUNITY UPDATE: (
+- forum
+- dev blog   
+)
+
+STATES UPDATE: (
+- npc can have traps, like damaging health or giving a negative state to a character
+
+- a character can have negative or positive states, debuffing or buffing stats, making it weaker to damage or magic damage
+	or other like poison giving you poison damage every turn.
+		each stat has a counter of the number of turns you will have the effect yet. this counter can incrase or decrease
+		with equips, spells, ecc ecc
+- Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
+)
+
+EQUIP UPDATE: (
+- crafting, upgrade items and craft unique items
+- enchant equip to get special effects
+- The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
+)
+
+COMMUNITY UPDATE 2: (
+- chat
+- global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
+- showcase mode: save your best runs teams to show it on your profile
+)
+
+DIY UPDATE 2: (
+- possibility to automatically merge databases
+- gui for custom run creator
+- mod marketplace (maybe monetize on that leaving the possibility to use other people databases?)
+)
+
+ADVENTURES UPDATE: (
+- 1 new free stage
+- 2 new stages (very low price (0,99?))
+)
+
+ENDGAME UPDATE: (
+- difficulty settings
+- nuzlocke mode
+- possibility to get up to level 10, with a different boss (maybe hard mode?)
+)
+
+ADVENTURES UPDATE 2: (
+- 1 new free stage
+- 2 new stages (very low price (0,99?))
+)
+
+COMMUNITY UPDATE 3: (
+- multiplayer: 3 player vs 3 player or 1 player vs 1 player
+	the players get in the same dungeon, they have to wander looking for better equip, survive monsters and slay the enemies if 	they find them. the last player or team alive wins
+- aestetics to buy for money (more, this time)
+- during single player mode you can find an item that freezes an item in the inventory to get it in the colection to be
+  used in multiplayer
+)
+
+COMMUNITY UDATE 4: (
+- item packs & featured items can be bought to avoid single player grind
+)
+
+TECH UPDATE: (
+- ai generated run (possible only with good training data, need healthy marketplace)
+)
+
+COMMUNITY UDATE 4: (
+- battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included
+- Guild battle, 8 vs 8.
+)
+
+COMMUNITY UDATE 6: (
+- community chooses things from marketplace to be usable in multiplayer. the meta changes ever 4 months as some things goes out
+	of rotation while others come in.
+- introducing legacy format, where all items can be used.
+)
+
+
+
+
+spells:
+
+	- steal an enemy spell (lots of pm)
+	- damage in various kinds 
 
 Potential marketing material:
 - https://twitter.com/JacobJanerka/status/1543139295560888321
@@ -13,10 +114,19 @@ artwork with witches and wizards behind a 80ies ibm pc
 
 Ask for Leocorno's help for the writing process!!!!!
 
+game loop:
+1) you choose hero's name (and maybe choose from some characters with unique stats andmaybe skills)
+2) choose the next Stage choosing from 3 options
+3) you can Explore the Stage, choosing from three Locations. You can refresh the Locations whenever you want.4) while exploring a Location you can fight or interact with NPCS. If enemies are ready for an ambush, you have to defeat them before exploring.
+4) Fighting and completing Quests gives you Exp. Level Up to unlock the Boss Location, where you will fight to the death.
+4a) if your level is below 7, go back to step 2
+5) Fight the Dragon in the Mountain. If you beat him, you win the game.
+
 Ideas:
 	"Steal" skill will open a new option for characters interactions to steal items. You can use that in battle too.
+	If an npc dies he vanishes
 
-Test stage 1:
+Test stage 1 - Damned City:
 	
 	location 1 - Cursed church:
 		battle:
@@ -27,9 +137,8 @@ Test stage 1:
 			sacristan:
 				you can talk to her but she's in a shock status.
 			priest:
-				thanks the party for saving the church from the demons attack, and tells them that the demons are attacking the city
-				since a strange statue has been brought in the city by a merchant. He gives the party a talisman and tells them to use
-				it on the statue to check if it has been possessed.
+				thanks the party for saving the church from the demons attack, and tells them that the demons are 				attacking the city since a strange statue has been brought in the city by a merchant.
+
 	location 2 - Tavern:
 		npcs:
 			Sir Thomas (knight):
@@ -41,10 +150,11 @@ Test stage 1:
 			Merchant:
 				he will sell you items for money
 			Unsettling Statue:
-				if you interact with that, there will be a description. Air is sick around that, one random element of the 					party could be poisoned.
-				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops rusty 					keys), the merchant will tell you that he traded
+				if you interact with that, there will be a description. Air is sick around that, one random element 					of the party could be poisoned.
+				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops 					rusty keys), the merchant will tell you that he traded
 				the statue with the mine owner, which has suffered from bankruptcy so was selling all of his worthy goods. 					He ask you to go there to 
 				check if everything is ok. 
+
 	location 4 - Abandoned mine:
 		battle:
 			3x goblin
@@ -53,7 +163,8 @@ Test stage 1:
 		npcs:
 			rusted trap door: 
 				need keys to open.
-				if rusted keys are used on that, boss stage will be unlocked.
+				if rusted keys are used on that, big loot.
+
 	location 5 (locked/boss stage) - Necromancer's cave:
 		battle - boss fight:
 			1x Necromancer
@@ -100,16 +211,4 @@ Milestones:
 		PUBLISHING
 	-------------------------------
 
-future ideas:
-	
-	- dev blog    
-	- customization tool
-	- mod marketplace
-	- ranking system
-	- forum & chat
-	- multiplayer
-	- cheats
-	- expansion packs
-	- battle pass
-	- ai generated run (possible only with good training data, maybe need marketplace)
 

@@ -43,4 +43,9 @@ export class ViewportComponent implements OnInit {
     this.scene.update(run)
   }
 
+  sceneIsReady(run: Run) {
+    this.scene.ready = true;
+    this.scene.update(run)
+  }
+
 }

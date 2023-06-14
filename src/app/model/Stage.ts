@@ -7,9 +7,9 @@ export class Stage {
     boss: string;                           // TODO to be a Enemy object
 
     constructor () {
-            this.name = "test_stage";
+            this.name = "Damned Citadel";
             this.locations =  [];
-            this.backgroundPath = "https://www.collinsdictionary.com/images/full/hill_341357132_1000.jpg";
+            this.backgroundPath = "/assets/images/stage1-bg.png";
             this.boss = "";
         }
 }

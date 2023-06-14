@@ -1,5 +1,15 @@
+.container-space {
+    height: 80%;
+}
 .space {
     height: 80%;
+    transition: transform .2s;
+}
+
+.space:hover {
+    transform: scale(1.02);
+    filter: none;
+    -webkit-filter: none;  
 }
 
 .actor {

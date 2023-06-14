@@ -4,6 +4,8 @@ import { RunState } from '../model/RunState';
 import { Location } from '../model/Location';
 import { Character } from '../model/Actors/Character';
 import { FightManagerService } from '../fight-manager.service';
+import { Actor } from '../model/Actors/Actor';
+import { find, findIndex } from 'rxjs';
 
 @Component({
   selector: 'app-scene',
@@ -14,6 +16,7 @@ export class SceneComponent implements OnInit {
 
   @Input() run: Run;
   @Output() pushTextEvent = new EventEmitter<string>();
+  ready: boolean = false;
 
   fightManager: FightManagerService;
   
@@ -29,7 +32,6 @@ export class SceneComponent implements OnInit {
     this.run = updatedRun;
   }
 
-
   // Location actions
 
   moveTo(location: Location) {
@@ -37,16 +39,16 @@ export class SceneComponent implements OnInit {
     setTimeout(() => { this.pushTextEvent.emit("The party has moved to the " + location.name + ".") }, 200 * this.run.textSpeed);
     if(location.fight.length > 0) {
       // start fight
-      this.run.state = RunState.Fight;
-      setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".") }, 1200 * this.run.textSpeed);
-      this.fightManager.startFight(location.fight, this.run.party);
-      setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?" ) }, 2200 * this.run.textSpeed);
+      setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + "."); }, 1200 * this.run.textSpeed);
+      this.startFight(location.fight);
     } else {
       this.explore(location);
     }
   }
 
   private explore(location: Location) {
+    // change background to location background
+    
     if (location.loot.length > 0) {
       // add loot to party inventory
       location.loot.forEach(el => {
@@ -64,16 +66,24 @@ export class SceneComponent implements OnInit {
   returnToMap(location: Location) {
     this.run.state = RunState.Exploration;
     this.run.currentLocation = undefined;
-    if(location)
+    if(location) {
       setTimeout(() => { this.pushTextEvent.emit("The party is back from the " + location.name + ".") }, 200 * this.run.textSpeed);
-    setTimeout(() => { this.pushTextEvent.emit("What's our next move?") }, 1200 * this.run.textSpeed);
+      setTimeout(() => { this.pushTextEvent.emit("What's our next move?") }, 1200 * this.run.textSpeed);
+    }
   }
 
   interact(character: Character) {
+    console.log(this.run.currentLocation?.actors)
     setTimeout(() => { this.pushTextEvent.emit("Interacted with " + character.name + ".") }, 200 * this.run.textSpeed);
   }
 
-  // Fight actions
+  // Fight
+
+  private startFight(fight: Character[]) {
+    this.run.state = RunState.Fight;
+    this.fightManager.startFight(fight, this.run.party);
+    setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?"); }, 2200 * this.run.textSpeed);
+  }
 
   attack(defendingCharacter: Character) {
     let damage = this.fightManager.processAttack(defendingCharacter);
@@ -82,6 +92,10 @@ export class SceneComponent implements OnInit {
     this.fightManager.endFight();
     if(this.run.currentLocation)
       this.run.currentLocation.fight = [];
+      let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name });
+      if (this.run.currentLocation && this.run.currentLocation.actors && deadActorIndex && deadActorIndex > -1) {
+        this.run.currentLocation.actors.splice(deadActorIndex, 1);
+      }
     this.run.state = RunState.Location;
     setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!") }, 1200 * this.run.textSpeed);
     // TODO experience calculation
@@ -92,6 +106,27 @@ export class SceneComponent implements OnInit {
 
   flee() {
     // TODO
+  }
+
+  // NPC interactions
+
+  talkToActor(a: Actor) {
+    console.log(this.run.currentLocation?.actors)
+    setTimeout(() => { this.pushTextEvent.emit(a.name + ": " + a.dialogue) }, 200 * this.run.textSpeed);
+  }
+
+  engageFightWith(a: Actor) {
+    console.log(this.run.currentLocation?.actors)
+    setTimeout(() => { this.pushTextEvent.emit("You engaged combat with " + a.name + "."); }, 200 * this.run.textSpeed);
+      this.startFight([a as Character]);
+  }
+
+  getBackgroundImage() {
+    if(this.run.state == RunState.Exploration)
+      return this.run.stage.backgroundPath;
+    if(this.run.state == RunState.Fight || this.run.state == RunState.Location)
+      return this.run.currentLocation?.backgroundPath;
+    return "/assets/images/splash_art.png";
   }
 
 }

@@ -66,9 +66,10 @@ export class AppComponent {
   greetPlayer() {
     var that = this;
     setTimeout(function () { that.viewport.pushText("The first Stage of your journey is " + that.run.stage.name + "...") }, 1000 * that.run.textSpeed);
-    setTimeout(function () { that.viewport.pushText("And it's full of Locations you can Explore!") }, 2000 * that.run.textSpeed);
-    setTimeout(function () { that.viewport.pushText("What is our first destination?") }, 3000 * that.run.textSpeed);
-    setTimeout(function () { that.viewport.refreshScene(that.run); that.run.state = RunState.Exploration }, 4000 * that.run.textSpeed);
+    setTimeout(function () { that.viewport.refreshScene(that.run); that.run.state = RunState.Exploration; }, 2000 * that.run.textSpeed);
+    setTimeout(function () { that.viewport.pushText("And it's full of Locations you can Explore!") }, 3000 * that.run.textSpeed);
+    setTimeout(function () { that.viewport.pushText("What is our first destination?") }, 4000 * that.run.textSpeed);
+    setTimeout(function () { that.viewport.sceneIsReady(that.run) }, 4000 * that.run.textSpeed);
   }
 
 }
