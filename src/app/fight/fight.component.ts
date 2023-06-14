@@ -18,8 +18,8 @@ export class FightComponent implements OnInit {
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
-  
-  constructor(fightManager: FightManagerService) { 
+
+  constructor(fightManager: FightManagerService) {
     this.fightManager = fightManager;
   }
 
@@ -38,11 +38,13 @@ export class FightComponent implements OnInit {
 
     attackSignal$.subscribe(() => {
       // is the enemy defeated?
-      if(this.fightManager.enemies.findIndex((enemy) => enemy.name == actor.name) == -1) {
+      // the enemy is defeated if it's not on the list anymore or if there is another equal to it
+      // BUG: IMPLEMENT AN ID BASED METHOD TO GET THE ENEMY
+      if ((this.fightManager.enemies.findIndex((enemy) => enemy.name == actor.name) == -1) || (this.fightManager.enemies.findIndex((enemy) => (enemy.name == actor.name)) >= 0 && this.fightManager.enemies.find((enemy) => enemy.name == actor.name))) {
         this.fightData = this.fightData?.filter(item => item);
         let i = this.fightData?.findIndex((enemy) => enemy.name == actor.name);
-        if(this.fightData && i)
-        delete this.fightData[i];
+        if (this.fightData && i)
+          delete this.fightData[i];
       }
     });
 
@@ -52,7 +54,7 @@ export class FightComponent implements OnInit {
   // duped code, TODO implement interface with method
   getActorWidth(): number {
     if (this.fightData?.length == 3) {
-       return 33;
+      return 33;
     } else if (this.fightData?.length == 2) {
       return 50;
     } else {

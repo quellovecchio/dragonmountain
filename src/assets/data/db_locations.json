@@ -74,22 +74,14 @@
                 "name": "Innkeeper",
                 "level": 1,
                 "loot": [],
-                "dialogue": "INNKEEPER: if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
-                "stats": {
-                    "charisma": 2,
-                    "strength": 7,
-                    "constitution": 5,
-                    "dexterity": 2,
-                    "intelligence": 3,
-                    "healthPoints": 80
-                },
+                "dialogue": "if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
                 "spells": []
             },
             {
                 "name": "Hairy Thomas",
                 "level": 3,
                 "loot": [],
-                "dialogue": "[he's drunk as fuck] HAIRY THOMAS: Hic! You seem ready for a fight... Come taste my sword! Hic!",
+                "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
                 "stats": {
                     "charisma": 2,
                     "strength": 7,

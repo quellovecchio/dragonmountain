@@ -36,8 +36,8 @@ export class SceneComponent implements OnInit {
 
   moveTo(location: Location) {
     this.run.currentLocation = location;
-    setTimeout(() => { this.pushTextEvent.emit("The party has moved to the " + location.name + ".") }, 200 * this.run.textSpeed);
-    if(location.fight.length > 0) {
+    setTimeout(() => { this.pushTextEvent.emit("The party has moved to " + location.name + ".") }, 200 * this.run.textSpeed);
+    if(location.fight && location.fight.length > 0) {
       // start fight
       setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + "."); }, 1200 * this.run.textSpeed);
       this.startFight(location.fight);
@@ -49,7 +49,7 @@ export class SceneComponent implements OnInit {
   private explore(location: Location) {
     // change background to location background
     
-    if (location.loot.length > 0) {
+    if (location.loot && location.loot.length > 0) {
       // add loot to party inventory
       location.loot.forEach(el => {
         this.run.items.push(el);
