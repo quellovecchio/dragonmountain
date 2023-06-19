@@ -49,11 +49,11 @@ export class FightComponent implements OnInit {
   // duped code, TODO implement interface with method
   getActorWidth(): number {
     if (this.fightData?.length == 3) {
-      return 33;
+      return 32;
     } else if (this.fightData?.length == 2) {
-      return 50;
+      return 49;
     } else {
-      return 100;
+      return 99;
     }
   }
 }

@@ -9,7 +9,20 @@
 - spells can be learned using tomes on characters. Every character can learn every spell, but every spell has a minimun wisdom
 	value to use it
 
+- hidden actors: the lowest cost spell in the game makes you reveal hidden actors
+	- unique item that shows you hidden actors
+
+-	REALLY	FREE	-
+focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
+optionals like aesthetic items.
+
 FUTURE IDEAS:
+
+COMMUNITY UPDATE: (
+- users
+- forum
+- dev blog   
+)
 
 DIY UPDATE: (
 - custom run database available
@@ -22,9 +35,8 @@ CLASSES UPDATE: (
 - Vampire City stage, Florence inspired city with powerful vampires (class, weak to fire and light) leading the Town Hall.
 )
 
-COMMUNITY UPDATE: (
-- forum
-- dev blog   
+DRAGON TOWER UPDATE: (
+- Dragon Tower Mode: Fight in this endless 
 )
 
 STATES UPDATE: (
@@ -107,6 +119,9 @@ spells:
 	- damage in various kinds 
 
 Potential marketing material:
+-	REALLY	FREE	-
+focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
+optionals like aesthetic items.
 - https://twitter.com/JacobJanerka/status/1543139295560888321
 Tristan Elwell
 Douglas Beekman
@@ -118,8 +133,9 @@ game loop:
 1) you choose hero's name (and maybe choose from some characters with unique stats andmaybe skills)
 2) choose the next Stage choosing from 3 options
 3) you can Explore the Stage, choosing from three Locations. You can refresh the Locations whenever you want.4) while exploring a Location you can fight or interact with NPCS. If enemies are ready for an ambush, you have to defeat them before exploring.
-4) Fighting and completing Quests gives you Exp. Level Up to unlock the Boss Location, where you will fight to the death.
-4a) if your level is below 7, go back to step 2
+- Fighting and completing Quests gives you Exp. Level Up to unlock the Boss Location, where you will fight to the death.
+- Completing quests in the stage will make the location card turn. if a location is binded to that, the binded location will appear. In any oher cases, a random location card will be drawn from the location deck 
+4b) if your level is below 7, go back to step 2
 5) Fight the Dragon in the Mountain. If you beat him, you win the game.
 
 Ideas:

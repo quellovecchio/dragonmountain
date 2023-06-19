@@ -3,7 +3,7 @@
         <div class="enemy" *ngFor="let actor of fightData; let i = index" [style]="'width: ' + getActorWidth() + '%;'"> <!-- fightData.length - 3 because 3 is max umber of enemies-->
             <mat-card class="mat-elevation-z1 space" [matMenuTriggerFor]="menu">
                 <h6 class="header">{{actor.name}}</h6>
-                <!-- <img src="{{character.thumbnailPath}}"> -->
+                <img style="height: 70%;" src="{{actor.imagePath}}">
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
                     <button mat-menu-item (click)="attack(i)">attack</button>
                     <!-- spells -->

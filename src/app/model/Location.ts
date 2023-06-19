@@ -9,6 +9,7 @@ export class Location {
     fight: Character[] = [ new TestEnemy ];
     loot: Item[] = [ new Item ];
     actors?: Actor[] = [ new Actor ];
+    bindedLocation?: Location[];
 
     constructor() {
     }
