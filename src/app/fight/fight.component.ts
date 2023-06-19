@@ -27,8 +27,7 @@ export class FightComponent implements OnInit {
     this.fightData = this.fightManager.enemies;
   }
 
-  attack(actor: Actor) {
-
+  attack(enemyIndex: number) {
     const attackSignal$ = new Observable<void>((observer) => {
       this.attackSignal.subscribe(() => {
         observer.next();
@@ -38,17 +37,13 @@ export class FightComponent implements OnInit {
 
     attackSignal$.subscribe(() => {
       // is the enemy defeated?
-      // the enemy is defeated if it's not on the list anymore or if there is another equal to it
-      // BUG: IMPLEMENT AN ID BASED METHOD TO GET THE ENEMY
-      if ((this.fightManager.enemies.findIndex((enemy) => enemy.name == actor.name) == -1) || (this.fightManager.enemies.findIndex((enemy) => (enemy.name == actor.name)) >= 0 && this.fightManager.enemies.find((enemy) => enemy.name == actor.name))) {
-        this.fightData = this.fightData?.filter(item => item);
-        let i = this.fightData?.findIndex((enemy) => enemy.name == actor.name);
-        if (this.fightData && i)
-          delete this.fightData[i];
+      if (this.fightManager.lastAttackKilled && this.fightData) {
+        delete this.fightData[enemyIndex];
+        this.fightData = this.fightData.filter(item => item);
       }
     });
 
-    this.attackSignal.emit(actor);
+    this.attackSignal.emit(enemyIndex);
   }
 
   // duped code, TODO implement interface with method

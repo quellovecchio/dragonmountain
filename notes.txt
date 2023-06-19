@@ -84,11 +84,11 @@ COMMUNITY UDATE 4: (
 )
 
 TECH UPDATE: (
-- ai generated run (possible only with good training data, need healthy marketplace)
+- ai generated run (possible only with good training data, need healthy marketplace) ((maybe $$$?))
 )
 
 COMMUNITY UDATE 4: (
-- battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included
+- battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included, ai runs
 - Guild battle, 8 vs 8.
 )
 
@@ -145,9 +145,9 @@ Test stage 1 - Damned City:
 				he's drunk and if you will be rude he will attack you. drops potions. if you win the fight he'll join the party.
 			innkeeper: 
 				makes your party rest at the price of money.
-	location 3 - Shop:
+	location 3 - Unsettling Shop:
 		npcs:
-			Merchant:
+			Unsettling Merchant:
 				he will sell you items for money
 			Unsettling Statue:
 				if you interact with that, there will be a description. Air is sick around that, one random element 					of the party could be poisoned.

@@ -54,14 +54,6 @@
                 "level": 2,
                 "loot": [],
                 "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
-                "stats": {
-                    "charisma": 4,
-                    "strength": 9,
-                    "constitution": 3,
-                    "dexterity": 6,
-                    "intelligence": 8,
-                    "healthPoints": 60
-                },
                 "spells": []
             }
         ]
@@ -82,6 +74,7 @@
                 "level": 3,
                 "loot": [],
                 "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
+                "joinsParty": true,
                 "stats": {
                     "charisma": 2,
                     "strength": 7,

@@ -6,6 +6,7 @@ import { Character } from '../model/Actors/Character';
 import { FightManagerService } from '../fight-manager.service';
 import { Actor } from '../model/Actors/Actor';
 import { find, findIndex } from 'rxjs';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-scene',
@@ -85,23 +86,39 @@ export class SceneComponent implements OnInit {
     setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?"); }, 2200 * this.run.textSpeed);
   }
 
-  attack(defendingCharacter: Character) {
-    let damage = this.fightManager.processAttack(defendingCharacter);
+  attack(enemyIndex: number) {
+    let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
+    let damage = this.fightManager.processAttack(enemyIndex);
     setTimeout(() => { this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!" ) }, 200 * this.run.textSpeed);
     if(this.fightManager.isBattleOver()) {
+      this.endFight(defendingCharacter);
+    }
+  }
+
+  private endFight(defendingCharacter: Character) {
+    var joins = false;
     this.fightManager.endFight();
-    if(this.run.currentLocation)
+    if (this.run.currentLocation)
       this.run.currentLocation.fight = [];
-      let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name });
-      if (this.run.currentLocation && this.run.currentLocation.actors && deadActorIndex && deadActorIndex > -1) {
-        this.run.currentLocation.actors.splice(deadActorIndex, 1);
-      }
+    let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name; });
+    if(this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
+      var deadActor = this.run.currentLocation?.actors[deadActorIndex] as Character;
+      if(deadActor && deadActor.joinsParty)
+        joins = true;
+    }
+    if (this.run.currentLocation && this.run.currentLocation.actors && deadActorIndex && deadActorIndex > -1) {
+      this.run.currentLocation.actors.splice(deadActorIndex, 1);
+    }
     this.run.state = RunState.Location;
-    setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!") }, 1200 * this.run.textSpeed);
+    setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!"); }, 1200 * this.run.textSpeed);
+    if(joins) {
+      // TODO handle party joins when party is full
+      this.run.party.push(deadActor! as PlayingCharacter);
+      setTimeout(() => { this.pushTextEvent.emit(deadActor.name + " decided to join your party!"); }, 2200 * this.run.textSpeed);
+    }
     // TODO experience calculation
     if (this.run.currentLocation)
       this.explore(this.run.currentLocation);
-    }
   }
 
   flee() {
