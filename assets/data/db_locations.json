@@ -1,0 +1,171 @@
+[
+    {
+        "name": "Cursed Church",
+        "backgroundPath": "/assets/images/location4-bg.png",
+        "fight": [
+            {
+                "name": "Lesser Demon",
+                "level": 1,
+                "imagePath": "/assets/images/enemy1.png",
+                "loot": [],
+                "dialogue": "hello world",
+                "stats": {
+                    "charisma": 1,
+                    "strength": 3,
+                    "constitution": 2,
+                    "dexterity": 6,
+                    "intelligence": 1,
+                    "healthPoints": 15
+                },
+                "spells": []
+            },
+            {
+                "name": "Lesser Demon",
+                "level": 1,
+                "imagePath": "/assets/images/enemy1.png",
+                "loot": [],
+                "dialogue": "hello world",
+                "stats": {
+                    "charisma": 1,
+                    "strength": 3,
+                    "constitution": 2,
+                    "dexterity": 6,
+                    "intelligence": 1,
+                    "healthPoints": 15
+                },
+                "spells": []
+            }
+        ],
+        "loot": [
+            {
+                "name": "Holy Water",
+                "description": "Repels udeads and evil forces",
+                "value": 5
+            }
+        ],
+        "actors": [
+            {
+                "name": "Citizen",
+                "level": 2,
+                "loot": [],
+                "dialogue": "[She can't talk as she is too scared to stop rattling]",
+                "spells": []
+            },
+            {
+                "name": "Priest",
+                "imagePath": "/assets/images/actor1.png",
+                "level": 2,
+                "loot": [],
+                "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
+                "spells": []
+            }
+        ]
+    },
+    {
+        "name": "Tavern",
+        "backgroundPath": "/assets/images/location2-bg.png",
+        "actors": [
+            {
+                "name": "Innkeeper",
+                "level": 1,
+                "loot": [],
+                "dialogue": "if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
+                "spells": []
+            },
+            {
+                "name": "Hairy Thomas",
+                "level": 3,
+                "loot": [],
+                "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
+                "joinsParty": true,
+                "stats": {
+                    "charisma": 2,
+                    "strength": 7,
+                    "constitution": 5,
+                    "dexterity": 2,
+                    "intelligence": 3,
+                    "healthPoints": 80
+                },
+                "spells": []
+            }
+        ]
+    },
+    {
+        "name": "Unsettling Shop",
+        "backgroundPath": "/assets/images/location3-bg.png",
+        "loot": [],
+        "actors": [
+            {
+                "name": "Unsettling merchant",
+                "level": 3,
+                "loot": [],
+                "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
+            },
+            {
+                "name": "Unsettling statue",
+                "level": 3,
+                "loot": [],
+                "neededItem": "Holy Water",
+                "dialogue": "[the air is sick around here] ..."
+            }
+        ],
+        "bindedLocation":     {
+            "name": "Abandoned Mine",
+            "backgroundPath": "/assets/assets/images/location4-bg.png",
+            "fight": [
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 2,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 20
+                    }
+                },
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 2,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 20
+                    }
+                },
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 2,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 20
+                    }
+                }
+            ],
+            "loot": [],
+            "actors": [
+                {
+                    "name": "Locked Trap Door",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
+                    "spells": []
+                }
+            ]
+        }
+    }
+]
