@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { InfoBoxComponent } from '../info-box/info-box.component';
 import { Run } from '../model/Run';
 import { SceneComponent } from '../scene/scene.component';
@@ -10,6 +10,8 @@ import { TextAreaComponent } from '../text-area/text-area.component';
   styleUrls: ['./viewport.component.scss']
 })
 export class ViewportComponent implements OnInit {
+
+  @Input() run: Run = new Run(); 
 
   @ViewChild(InfoBoxComponent)
   infoBox: InfoBoxComponent;
@@ -33,14 +35,6 @@ export class ViewportComponent implements OnInit {
 
   pushText(text: string) {
     this.textArea.pushText(text);
-  }
-
-  refreshInfoBox(run: Run) {
-    this.infoBox.update(run)
-  }
-
-  refreshScene(run: Run) {
-    this.scene.update(run)
   }
 
   sceneIsReady(run: Run) {

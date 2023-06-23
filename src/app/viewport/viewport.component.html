@@ -1,6 +1,6 @@
-<div class="viewport">
-    <app-info-box></app-info-box>
-    <app-scene (pushTextEvent)="pushText($event)"></app-scene>
-    <app-action-bar></app-action-bar>
-    <app-text-area></app-text-area>
+<div class="viewport pixelated-border">
+    <app-info-box [run]="run" style="z-index: 0;"></app-info-box>
+    <app-scene [run]="run" (pushTextEvent)="pushText($event)" style="z-index: 2; position: sticky;"></app-scene>
+    <app-action-bar [run]="run" style="z-index: 1;"></app-action-bar>
+    <app-text-area [run]="run" style="z-index: 0;"></app-text-area>
 </div>

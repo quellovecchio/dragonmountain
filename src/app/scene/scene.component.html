@@ -1,4 +1,4 @@
-<div class="view" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
+<div class="view pixelated-border" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
 
         <div class="map" *ngIf="run.state == 'exploration' && ready">
             <div class="location" *ngFor="let location of run.stage.locations">

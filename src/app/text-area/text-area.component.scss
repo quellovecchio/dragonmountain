@@ -11,24 +11,15 @@ textarea {
     width: 540px;
     height: 200px;
     position: absolute;
-    border: none;
     outline: none;
-    top: 87%;
+    top: 89.2%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background-color: black;
     color: white;
-    //letter-spacing: 0.07em;
-    //text-shadow: -1px 1px 0 #00FF66,
-	//1px 1px 0 #FFB000,
-	//1px -1px 0 #FFCC00,
-	//-1px -1px 0 #33FF33;
-    //font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
     font-size: 50px;
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 2%;
-    padding-bottom: 6%;
     caret-color: transparent;
 }

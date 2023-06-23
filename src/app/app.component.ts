@@ -4,9 +4,6 @@ import { Location } from './model/Location';
 import { ViewportComponent } from './viewport/viewport.component';
 import { RunState } from './model/RunState';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +27,7 @@ export class AppComponent {
     this.generateTestRun().then((newRun) => {
       console.log(newRun);
       this.run = newRun;
-      this.viewport.refreshInfoBox(this.run);
+      //this.viewport.refreshInfoBox(this.run);
       if (!this.loadedSavedData) {
         this.greetPlayer();
       }
@@ -66,7 +63,7 @@ export class AppComponent {
   greetPlayer() {
     var that = this;
     setTimeout(function () { that.viewport.pushText("The first Stage of your journey is " + that.run.stage.name + "...") }, 1000 * that.run.textSpeed);
-    setTimeout(function () { that.viewport.refreshScene(that.run); that.run.state = RunState.Exploration; }, 2000 * that.run.textSpeed);
+    setTimeout(function () { that.run.state = RunState.Exploration; }, 2000 * that.run.textSpeed);
     setTimeout(function () { that.viewport.pushText("And it's full of Locations you can Explore!") }, 3000 * that.run.textSpeed);
     setTimeout(function () { that.viewport.pushText("What is our first destination?") }, 4000 * that.run.textSpeed);
     setTimeout(function () { that.viewport.sceneIsReady(that.run) }, 4000 * that.run.textSpeed);

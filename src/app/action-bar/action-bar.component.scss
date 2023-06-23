@@ -1,7 +1,34 @@
 .action-bar {
     position: relative;
-    display: block;
-    height: 100px;
-    background-color: black;
-    top: -20px;
+    display: flex;
+    justify-content: space-between;
+    height: 120px;
+    background-image: url(/assets/images/0_0.png);
+    top: 2px;
+}
+
+.party-member {
+    height: 95px;
+    width: 95px;
+    background-size: contain;
+}
+
+.party-members {
+    width: 50%;
+}
+
+.iunventory-button {
+    width: 15%;
+}
+
+.space {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.space:hover {
+    transform: scale(1.15);
+    z-index: 60 !important;
+    filter: none;
+    -webkit-filter: none;  
 }

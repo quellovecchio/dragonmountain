@@ -1,4 +1,5 @@
-import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { Run } from '../model/Run';
 
 @Component({
   selector: 'app-text-area',
@@ -6,6 +7,8 @@ import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef } from '@an
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent implements OnInit {
+
+  @Input() run: Run;
 
   @ViewChild('textArea') textArea: ElementRef;
 

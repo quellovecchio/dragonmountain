@@ -3,7 +3,7 @@ import { Item } from "../Item";
 
 export class Actor {
 
-    imagePath: string = "";
+    imagePath: string = "/assets/images/actor1.png";
     name: string = "test_actor";
     level: number = 0;
     loot: Item[] = [];

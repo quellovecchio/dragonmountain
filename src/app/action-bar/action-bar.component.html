@@ -1,10 +1,11 @@
-<div class="action-bar" style="background-color: black; border-color: azure; border: 1px solid;">
-    <div class="d-flex row">
-        <div class="party-members col-10">
-
+<div class="action-bar pixelated-border" style="background-color: black;">
+    <div class="party-members" style="padding: 15px;">
+        <div *ngFor="let actor of run.party; let i = index">
+            <div class="party-member space" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+            </div>
         </div>
-        <div class="inventory-button col-2">
-            <img src="assets/images/bag-icon.png" />
-        </div>
+    </div>
+    <div class="inventory-button space" style="padding: 15px;">
+        <img src="assets/images/bag-icon.png" />
     </div>
 </div>

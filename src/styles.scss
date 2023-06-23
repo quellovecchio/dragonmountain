@@ -17,7 +17,7 @@
 
 .mat-card {
     backdrop-filter: blur(2px);
-    background-color: #ffffff9c;
+    background-color: #ffffff26;
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -26,4 +26,30 @@
 
 .header {
     text-align: center;
+}
+
+@mixin vintage($width, $color, $bgcolor ) {
+    box-shadow:
+        4*$width 0 $bgcolor,
+        -4*$width 0 $bgcolor,
+        0 (-4*$width) $bgcolor,
+        0 4*$width $bgcolor,
+        $width 0 0 2*$width $bgcolor,
+        -$width 0 0 2*$width $bgcolor,
+        0 (-$width) 0 2*$width $bgcolor,
+        0 $width 0 2*$width $bgcolor,
+        5*$width 0 $color,
+        -5*$width 0 $color,
+        0 (-5*$width) $color,
+        0 5*$width $color,
+        0 0 0 3*$width $color,
+        0 2*$width 0 2*$width $color,
+        0 (-2*$width) 0 2*$width $color,
+        2*$width 0 0 2*$width $color,
+        (-2*$width) 0 0 2*$width $color;
+    padding: -10px;
+}
+
+.pixelated-border {
+    @include vintage(3px, white, black);
 }
