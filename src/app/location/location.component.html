@@ -1,7 +1,7 @@
 <div class="container-space">
     <div class="actorsSpace" *ngIf="locationData" style="height: 100%;">
         <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'">
-            <mat-card *ngIf="actor" class="mat-elevation-z1 space" [matMenuTriggerFor]="menu">
+            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor" class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
                 <h6 class="header">{{actor.name}}</h6>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">

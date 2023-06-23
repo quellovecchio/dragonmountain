@@ -1,5 +1,4 @@
-characters: isolated golden skeleton cartoon pathfinder style fantasy 5e pen and paper color drawing --ar 1:1 --r 800:800
-
+chars: isolated pixel art full picture priest cartoon pathfinder style dark epic fantasy 5e pen and paper color drawing --ar 1:1 
 
 stages / locations: Damned city pixel art style of castlevania 1986 dark fantasy epic rpg --ar 5:6
 

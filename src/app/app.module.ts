@@ -16,6 +16,7 @@ import { ViewportComponent } from './viewport/viewport.component';
 import { LocationComponent } from './location/location.component';
 import { FightComponent } from './fight/fight.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ActionBarComponent } from './action-bar/action-bar.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {HttpClientModule} from '@angular/common/http';
     ViewportComponent,
     LocationPreviewComponent,
     LocationComponent,
-    FightComponent
+    FightComponent,
+    ActionBarComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,7 +1,7 @@
 [
     {
         "name": "Cursed Church",
-        "backgroundPath": "/assets/images/location1-bg.png",
+        "backgroundPath": "/assets/images/location4-bg.png",
         "fight": [
             {
                 "name": "Lesser Demon",
@@ -53,6 +53,7 @@
             },
             {
                 "name": "Priest",
+                "imagePath": "/assets/images/actor1.png",
                 "level": 2,
                 "loot": [],
                 "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
@@ -73,6 +74,7 @@
             },
             {
                 "name": "Hairy Thomas",
+                "imagePath": "/assets/images/actor2.png",
                 "level": 3,
                 "loot": [],
                 "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
@@ -104,6 +106,7 @@
                 "name": "Unsettling statue",
                 "level": 3,
                 "loot": [],
+                "neededItem": "Holy Water",
                 "dialogue": "[the air is sick around here] ..."
             }
         ],
