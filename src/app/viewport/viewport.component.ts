@@ -3,6 +3,8 @@ import { InfoBoxComponent } from '../info-box/info-box.component';
 import { Run } from '../model/Run';
 import { SceneComponent } from '../scene/scene.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
 
 @Component({
   selector: 'app-viewport',
@@ -19,15 +21,20 @@ export class ViewportComponent implements OnInit {
   @ViewChild(SceneComponent)
   scene: SceneComponent;
 
+  @ViewChild(ActionBarComponent)
+  actionBar: ActionBarComponent;
+
   @ViewChild(TextAreaComponent)
   textArea: TextAreaComponent;
 
   constructor(infoBox: InfoBoxComponent, 
     scene: SceneComponent, 
-    textArea: TextAreaComponent) {
+    textArea: TextAreaComponent,
+    actionBar: ActionBarComponent) {
     this.infoBox = infoBox;
     this.scene = scene;
     this.textArea = textArea;
+    this.actionBar = actionBar;
   }
 
   ngOnInit(): void {
@@ -35,6 +42,19 @@ export class ViewportComponent implements OnInit {
 
   pushText(text: string) {
     this.textArea.pushText(text);
+  }
+
+  joinsParty(newcomer: any) {
+    const newRun = this.run;
+    const newArray = [...newRun.party];
+    newArray.push(newcomer);
+    // TODO handle party joins when party is full
+    newRun.party = newArray;
+    this.run = newRun;
+    this.actionBar.update(newRun);
+    console.log(this.run.party);
+    console.log(this.actionBar.run.party);
+
   }
 
   sceneIsReady(run: Run) {

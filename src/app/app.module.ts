@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule} from '@angular/material/menu';  
+import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,8 +15,9 @@ import { TextAreaComponent } from './text-area/text-area.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { LocationComponent } from './location/location.component';
 import { FightComponent } from './fight/fight.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ActionBarComponent } from './action-bar/action-bar.component';
+import { InventoryComponent } from './info-box/inventory/inventory.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
     LocationPreviewComponent,
     LocationComponent,
     FightComponent,
-    ActionBarComponent
+    ActionBarComponent,
+    InventoryComponent
   ],
   imports: [
     HttpClientModule,
@@ -52,7 +54,8 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    LocationPreviewComponent
+    LocationPreviewComponent,
+    ActionBarComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -17,6 +17,7 @@ export class SceneComponent implements OnInit {
 
   @Input() run: Run;
   @Output() pushTextEvent = new EventEmitter<string>();
+  @Output() joinsPartyEvent = new EventEmitter<any>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
@@ -102,7 +103,7 @@ export class SceneComponent implements OnInit {
       this.run.currentLocation.fight = [];
     let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name; });
     if(this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
-      var deadActor = this.run.currentLocation?.actors[deadActorIndex] as Character;
+      var deadActor = this.run.currentLocation?.actors[deadActorIndex] as PlayingCharacter;
       if(deadActor && deadActor.joinsParty)
         joins = true;
     }
@@ -111,14 +112,16 @@ export class SceneComponent implements OnInit {
     }
     this.run.state = RunState.Location;
     setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!"); }, 1200 * this.run.textSpeed);
-    if(joins) {
-      // TODO handle party joins when party is full
-      this.run.party.push(deadActor! as PlayingCharacter);
-      setTimeout(() => { this.pushTextEvent.emit(deadActor.name + " decided to join your party!"); }, 2200 * this.run.textSpeed);
-    }
     // TODO experience calculation
-    if (this.run.currentLocation)
-      this.explore(this.run.currentLocation);
+    if(joins) {
+      this.joinsPartyEvent.emit(deadActor!);
+      setTimeout(() => { this.pushTextEvent.emit(deadActor.name + " decided to join your party!"); }, 2200 * this.run.textSpeed);
+      if (this.run.currentLocation)
+        this.explore(this.run.currentLocation);
+    } else {
+      if (this.run.currentLocation)
+        this.explore(this.run.currentLocation);
+    }
   }
 
   flee() {

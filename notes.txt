@@ -4,13 +4,21 @@
 - max party size = 3 (including Hero)
 
 - magic damage does true damage ignoring defence.
-	- weapons that does magic damage
+	- put weapons that does magic damage
 
 - spells can be learned using tomes on characters. Every character can learn every spell, but every spell has a minimun wisdom
 	value to use it
 
 - hidden actors: the lowest cost spell in the game makes you reveal hidden actors
 	- unique item that shows you hidden actors
+
+- some rooms can spawn casual npcs from a pool
+
+- time / daytime cycle?
+
+- Sacred woods Stage:
+	Sacred woods where elves live since the dawn of time are now menaced from orcs: they are settling in the forest
+	and capuring elves to sell for money 
 
 -	REALLY	FREE	-
 focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via

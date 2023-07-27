@@ -5,7 +5,15 @@
             </div>
         </div>
     </div>
-    <div class="inventory-button space" style="padding: 15px;">
-        <img src="assets/images/bag-icon.png" />
+    <div [@inOutAnimation] *ngIf="inventoryOpened" class="inventory pixelated-border">
+        <div style="padding: 15px;">
+            <div *ngFor="let item of run.items">
+                <div class="inventory-item space" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+                </div>
+            </div>
+        </div>
     </div>
+    <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled" (click)="toggleInventory()">
+        <img src="assets/images/bag-icon.png" />
+    </button>
 </div>

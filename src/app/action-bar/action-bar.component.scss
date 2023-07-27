@@ -17,8 +17,12 @@
     width: 50%;
 }
 
-.iunventory-button {
-    width: 15%;
+.inventory-button {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
 }
 
 .space {
@@ -30,5 +34,15 @@
     transform: scale(1.15);
     z-index: 60 !important;
     filter: none;
-    -webkit-filter: none;  
+    -webkit-filter: none;
+}
+
+.inventory {
+    width: 1000px;
+    height: 500px;
+    background-color: black;
+    position: relative;
+    top: -500px;
+    z-index: 2;
+    transition: width 2s, height 4s;
 }
