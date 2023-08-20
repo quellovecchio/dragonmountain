@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { InfoBoxComponent } from '../info-box/info-box.component';
 import { Run } from '../model/Run';
 import { SceneComponent } from '../scene/scene.component';
@@ -70,15 +70,12 @@ export class ViewportComponent implements OnInit {
   }
 
   joinsParty(newcomer: any) {
-    const newRun = this.run;
+    const newRun = { ...this.run };
     const newArray = [...newRun.party];
     newArray.push(newcomer);
-    // TODO handle party joins when party is full
     newRun.party = newArray;
     this.run = newRun;
     this.actionBar.update(newRun);
-    console.log(this.run.party);
-    console.log(this.actionBar.run.party);
   }
 
   sceneIsReady(run: Run) {

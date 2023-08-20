@@ -64,13 +64,4 @@ export class ActionBarComponent implements OnInit {
     console.log(item.name + " selected")
     this.onItemSelect.emit(item);
   }
-
-  joinsParty(newcomer: any) {
-    const newRun = this.run;
-    const newArray = [...newRun.party];
-    newArray.push(newcomer);
-    // TODO handle party joins when party is full
-    newRun.party = newArray;
-    this.run = newRun;
-  }
 }

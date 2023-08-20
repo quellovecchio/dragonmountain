@@ -1,7 +1,8 @@
 <div class="action-bar pixelated-border" style="background-color: black;">
-    <div class="party-members" style="padding: 15px;">
+    <div class="party-members" style="width: 100%; padding: 15px;">
         <div *ngFor="let actor of run.party; let i = index">
-            <div class="party-member space" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+            <div class="party-member space"
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
             </div>
         </div>
     </div>
@@ -9,7 +10,8 @@
         <div style="padding: 15px;">
             <div *ngFor="let item of run.items">
                 <div class="space" style="color: white;" (click)="selectItem(item)">
-                    <div style="height: 100px; width: 100px; background-size: contain;" class="inventory-item" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                    <div style="height: 100px; width: 100px; background-size: contain;" class="inventory-item"
+                        [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
                     </div>
                     <div>
                         {{ item.name }}
@@ -21,7 +23,8 @@
             </div>
         </div>
     </div>
-    <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled" (click)="toggleInventory()">
+    <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled"
+        (click)="toggleInventory()">
         <img src="assets/images/bag-icon.png" />
     </button>
 </div>

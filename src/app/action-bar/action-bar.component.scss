@@ -7,14 +7,14 @@
     top: 2px;
 }
 
+.party-members {
+    display: flex;
+}
+
 .party-member {
     height: 95px;
     width: 95px;
     background-size: contain;
-}
-
-.party-members {
-    width: 50%;
 }
 
 .inventory-button {
