@@ -7,6 +7,8 @@ import { FightManagerService } from '../fight-manager.service';
 import { Actor } from '../model/Actors/Actor';
 import { find, findIndex } from 'rxjs';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
+import { Item } from '../model/Item';
+import { EffectType, Interaction } from '../model/Interaction';
 
 @Component({
   selector: 'app-scene',
@@ -16,12 +18,14 @@ import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 export class SceneComponent implements OnInit {
 
   @Input() run: Run;
+  @Input() selectedItem?: Item = undefined;
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() joinsPartyEvent = new EventEmitter<any>();
+  @Output() interactionEndSignal = new EventEmitter<any>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
-  
+
   constructor(fightManager: FightManagerService) {
     this.run = new Run();
     this.fightManager = fightManager;
@@ -74,9 +78,32 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  interact(character: Character) {
-    console.log(this.run.currentLocation?.actors)
-    setTimeout(() => { this.pushTextEvent.emit("Interacted with " + character.name + ".") }, 200 * this.run.textSpeed);
+  interact(data: {character: Character; action: any}) {
+    // If the character reacts to the interaction, activate the specified effect
+    if(data.character.interactions? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
+      let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name)[0];
+      if(interaction.effect == EffectType.fight) {
+        setTimeout(() => { this.pushTextEvent.emit(interaction.text); }, 1200 * this.run.textSpeed);
+        this.startFight(interaction.effectTarget);
+      }
+      if(interaction.effect == EffectType.giveItem) {
+        interaction.effectTarget.forEach((el: Item) => {
+          this.run.items.push(el);
+          setTimeout(() => { this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!"); }, 1200 * this.run.textSpeed);
+          setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
+        });
+      }
+    }
+    // If it does not react to the interaction, activate the standard effect of the object
+    else if(data.action.effect) {
+      console.log("reacted with sandard interaction");
+    }
+    // If the object has no effect, send an error message
+    else {
+      setTimeout(() => { this.pushTextEvent.emit("Using " + data.action.name + " on " + data.character.name + " had no effect...") }, 200 * this.run.textSpeed);
+    }
+    this.selectedItem = undefined;
+    this.interactionEndSignal.emit();
   }
 
   // Fight

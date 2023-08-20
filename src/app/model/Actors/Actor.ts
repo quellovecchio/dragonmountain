@@ -1,4 +1,5 @@
-import { Action } from "../Action";
+
+import { Interaction } from "../Interaction";
 import { Item } from "../Item";
 
 export class Actor {
@@ -13,9 +14,7 @@ export class Actor {
     fights?: boolean = false;
     // todo creare Effect item
     // an effect can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
-    effects: [] = [];
-    // needed item to proc an effect
-    neededItem?: string;
+    interactions: Interaction[] = [];
     dialogue: string = '';
 
     constructor() {

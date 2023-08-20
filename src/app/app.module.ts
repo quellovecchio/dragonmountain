@@ -18,6 +18,7 @@ import { FightComponent } from './fight/fight.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionBarComponent } from './action-bar/action-bar.component';
 import { InventoryComponent } from './info-box/inventory/inventory.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { InventoryComponent } from './info-box/inventory/inventory.component';
     LocationComponent,
     FightComponent,
     ActionBarComponent,
-    InventoryComponent
+    InventoryComponent,
+    ContextMenuComponent
   ],
   imports: [
     HttpClientModule,

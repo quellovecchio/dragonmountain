@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Character } from '../model/Actors/Character';
 import { Location } from '../model/Location';
 import { Actor } from '../model/Actors/Actor';
+import { Item } from '../model/Item';
 
 @Component({
   selector: 'app-location',
@@ -11,7 +12,9 @@ import { Actor } from '../model/Actors/Actor';
 export class LocationComponent implements OnInit {
 
   @Input() locationData?: Location;
-  @Output() interactSignal = new EventEmitter<Character>();
+  @Input() selectedItem?: Item = undefined;
+  // action can be an Item, a Spell or anthing capable of interacting
+  @Output() interactSignal = new EventEmitter<{character: Character, action: any}>();
   @Output() backSignal = new EventEmitter<Location>();
   @Output() talkSignal = new EventEmitter<Actor>();
   @Output() fightSignal = new EventEmitter<Actor>();
@@ -22,7 +25,7 @@ export class LocationComponent implements OnInit {
   }
 
   interact(character: Character) {
-    this.interactSignal.emit(character);
+    this.interactSignal.emit({character: character, action: this.selectedItem});
   }
 
   goBackToScene() {
@@ -39,6 +42,12 @@ export class LocationComponent implements OnInit {
 
   hasDialogue(a: Actor) {
     return a.dialogue ? true : false;
+  }
+
+  useItemOn(actor: Actor) {
+    console.log("used " + this.selectedItem?.name + " on " + actor.name);
+    this.interact(actor as Character);
+    this.selectedItem = undefined;
   }
 
   // duped code, TODO implement interface with method

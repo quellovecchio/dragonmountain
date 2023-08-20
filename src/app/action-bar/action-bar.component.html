@@ -8,7 +8,15 @@
     <div [@inOutAnimation] *ngIf="inventoryOpened" class="inventory pixelated-border">
         <div style="padding: 15px;">
             <div *ngFor="let item of run.items">
-                <div class="inventory-item space" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+                <div class="space" style="color: white;" (click)="selectItem(item)">
+                    <div style="height: 100px; width: 100px; background-size: contain;" class="inventory-item" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                    </div>
+                    <div>
+                        {{ item.name }}
+                    </div>
+                    <div>
+                        {{ item.moneyValue }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -17,3 +25,5 @@
         <img src="assets/images/bag-icon.png" />
     </button>
 </div>
+<!--<app-context-menu [@inOutAnimation] *ngIf="itemMenuOpened" [actions]="itemMenuActions">
+</app-context-menu>-->

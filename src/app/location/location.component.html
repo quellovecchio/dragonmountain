@@ -1,11 +1,12 @@
 <div class="container-space">
     <div class="actorsSpace" *ngIf="locationData" style="height: 100%;">
         <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'">
-            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor" class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
+            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor"
+                class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
                 <h6 class="header">{{actor.name}}</h6>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-                    <div>
+                    <div *ngIf="!selectedItem">
                         <!-- talk action -->
                         <button mat-menu-item *ngIf="hasDialogue(actor)" (click)="talk(actor)"> talk </button>
                         <!-- fight action (if is fightable -> has stats)-->
@@ -15,11 +16,15 @@
                         <!-- spells action (if someone in party has spells)-->
                         <!-- give action (give item to actor)-->
                     </div>
+                    <div *ngIf="selectedItem">
+                        <!-- use action -->
+                        <button mat-menu-item (click)="useItemOn(actor)"> use </button>
+                    </div>
                 </mat-menu>
             </mat-card>
         </div>
     </div>
     <mat-card class="mat-elevation-z1 back-button space" (click)="goBackToScene()">
-            Back to Stage
+        Back to Stage
     </mat-card>
 </div>

@@ -1,5 +1,4 @@
 <div class="view pixelated-border" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
-
         <div class="map" *ngIf="run.state == 'exploration' && ready">
             <div class="location" *ngFor="let location of run.stage.locations">
                 <app-location-preview [locationData]="location"
@@ -7,7 +6,7 @@
             </div>
         </div>
         <div class="location-map" *ngIf="run.state == 'location'">
-            <app-location [locationData]="run.currentLocation" (interactSignal)="interact($event)"
+            <app-location [locationData]="run.currentLocation" [selectedItem]="selectedItem" (interactSignal)="interact($event)"
                 (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
                 (fightSignal)="engageFightWith($event)"></app-location>
         </div>

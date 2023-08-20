@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Run } from '../model/Run';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Actor } from '../model/Actors/Actor';
+import { Item } from '../model/Item';
 
 @Component({
   selector: 'app-action-bar',
@@ -31,8 +33,13 @@ import { animate, style, transition, trigger } from '@angular/animations';
   ]
 })
 export class ActionBarComponent implements OnInit {
+
+  /*private itemMenuActions: Map<string, (actor: Actor) => {}> = new Map([
+    ["give", giveItemTo()]
+  ]);*/
   
   @Input() run: Run = new Run();
+  @Output() onItemSelect = new EventEmitter<any>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
 
@@ -48,6 +55,22 @@ export class ActionBarComponent implements OnInit {
   toggleInventory() {
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
-    setTimeout(() => {this.inventoryDisabled = false;}, 1000);
+    setTimeout(() => {this.inventoryDisabled = false;}, 400);
+  }
+
+  selectItem(item: any) {
+    this.inventoryOpened = !this.inventoryOpened;
+    setTimeout(() => {this.inventoryDisabled = false;}, 400);
+    console.log(item.name + " selected")
+    this.onItemSelect.emit(item);
+  }
+
+  joinsParty(newcomer: any) {
+    const newRun = this.run;
+    const newArray = [...newRun.party];
+    newArray.push(newcomer);
+    // TODO handle party joins when party is full
+    newRun.party = newArray;
+    this.run = newRun;
   }
 }
