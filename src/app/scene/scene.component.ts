@@ -152,7 +152,7 @@ export class SceneComponent implements OnInit {
     setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!"); }, 1200 * this.run.textSpeed);
     // TODO experience calculation
     if(joins) {
-      this.joinsPartyEvent.emit(deadActor!);
+      this.run.party.push(deadActor!);
       setTimeout(() => { this.pushTextEvent.emit(deadActor.name + " decided to join your party!"); }, 2200 * this.run.textSpeed);
       if (this.run.currentLocation)
         this.explore(this.run.currentLocation);

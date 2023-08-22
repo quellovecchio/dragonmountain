@@ -69,15 +69,6 @@ export class ViewportComponent implements OnInit {
     this.textArea.pushText(text);
   }
 
-  joinsParty(newcomer: any) {
-    const newRun = { ...this.run };
-    const newArray = [...newRun.party];
-    newArray.push(newcomer);
-    newRun.party = newArray;
-    this.run = newRun;
-    this.actionBar.update(newRun);
-  }
-
   sceneIsReady(run: Run) {
     this.scene.ready = true;
     this.scene.update(run)

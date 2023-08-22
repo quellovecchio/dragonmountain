@@ -1,6 +1,6 @@
 <div class="viewport pixelated-border">
     <app-info-box [run]="run" style="z-index: 0;"></app-info-box>
-    <app-scene [run]="run" [selectedItem]="selectedItem" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()" (joinsPartyEvent)="joinsParty($event)" style="z-index: 2"></app-scene>
+    <app-scene [run]="run" [selectedItem]="selectedItem" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()" style="z-index: 2"></app-scene>
     <app-action-bar (onItemSelect)="selectItem($event)" [run]="run" style="z-index: 1;"></app-action-bar>
     <app-text-area [run]="run" style="z-index: 0;"></app-text-area>
 </div>
