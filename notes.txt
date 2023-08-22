@@ -1,4 +1,16 @@
+NEXT STEPS:
+	- close test case. TODO:
+		-	rework inventory as item -> number
+		-	money logic
+		-	life and magic bars
+		-	actual fights (barebones, onl attack)
+		-	exp logic
+	
+
+
 - inspo for animations: pokemon crstal
+
+- exp: after certain actions (fights, quests) ou gain 1 or more exp points, ou can choose to skill up a part element or to explore to find ohter locations with that
 
 - every class of playingcharacter can use every weapon
 - every class has a damage bonus on two kinds of weapon and a passive skill (ex: rogue -> bonus arc, knives; skill vel + 15%)
@@ -11,12 +23,16 @@
 - spells can be learned using tomes on characters. Every character can learn every spell, but every spell has a minimun wisdom
 	value to use it
 
+- an npc which sells you more money for mone (ex give 500$ he gives 1000$) because they're fake
+
 - hidden actors: the lowest cost spell in the game makes you reveal hidden actors
 	- unique item that shows you hidden actors
 
 - some rooms can spawn casual npcs from a pool
 
 - time / daytime cycle?
+
+- quest log?
 
 - Sacred woods Stage:
 	Sacred woods where elves live since the dawn of time are now menaced from orcs: they are settling in the forest
