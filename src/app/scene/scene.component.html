@@ -7,7 +7,7 @@
         </div>
         <div class="location-map" *ngIf="run.state == 'location'">
             <app-location [locationData]="run.currentLocation" [selectedItem]="selectedItem" (interactSignal)="interact($event)"
-                (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
+                (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)" (buyItemSignal)="buy($event)"
                 (fightSignal)="engageFightWith($event)"></app-location>
         </div>
         <div class="fight" *ngIf="run.state == 'fight'">

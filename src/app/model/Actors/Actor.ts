@@ -12,8 +12,9 @@ export class Actor {
     gives?: Item[] = [];
     // todo attacks when interacted
     fights?: boolean = false;
-    // todo creare Effect item
-    // an effect can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
+    // shop: collection of items that can be bought opening the shop
+    shop?: Item[] = [];
+    // an interaction can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
     interactions: Interaction[] = [];
     dialogue: string = '';
 

@@ -22,6 +22,7 @@ export class SceneComponent implements OnInit {
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() joinsPartyEvent = new EventEmitter<any>();
   @Output() interactionEndSignal = new EventEmitter<any>();
+  @Output() itemBoughtSignal = new EventEmitter<Item>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
@@ -104,6 +105,16 @@ export class SceneComponent implements OnInit {
     }
     this.selectedItem = undefined;
     this.interactionEndSignal.emit();
+  }
+
+  buy(item: any) {
+    // TODO: check money, if not enough error message
+    // TODO: dialog yES/NO are ou sure?
+    // TODO: remove money from your Inventory
+    // finally, add item to inventory
+    //this.itemBoughtSignal.emit(item);
+    console.log("bu ok")
+    this.run.items.push(item);
   }
 
   // Fight

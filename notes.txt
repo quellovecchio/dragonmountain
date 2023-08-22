@@ -1,3 +1,5 @@
+- inspo for animations: pokemon crstal
+
 - every class of playingcharacter can use every weapon
 - every class has a damage bonus on two kinds of weapon and a passive skill (ex: rogue -> bonus arc, knives; skill vel + 15%)
 

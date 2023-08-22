@@ -40,7 +40,7 @@
             {
                 "name": "Holy Water",
                 "description": "Repels udeads and evil forces",
-                "moneValue": 5,
+                "moneyValue": 5,
                 "thumbnailPath": "assets/images/item1.png"
             }
         ],
@@ -101,6 +101,20 @@
                 "name": "Unsettling merchant",
                 "level": 3,
                 "loot": [],
+                "shop": [
+                    {
+                        "name": "Little Health Potion",
+                        "description": "Heals 10 hp",
+                        "moneyValue": 50,
+                        "thumbnailPath": "assets/images/item1.png"
+                    },
+                    {
+                        "name": "Little Mana Potion",
+                        "description": "Heals 10 mp",
+                        "moneyValue": 80,
+                        "thumbnailPath": "assets/images/item1.png"
+                    }
+                ],
                 "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
             },
             {
@@ -110,24 +124,26 @@
                 "interactions": [
                     {
                         "reactTo": "Holy Water",
-                        "text": "[Unsettling statue]: AAARGHHHH... OU... ENRAGED... MEEEEE!",
+                        "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
                         "effect": 2,
-                        "effectTarget": [ {
-                            "name": "Lesser Demon",
-                            "level": 1,
-                            "imagePath": "/assets/images/enemy1.png",
-                            "loot": [],
-                            "dialogue": "hello world",
-                            "stats": {
-                                "charisma": 1,
-                                "strength": 3,
-                                "constitution": 2,
-                                "dexterity": 6,
-                                "intelligence": 1,
-                                "healthPoints": 15
-                            },
-                            "spells": []
-                        } ],
+                        "effectTarget": [
+                            {
+                                "name": "Lesser Demon",
+                                "level": 1,
+                                "imagePath": "/assets/images/enemy1.png",
+                                "loot": [],
+                                "dialogue": "hello world",
+                                "stats": {
+                                    "charisma": 1,
+                                    "strength": 3,
+                                    "constitution": 2,
+                                    "dexterity": 6,
+                                    "intelligence": 1,
+                                    "healthPoints": 15
+                                },
+                                "spells": []
+                            }
+                        ],
                         "vanishes": "true"
                     }
                 ],

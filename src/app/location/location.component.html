@@ -12,6 +12,7 @@
                         <!-- fight action (if is fightable -> has stats)-->
                         <button mat-menu-item *ngIf="isFightable(actor)" (click)="engageCombat(actor)"> fight </button>
                         <!-- shop action (if npc has items in shop property) -->
+                        <button mat-menu-item *ngIf="hasShop(actor)" (click)="toggleShop(actor)"> shop </button>
                         <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
                         <!-- spells action (if someone in party has spells)-->
                         <!-- give action (give item to actor)-->
@@ -27,4 +28,22 @@
     <mat-card class="mat-elevation-z1 back-button space" (click)="goBackToScene()">
         Back to Stage
     </mat-card>
+    <div [@inOutAnimation] *ngIf="shopOpened" class="shop pixelated-border">
+        <div style="color: red; cursor: pointer;" (click)="toggleShop()">CLOSE</div>
+        <div style="padding: 15px;">
+            <div *ngFor="let item of shopItems">
+                <div class="space" style="color: white;" (click)="buyItem(item)">
+                    <div style="height: 100px; width: 100px; background-size: contain;" class="shop-item"
+                        [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                    </div>
+                    <div>
+                        {{ item.name }}
+                    </div>
+                    <div>
+                        {{ item.moneyValue }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
