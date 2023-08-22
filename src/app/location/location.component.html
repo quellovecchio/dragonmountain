@@ -27,23 +27,5 @@
     </div>
     <mat-card class="mat-elevation-z1 back-button space" (click)="goBackToScene()">
         Back to Stage
-    </mat-card>
-    <div [@inOutAnimation] *ngIf="shopOpened" class="shop pixelated-border">
-        <div style="color: red; cursor: pointer;" (click)="toggleShop()">CLOSE</div>
-        <div style="padding: 15px;">
-            <div *ngFor="let item of shopItems">
-                <div class="space" style="color: white;" (click)="buyItem(item)">
-                    <div style="height: 100px; width: 100px; background-size: contain;" class="shop-item"
-                        [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
-                    </div>
-                    <div>
-                        {{ item.name }}
-                    </div>
-                    <div>
-                        {{ item.moneyValue }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </mat-card>    
 </div>

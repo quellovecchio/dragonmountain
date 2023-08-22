@@ -9,23 +9,50 @@ import { find, findIndex } from 'rxjs';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Item } from '../model/Item';
 import { EffectType, Interaction } from '../model/Interaction';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-scene',
   templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss']
+  styleUrls: ['./scene.component.scss'],
+  animations: [
+    trigger(
+      'inOutAnimation', 
+      [
+        transition(
+          ':enter', 
+          [
+            style({ height: 0, width: 0, top: 0 }),
+            animate('0.2s ease-out', 
+                    style({ height: 500, width: 500, top: -500 }))
+          ]
+        ),
+        transition(
+          ':leave', 
+          [
+            style({ height: 500, width: 500, top: -500 }),
+            animate('0.2s ease-in', 
+                    style({ height: 0, width: 0, top: 0 }))
+          ]
+        )
+      ]
+    )
+  ]
 })
 export class SceneComponent implements OnInit {
 
   @Input() run: Run;
   @Input() selectedItem?: Item = undefined;
   @Output() pushTextEvent = new EventEmitter<string>();
-  @Output() joinsPartyEvent = new EventEmitter<any>();
   @Output() interactionEndSignal = new EventEmitter<any>();
   @Output() itemBoughtSignal = new EventEmitter<Item>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
+
+  public shopOpened: boolean = false;
+  public shopDisabled: boolean = false;
+  public shopItems: Item[] = [];
 
   constructor(fightManager: FightManagerService) {
     this.run = new Run();
@@ -107,13 +134,24 @@ export class SceneComponent implements OnInit {
     this.interactionEndSignal.emit();
   }
 
+  toggleShop(items?: Item[]) {
+    this.shopDisabled = true;
+    if(items) this.shopItems = items;
+    this.shopOpened = !this.shopOpened;
+    if(this.shopOpened)
+      setTimeout(() => { this.pushTextEvent.emit("[Merchant]: Take a good look!") }, 200 * this.run.textSpeed);
+    else
+      setTimeout(() => { this.pushTextEvent.emit("[Merchant]: Thanks for your business.") }, 200 * this.run.textSpeed);
+    setTimeout(() => { this.shopDisabled = false; }, 400);
+  }
+
   buy(item: any) {
     // TODO: check money, if not enough error message
     // TODO: dialog yES/NO are ou sure?
     // TODO: remove money from your Inventory
     // finally, add item to inventory
     //this.itemBoughtSignal.emit(item);
-    console.log("bu ok")
+    setTimeout(() => { this.pushTextEvent.emit("That's a great deal! It's yours.") }, 200 * this.run.textSpeed);
     this.run.items.push(item);
   }
 
