@@ -7,14 +7,16 @@ export class Stats {
     wisdom: number;
     charisma: number;
     healthPoints: number;
+    magicPoints: number;
 
     constructor () {
             this.strength = 0;
             this.dexterity = 0;
-            this.constitution = 0;
-            this.intelligence = 0;
+            this.constitution = 10;
+            this.intelligence = 5;
             this.wisdom = 0;
             this.charisma = 0;
             this.healthPoints = 10;
+            this.magicPoints = 5;
         }
   }

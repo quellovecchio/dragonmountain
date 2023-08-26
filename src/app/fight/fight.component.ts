@@ -14,10 +14,11 @@ export class FightComponent implements OnInit {
 
   fightManager: FightManagerService;
 
-  @Input() fightData?: Actor[] = [];
+  @Input() fightData?: Character[] = [];
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
+  
 
   constructor(fightManager: FightManagerService) {
     this.fightManager = fightManager;
@@ -44,6 +45,10 @@ export class FightComponent implements OnInit {
     });
 
     this.attackSignal.emit(enemyIndex);
+  }
+
+  getBindedActor(index: number) {
+    return this.fightManager.getEnemy(index);
   }
 
   // duped code, TODO implement interface with method

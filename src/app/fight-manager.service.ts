@@ -7,7 +7,7 @@ import { PlayingCharacter } from './model/Actors/PlayingCharacter';
 })
 export class FightManagerService {
 
-  enemies: Character[] = [];
+  public enemies: Character[] = [];
   party: PlayingCharacter[] = [];
   fighting: boolean = false;
   currentCharacter: PlayingCharacter = new PlayingCharacter();

@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActionBarComponent } from './action-bar/action-bar.component';
 import { InventoryComponent } from './info-box/inventory/inventory.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
+import { DataBarComponent } from './data-bar/data-bar.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
     FightComponent,
     ActionBarComponent,
     InventoryComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    DataBarComponent
   ],
   imports: [
     HttpClientModule,

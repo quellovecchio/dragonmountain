@@ -12,7 +12,7 @@
                 "stats": {
                     "charisma": 1,
                     "strength": 3,
-                    "constitution": 2,
+                    "constitution": 15,
                     "dexterity": 6,
                     "intelligence": 1,
                     "healthPoints": 15
@@ -28,7 +28,7 @@
                 "stats": {
                     "charisma": 1,
                     "strength": 3,
-                    "constitution": 2,
+                    "constitution": 15,
                     "dexterity": 6,
                     "intelligence": 1,
                     "healthPoints": 15
@@ -83,7 +83,7 @@
                 "stats": {
                     "charisma": 2,
                     "strength": 7,
-                    "constitution": 5,
+                    "constitution": 80,
                     "dexterity": 2,
                     "intelligence": 3,
                     "healthPoints": 80
@@ -136,7 +136,7 @@
                                 "stats": {
                                     "charisma": 1,
                                     "strength": 3,
-                                    "constitution": 2,
+                                    "constitution": 15,
                                     "dexterity": 6,
                                     "intelligence": 1,
                                     "healthPoints": 15
@@ -162,7 +162,7 @@
                     "stats": {
                         "charisma": 1,
                         "strength": 2,
-                        "constitution": 2,
+                        "constitution": 20,
                         "dexterity": 5,
                         "intelligence": 2,
                         "healthPoints": 20
