@@ -25,11 +25,15 @@ export class FightManagerService {
     this.enemies = enemies;
     this.party = party;
     // Map enemies and party into turnRotation
-    this.turnRotation = [
+    this.turnRotation = this.generateTurnRotation();
+    this.firstTurn();
+  }
+
+  generateTurnRotation() {
+    return [
       ...this.enemies.map(enemy => ({ character: enemy, speedValue: 0 })),
       ...this.party.map(player => ({ character: player, speedValue: 0 }))
     ];
-    this.firstTurn();
   }
 
   firstTurn() {
@@ -73,7 +77,7 @@ export class FightManagerService {
     // step 1: calulate damage
     var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
     var updatedCharacter = defendingCharacter;
-    var updatedHealthPoints = updatedCharacter.stats.healthPoints -= damage;
+    var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
     if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
       // update character in the party
       var characterIndex = this.party.findIndex(el => { return el == defendingCharacter });
@@ -102,6 +106,8 @@ export class FightManagerService {
         delete this.enemies[characterIndex];
         // TODO: handle game over: if there are no characters left -Z GAME OVER
         this.enemies = this.enemies.filter(item => item);
+        if(this.isBattleOver())
+          this.endFight();
       }
     }
     // go on finding next character in turn
@@ -126,7 +132,7 @@ export class FightManagerService {
     while (!characterFound) {
       this.turnRotation.forEach(el => {
         el.speedValue = el.speedValue + el.character.stats.dexterity;
-        if (el.speedValue >= 100) {
+        if (el.speedValue >= 100 && (this.enemies.includes(el.character) || this.party.includes(el.character as PlayingCharacter))) {
           console.log("character found: " + el.character.name);
           el.speedValue = el.speedValue - 100;
           nextCharacter = el.character;

@@ -2,7 +2,7 @@
     <div class="actorsSpace" *ngIf="fightData" style="height: 100%;">
         <div class="enemy" *ngFor="let actor of fightData; let i = index" [style]="'width: ' + getActorWidth() + '%;'"> <!-- fightData.length - 3 because 3 is max umber of enemies-->
             <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
-                <h3 class="header">{{actor.name}}</h3>
+                <h3 class="header" style="text-shadow: 2px 2px 2px #000000;">{{actor.name}}</h3>
                 <app-data-bar  [currentValue]="fightManager.getEnemy(i).stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
                 <!--<img style="height: 70%;" src="{{actor.imagePath}}">-->
