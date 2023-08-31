@@ -18,7 +18,7 @@ export class FightComponent implements OnInit {
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
-  
+
 
   constructor(fightManager: FightManagerService) {
     this.fightManager = fightManager;
@@ -39,8 +39,9 @@ export class FightComponent implements OnInit {
     attackSignal$.subscribe(() => {
       // is the enemy defeated?
       if (this.fightManager.lastAttackKilled && this.fightData) {
-        delete this.fightData[enemyIndex];
-        this.fightData = this.fightData.filter(item => item);
+        delete this.fightData![enemyIndex];
+        this.fightData = this.fightData!.filter(item => item);
+        this.fightManager.lastAttackKilled = false;
       }
     });
 
