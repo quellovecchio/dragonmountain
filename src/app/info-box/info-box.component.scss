@@ -25,3 +25,14 @@
     background: black;
     top: -20px !important;
   }
+
+  .blink_me {
+    width: 100%;
+    animation: blinker 0.2s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }

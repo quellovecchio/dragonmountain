@@ -86,6 +86,8 @@ export class FightManagerService {
         this.lastAttackKilled = true;
         delete this.party[characterIndex];
         // TODO: handle game over: if there are no characters left -Z GAME OVER
+        if(this.party.length == 0)
+          console.log("game over");
         this.party = this.party.filter(item => item);
       }
     } else {
