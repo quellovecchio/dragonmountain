@@ -8,6 +8,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 export class DataBarComponent implements OnInit {
 
   @Input() currentValue: number = 0;
+  @Input() minimized: boolean = false;
   oldValue: number = 0;
   @Input() maxValue: number = 0;
   // 1 -> hp, 2 -> mp

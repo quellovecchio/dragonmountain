@@ -31,3 +31,7 @@
 
     transition: width .5s linear;
 }
+
+.shrink {
+    transform: scale(0.3);
+}

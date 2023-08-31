@@ -16,7 +16,7 @@ export class Stats {
             this.intelligence = 5;
             this.wisdom = 5;
             this.charisma = 5;
-            this.healthPoints = 10;
+            this.healthPoints = 20;
             this.magicPoints = 10;
         }
   }

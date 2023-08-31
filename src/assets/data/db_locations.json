@@ -82,11 +82,12 @@
                 "joinsParty": true,
                 "stats": {
                     "charisma": 2,
-                    "strength": 7,
-                    "constitution": 80,
+                    "strength": 6,
+                    "constitution": 40,
                     "dexterity": 2,
-                    "intelligence": 3,
-                    "healthPoints": 80
+                    "wisdom": 1,
+                    "intelligence": 2,
+                    "healthPoints": 40
                 },
                 "spells": []
             }

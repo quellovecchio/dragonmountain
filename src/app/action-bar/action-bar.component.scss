@@ -15,6 +15,7 @@
     height: 95px;
     width: 95px;
     background-size: contain;
+    background-position: 25% 75%;
 }
 
 .inventory-button {
@@ -45,4 +46,9 @@
     top: -500px;
     transition: width 2s, height 4s;
     z-index: 10;
+}
+
+.hp-bar {
+    position: relative;
+    top: 90px;
 }
