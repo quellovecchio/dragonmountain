@@ -12,7 +12,7 @@ export class Stats {
     constructor () {
             this.strength = 5;
             this.dexterity = 5;
-            this.constitution = 5;
+            this.constitution = 20;
             this.intelligence = 5;
             this.wisdom = 5;
             this.charisma = 5;
