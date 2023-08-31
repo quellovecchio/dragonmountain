@@ -17,6 +17,15 @@ NEXT STEPS:
 
 - max party size = 3 (including Hero)
 
+- scan skill should let you see the stats of people inside and outside combat
+   
+
+- an evil merchant you can kill
+
+- an item (ring?) that duplicates attack
+
+- time attack mode?
+
 - magic damage does true damage ignoring defence.
 	- put weapons that does magic damage
 
@@ -44,15 +53,11 @@ optionals like aesthetic items.
 
 FUTURE IDEAS:
 
-COMMUNITY UPDATE: (
-- users
-- forum
-- dev blog   
-)
-
 DIY UPDATE: (
 - custom run database available
 - community documentation release
+- users
+- dev blog  
 )
 
 CLASSES UPDATE: (
@@ -62,7 +67,7 @@ CLASSES UPDATE: (
 )
 
 DRAGON TOWER UPDATE: (
-- Dragon Tower Mode: Fight in this endless 
+- Dragon Tower Mode: Fight in this endless tower mode
 )
 
 STATES UPDATE: (
@@ -75,16 +80,16 @@ STATES UPDATE: (
 - Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
 )
 
+COMMUNITY UPDATE: (
+- chat
+- global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
+- showcase mode: save your best runs teams to show it on your profile
+)
+
 EQUIP UPDATE: (
 - crafting, upgrade items and craft unique items
 - enchant equip to get special effects
 - The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
-)
-
-COMMUNITY UPDATE 2: (
-- chat
-- global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
-- showcase mode: save your best runs teams to show it on your profile
 )
 
 DIY UPDATE 2: (

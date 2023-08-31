@@ -154,9 +154,7 @@ export class SceneComponent implements OnInit {
     setTimeout(() => { this.pushTextEvent.emit("That's a great deal! It's yours.") }, 200 * this.run.textSpeed);
     this.run.items.push(item);
   }
-
-  // Fight
-
+  
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
     this.fightManager.startFight(fight, this.run.party);
@@ -165,10 +163,12 @@ export class SceneComponent implements OnInit {
 
   attack(enemyIndex: number) {
     let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
-    let damage = this.fightManager.processAttack(enemyIndex);
+    let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
     setTimeout(() => { this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!" ) }, 200 * this.run.textSpeed);
     if(this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
+    } else {
+      this.fightManager.fightingLoop();
     }
   }
 

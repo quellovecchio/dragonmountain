@@ -11,8 +11,8 @@
                 "dialogue": "hello world",
                 "stats": {
                     "charisma": 1,
-                    "strength": 3,
-                    "constitution": 15,
+                    "strength": 1,
+                    "constitution": 2,
                     "dexterity": 6,
                     "intelligence": 1,
                     "healthPoints": 15
@@ -27,8 +27,8 @@
                 "dialogue": "hello world",
                 "stats": {
                     "charisma": 1,
-                    "strength": 3,
-                    "constitution": 15,
+                    "strength": 1,
+                    "constitution": 2,
                     "dexterity": 6,
                     "intelligence": 1,
                     "healthPoints": 15

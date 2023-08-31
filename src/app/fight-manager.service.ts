@@ -9,8 +9,10 @@ export class FightManagerService {
 
   public enemies: Character[] = [];
   party: PlayingCharacter[] = [];
+  public turnRotation: { character: Character, speedValue: number }[] = [];
   fighting: boolean = false;
-  currentCharacter: PlayingCharacter = new PlayingCharacter();
+  isEnemyTurn: boolean = false;
+  currentCharacter: Character = new Character();
 
   //did last attack kill the enemy?
   public lastAttackKilled: boolean = false;
@@ -21,39 +23,106 @@ export class FightManagerService {
     this.fighting = true;
     this.enemies = enemies;
     this.party = party;
-    this.currentCharacter = this.nextTurn();
+    // Map enemies and party into turnRotation
+    this.turnRotation = [
+      ...this.enemies.map(enemy => ({ character: enemy, speedValue: 0 })),
+      ...this.party.map(player => ({ character: player, speedValue: 0 }))
+    ];
+    var nextTurnCharacter = this.getNextTurnCharacter();
+    this.currentCharacter = nextTurnCharacter? nextTurnCharacter : new Character();
+    if(!this.enemies.includes(this.currentCharacter)) 
+      this.isEnemyTurn = false;
+    else {
+      this.isEnemyTurn = true;
+      this.generateAiTurn(this.currentCharacter);
+    }
+  }
+
+  fightingLoop() {
+    this.isEnemyTurn = true;
+    while (this.isEnemyTurn) {
+      this.currentCharacter = this.getNextTurnCharacter()!;
+      // handle turn if is enemy turn
+      if (this.enemies.includes(this.currentCharacter)) {
+        // enemy does turn!
+        this.generateAiTurn(this.currentCharacter);
+      } else
+        this.isEnemyTurn = false;
+    }
+  }
+
+  generateAiTurn(attackingCharacter: Character) {
+    // extract random player from part to be attacked
+    const randomAllyIndex = Math.floor(Math.random() * this.party.length);
+    var defendingCharacter = this.party[randomAllyIndex];
+    console.log("the enemy is attacking " + defendingCharacter.name);
+    this.processAttack(attackingCharacter, defendingCharacter);
+    this.fightingLoop();
+  }
+
+  processAttack(attackingCharacter: Character, defendingCharacter: Character) {
+    // step 1: calulate damage
+    var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
+    var updatedCharacter = defendingCharacter;
+    var updatedHealthPoints = updatedCharacter.stats.healthPoints -= damage;
+    if(this.party.findIndex(el => {return el == defendingCharacter}) >= 0) {
+      // update character in the party
+      var characterIndex = this.party.findIndex(el => {return el == defendingCharacter});
+      if (updatedHealthPoints > 0) {
+        updatedCharacter.stats.healthPoints = updatedHealthPoints;
+        console.log("updated health points: " + updatedHealthPoints)
+        this.party[characterIndex] = updatedCharacter as PlayingCharacter;
+      }
+      else {
+        this.lastAttackKilled = true;
+        delete this.party[characterIndex];
+        // TODO: handle game over: if there are no characters left -Z GAME OVER
+        this.party = this.party.filter(item => item);
+      }
+    } else {
+      //update character in enemy party
+      var characterIndex = this.enemies.findIndex(el => {return el == defendingCharacter});
+      if (updatedHealthPoints > 0) {
+        updatedCharacter.stats.healthPoints = updatedHealthPoints;
+        this.enemies[characterIndex] = updatedCharacter;
+      }
+      else {
+        this.lastAttackKilled = true;
+        delete this.enemies[characterIndex];
+        // TODO: handle game over: if there are no characters left -Z GAME OVER
+        this.enemies = this.enemies.filter(item => item);
+      }
+    }
+    // go on finding next character in turn
+    //this.currentCharacter = this.getNextTurnCharacter()? this.currentCharacter : this.currentCharacter;
+    return damage;
+  }
+
+  calculateDamage(attackingCharacter: Character, defendingCharacter: Character) {
+    // TODO include in damage calculation equipment and handle magic damage
+    console.log("damage: " +  attackingCharacter.stats.strength);
+    return attackingCharacter.stats.strength;
   }
 
   getEnemy(enemyIndex: number) {
     return this.enemies[enemyIndex];
   }
 
-  nextTurn() {
-    // TODO calculate next player using speed stats
-    // TODO enemy actions
-    return this.party[0];
-  }
-
-  processAttack(enemyIndex: number) {
-    this.lastAttackKilled = false;
-    let updatedEnemy = this.enemies[enemyIndex];
-    let updatedHealthPoints = updatedEnemy.stats.healthPoints - this.calculateDamage(updatedEnemy);
-    if(updatedHealthPoints > 0) {
-      // TODO to swap with current health points (stats gives you the maximum)
-      updatedEnemy.stats.healthPoints = updatedEnemy.stats.healthPoints - this.calculateDamage(updatedEnemy);
-      this.enemies[enemyIndex] = updatedEnemy;
+  getNextTurnCharacter(): Character | undefined {
+    // updates the speedValue of a character by adding its speed value until someones value is 100
+    var nextCharacter: Character | undefined = undefined;
+    var characterFound = false;
+    while (!characterFound) {
+      this.turnRotation.forEach(el => {
+        el.speedValue = el.speedValue + el.character.stats.dexterity;
+        if (el.speedValue >= 100) {
+          console.log("character turn: " + el.character.name);
+          nextCharacter = el.character;
+          characterFound = true;
+        }
+      });
     }
-    else {
-      this.lastAttackKilled = true;
-      delete this.enemies[enemyIndex];
-      this.enemies = this.enemies.filter(item => item);
-    }
-    return this.calculateDamage(updatedEnemy);
-  }
-
-  calculateDamage(character: Character) {
-    // TODO real damage calculation
-    return 10;
+    return nextCharacter;
   }
 
   isBattleOver() {
