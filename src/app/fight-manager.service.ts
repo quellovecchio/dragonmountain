@@ -13,6 +13,7 @@ export class FightManagerService {
   fighting: boolean = false;
   isEnemyTurn: boolean = false;
   currentCharacter: Character = new Character();
+  nextTurnBuffer: Character[] = []; // if more chars clock at the same time, gets stored in buffer
 
   //did last attack kill the enemy?
   public lastAttackKilled: boolean = false;
@@ -28,27 +29,35 @@ export class FightManagerService {
       ...this.enemies.map(enemy => ({ character: enemy, speedValue: 0 })),
       ...this.party.map(player => ({ character: player, speedValue: 0 }))
     ];
+    this.firstTurn();
+  }
+
+  firstTurn() {
     var nextTurnCharacter = this.getNextTurnCharacter();
-    this.currentCharacter = nextTurnCharacter? nextTurnCharacter : new Character();
-    if(!this.enemies.includes(this.currentCharacter)) 
+    this.currentCharacter = nextTurnCharacter!;
+    if (!this.enemies.includes(this.currentCharacter)) {
       this.isEnemyTurn = false;
+      this.currentCharacter = nextTurnCharacter ? nextTurnCharacter : new Character();
+    }
     else {
       this.isEnemyTurn = true;
       this.generateAiTurn(this.currentCharacter);
     }
   }
 
-  fightingLoop() {
-    this.isEnemyTurn = true;
-    while (this.isEnemyTurn) {
+  nextTurn() {
+    if(this.nextTurnBuffer.length > 0) {
+      this.currentCharacter = this.nextTurnBuffer.pop()!; 
+    } else {
       this.currentCharacter = this.getNextTurnCharacter()!;
-      // handle turn if is enemy turn
-      if (this.enemies.includes(this.currentCharacter)) {
-        // enemy does turn!
-        this.generateAiTurn(this.currentCharacter);
-      } else
-        this.isEnemyTurn = false;
     }
+    // handle turn if is enemy turn
+    if (this.enemies.includes(this.currentCharacter)) {
+      // enemy does turn!
+      this.isEnemyTurn = true;
+      this.generateAiTurn(this.currentCharacter);
+    } else
+      this.isEnemyTurn = false;
   }
 
   generateAiTurn(attackingCharacter: Character) {
@@ -57,7 +66,7 @@ export class FightManagerService {
     var defendingCharacter = this.party[randomAllyIndex];
     console.log("the enemy is attacking " + defendingCharacter.name);
     this.processAttack(attackingCharacter, defendingCharacter);
-    this.fightingLoop();
+    this.nextTurn();
   }
 
   processAttack(attackingCharacter: Character, defendingCharacter: Character) {
@@ -65,9 +74,9 @@ export class FightManagerService {
     var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
     var updatedCharacter = defendingCharacter;
     var updatedHealthPoints = updatedCharacter.stats.healthPoints -= damage;
-    if(this.party.findIndex(el => {return el == defendingCharacter}) >= 0) {
+    if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
       // update character in the party
-      var characterIndex = this.party.findIndex(el => {return el == defendingCharacter});
+      var characterIndex = this.party.findIndex(el => { return el == defendingCharacter });
       if (updatedHealthPoints > 0) {
         updatedCharacter.stats.healthPoints = updatedHealthPoints;
         console.log("updated health points: " + updatedHealthPoints)
@@ -81,7 +90,7 @@ export class FightManagerService {
       }
     } else {
       //update character in enemy party
-      var characterIndex = this.enemies.findIndex(el => {return el == defendingCharacter});
+      var characterIndex = this.enemies.findIndex(el => { return el == defendingCharacter });
       if (updatedHealthPoints > 0) {
         updatedCharacter.stats.healthPoints = updatedHealthPoints;
         this.enemies[characterIndex] = updatedCharacter;
@@ -100,7 +109,7 @@ export class FightManagerService {
 
   calculateDamage(attackingCharacter: Character, defendingCharacter: Character) {
     // TODO include in damage calculation equipment and handle magic damage
-    console.log("damage: " +  attackingCharacter.stats.strength);
+    console.log("damage: " + attackingCharacter.stats.strength);
     return attackingCharacter.stats.strength;
   }
 
@@ -116,8 +125,13 @@ export class FightManagerService {
       this.turnRotation.forEach(el => {
         el.speedValue = el.speedValue + el.character.stats.dexterity;
         if (el.speedValue >= 100) {
-          console.log("character turn: " + el.character.name);
+          console.log("character found: " + el.character.name);
+          el.speedValue = el.speedValue - 100;
           nextCharacter = el.character;
+          if(characterFound == true) {
+          console.log("... and put into buffer");
+            this.nextTurnBuffer.push(el.character);
+          }
           characterFound = true;
         }
       });
