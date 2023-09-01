@@ -5,7 +5,7 @@
     font-size: 30px;
 }
 
-textarea {
+/*textarea {
     resize: none;
     overflow: hidden;
     width: 540px;
@@ -22,4 +22,23 @@ textarea {
     padding-left: 5%;
     padding-right: 5%;
     caret-color: transparent;
-}
+}*/
+
+.typewriter {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    //border-right: .15em solid orange; /* The typwriter cursor */
+    //white-space: nowrap; /* Keeps the content on a single line */
+    //margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    color: white;
+    font-size: 50px;
+    //animation:
+    //  blink-caret 1s step-end infinite;
+  }
+  
+  /* The typewriter cursor effect */
+  // TODO use this during damage
+  /*@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }*/

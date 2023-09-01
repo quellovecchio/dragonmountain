@@ -5,7 +5,6 @@ import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InfoBoxComponent } from './info-box/info-box.component';
@@ -20,6 +19,7 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
 import { InventoryComponent } from './info-box/inventory/inventory.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { DataBarComponent } from './data-bar/data-bar.component';
+import { NgxTypedJsModule } from 'ngx-typed-js';
 
 
 @NgModule({
@@ -45,7 +45,8 @@ import { DataBarComponent } from './data-bar/data-bar.component';
     MatTableModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    NgxTypedJsModule
   ],
   exports: [
     InfoBoxComponent,

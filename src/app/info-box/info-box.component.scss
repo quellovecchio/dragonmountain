@@ -32,7 +32,6 @@
   }
   
   @keyframes blinker {
-    50% {
-      opacity: 0;
-    }
+    from, to { color: transparent }
+    50% { color: red; }
   }

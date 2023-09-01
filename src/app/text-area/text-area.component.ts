@@ -8,11 +8,7 @@ import { Run } from '../model/Run';
 })
 export class TextAreaComponent implements OnInit {
 
-  @Input() run: Run;
-
-  @ViewChild('textArea') textArea: ElementRef;
-
-  currentText: string = "Welcome back to Dragon Mountain, traveler!";
+  currentText: string[] = [];
 
   constructor(private ref: ChangeDetectorRef) { }
 
@@ -20,11 +16,7 @@ export class TextAreaComponent implements OnInit {
   }
 
   pushText(text: string) {
-    this.currentText = this.currentText + "&#10;" + text;
-    if(this.textArea != undefined) {
-      this.ref.detectChanges();
-      this.textArea.nativeElement.scrollTop = this.textArea.nativeElement.scrollHeight;
-    }
+    this.currentText = [...this.currentText, text];
   }
 
 }

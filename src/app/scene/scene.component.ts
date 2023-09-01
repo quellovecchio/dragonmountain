@@ -70,10 +70,10 @@ export class SceneComponent implements OnInit {
 
   moveTo(location: Location) {
     this.run.currentLocation = location;
-    setTimeout(() => { this.pushTextEvent.emit("The party has moved to " + location.name + ".") }, 200 * this.run.textSpeed);
+    this.pushTextEvent.emit("The party has moved to " + location.name + ".");
     if(location.fight && location.fight.length > 0) {
       // start fight
-      setTimeout(() => { this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + "."); }, 1200 * this.run.textSpeed);
+      this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".");
       this.startFight(location.fight);
     } else {
       this.explore(location);
@@ -87,8 +87,8 @@ export class SceneComponent implements OnInit {
       // add loot to party inventory
       location.loot.forEach(el => {
         this.run.items.push(el);
-        setTimeout(() => { this.pushTextEvent.emit("You found a " + el.name + "!"); }, 1200 * this.run.textSpeed);
-        setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
+        this.pushTextEvent.emit("You found a " + el.name + "!");
+        this.pushTextEvent.emit("The item was placed into the inventory");
       });
       location.loot = [];
     }
@@ -101,8 +101,8 @@ export class SceneComponent implements OnInit {
     this.run.state = RunState.Exploration;
     this.run.currentLocation = undefined;
     if(location) {
-      setTimeout(() => { this.pushTextEvent.emit("The party is back from the " + location.name + ".") }, 200 * this.run.textSpeed);
-      setTimeout(() => { this.pushTextEvent.emit("What's our next move?") }, 1200 * this.run.textSpeed);
+      this.pushTextEvent.emit("The party is back from the " + location.name + ".");
+      this.pushTextEvent.emit("What's our next move?");
     }
   }
 
@@ -111,14 +111,14 @@ export class SceneComponent implements OnInit {
     if(data.character.interactions? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
       let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name)[0];
       if(interaction.effect == EffectType.fight) {
-        setTimeout(() => { this.pushTextEvent.emit(interaction.text); }, 1200 * this.run.textSpeed);
+        this.pushTextEvent.emit(interaction.text);
         this.startFight(interaction.effectTarget);
       }
       if(interaction.effect == EffectType.giveItem) {
         interaction.effectTarget.forEach((el: Item) => {
           this.run.items.push(el);
-          setTimeout(() => { this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!"); }, 1200 * this.run.textSpeed);
-          setTimeout(() => { this.pushTextEvent.emit("The item was placed into the inventory"); }, 2200 * this.run.textSpeed);
+          this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!")
+          this.pushTextEvent.emit("The item was placed into the inventory");
         });
       }
     }
@@ -128,7 +128,7 @@ export class SceneComponent implements OnInit {
     }
     // If the object has no effect, send an error message
     else {
-      setTimeout(() => { this.pushTextEvent.emit("Using " + data.action.name + " on " + data.character.name + " had no effect...") }, 200 * this.run.textSpeed);
+      this.pushTextEvent.emit("Using " + data.action.name + " on " + data.character.name + " had no effect...");
     }
     this.selectedItem = undefined;
     this.interactionEndSignal.emit();
@@ -139,10 +139,9 @@ export class SceneComponent implements OnInit {
     if(items) this.shopItems = items;
     this.shopOpened = !this.shopOpened;
     if(this.shopOpened)
-      setTimeout(() => { this.pushTextEvent.emit("[Merchant]: Take a good look!") }, 200 * this.run.textSpeed);
+      this.pushTextEvent.emit("[Merchant]: Take a good look!");
     else
-      setTimeout(() => { this.pushTextEvent.emit("[Merchant]: Thanks for your business.") }, 200 * this.run.textSpeed);
-    setTimeout(() => { this.shopDisabled = false; }, 400);
+      this.pushTextEvent.emit("[Merchant]: Thanks for your business.");
   }
 
   buy(item: any) {
@@ -151,20 +150,20 @@ export class SceneComponent implements OnInit {
     // TODO: remove money from your Inventory
     // finally, add item to inventory
     //this.itemBoughtSignal.emit(item);
-    setTimeout(() => { this.pushTextEvent.emit("That's a great deal! It's yours.") }, 200 * this.run.textSpeed);
+    this.pushTextEvent.emit("That's a great deal! It's yours.");
     this.run.items.push(item);
   }
   
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
     this.fightManager.startFight(fight, this.run.party);
-    setTimeout(() => { this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?"); }, 2200 * this.run.textSpeed);
+    this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?");
   }
 
   attack(enemyIndex: number) {
     let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
-    setTimeout(() => { this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!" ) }, 200 * this.run.textSpeed);
+    this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
     if(this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
     } else {
@@ -188,11 +187,11 @@ export class SceneComponent implements OnInit {
       this.run.currentLocation.actors.splice(deadActorIndex, 1);
     }
     this.run.state = RunState.Location;
-    setTimeout(() => { this.pushTextEvent.emit("The party has won the fight!"); }, 1200 * this.run.textSpeed);
+    this.pushTextEvent.emit("The party has won the fight!");
     // TODO experience calculation
     if(joins) {
       this.run.party.push(deadActor!);
-      setTimeout(() => { this.pushTextEvent.emit(deadActor.name + " decided to join your party!"); }, 2200 * this.run.textSpeed);
+      this.pushTextEvent.emit(deadActor!.name + " decided to join your party!");
       if (this.run.currentLocation)
         this.explore(this.run.currentLocation);
     } else {
@@ -209,12 +208,12 @@ export class SceneComponent implements OnInit {
 
   talkToActor(a: Actor) {
     console.log(this.run.currentLocation?.actors)
-    setTimeout(() => { this.pushTextEvent.emit(a.name + ": " + a.dialogue) }, 200 * this.run.textSpeed);
+    this.pushTextEvent.emit(a.name + ": " + a.dialogue);
   }
 
   engageFightWith(a: Actor) {
     console.log(this.run.currentLocation?.actors)
-    setTimeout(() => { this.pushTextEvent.emit("You engaged combat with " + a.name + "."); }, 200 * this.run.textSpeed);
+    this.pushTextEvent.emit("You engaged combat with " + a.name + ".");
       this.startFight([a as Character]);
   }
 
