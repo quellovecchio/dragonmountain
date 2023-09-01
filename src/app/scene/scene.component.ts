@@ -168,7 +168,8 @@ export class SceneComponent implements OnInit {
     if(this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
     } else {
-      this.fightManager.nextTurn();
+      this.fightManager.isEnemyTurn = true;
+      this.fightManager.resumeFightLoop();
     }
   }
 

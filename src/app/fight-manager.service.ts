@@ -11,7 +11,7 @@ export class FightManagerService {
   party: PlayingCharacter[] = [];
   public turnRotation: { character: Character, speedValue: number }[] = [];
   fighting: boolean = false;
-  isEnemyTurn: boolean = false;
+  isEnemyTurn: boolean = true;
   currentCharacter: Character = new Character();
   nextTurnBuffer: Character[] = []; // if more chars clock at the same time, gets stored in buffer
 
@@ -26,7 +26,17 @@ export class FightManagerService {
     this.party = party;
     // Map enemies and party into turnRotation
     this.turnRotation = this.generateTurnRotation();
-    this.firstTurn();
+    this.resumeFightLoop();
+  }
+
+  resumeFightLoop() {
+    while(this.isEnemyTurn && this.fighting) {
+      while(this.nextTurnBuffer.length == 0) {
+        this.nextTurnBuffer = this.getNextTurnCharacter();
+      }
+      this.currentCharacter = this.nextTurnBuffer.pop()!;
+      this.isEnemyTurn = this.nextTurn();
+    }
   }
 
   generateTurnRotation() {
@@ -36,32 +46,14 @@ export class FightManagerService {
     ];
   }
 
-  firstTurn() {
-    var nextTurnCharacter = this.getNextTurnCharacter();
-    this.currentCharacter = nextTurnCharacter!;
+  nextTurn() {
     if (!this.enemies.includes(this.currentCharacter)) {
-      this.isEnemyTurn = false;
-      this.currentCharacter = nextTurnCharacter ? nextTurnCharacter : new Character();
+      return false;
     }
     else {
-      this.isEnemyTurn = true;
       this.generateAiTurn(this.currentCharacter);
+      return true;
     }
-  }
-
-  nextTurn() {
-    if(this.nextTurnBuffer.length > 0) {
-      this.currentCharacter = this.nextTurnBuffer.pop()!; 
-    } else {
-      this.currentCharacter = this.getNextTurnCharacter()!;
-    }
-    // handle turn if is enemy turn
-    if (this.enemies.includes(this.currentCharacter)) {
-      // enemy does turn!
-      this.isEnemyTurn = true;
-      this.generateAiTurn(this.currentCharacter);
-    } else
-      this.isEnemyTurn = false;
   }
 
   generateAiTurn(attackingCharacter: Character) {
@@ -70,7 +62,7 @@ export class FightManagerService {
     var defendingCharacter = this.party[randomAllyIndex];
     console.log("the enemy is attacking " + defendingCharacter.name);
     this.processAttack(attackingCharacter, defendingCharacter);
-    this.nextTurn();
+    //this.resumeFighLoop();
   }
 
   processAttack(attackingCharacter: Character, defendingCharacter: Character) {
@@ -90,7 +82,7 @@ export class FightManagerService {
         this.lastAttackKilled = true;
         delete this.party[characterIndex];
         // TODO: handle game over: if there are no characters left -Z GAME OVER
-        if(this.party.length == 0)
+        if (this.party.length == 0)
           console.log("game over");
         this.party = this.party.filter(item => item);
       }
@@ -106,7 +98,7 @@ export class FightManagerService {
         delete this.enemies[characterIndex];
         // TODO: handle game over: if there are no characters left -Z GAME OVER
         this.enemies = this.enemies.filter(item => item);
-        if(this.isBattleOver())
+        if (this.isBattleOver())
           this.endFight();
       }
     }
@@ -125,26 +117,24 @@ export class FightManagerService {
     return this.enemies[enemyIndex];
   }
 
-  getNextTurnCharacter(): Character | undefined {
+  getNextTurnCharacter() {
+    var newBuffer: Character[] = [];
     // updates the speedValue of a character by adding its speed value until someones value is 100
-    var nextCharacter: Character | undefined = undefined;
-    var characterFound = false;
-    while (!characterFound) {
-      this.turnRotation.forEach(el => {
-        el.speedValue = el.speedValue + el.character.stats.dexterity;
-        if (el.speedValue >= 100 && (this.enemies.includes(el.character) || this.party.includes(el.character as PlayingCharacter))) {
-          console.log("character found: " + el.character.name);
-          el.speedValue = el.speedValue - 100;
-          nextCharacter = el.character;
-          if(characterFound == true) {
-          console.log("... and put into buffer");
-            this.nextTurnBuffer.push(el.character);
-          }
-          characterFound = true;
-        }
-      });
+    for (let i = 0; i < this.turnRotation.length; i++) {
+      this.turnRotation[i].speedValue = this.turnRotation[i].speedValue + this.turnRotation[i].character.stats.dexterity;
+      if (this.turnRotation[i].speedValue >= 100 && (this.enemies.includes(this.turnRotation[i].character) || this.party.includes(this.turnRotation[i].character as PlayingCharacter))) {
+        console.log("==============================");
+        console.log("character found: " + this.turnRotation[i].character.name);
+        console.log("==============================");
+        this.turnRotation[i].speedValue = this.turnRotation[i].speedValue - 100;
+        //nextCharacter = this.turnRotation[i].character;
+        newBuffer.push(this.turnRotation[i].character);
+      }
+      console.log("data after " + i + ": " + JSON.stringify(this.turnRotation.map(el => { return el.character.name + ' - ' + el.speedValue })));
     }
-    return nextCharacter;
+    console.log("============RESULT============");
+    console.log(JSON.stringify(newBuffer.map(el => { return el.name })));
+    return newBuffer;
   }
 
   isBattleOver() {
