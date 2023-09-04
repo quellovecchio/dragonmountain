@@ -1,6 +1,37 @@
 .spacing {
-    width: 600px;  
-    height: 30px;
+    width: 540px;  
+    height: 35px;
     font-family: "Enchanted-Land", Arial, Helvetica, sans-serif !important;;
     font-size: 30px;
-}
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    top: 5%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3.5%;
+    padding-bottom: 6%;
+  }
+  
+  label {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: black;
+    top: -20px !important;
+  }
+
+  .blink_me {
+    width: 100%;
+    animation: blinker 0.2s linear infinite;
+  }
+  
+  @keyframes blinker {
+    from, to { color: transparent }
+    50% { color: red; }
+  }

@@ -1,0 +1,10 @@
+chars: isolated pixel art full picture priest cartoon pathfinder style dark epic fantasy 5e pen and paper color drawing --ar 1:1 
+
+textures: layed light grey stone bricks , seamless pattern, pixel art, medieval fantasy --ar 1:1 --c 50
+2D stone wall texture with green moss on it, jungle theme, cartoon style
+
+stages / locations: Damned city pixel art style of castlevania 1986 dark fantasy epic rpg --ar 5:6
+
+--ar 5:6 --v 5.1
+
+niji per manga/anime

@@ -1,7 +1,9 @@
-<div class="viewport">
-    <p>
-        <app-info-box></app-info-box>
-        <app-scene></app-scene>
-        <app-text-area></app-text-area>
-    </p>
+<div class="viewport pixelated-border">
+    <app-info-box [run]="run" style="z-index: 0;"></app-info-box>
+    <app-scene [run]="run" [selectedItem]="selectedItem" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()" style="z-index: 2"></app-scene>
+    <app-action-bar (onItemSelect)="selectItem($event)" [run]="run" style="z-index: 1;"></app-action-bar>
+    <app-text-area style="z-index: 0;"></app-text-area>
+</div>
+<div class="item-use-container" *ngIf="selectedItem" style="z-index: 99;">
+    <img src="{{selectedItem ? selectedItem.thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
 </div>

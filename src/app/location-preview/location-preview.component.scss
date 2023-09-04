@@ -1,0 +1,14 @@
+.space {
+    height: 80%;
+    background-size: cover;
+    transition: transform .2s;
+    //filter: blur(50px);
+    //-webkit-filter: blur(2px);  
+}
+
+.space:hover {
+    transform: scale(1.1);
+    filter: none;
+    -webkit-filter: none;  
+    z-index: 10;
+}

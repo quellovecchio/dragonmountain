@@ -1,0 +1,25 @@
+.space {
+    height: 80%;
+    transition: transform .2s;
+}
+
+.space:hover {
+    transform: scale(1.03);
+}
+
+.enemy {
+    height: 100%;
+    display: inline-block;
+}
+
+.image-bg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+app-data-bar {
+    position: absolute;
+    top: 310px;
+    left: 30px;
+}

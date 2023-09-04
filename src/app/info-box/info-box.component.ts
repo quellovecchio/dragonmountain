@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Run } from '../model/Run';
 
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
   styleUrls: ['./info-box.component.scss']
 })
-export class InfoBoxComponent implements OnInit {
+export class InfoBoxComponent {
 
-  constructor() { }
+  @Input() run: Run;
 
-  ngOnInit(): void {
+  constructor() { 
+    this.run = new Run();
+  }
+
+  update(updatedRun: Run) {
+    this.run = updatedRun;
   }
 
 }

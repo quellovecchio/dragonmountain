@@ -1,0 +1,54 @@
+.action-bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 120px;
+    background-image: url(/assets/images/0_0.png);
+    top: 2px;
+}
+
+.party-members {
+    display: flex;
+}
+
+.party-member {
+    height: 95px;
+    width: 95px;
+    background-size: contain;
+    background-position: 25% 75%;
+}
+
+.inventory-button {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
+.space {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.space:hover {
+    transform: scale(1.15);
+    z-index: 60 !important;
+    filter: none;
+    -webkit-filter: none;
+}
+
+.inventory {
+    width: 1000px;
+    height: 500px;
+    background-color: black;
+    position: relative;
+    top: -500px;
+    transition: width 2s, height 4s;
+    z-index: 10;
+}
+
+.hp-bar {
+    position: relative;
+    top: 90px;
+}

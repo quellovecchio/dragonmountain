@@ -1,3 +1,9 @@
-<div class="spacing">
-    <p>info-box works!</p>
+<div *ngIf="run && run.party && run.party[0]" class="pixelated-border spacing">
+        <label>{{run.party[0].name}}</label>
+        <label>level {{run.level}}</label>
+        <label>{{run.stage.name}}</label>
+        <label>06:00</label>
+</div>
+<div class="pixelated-border spacing" *ngIf="!run.party || !run.party[0]">
+        <label class="blink_me" style="font-size: 60px; color: red;">GAME OVER!</label>
 </div>

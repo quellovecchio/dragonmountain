@@ -1,5 +1,8 @@
 <div class="background">
   <div class="centered">
-    <app-viewport></app-viewport>
+    <app-viewport [run]="run"></app-viewport>
+  </div>
+  <div class="version" style="position:absolute; top: 90%; left:90%; color: white; font-size: 50px;">
+    {{version}}
   </div>
 </div>

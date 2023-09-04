@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { Run } from '../model/Run';
 
 @Component({
   selector: 'app-text-area',
@@ -7,17 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TextAreaComponent implements OnInit {
 
-  currentText: string;
+  currentText: string[] = [];
+  needsCleanup: boolean = false;
 
-  constructor(currentText: string) { 
-    this.currentText = currentText;
-  }
+  constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
   pushText(text: string) {
-    this.currentText = text;
+    if(this.needsCleanup) {
+      this.currentText = [];
+      this.needsCleanup = false;
+    }
+    this.currentText = [...this.currentText, text];
+  }
+
+  cleanBuffer() {
+    this.needsCleanup = true;
   }
 
 }
