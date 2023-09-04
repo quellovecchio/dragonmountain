@@ -105,3 +105,6 @@ dist
 
 # Angular chache
 .angular
+
+# Firebase cache
+.firebase
