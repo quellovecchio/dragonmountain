@@ -5,12 +5,15 @@ import { ViewportComponent } from './viewport/viewport.component';
 import { RunState } from './model/RunState';
 import { HttpClient } from '@angular/common/http';
 
+import packageJson from '../../package.json';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public version: string = packageJson.version;
   title = 'dragon-mountain';
 
   @ViewChild(ViewportComponent)
