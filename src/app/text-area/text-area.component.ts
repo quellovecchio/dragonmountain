@@ -9,6 +9,7 @@ import { Run } from '../model/Run';
 export class TextAreaComponent implements OnInit {
 
   currentText: string[] = [];
+  needsCleanup: boolean = false;
 
   constructor(private ref: ChangeDetectorRef) { }
 
@@ -16,7 +17,15 @@ export class TextAreaComponent implements OnInit {
   }
 
   pushText(text: string) {
+    if(this.needsCleanup) {
+      this.currentText = [];
+      this.needsCleanup = false;
+    }
     this.currentText = [...this.currentText, text];
+  }
+
+  cleanBuffer() {
+    this.needsCleanup = true;
   }
 
 }

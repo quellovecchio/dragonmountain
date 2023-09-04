@@ -4,7 +4,7 @@
         {{ stringInterpolation }}
     </span>-->
 
-    <ngx-typed-js [strings]="currentText" [shuffle]="false" [fadeOut]="true" [fadeOutDelay]="600" [typeSpeed]="40">
+    <ngx-typed-js [strings]="currentText" (preStringTyped)="cleanBuffer()" [shuffle]="false" [fadeOut]="true" [fadeOutDelay]="600" [typeSpeed]="40">
         <span class="typing typewriter"></span>
     </ngx-typed-js>
 </div>

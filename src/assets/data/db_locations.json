@@ -114,6 +114,12 @@
                         "description": "Heals 10 mp",
                         "moneyValue": 80,
                         "thumbnailPath": "assets/images/item1.png"
+                    },
+                    {
+                        "name": "Holy Water",
+                        "description": "Repels udeads and evil forces",
+                        "moneyValue": 5,
+                        "thumbnailPath": "assets/images/item1.png"
                     }
                 ],
                 "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
@@ -129,16 +135,16 @@
                         "effect": 2,
                         "effectTarget": [
                             {
-                                "name": "Lesser Demon",
+                                "name": "Big Demon",
                                 "level": 1,
                                 "imagePath": "/assets/images/enemy1.png",
                                 "loot": [],
                                 "dialogue": "hello world",
                                 "stats": {
                                     "charisma": 1,
-                                    "strength": 3,
+                                    "strength": 4,
                                     "constitution": 15,
-                                    "dexterity": 6,
+                                    "dexterity": 5,
                                     "intelligence": 1,
                                     "healthPoints": 15
                                 },
@@ -152,7 +158,7 @@
             }
         ],
         "bindedLocation": {
-            "name": "Abandoned Mine",
+            "name": "Open Backyard",
             "backgroundPath": "/assets/assets/images/location4-bg.png",
             "fight": [
                 {
@@ -205,7 +211,19 @@
                     "level": 1,
                     "loot": [],
                     "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
-                    "spells": []
+                    "spells": [],
+                    "reactTo": "Key",
+                    "text": "[the trapdoor has been opened]",
+                    "effect": 1,
+                    "effectTarget": [
+                        {
+                            "name": "Holy Water",
+                            "description": "Repels udeads and evil forces",
+                            "moneyValue": 5,
+                            "thumbnailPath": "assets/images/item1.png"
+                        }
+                    ],
+                    "vanishes": "true"
                 }
             ]
         }
