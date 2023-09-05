@@ -145,12 +145,12 @@
                                 "loot": [],
                                 "dialogue": "hello world",
                                 "stats": {
-                                    "charisma": 1,
-                                    "strength": 4,
-                                    "constitution": 15,
-                                    "dexterity": 5,
+                                    "charisma": 2,
+                                    "strength": 8,
+                                    "constitution": 50,
+                                    "dexterity": 3,
                                     "intelligence": 1,
-                                    "healthPoints": 15
+                                    "healthPoints": 50
                                 },
                                 "spells": []
                             }

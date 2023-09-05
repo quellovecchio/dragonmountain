@@ -53,3 +53,7 @@
 .pixelated-border {
     @include vintage(1.4px, white, black);
 }
+
+button {
+    font-size: 40px!important;
+}
