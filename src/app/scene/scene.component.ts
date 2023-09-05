@@ -127,6 +127,11 @@ export class SceneComponent implements OnInit {
           this.pushTextEvent.emit("The item was placed into the inventory");
         });
       }
+      if(interaction.vanishes) {
+        let characterIndex = this.run.currentLocation!.actors?.findIndex(el => {return data.character == el as Character});
+        delete this.run.currentLocation!.actors![characterIndex!];
+        this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
+      }
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if(data.action.effect) {
