@@ -86,9 +86,15 @@ export class SceneComponent implements OnInit {
     if (location.loot && location.loot.length > 0) {
       // add loot to party inventory
       location.loot.forEach(el => {
-        this.run.items.push(el);
-        this.pushTextEvent.emit("You found a " + el.name + "!");
-        this.pushTextEvent.emit("The item was placed into the inventory");
+        if(el.name.includes('money')) {
+          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g,"");
+          this.pushTextEvent.emit("You found " + el.name + "!");
+          this.pushTextEvent.emit("That was placed into the inventory");
+        } else {
+          this.run.inventory.items.push(el);
+          this.pushTextEvent.emit("You found a " + el.name + "!");
+          this.pushTextEvent.emit("The item was placed into the inventory");
+        }
       });
       location.loot = [];
     }
@@ -116,7 +122,7 @@ export class SceneComponent implements OnInit {
       }
       if(interaction.effect == EffectType.giveItem) {
         interaction.effectTarget.forEach((el: Item) => {
-          this.run.items.push(el);
+          this.run.inventory.items.push(el);
           this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!")
           this.pushTextEvent.emit("The item was placed into the inventory");
         });
@@ -146,12 +152,13 @@ export class SceneComponent implements OnInit {
 
   buy(item: any) {
     // TODO: check money, if not enough error message
-    // TODO: dialog yES/NO are ou sure?
-    // TODO: remove money from your Inventory
-    // finally, add item to inventory
-    //this.itemBoughtSignal.emit(item);
-    this.pushTextEvent.emit("That's a great deal! It's yours.");
-    this.run.items.push(item);
+    if(this.run.inventory.money <= item.moneyValue) {
+      this.pushTextEvent.emit("[Merchant]: Sorry pal, that's too much money for you!");
+    } else {
+      this.run.inventory.money = this.run.inventory.money - item.moneyValue;
+      this.pushTextEvent.emit("That's a great deal! It's yours.");
+      this.run.inventory.items.push(item);
+    }
   }
   
   private startFight(fight: Character[]) {

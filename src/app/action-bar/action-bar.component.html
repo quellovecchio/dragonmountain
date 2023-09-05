@@ -10,7 +10,8 @@
     </div>
     <div [@inOutAnimation] *ngIf="inventoryOpened" class="inventory pixelated-border" style="overflow-y: auto; overflow-x: hidden;">
         <div style="padding: 15px;">
-            <div *ngFor="let item of run.items">
+            <div style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: white; background-color: #000; z-index: 8;">{{run.inventory.money}} $</div>
+            <div *ngFor="let item of run.inventory.items">
                 <div class="space" style="color: white;" (click)="selectItem(item)">
                     <div style="height: 100px; width: 100px; background-size: contain;" class="inventory-item"
                         [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">

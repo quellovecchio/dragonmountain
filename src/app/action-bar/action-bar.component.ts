@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Run } from '../model/Run';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Actor } from '../model/Actors/Actor';
-import { Item } from '../model/Item';
 
 @Component({
   selector: 'app-action-bar',
@@ -53,6 +51,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   toggleInventory() {
+    this.onItemSelect.emit(undefined);
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
     setTimeout(() => {this.inventoryDisabled = false;}, 400);
