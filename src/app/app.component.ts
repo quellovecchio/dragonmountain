@@ -16,6 +16,9 @@ export class AppComponent {
   public version: string = packageJson.version;
   title = 'dragon-mountain';
 
+  public innerWidth: any;
+  public scaledMode = false;
+
   @ViewChild(ViewportComponent)
   viewport: ViewportComponent;
 
@@ -37,6 +40,12 @@ export class AppComponent {
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    if(this.innerWidth < 600)
+      this.scaledMode = true;
   }
 
   generateTestRun(): Promise<Run> {
