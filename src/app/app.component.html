@@ -1,8 +1,8 @@
-<div class="background">
+<div class="background" [ngClass]="scaledMode == true? 'scaled' : ''">
   <div class="centered">
     <app-viewport [run]="run"></app-viewport>
   </div>
-  <div class="version" style="position:absolute; top: 90%; left:90%; color: white; font-size: 50px;">
+  <div class="version" [ngClass]="scaledMode == true? 'scaled' : ''" style="position:absolute; top: 90%; left:90%; color: white; font-size: 50px;">
     {{version}}
   </div>
 </div>
