@@ -16,7 +16,6 @@ import { LocationComponent } from './location/location.component';
 import { FightComponent } from './fight/fight.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionBarComponent } from './action-bar/action-bar.component';
-import { InventoryComponent } from './info-box/inventory/inventory.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { DataBarComponent } from './data-bar/data-bar.component';
 import { NgxTypedJsModule } from 'ngx-typed-js';
@@ -33,7 +32,6 @@ import { NgxTypedJsModule } from 'ngx-typed-js';
     LocationComponent,
     FightComponent,
     ActionBarComponent,
-    InventoryComponent,
     ContextMenuComponent,
     DataBarComponent
   ],

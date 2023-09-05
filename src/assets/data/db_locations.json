@@ -42,6 +42,9 @@
                 "description": "Repels udeads and evil forces",
                 "moneyValue": 5,
                 "thumbnailPath": "assets/images/item1.png"
+            },
+            {
+                "name": "1000 money"
             }
         ],
         "actors": [

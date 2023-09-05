@@ -6,6 +6,7 @@ import { RunState } from './model/RunState';
 import { HttpClient } from '@angular/common/http';
 
 import packageJson from '../../package.json';
+import { Constants } from 'src/assets/constants';
 
 @Component({
   selector: 'app-root',
@@ -44,7 +45,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    if(this.innerWidth < 600)
+    if(this.innerWidth < 590)
       this.scaledMode = true;
   }
 
@@ -76,10 +77,10 @@ export class AppComponent {
     var that = this;
     setTimeout(() => {
       that.run.state = RunState.Exploration;
-    }, 7000);
+    }, 7000 / Constants.TEXT_SPEED);
     setTimeout(() => {
       that.viewport.sceneIsReady(that.run);
-    }, 14000);
+    }, 14000 / Constants.TEXT_SPEED);
     that.viewport.pushText("Welcome back to Dragon Mountain, traveler!");
     that.viewport.pushText("The first Stage of your journey is " + that.run.stage.name + "...");
     that.viewport.pushText("And it's full of Locations you can Explore!");

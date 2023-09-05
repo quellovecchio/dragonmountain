@@ -1,5 +1,6 @@
 import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { Run } from '../model/Run';
+import { Constants } from 'src/assets/constants';
 
 @Component({
   selector: 'app-text-area',
@@ -7,6 +8,8 @@ import { Run } from '../model/Run';
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent implements OnInit {
+
+  textSpeed: number = Constants.TEXT_SPEED;
 
   currentText: string[] = [];
   needsCleanup: boolean = false;
