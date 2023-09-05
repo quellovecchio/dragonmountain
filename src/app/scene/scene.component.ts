@@ -197,6 +197,7 @@ export class SceneComponent implements OnInit {
     this.pushTextEvent.emit("The party has won the fight!");
     // TODO experience calculation
     if(joins) {
+      deadActor!.stats.healthPoints = deadActor!.stats.constitution;
       this.run.party.push(deadActor!);
       this.pushTextEvent.emit(deadActor!.name + " decided to join your party!");
       if (this.run.currentLocation)
@@ -204,6 +205,16 @@ export class SceneComponent implements OnInit {
     } else {
       if (this.run.currentLocation)
         this.explore(this.run.currentLocation);
+    }
+  }
+
+  rest() {
+    if(this.run.inventory.money < 200) {
+      this.pushTextEvent.emit("I can make you rest here for 200$, but i don't think you have that much money");
+    } else {
+      this.run.inventory.money = this.run.inventory.money - 200;
+      this.run.party.forEach(el => el.stats.healthPoints = el.stats.constitution);
+      this.pushTextEvent.emit("You and your party wake up well rested after a full night of sleep.");
     }
   }
 

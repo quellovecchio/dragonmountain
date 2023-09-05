@@ -14,6 +14,8 @@ export class Actor {
     fights?: boolean = false;
     // shop: collection of items that can be bought opening the shop
     shop?: Item[] = [];
+    // rest: can make you heal
+    rest?: boolean = false;
     // an interaction can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
     interactions: Interaction[] = [];
     dialogue: string = '';

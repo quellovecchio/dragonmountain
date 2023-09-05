@@ -40,7 +40,7 @@
             {
                 "name": "Holy Water",
                 "description": "Repels udeads and evil forces",
-                "moneyValue": 5,
+                "moneyValue": 500,
                 "thumbnailPath": "assets/images/item1.png"
             },
             {
@@ -74,7 +74,8 @@
                 "level": 1,
                 "loot": [],
                 "dialogue": "if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
-                "spells": []
+                "spells": [],
+                "rest": true
             },
             {
                 "name": "Hairy Thomas",
@@ -121,7 +122,7 @@
                     {
                         "name": "Holy Water",
                         "description": "Repels udeads and evil forces",
-                        "moneyValue": 5,
+                        "moneyValue": 500,
                         "thumbnailPath": "assets/images/item1.png"
                     }
                 ],
@@ -220,9 +221,9 @@
                     "effect": 1,
                     "effectTarget": [
                         {
-                            "name": "Holy Water",
-                            "description": "Repels udeads and evil forces",
-                            "moneyValue": 5,
+                            "name": "Broadsword",
+                            "description": "Heavy sword",
+                            "moneyValue": 5000,
                             "thumbnailPath": "assets/images/item1.png"
                         }
                     ],
