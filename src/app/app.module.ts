@@ -19,6 +19,7 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { DataBarComponent } from './data-bar/data-bar.component';
 import { NgxTypedJsModule } from 'ngx-typed-js';
+import { NgTiltModule } from '@geometricpanda/angular-tilt';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { NgxTypedJsModule } from 'ngx-typed-js';
     MatMenuModule,
     BrowserAnimationsModule,
     MatCardModule,
-    NgxTypedJsModule
+    NgxTypedJsModule,
+    NgTiltModule
   ],
   exports: [
     InfoBoxComponent,
