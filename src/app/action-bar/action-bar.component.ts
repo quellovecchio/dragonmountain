@@ -38,6 +38,7 @@ export class ActionBarComponent implements OnInit {
   
   @Input() run: Run = new Run();
   @Output() onItemSelect = new EventEmitter<any>();
+  @Output() refreshLocationsSignal = new EventEmitter<any>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
 
@@ -62,5 +63,9 @@ export class ActionBarComponent implements OnInit {
     setTimeout(() => {this.inventoryDisabled = false;}, 400);
     console.log(item.name + " selected")
     this.onItemSelect.emit(item);
+  }
+
+  refreshLocations() {
+    this.refreshLocationsSignal.emit();
   }
 }

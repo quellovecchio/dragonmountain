@@ -1,5 +1,8 @@
-<mat-card [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu">
-    <h6 class="header">{{locationData.name}}</h6>
+<mat-card [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu"
+    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.05" [scale]="1.1" [speed]="300">
+    <div class="header" ngTiltParallax [distance]="200">
+        <h6>{{locationData.name}}</h6>
+    </div>
 </mat-card>
 
 <mat-menu #menu="matMenu" xPosition="before" yPosition="above" overlapTrigger="true">

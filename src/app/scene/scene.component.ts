@@ -5,7 +5,6 @@ import { Location } from '../model/Location';
 import { Character } from '../model/Actors/Character';
 import { FightManagerService } from '../fight-manager.service';
 import { Actor } from '../model/Actors/Actor';
-import { find, findIndex } from 'rxjs';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Item } from '../model/Item';
 import { EffectType, Interaction } from '../model/Interaction';
@@ -17,22 +16,22 @@ import { animate, style, transition, trigger } from '@angular/animations';
   styleUrls: ['./scene.component.scss'],
   animations: [
     trigger(
-      'inOutAnimation', 
+      'inOutAnimation',
       [
         transition(
-          ':enter', 
+          ':enter',
           [
             style({ height: 0, width: 0, top: 0 }),
-            animate('0.2s ease-out', 
-                    style({ height: 500, width: 500, top: -500 }))
+            animate('0.2s ease-out',
+              style({ height: 500, width: 500, top: -500 }))
           ]
         ),
         transition(
-          ':leave', 
+          ':leave',
           [
             style({ height: 500, width: 500, top: -500 }),
-            animate('0.2s ease-in', 
-                    style({ height: 0, width: 0, top: 0 }))
+            animate('0.2s ease-in',
+              style({ height: 0, width: 0, top: 0 }))
           ]
         )
       ]
@@ -43,6 +42,7 @@ export class SceneComponent implements OnInit {
 
   @Input() run: Run;
   @Input() selectedItem?: Item = undefined;
+  @Input() refreshLocationsAnimation: boolean = false;
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() interactionEndSignal = new EventEmitter<any>();
   @Output() itemBoughtSignal = new EventEmitter<Item>();
@@ -57,7 +57,7 @@ export class SceneComponent implements OnInit {
   constructor(fightManager: FightManagerService) {
     this.run = new Run();
     this.fightManager = fightManager;
-   }
+  }
 
   ngOnInit(): void {
   }
@@ -71,7 +71,7 @@ export class SceneComponent implements OnInit {
   moveTo(location: Location) {
     this.run.currentLocation = location;
     this.pushTextEvent.emit("The party has moved to " + location.name + ".");
-    if(location.fight && location.fight.length > 0) {
+    if (location.fight && location.fight.length > 0) {
       // start fight
       this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".");
       this.startFight(location.fight);
@@ -82,12 +82,12 @@ export class SceneComponent implements OnInit {
 
   private explore(location: Location) {
     // change background to location background
-    
+
     if (location.loot && location.loot.length > 0) {
       // add loot to party inventory
       location.loot.forEach(el => {
-        if(el.name.includes('money')) {
-          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g,"");
+        if (el.name.includes('money')) {
+          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g, "");
           this.pushTextEvent.emit("You found " + el.name + "!");
           this.pushTextEvent.emit("That was placed into the inventory");
         } else {
@@ -106,30 +106,35 @@ export class SceneComponent implements OnInit {
   returnToMap(location: Location) {
     this.run.state = RunState.Exploration;
     this.run.currentLocation = undefined;
-    if(location) {
+    if (location) {
       this.pushTextEvent.emit("The party is back from the " + location.name + ".");
       this.pushTextEvent.emit("What's our next move?");
     }
   }
 
-  interact(data: {character: Character; action: any}) {
+  interact(data: { character: Character; action: any }) {
     // If the character reacts to the interaction, activate the specified effect
-    if(data.character.interactions? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
+    if (data.character.interactions ? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
       let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name)[0];
-      if(interaction.effect == EffectType.fight) {
+      if (interaction.effect == EffectType.fight) {
         this.pushTextEvent.emit(interaction.text);
         this.startFight(interaction.effectTarget);
       }
-      if(interaction.effect == EffectType.giveItem) {
+      if (interaction.effect == EffectType.giveItem) {
         interaction.effectTarget.forEach((el: Item) => {
           this.run.inventory.items.push(el);
           this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!")
           this.pushTextEvent.emit("The item was placed into the inventory");
         });
       }
+      if (interaction.vanishes) {
+        let characterIndex = this.run.currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
+        delete this.run.currentLocation!.actors![characterIndex!];
+        this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
+      }
     }
     // If it does not react to the interaction, activate the standard effect of the object
-    else if(data.action.effect) {
+    else if (data.action.effect) {
       console.log("reacted with sandard interaction");
     }
     // If the object has no effect, send an error message
@@ -142,9 +147,9 @@ export class SceneComponent implements OnInit {
 
   toggleShop(items?: Item[]) {
     this.shopDisabled = true;
-    if(items) this.shopItems = items;
+    if (items) this.shopItems = items;
     this.shopOpened = !this.shopOpened;
-    if(this.shopOpened)
+    if (this.shopOpened)
       this.pushTextEvent.emit("[Merchant]: Take a good look!");
     else
       this.pushTextEvent.emit("[Merchant]: Thanks for your business.");
@@ -152,7 +157,7 @@ export class SceneComponent implements OnInit {
 
   buy(item: any) {
     // TODO: check money, if not enough error message
-    if(this.run.inventory.money <= item.moneyValue) {
+    if (this.run.inventory.money <= item.moneyValue) {
       this.pushTextEvent.emit("[Merchant]: Sorry pal, that's too much money for you!");
     } else {
       this.run.inventory.money = this.run.inventory.money - item.moneyValue;
@@ -160,7 +165,6 @@ export class SceneComponent implements OnInit {
       this.run.inventory.items.push(item);
     }
   }
-  
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
     this.fightManager.startFight(fight, this.run.party);
@@ -171,7 +175,7 @@ export class SceneComponent implements OnInit {
     let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
     this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
-    if(this.fightManager.isBattleOver()) {
+    if (this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
     } else {
       this.fightManager.isEnemyTurn = true;
@@ -185,9 +189,9 @@ export class SceneComponent implements OnInit {
     if (this.run.currentLocation)
       this.run.currentLocation.fight = [];
     let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name; });
-    if(this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
+    if (this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
       var deadActor = this.run.currentLocation?.actors[deadActorIndex] as PlayingCharacter;
-      if(deadActor && deadActor.joinsParty)
+      if (deadActor && deadActor.joinsParty)
         joins = true;
     }
     if (this.run.currentLocation && this.run.currentLocation.actors && deadActorIndex && deadActorIndex > -1) {
@@ -196,7 +200,8 @@ export class SceneComponent implements OnInit {
     this.run.state = RunState.Location;
     this.pushTextEvent.emit("The party has won the fight!");
     // TODO experience calculation
-    if(joins) {
+    if (joins) {
+      deadActor!.stats.healthPoints = deadActor!.stats.constitution;
       this.run.party.push(deadActor!);
       this.pushTextEvent.emit(deadActor!.name + " decided to join your party!");
       if (this.run.currentLocation)
@@ -204,6 +209,16 @@ export class SceneComponent implements OnInit {
     } else {
       if (this.run.currentLocation)
         this.explore(this.run.currentLocation);
+    }
+  }
+
+  rest() {
+    if (this.run.inventory.money < 200) {
+      this.pushTextEvent.emit("I can make you rest here for 200$, but i don't think you have that much money");
+    } else {
+      this.run.inventory.money = this.run.inventory.money - 200;
+      this.run.party.forEach(el => el.stats.healthPoints = el.stats.constitution);
+      this.pushTextEvent.emit("You and your party wake up well rested after a full night of sleep.");
     }
   }
 
@@ -221,13 +236,13 @@ export class SceneComponent implements OnInit {
   engageFightWith(a: Actor) {
     console.log(this.run.currentLocation?.actors)
     this.pushTextEvent.emit("You engaged combat with " + a.name + ".");
-      this.startFight([a as Character]);
+    this.startFight([a as Character]);
   }
 
   getBackgroundImage() {
-    if(this.run.state == RunState.Exploration)
+    if (this.run.state == RunState.Exploration)
       return this.run.stage.backgroundPath;
-    if(this.run.state == RunState.Fight || this.run.state == RunState.Location)
+    if (this.run.state == RunState.Fight || this.run.state == RunState.Location)
       return this.run.currentLocation?.backgroundPath;
     return "/assets/images/splash_art.png";
   }

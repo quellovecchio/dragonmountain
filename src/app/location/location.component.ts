@@ -19,6 +19,7 @@ export class LocationComponent implements OnInit {
   @Output() talkSignal = new EventEmitter<Actor>();
   @Output() fightSignal = new EventEmitter<Actor>();
   @Output() openShopSignal = new EventEmitter<Item[]>();
+  @Output() restSignal = new EventEmitter<Item[]>();
 
   constructor() { }
 
@@ -39,6 +40,10 @@ export class LocationComponent implements OnInit {
 
   engageCombat(a: Actor): any {
     this.fightSignal.emit(a);
+  }
+
+  rest() {
+    this.restSignal.emit();
   }
 
   hasDialogue(a: Actor) {
@@ -68,6 +73,10 @@ export class LocationComponent implements OnInit {
 
   hasShop(actor: Actor) {
     return (actor.shop ? actor.shop.length > 0 : false);
+  }
+
+  canMakeYouRest(actor: Actor) {
+    return (actor.rest ? actor.rest : false);
   }
 
   isFightable(a: Actor): any {

@@ -4,6 +4,6 @@
         <label>{{run.stage.name}}</label>
         <label>06:00</label>
 </div>
-<div class="pixelated-border spacing" *ngIf="!run.party || !run.party[0]">
+<div class="pixelated-border spacing" *ngIf="run.party.length <= 0">
         <label class="blink_me" style="font-size: 60px; color: red;">GAME OVER!</label>
 </div>

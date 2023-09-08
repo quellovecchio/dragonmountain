@@ -1,6 +1,7 @@
 <div class="container-space">
     <div class="actorsSpace" *ngIf="locationData" style="height: 100%;">
-        <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'">
+        <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'"
+            ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
             <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor"
                 class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
                 <h6 class="header">{{actor.name}}</h6>
@@ -13,9 +14,10 @@
                         <button mat-menu-item *ngIf="isFightable(actor)" (click)="engageCombat(actor)"> fight </button>
                         <!-- shop action (if npc has items in shop property) -->
                         <button mat-menu-item *ngIf="hasShop(actor)" (click)="toggleShop(actor)"> shop </button>
+                        <!-- shop action (if npc has items in shop property) -->
+                        <button mat-menu-item *ngIf="canMakeYouRest(actor)" (click)="rest()"> rest </button>
                         <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
                         <!-- spells action (if someone in party has spells)-->
-                        <!-- give action (give item to actor)-->
                     </div>
                     <div *ngIf="selectedItem">
                         <!-- use action -->
@@ -27,5 +29,5 @@
     </div>
     <mat-card class="mat-elevation-z1 back-button space" (click)="goBackToScene()">
         Back to Stage
-    </mat-card>    
+    </mat-card>
 </div>
