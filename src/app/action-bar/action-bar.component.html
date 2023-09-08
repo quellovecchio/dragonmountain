@@ -26,6 +26,9 @@
             </div>
         </div>
     </div>
+    <button class="refresh-button space" style="padding: 15px;" (click)="refreshLocations()">
+        R
+    </button>
     <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled"
         (click)="toggleInventory()">
         <img src="assets/images/bag-icon.png" />

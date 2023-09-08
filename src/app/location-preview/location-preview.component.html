@@ -1,4 +1,4 @@
-<mat-card [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu">
+<mat-card [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu">
     <h6 class="header">{{locationData.name}}</h6>
 </mat-card>
 
