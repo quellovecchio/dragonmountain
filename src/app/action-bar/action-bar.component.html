@@ -12,14 +12,15 @@
         <div style="padding: 15px;">
             <div style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: white; background-color: #000; z-index: 8;">{{run.inventory.money}} $</div>
             <div *ngFor="let item of run.inventory.items">
-                <div class="space" style="color: white;" (click)="selectItem(item)">
-                    <div style="height: 100px; width: 100px; background-size: contain;" class="inventory-item"
+                <div class="space" style="color: white;" (click)="selectItem(item)"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
+                    <div ngTiltParallax [distance]="10" style="height: 100px; width: 100px; background-size: contain;" class="inventory-item"
                         [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
                     </div>
-                    <div>
+                    <div ngTiltParallax [distance]="10">
                         {{ item.name }}
                     </div>
-                    <div>
+                    <div ngTiltParallax [distance]="10">
                         {{ item.moneyValue }}
                     </div>
                 </div>
@@ -27,7 +28,7 @@
         </div>
     </div>
     <button class="refresh-button space" style="padding: 15px;" (click)="refreshLocations()">
-        R
+        <img src="assets/images/treasure-map.png" />
     </button>
     <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled"
         (click)="toggleInventory()">

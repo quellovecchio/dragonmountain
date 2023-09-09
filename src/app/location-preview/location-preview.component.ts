@@ -25,7 +25,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class LocationPreviewComponent implements OnInit {
 
   @Input() locationData!: Location;
-  @Input() refreshLocationsAnimation: boolean = false;
   @Output() exploreSignal = new EventEmitter<string>();
 
   xMenuPosition: number = 0;

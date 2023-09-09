@@ -44,6 +44,8 @@ NEXT STEPS:
 
 - time attack mode?
 
+- not enough locations - game over condition?
+
 - magic damage does true damage ignoring defence.
 	- put weapons that does magic damage
 

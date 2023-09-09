@@ -41,7 +41,7 @@
                 "name": "Holy Water",
                 "description": "Repels udeads and evil forces",
                 "moneyValue": 500,
-                "thumbnailPath": "assets/images/item1.png"
+                "thumbnailPath": "assets/images/item3.png"
             },
             {
                 "name": "1000 money"
@@ -110,20 +110,14 @@
                     {
                         "name": "Little Health Potion",
                         "description": "Heals 10 hp",
-                        "moneyValue": 50,
-                        "thumbnailPath": "assets/images/item1.png"
-                    },
-                    {
-                        "name": "Little Mana Potion",
-                        "description": "Heals 10 mp",
-                        "moneyValue": 80,
-                        "thumbnailPath": "assets/images/item1.png"
+                        "moneyValue": 200,
+                        "thumbnailPath": "assets/images/item2.png"
                     },
                     {
                         "name": "Holy Water",
                         "description": "Repels udeads and evil forces",
                         "moneyValue": 500,
-                        "thumbnailPath": "assets/images/item1.png"
+                        "thumbnailPath": "assets/images/item3.png"
                     }
                 ],
                 "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
@@ -141,7 +135,7 @@
                             {
                                 "name": "Big Demon",
                                 "level": 1,
-                                "imagePath": "/assets/images/enemy1.png",
+                                "imagePath": "/assets/images/enemy2.png",
                                 "loot": [],
                                 "dialogue": "hello world",
                                 "stats": {
@@ -160,76 +154,151 @@
                 ],
                 "dialogue": "[the air is sick around here] ..."
             }
+        ]
+    },
+    {
+        "name": "Open Backyard",
+        "backgroundPath": "/assets/assets/images/location4-bg.png",
+        "fight": [
+            {
+                "name": "Goblin",
+                "level": 1,
+                "loot": [],
+                "dialogue": "hello world",
+                "stats": {
+                    "charisma": 1,
+                    "strength": 2,
+                    "constitution": 10,
+                    "dexterity": 5,
+                    "intelligence": 2,
+                    "healthPoints": 10
+                }
+            },
+            {
+                "name": "Goblin",
+                "level": 1,
+                "loot": [],
+                "dialogue": "hello world",
+                "stats": {
+                    "charisma": 1,
+                    "strength": 2,
+                    "constitution": 2,
+                    "dexterity": 5,
+                    "intelligence": 2,
+                    "healthPoints": 10
+                }
+            }
         ],
-        "bindedLocation": {
-            "name": "Open Backyard",
-            "backgroundPath": "/assets/assets/images/location4-bg.png",
-            "fight": [
-                {
-                    "name": "Goblin",
-                    "level": 1,
-                    "loot": [],
-                    "dialogue": "hello world",
-                    "stats": {
-                        "charisma": 1,
-                        "strength": 2,
-                        "constitution": 20,
-                        "dexterity": 5,
-                        "intelligence": 2,
-                        "healthPoints": 20
+        "loot": [],
+        "actors": [
+            {
+                "name": "Locked Trap Door",
+                "level": 1,
+                "loot": [],
+                "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
+                "spells": [],
+                "interactions": [
+                    {
+                        "reactTo": "Silver Key",
+                        "text": "The trapdoor opened making a terrible noise...",
+                        "effect": 1,
+                        "effectTarget": [
+                            {
+                                "name": "Broadsword",
+                                "description": "Heavy sword",
+                                "moneyValue": 5000,
+                                "thumbnailPath": "assets/images/item1.png"
+                            }
+                        ],
+                        "vanishes": "true"
                     }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "TEST LOCATION 1"
+    },
+    {
+        "name": "TEST LOCATION 2"
+    },
+    {
+        "name": "TEST LOCATION 3"
+    },
+    {
+        "name": "TEST LOCATION 4"
+    },
+    {
+        "name": "Thieves Guild Hideout",
+        "loot": [],
+        "fight": [
+            {
+                "name": "Large Rat",
+                "level": 1,
+                "loot": [],
+                "stats": {
+                    "charisma": 1,
+                    "strength": 1,
+                    "constitution": 15,
+                    "dexterity": 6,
+                    "intelligence": 1,
+                    "healthPoints": 15
                 },
-                {
-                    "name": "Goblin",
-                    "level": 1,
-                    "loot": [],
-                    "dialogue": "hello world",
-                    "stats": {
-                        "charisma": 1,
-                        "strength": 2,
-                        "constitution": 2,
-                        "dexterity": 5,
-                        "intelligence": 2,
-                        "healthPoints": 20
-                    }
+                "spells": []
+            },
+            {
+                "name": "Large Rat",
+                "level": 1,
+                "loot": [],
+                "stats": {
+                    "charisma": 1,
+                    "strength": 2,
+                    "constitution": 10,
+                    "dexterity": 4,
+                    "intelligence": 1,
+                    "healthPoints": 10
                 },
-                {
-                    "name": "Goblin",
-                    "level": 1,
-                    "loot": [],
-                    "dialogue": "hello world",
-                    "stats": {
-                        "charisma": 1,
-                        "strength": 2,
-                        "constitution": 2,
-                        "dexterity": 5,
-                        "intelligence": 2,
-                        "healthPoints": 20
+                "spells": []
+            }
+        ],
+        "actors": [
+            {
+                "name": "Merchant Thief",
+                "level": 3,
+                "loot": [],
+                "shop": [
+                    {
+                        "name": "Silver Key",
+                        "description": "",
+                        "moneyValue": 100,
+                        "thumbnailPath": "assets/images/item1.png"
+                    },
+                    {
+                        "name": "Golden Key",
+                        "description": "",
+                        "moneyValue": 500,
+                        "thumbnailPath": "assets/images/item1.png"
                     }
-                }
-            ],
-            "loot": [],
-            "actors": [
-                {
-                    "name": "Locked Trap Door",
-                    "level": 1,
-                    "loot": [],
-                    "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
-                    "spells": [],
-                    "reactTo": "Key",
-                    "text": "[the trapdoor has been opened]",
-                    "effect": 1,
-                    "effectTarget": [
-                        {
-                            "name": "Broadsword",
-                            "description": "Heavy sword",
-                            "moneyValue": 5000,
-                            "thumbnailPath": "assets/images/item1.png"
-                        }
-                    ],
-                    "vanishes": "true"
-                }
-            ]
-        }
+                ],
+                "dialogue": "[sounds uninterested] New face, uh?"
+            },
+            {
+                "name": "Jhonny B. Goode",
+                "level": 3,
+                "loot": [],
+                "dialogue": "...",
+                "joinsParty": true,
+                "stats": {
+                    "charisma": 1,
+                    "strength": 2,
+                    "constitution": 27,
+                    "dexterity": 7,
+                    "wisdom": 2,
+                    "intelligence": 7,
+                    "healthPoints": 27
+                },
+                "spells": []
+            }
+        ]
     }
 ]

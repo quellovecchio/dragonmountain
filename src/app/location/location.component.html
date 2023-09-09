@@ -2,9 +2,9 @@
     <div class="actorsSpace" *ngIf="locationData" style="height: 100%;">
         <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'"
             ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
-            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor"
+            <mat-card ngTiltParallax [distance]="50" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor"
                 class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu">
-                <h6 class="header">{{actor.name}}</h6>
+                <div>{{actor.name}}</div>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
                     <div *ngIf="!selectedItem">

@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 import packageJson from '../../package.json';
 import { Constants } from 'src/assets/constants';
+import { RunService } from './run.service';
 
 @Component({
   selector: 'app-root',
@@ -29,12 +30,11 @@ export class AppComponent {
 
   startingLocations: Location[] = [];
 
-  constructor(viewport: ViewportComponent, private http: HttpClient) {
+  constructor(viewport: ViewportComponent, private http: HttpClient, private runService: RunService) {
     this.viewport = viewport;
     this.generateTestRun().then((newRun) => {
       console.log(newRun);
       this.run = newRun;
-      //this.viewport.refreshInfoBox(this.run);
       if (!this.loadedSavedData) {
         this.greetPlayer();
       }
@@ -55,11 +55,16 @@ export class AppComponent {
       this.http.get<Location[]>('./assets/data/db_locations.json').subscribe({
         next: (data) => {
           this.startingLocations = data;
+          console.log("generateTestRun() - all locations:");
           console.log(this.startingLocations);
           let newRun = new Run();
-          for (var i = 0; i < 3; i++) {
-            newRun.stage.locations.push(this.startingLocations ? this.startingLocations[i] : new Location());
-          }
+          newRun.stage.locations = this.startingLocations;
+          // TODO: extract the stage
+          // extract the first three random locations from stage
+          this.runService.setRun(newRun);
+          newRun.stage.currentLocations = this.runService.getRefreshedLocations();
+          console.log("generateTestRun() - extracted locations:");
+          console.log(newRun.stage.currentLocations);
           console.log("generateTestRun() - end");
           resolve(newRun);
         },

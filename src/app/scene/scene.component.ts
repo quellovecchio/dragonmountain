@@ -9,6 +9,7 @@ import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Item } from '../model/Item';
 import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { RunService } from '../run.service';
 
 @Component({
   selector: 'app-scene',
@@ -42,21 +43,22 @@ export class SceneComponent implements OnInit {
 
   @Input() run: Run;
   @Input() selectedItem?: Item = undefined;
-  @Input() refreshLocationsAnimation: boolean = false;
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() interactionEndSignal = new EventEmitter<any>();
   @Output() itemBoughtSignal = new EventEmitter<Item>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
+  runService: RunService;
 
   public shopOpened: boolean = false;
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
 
-  constructor(fightManager: FightManagerService) {
+  constructor(fightManager: FightManagerService, runService: RunService) {
     this.run = new Run();
     this.fightManager = fightManager;
+    this.runService = runService;
   }
 
   ngOnInit(): void {
@@ -245,6 +247,10 @@ export class SceneComponent implements OnInit {
     if (this.run.state == RunState.Fight || this.run.state == RunState.Location)
       return this.run.currentLocation?.backgroundPath;
     return "/assets/images/splash_art.png";
+  }
+
+  refreshLocations() {
+    this.run.stage.currentLocations = this.runService.getRefreshedLocations();
   }
 
 }
