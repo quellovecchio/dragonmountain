@@ -26,6 +26,17 @@
     cursor: pointer;
 }
 
+.refresh-button {
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    width: 100px;
+    height: 100px;
+    transform: scale(0.6);
+    cursor: pointer;
+}
+
 .space {
     transition: transform .2s;
     cursor: pointer;

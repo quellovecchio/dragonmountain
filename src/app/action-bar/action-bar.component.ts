@@ -31,10 +31,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
   ]
 })
 export class ActionBarComponent implements OnInit {
-
-  /*private itemMenuActions: Map<string, (actor: Actor) => {}> = new Map([
-    ["give", giveItemTo()]
-  ]);*/
   
   @Input() run: Run = new Run();
   @Output() onItemSelect = new EventEmitter<any>();

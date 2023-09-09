@@ -82,4 +82,8 @@ export class ViewportComponent implements OnInit {
     this.selectedItem = undefined;
   }
 
+  refreshLocations() {
+    this.scene.refreshLocations();
+  }
+
 }

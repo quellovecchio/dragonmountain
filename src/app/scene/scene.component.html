@@ -1,7 +1,7 @@
 <div class="view pixelated-border" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
     <div class="map" *ngIf="run.state == 'exploration' && ready">
-        <div class="location" *ngFor="let location of run.stage.locations">
-            <app-location-preview [refreshLocationsAnimation]="refreshLocationsAnimation" [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
+        <div class="location" *ngFor="let location of run.stage.currentLocations">
+            <app-location-preview [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
         </div>
     </div>
     <div class="location-map" *ngIf="run.state == 'location'">
@@ -19,14 +19,15 @@
         <div class="space" style="position: -webkit-sticky; position: sticky; top: 0;height:40px; color: red; cursor: pointer; background-color: #000; z-index: 8;" (click)="toggleShop()">CLOSE</div>
         <div style="padding: 15px;">
             <div *ngFor="let item of shopItems">
-                <div class="space" style="color: white;" (click)="buy(item)">
+                <div class="space" style="color: white;" (click)="buy(item)"
+                    ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
                     <div style="height: 100px; width: 100px; background-size: contain;" class="shop-item"
                         [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
                     </div>
-                    <div>
+                    <div ngTiltParallax [distance]="10">
                         {{ item.name }}
                     </div>
-                    <div>
+                    <div ngTiltParallax [distance]="10">
                         {{ item.moneyValue }}
                     </div>
                 </div>
