@@ -44,8 +44,8 @@ export class ViewportComponent implements OnInit {
         const mouseX = event.clientX - containerRect.left;
         const mouseY = event.clientY - containerRect.top;
 
-        const offsetX = mouseX + 25;
-        const offsetY = mouseY + 25;
+        const offsetX = mouseX + 50;
+        const offsetY = mouseY + 50;
 
         imgElement.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       }
@@ -83,7 +83,12 @@ export class ViewportComponent implements OnInit {
   }
 
   refreshLocations() {
+    this.run.experience = this.run.experience -1;
     this.scene.refreshLocations();
+  }
+
+  addExp() {
+    this.run.experience ++;
   }
 
 }

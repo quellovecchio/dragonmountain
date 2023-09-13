@@ -8,12 +8,13 @@ import { Stage } from "./Stage";
 export class Run {
     party: PlayingCharacter[] = [ new PlayingCharacter ];
     inventory: { items: Item[], money: number } = { items: [], money: 1500 };
-    level: number = 9;
+    level: number = 1;
     stage: Stage = new Stage();
     time: number = 0;               // TODO work with time data
     state: RunState = RunState.Neutral;
     currentLocation?: Location;
     currentFight?: Character[];
+    experience: number = 1;
 
     constructor() {
     }

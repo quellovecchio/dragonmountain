@@ -1,6 +1,6 @@
 <mat-card [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu"
-    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.05" [scale]="1.1" [speed]="300">
-    <div class="header" ngTiltParallax [distance]="200">
+ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
+    <div class="header" ngTiltParallax [distance]="50">
         <h6>{{locationData.name}}</h6>
     </div>
 </mat-card>

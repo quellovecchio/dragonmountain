@@ -46,6 +46,7 @@ export class SceneComponent implements OnInit {
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() interactionEndSignal = new EventEmitter<any>();
   @Output() itemBoughtSignal = new EventEmitter<Item>();
+  @Output() questCompletedSignal = new EventEmitter<Item>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
@@ -134,6 +135,8 @@ export class SceneComponent implements OnInit {
         delete this.run.currentLocation!.actors![characterIndex!];
         this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
       }
+      this.questCompletedSignal.emit();
+      this.pushTextEvent.emit("You gained 1 EXP!");
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
@@ -200,8 +203,10 @@ export class SceneComponent implements OnInit {
       this.run.currentLocation.actors.splice(deadActorIndex, 1);
     }
     this.run.state = RunState.Location;
-    this.pushTextEvent.emit("The party has won the fight!");
-    // TODO experience calculation
+    // gets experience 
+    var gainedExperience = this.run.experience + (1 * this.run.level);
+    this.run.experience = gainedExperience;
+    this.pushTextEvent.emit("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
     if (joins) {
       deadActor!.stats.healthPoints = deadActor!.stats.constitution;
       this.run.party.push(deadActor!);

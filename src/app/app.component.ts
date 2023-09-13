@@ -44,6 +44,8 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    alert(Constants.TECH_DEMO_INTRO);
+    alert(Constants.TECH_DEMO_HINT);
     this.innerWidth = window.innerWidth;
     if(this.innerWidth < 590)
       this.scaledMode = true;

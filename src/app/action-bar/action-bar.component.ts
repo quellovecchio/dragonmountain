@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Run } from '../model/Run';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { RunState } from '../model/RunState';
 
 @Component({
   selector: 'app-action-bar',
@@ -63,5 +64,9 @@ export class ActionBarComponent implements OnInit {
 
   refreshLocations() {
     this.refreshLocationsSignal.emit();
+  }
+
+  isExploreEnabled() {
+    return (this.run.state == RunState.Exploration && this.run.experience > 0);
   }
 }
