@@ -67,6 +67,6 @@ export class ActionBarComponent implements OnInit {
   }
 
   isExploreEnabled() {
-    return this.run.state == RunState.Exploration;
+    return (this.run.state == RunState.Exploration && this.run.experience > 0);
   }
 }

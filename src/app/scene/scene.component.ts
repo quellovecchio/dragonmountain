@@ -46,6 +46,7 @@ export class SceneComponent implements OnInit {
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() interactionEndSignal = new EventEmitter<any>();
   @Output() itemBoughtSignal = new EventEmitter<Item>();
+  @Output() questCompletedSignal = new EventEmitter<Item>();
   ready: boolean = false;
 
   fightManager: FightManagerService;
@@ -134,6 +135,8 @@ export class SceneComponent implements OnInit {
         delete this.run.currentLocation!.actors![characterIndex!];
         this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
       }
+      this.questCompletedSignal.emit();
+      this.pushTextEvent.emit("You gained 1 EXP!");
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {

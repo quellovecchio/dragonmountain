@@ -7,7 +7,7 @@
                 <div>{{actor.name}}</div>
                 <!-- <img src="{{character.thumbnailPath}}"> -->
                 <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-                    <div *ngIf="!selectedItem">
+                    <div *ngIf="!selectedItem;">
                         <!-- talk action -->
                         <button mat-menu-item *ngIf="hasDialogue(actor)" (click)="talk(actor)"> talk </button>
                         <!-- fight action (if is fightable -> has stats)-->

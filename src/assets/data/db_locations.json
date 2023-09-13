@@ -39,7 +39,7 @@
         "loot": [
             {
                 "name": "Holy Water",
-                "description": "Repels udeads and evil forces",
+                "description": "",
                 "moneyValue": 500,
                 "thumbnailPath": "assets/images/item3.png"
             },
@@ -115,7 +115,7 @@
                     },
                     {
                         "name": "Holy Water",
-                        "description": "Repels udeads and evil forces",
+                        "description": "",
                         "moneyValue": 500,
                         "thumbnailPath": "assets/images/item3.png"
                     }

@@ -14,7 +14,7 @@ export class Run {
     state: RunState = RunState.Neutral;
     currentLocation?: Location;
     currentFight?: Character[];
-    experience: number = 0;
+    experience: number = 1;
 
     constructor() {
     }
