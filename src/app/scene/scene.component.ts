@@ -201,8 +201,10 @@ export class SceneComponent implements OnInit {
       this.run.currentLocation.actors.splice(deadActorIndex, 1);
     }
     this.run.state = RunState.Location;
-    this.pushTextEvent.emit("The party has won the fight!");
-    // TODO experience calculation
+    // gets experience 
+    var gainedExperience = this.run.experience + (1 * this.run.level);
+    this.run.experience = gainedExperience;
+    this.pushTextEvent.emit("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
     if (joins) {
       deadActor!.stats.healthPoints = deadActor!.stats.constitution;
       this.run.party.push(deadActor!);

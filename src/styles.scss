@@ -7,6 +7,9 @@
     font-family: "Enchanted-Land" !important;
     src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype") !important;
     /* Add !important to overwrite all elements */
+    user-select: none;
+    -webkit-user-select: none; /*Safari*/
+    -moz-user-select: none; /*Firefox*/
 }
 
 .background {
@@ -56,4 +59,9 @@
 
 button {
     font-size: 40px!important;
+}
+
+button:disabled {
+    pointer-events: none;
+    filter: grayscale(1);
 }

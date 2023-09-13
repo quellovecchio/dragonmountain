@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <button class="refresh-button space" style="padding: 15px;" (click)="refreshLocations()">
+    <button [disabled]="!isExploreEnabled()" class="refresh-button space" style="padding: 15px;" (click)="refreshLocations()">
         <img src="assets/images/treasure-map.png" />
     </button>
     <button class="inventory-button space" style="padding: 15px;" [disabled]="inventoryDisabled"

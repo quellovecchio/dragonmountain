@@ -6,7 +6,7 @@ export class Actor {
 
     imagePath: string = "/assets/images/actor1.png";
     name: string = "test_actor";
-    level: number = 0;
+    level: number = 1;
     loot: Item[] = [];
     // todo gives item when interacted
     gives?: Item[] = [];

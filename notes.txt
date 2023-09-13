@@ -1,10 +1,31 @@
+business plan:
+n free runs -> then you pay 0,99 for month <- push on low cost and fast updates
+
+IF LAUNCH IS GOOD 
+multiplayer soon out after launch
+milk the fucking cow
+the maze 3 vs 3 real time matches - you can bring items and party members when win a run
+the maze barebones 3v3 only free to play mode no equip
+battle pass with skins
+
+IF LAUNCH IS BAD 
+story and game updates
+update DIY mode
+work on community
+keep pushing the game
+give single player experiences
+if fanbase gets built, start with multiplayer plan
+
+
+
+
 NEXT STEPS:
 	- close test case. TODO:
 		-	rework inventory as item -> number
-		-	money logic
-		-	life and magic bars
-		-	actual fights (barebones, onl attack)
-		-	exp logic
+		-	money logic					V
+		-	life and magic bars				\
+		-	actual fights (barebones, onl attack)		V
+		-	exp logic					\
 	
 
 
@@ -183,9 +204,9 @@ Ask for Leocorno's help for the writing process!!!!!
 game loop:
 1) you choose hero's name (and maybe choose from some characters with unique stats andmaybe skills)
 2) choose the next Stage choosing from 3 options
-3) you can Explore the Stage, choosing from three Locations. You can refresh the Locations whenever you want.4) while exploring a Location you can fight or interact with NPCS. If enemies are ready for an ambush, you have to defeat them before exploring.
-- Fighting and completing Quests gives you Exp. Level Up to unlock the Boss Location, where you will fight to the death.
-- Completing quests in the stage will make the location card turn. if a location is binded to that, the binded location will appear. In any oher cases, a random location card will be drawn from the location deck 
+3) you can Explore the Stage, choosing from three Locations. You can refresh the Locations whenever you want.
+4) while exploring a Location you can fight or interact with NPCS. If enemies are ready for an ambush, you have to defeat them before exploring.
+- Fighting and completing Quests gives you Exp. Exp given is (1 * stage level). You can spend (4 * stage level) to unlock the Boss Location, where you will fight to the death. If you win, ou get to the next Stage. You can spend 1 exp to level a party element's stat or to flee from a tough fight. 
 4b) if your level is below 7, go back to step 2
 5) Fight the Dragon in the Mountain. If you beat him, you win the game.
 
