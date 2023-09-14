@@ -21,11 +21,21 @@ if fanbase gets built, start with multiplayer plan
 
 NEXT STEPS:
 	- close test case. TODO:
+		-	dead state, revive by priest
 		-	rework inventory as item -> number
-		-	money logic					V
-		-	life and magic bars				\
-		-	actual fights (barebones, onl attack)		V
-		-	exp logic					\
+		-	character classes
+		-	flee
+		-	DB data rework
+		-	basic spells and magic bars
+			-	give some enemy spells
+			-	steal
+			-	charm
+			-	spark
+			-	warmth
+		-	buffs / debuffs
+		-	replace actor when joins a fourth element of the party, select who goes away
+		-	equips (1 weapon
+		-	buffs
 	
 
 
@@ -193,12 +203,6 @@ COMMUNITY UDATE 6: (
 
 
 
-
-spells:
-
-	- steal an enemy spell (lots of pm)
-	- damage in various kinds 
-
 Potential marketing material:
 -	REALLY	FREE	-
 focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
@@ -220,67 +224,6 @@ game loop:
 - You can spend 1 exp to level a party element's stat or to flee from a tough fight. 
 4b) if your level is below 7, go back to step 2
 5) Fight the Dragon in the Mountain. If you beat him, you win the game.
-
-currently working on
-
-Ideas:
-	"Steal" skill will open a new option for characters interactions to steal items. You can use that in battle too.
-	If an npc dies he vanishes
-
-stage 1 - Damned City:
-
-
-	
-	location 1 - Cursed church:
-		battle:
-			3x lesser demon
-		exploration loot:
-			1x holy water (damages undeads)
-		npcs:
-			sacristan:
-				you can talk to her but she's in a shock status.
-			priest:
-				thanks the party for saving the church from the demons attack, and tells them that the demons are 				attacking the city since a strange statue has been brought in the city by a merchant.
-
-	location 2 - Tavern:
-		npcs:
-			Sir Thomas (knight):
-				he's drunk and if you will be rude he will attack you. drops potions. if you win the fight he'll join the party.
-			innkeeper: 
-				makes your party rest at the price of money.
-	location 3 - Unsettling Shop:
-		npcs:
-			Unsettling Merchant:
-				he will sell you items for money
-			Unsettling Statue:
-				if you interact with that, there will be a description. Air is sick around that, one random element 					of the party could be poisoned.
-				if you use holy water on that statue a major demon battle will trigger. After defeating him (drops 					rusty keys), the merchant will tell you that he traded
-				the statue with the mine owner, which has suffered from bankruptcy so was selling all of his worthy goods. 					He ask you to go there to 
-				check if everything is ok. 
-
-	location 4 - Ransacked backyard:
-		battle:
-			3x goblin
-		loot:
-			money, 3 * demon horn
-		npcs:
-			rusted trap door: 
-				need keys to open.
-				if rusted keys are used on that, big loot.
-
-	location 4 - Granma's house:
-		npcs:
-			granma: 
-
-	location 5 (locked/boss stage) - Necromancer's cave:
-		battle - boss fight:
-			1x Necromancer
-			2x lesser demon
-				The Necromancer will buff the demons with atk and def buffs
-		loot:
-			1x butterfly knife 
-			2x belladonna (gets 30 fixed damage to enemy)	
-			2x demon horn		
 
 
 Milestones:
@@ -321,6 +264,15 @@ Milestones:
 		PUBLISHING
 	-------------------------------
 
+SPELLS:
+	poison: ranger basic skill. poisons an enemy (fixed dmg every turn)
+	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell
+	steal: during fight, steals an item from selected enemy. in location does the same, but if fails you have to fight cops.
+	charm: in location some npc will be affected by this spell. in fight, can make you escape.
+	spark: does 1*wisdom magic dmg
+	warmth: heals 1*wisdom magic dmg
+	
+
 
 PLOT: 
 
@@ -339,13 +291,17 @@ Damned citadel: A corrupted city  holy water, gold bar, demon horn
 
          Opened backyard: three goblin attacks you. After fight theres a cadaver holding a golden key and a golden trap door you can open with that
 
-	Granma's house: lets you sleep. If ou talk to granma she will talk a lot and then giv ou food
+	Granma's house: lets you sleep. If ou talk to granma she will talk a lot and then giv ou food. ou can kill the grann. you will not be able to rest anmore, and the ghost of the grann attacks ou (prett strong enem)
 
-	Devil's court: there's a trial between two guys. if you kill the judge, guards will attack you but you will loot Justice 			Hammer. tough fight. The defendant asks you to kill the other defendant. If you do it,
+	Sadness boulevard: there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
+
+	Putrid street: there's a couple arguing, she tells him to stop touching her but he doesn't go away. You can use the charm spell to make him go away, or you can kill him. In the first case she gives you a revive item.
+
+	Necromancer's cave: there's a domestic goblin and a corpse running around looking for its head. if given strange doll's face, blesses you. spray holy water on tomb to fight boss
 
 
 
-Enchanted Forest: a sacred forest polluted by poachers looking for loot. sacred apple, mystic soil
+Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and elves fighting them back. sacred apple, mystic soil
 ------------------
 
          Lonely Tree: In a mystical garden, a talking tree seeks your help to heal its corrupted roots. Corruption will react to your presence attacking you after the talk, when defeated the tree will reward you leveling a random equipped element.
@@ -355,6 +311,10 @@ Enchanted Forest: a sacred forest polluted by poachers looking for loot. sacred 
          Ancient Ruins: Help a friendly Ranger decypher ancient scripts (wisdom > n) and he'll join your party
          
          Alchemy Shack: Assist an eccentric mage in creating a potion to cure a rare ailment. Gather ingredients from him and he'll join the party.
+
+	Icy peaks: you get attacked by orcs entering. there's a ranger elf they killed who dies when interacted, giving you a letter for his love Lisa telling you to find her.
+
+	Elf camp: shop. Lisa: the elf's from icy peaks girl, when given his letter she joins your party to finish his quest.
 
 
 Lost Oasis:
@@ -371,7 +331,7 @@ Nomad Diplomacy: Mediate a conflict between the muscular women tribe and the nom
 Temple's Test: Delve into the Desert Temple and decipher its ancient hieroglyphs. if wisdom is greater than a number, rewards you finding a sliding trap door containing a Golden Chest  (openable with a Golden Key) containing a rare equip.
 
 
-The Outside In: In this place, everyhing is messed up. You can encouter enemies that are made from semaphores and traffic things or walking paradoxes. All people getting there gets mad until they become one of the absurdities lying there. Will you be able to escape?
+The Outside In: In this place, everyhing is messed up. You can encouter enemies that are made from semaphores and traffic things or walking paradoxes. All people getting there gets mad until they become one of the absurdities lying there. Who's the boss here? Obviusly it's Stephen Hawking
 -------------
 
 Intersection of Confusion: A chaotic crossroads where semaphores and traffic signs come to life as enemies. Defeat the sentient roadblocks and restore order to the intersection.
@@ -383,9 +343,9 @@ Paradox Plaza: talk with the leader of the walking paradoxes and engage in a con
 Creator's house: There's the creator at his pc. you can kill him but that will cause unexpected stuff.
 
 
-Dwarven Mines:
+Dwarven Mines: In the dwarves realm will be easy to find new equip or update your favorite one.
 ----------------
-In the dwarves realm will be easy to find new equip or update your favorite one.
+
 
 
 Pirate Island:
@@ -395,6 +355,16 @@ Spectral Lighthouse: Solve the riddles of the Mystical Lighthouse and confront i
 
 Pirate Haven: Impress a pirate fighting him, he'll join the party. Market and inn here
 
-Shipwreck Bay: merfolks are looting a sunken ship on the shore, fight them to get the loot (money and a Golden Chest)
+Shipwreck Bay: merfolks are looting a sunken ship on the shore, fight them to get a Treasure Map (item that lets you unlock the boss location)
+
+
+
+
+Mages Academy:
+-------------------
+
+Scroll shop: you can buy scrolls here
+
+Crowded Bathroom: three students are preparing Polijuice Potion, give them the ingredient they need and Harry will join your party
 
 

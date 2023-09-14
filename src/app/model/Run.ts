@@ -15,6 +15,7 @@ export class Run {
     currentLocation?: Location;
     currentFight?: Character[];
     experience: number = 1;
+    showBossfightLocation: boolean = false;
 
     constructor() {
     }

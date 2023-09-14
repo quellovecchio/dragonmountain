@@ -54,13 +54,14 @@ export class AppComponent {
   generateTestRun(): Promise<Run> {
     console.log("generateTestRun() - start");
     return new Promise((resolve, reject) => {
-      this.http.get<Location[]>('./assets/data/db_locations.json').subscribe({
+      this.http.get<{bossfight: Location, locations: Location[]}>('./assets/data/db_locations.json').subscribe({
         next: (data) => {
-          this.startingLocations = data;
+          this.startingLocations = data.locations;
           console.log("generateTestRun() - all locations:");
           console.log(this.startingLocations);
           let newRun = new Run();
-          newRun.stage.locations = this.startingLocations;
+          newRun.stage.locations = data.locations;
+          newRun.stage.bossLocation = data.bossfight;
           // TODO: extract the stage
           // extract the first three random locations from stage
           this.runService.setRun(newRun);

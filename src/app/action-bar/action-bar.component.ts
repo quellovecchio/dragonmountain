@@ -36,6 +36,7 @@ export class ActionBarComponent implements OnInit {
   @Input() run: Run = new Run();
   @Output() onItemSelect = new EventEmitter<any>();
   @Output() refreshLocationsSignal = new EventEmitter<any>();
+  @Output() moveToBossfightSignal = new EventEmitter<any>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
 
@@ -66,7 +67,15 @@ export class ActionBarComponent implements OnInit {
     this.refreshLocationsSignal.emit();
   }
 
+  moveToBossfightLocation() {
+    this.moveToBossfightSignal.emit();
+  }
+
   isExploreEnabled() {
     return (this.run.state == RunState.Exploration && this.run.experience > 0);
+  }
+
+  isMoveToBossfightEnabled() {
+    return (this.run.state == RunState.Exploration && (this.run.experience >= (4 * this.run.level) || !this.run.stage.bossfightLocked));
   }
 }

@@ -91,4 +91,14 @@ export class ViewportComponent implements OnInit {
     this.run.experience ++;
   }
 
+  moveToBossfight() {
+    if(this.run.stage.bossfightLocked) {
+      console.log("first time unlocking bossfight");
+      this.run.stage.bossfightLocked = false;
+      this.run.experience = this.run.experience - 4 * this.run.level;
+    }
+    this.run.showBossfightLocation = !this.run.showBossfightLocation;
+    console.log(this.run.showBossfightLocation);
+  }
+
 }

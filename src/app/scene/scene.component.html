@@ -1,7 +1,12 @@
 <div class="view pixelated-border" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
-    <div class="map" *ngIf="run.state == 'exploration' && ready">
+    <div class="map" *ngIf="run.state == 'exploration' && !run.showBossfightLocation && ready">
         <div class="location" *ngFor="let location of run.stage.currentLocations">
             <app-location-preview [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
+        </div>
+    </div>
+    <div class="map" *ngIf="run.state == 'exploration' && run.showBossfightLocation && ready">
+        <div class="location">
+            <app-location-preview [locationData]="run.stage.bossLocation" (exploreSignal)="moveTo(run.stage.bossLocation)"></app-location-preview>
         </div>
     </div>
     <div class="location-map" *ngIf="run.state == 'location'">
