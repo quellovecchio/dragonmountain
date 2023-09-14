@@ -5,13 +5,14 @@ export class Stage {
     locations: Location[];
     currentLocations: Location[];
     backgroundPath: string;
-    boss: string;                           // TODO to be a Enemy object
+    bossLocation: Location;
+    bossfightLocked: boolean = true;
 
     constructor () {
             this.name = "Damned Citadel";
             this.locations =  [];
             this.currentLocations =  [];
             this.backgroundPath = "/assets/images/stage1-bg.png";
-            this.boss = "";
+            this.bossLocation = new Location();
         }
 }

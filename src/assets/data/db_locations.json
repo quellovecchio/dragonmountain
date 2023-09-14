@@ -1,41 +1,7 @@
-[
-    {
-        "name": "Cursed Church",
+{
+    "bossfight": {
+        "name": "Necromancer's Tomb",
         "backgroundPath": "/assets/images/location4-bg.png",
-        "fight": [
-            {
-                "name": "Lesser Demon",
-                "level": 1,
-                "imagePath": "/assets/images/enemy1.png",
-                "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 1,
-                    "strength": 1,
-                    "constitution": 15,
-                    "dexterity": 6,
-                    "intelligence": 1,
-                    "healthPoints": 15
-                },
-                "spells": []
-            },
-            {
-                "name": "Lesser Demon",
-                "level": 1,
-                "imagePath": "/assets/images/enemy1.png",
-                "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 1,
-                    "strength": 1,
-                    "constitution": 15,
-                    "dexterity": 6,
-                    "intelligence": 1,
-                    "healthPoints": 15
-                },
-                "spells": []
-            }
-        ],
         "loot": [
             {
                 "name": "Holy Water",
@@ -49,270 +15,370 @@
         ],
         "actors": [
             {
-                "name": "Citizen",
+                "name": "Domestic Goblin",
                 "level": 2,
                 "loot": [],
-                "dialogue": "[She can't talk as she is too scared to stop rattling]",
+                "dialogue": "My master is asleep in his tomb... EhhEh. What? You have to slay him to free the city from his sins? It sounds medieval to me, i like it... But i don't know eheh... Eheh  Eh... you know what? I'm sick of these putrid corpses. You can awake The Master spraying Holy Water on his tomb, but i bet you already knew that eheh...",
                 "spells": []
             },
             {
-                "name": "Priest",
-                "imagePath": "/assets/images/actor1.png",
+                "name": "Dark Tomb",
                 "level": 2,
                 "loot": [],
-                "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
-                "spells": []
-            }
-        ]
-    },
-    {
-        "name": "Tavern",
-        "backgroundPath": "/assets/images/location2-bg.png",
-        "actors": [
-            {
-                "name": "Innkeeper",
-                "level": 1,
-                "loot": [],
-                "dialogue": "if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
+                "dialogue": "[The air is sick around here...]",
                 "spells": [],
-                "rest": true
-            },
-            {
-                "name": "Hairy Thomas",
-                "imagePath": "/assets/images/actor2.png",
-                "level": 3,
-                "loot": [],
-                "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
-                "joinsParty": true,
-                "stats": {
-                    "charisma": 2,
-                    "strength": 6,
-                    "constitution": 40,
-                    "dexterity": 2,
-                    "wisdom": 1,
-                    "intelligence": 2,
-                    "healthPoints": 40
-                },
-                "spells": []
-            }
-        ]
-    },
-    {
-        "name": "Unsettling Shop",
-        "backgroundPath": "/assets/images/location3-bg.png",
-        "loot": [],
-        "actors": [
-            {
-                "name": "Unsettling merchant",
-                "level": 3,
-                "loot": [],
-                "shop": [
-                    {
-                        "name": "Little Health Potion",
-                        "description": "Heals 10 hp",
-                        "moneyValue": 200,
-                        "thumbnailPath": "assets/images/item2.png"
-                    },
-                    {
-                        "name": "Holy Water",
-                        "description": "",
-                        "moneyValue": 500,
-                        "thumbnailPath": "assets/images/item3.png"
-                    }
-                ],
-                "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
-            },
-            {
-                "name": "Unsettling statue",
-                "level": 3,
-                "loot": [],
                 "interactions": [
                     {
                         "reactTo": "Holy Water",
-                        "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
+                        "text": "[The water is eroding gold, unveiling a very smellying man, THAT ATTACKS!]",
                         "effect": 2,
                         "effectTarget": [
                             {
-                                "name": "Big Demon",
+                                "name": "Master Necromancer [sinner of the dark city of sin and darkness and misery]",
                                 "level": 1,
                                 "imagePath": "/assets/images/enemy2.png",
                                 "loot": [],
                                 "dialogue": "hello world",
                                 "stats": {
                                     "charisma": 2,
-                                    "strength": 8,
-                                    "constitution": 50,
-                                    "dexterity": 3,
-                                    "intelligence": 1,
-                                    "healthPoints": 50
+                                    "strength": 13,
+                                    "constitution": 110,
+                                    "dexterity": 10,
+                                    "intelligence": 20,
+                                    "healthPoints": 110
                                 },
                                 "spells": []
                             }
                         ],
                         "vanishes": "true"
                     }
-                ],
-                "dialogue": "[the air is sick around here] ..."
-            }
-        ]
-    },
-    {
-        "name": "Open Backyard",
-        "backgroundPath": "/assets/assets/images/location4-bg.png",
-        "fight": [
-            {
-                "name": "Goblin",
-                "level": 1,
-                "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 1,
-                    "strength": 2,
-                    "constitution": 10,
-                    "dexterity": 5,
-                    "intelligence": 2,
-                    "healthPoints": 10
-                }
-            },
-            {
-                "name": "Goblin",
-                "level": 1,
-                "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 1,
-                    "strength": 2,
-                    "constitution": 2,
-                    "dexterity": 5,
-                    "intelligence": 2,
-                    "healthPoints": 10
-                }
-            },
-            {
-                "name": "Goblin",
-                "level": 1,
-                "loot": [],
-                "dialogue": "hello world",
-                "stats": {
-                    "charisma": 1,
-                    "strength": 2,
-                    "constitution": 2,
-                    "dexterity": 5,
-                    "intelligence": 2,
-                    "healthPoints": 10
-                }
-            }
-        ],
-        "loot": [],
-        "actors": [
-            {
-                "name": "Locked Trap Door",
-                "level": 1,
-                "loot": [],
-                "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
-                "spells": [],
-                "interactions": [
-                    {
-                        "reactTo": "Silver Key",
-                        "text": "The trapdoor opened making a terrible noise...",
-                        "effect": 1,
-                        "effectTarget": [
-                            {
-                                "name": "Broadsword",
-                                "description": "Heavy sword",
-                                "moneyValue": 5000,
-                                "thumbnailPath": "assets/images/item1.png"
-                            }
-                        ],
-                        "vanishes": "true"
-                    }
                 ]
+            },
+            {
+                "name": "Headless animated corpse",
+                "level": 2,
+                "loot": [],
+                "dialogue": "[He's running around, lookinf for its head. He moves around his arms trying to reach for it but he can feel nothing. He seems desperate.]",
+                "spells": []
             }
         ]
     },
-    {
-        "name": "TEST LOCATION 1"
-    },
-    {
-        "name": "TEST LOCATION 2"
-    },
-    {
-        "name": "TEST LOCATION 3"
-    },
-    {
-        "name": "TEST LOCATION 4"
-    },
-    {
-        "name": "Thieves Guild Hideout",
-        "loot": [],
-        "fight": [
-            {
-                "name": "Large Rat",
-                "level": 1,
-                "loot": [],
-                "stats": {
-                    "charisma": 1,
-                    "strength": 1,
-                    "constitution": 15,
-                    "dexterity": 6,
-                    "intelligence": 1,
-                    "healthPoints": 15
-                },
-                "spells": []
-            },
-            {
-                "name": "Large Rat",
-                "level": 1,
-                "loot": [],
-                "stats": {
-                    "charisma": 1,
-                    "strength": 2,
-                    "constitution": 10,
-                    "dexterity": 4,
-                    "intelligence": 1,
-                    "healthPoints": 10
-                },
-                "spells": []
-            }
-        ],
-        "actors": [
-            {
-                "name": "Merchant Thief",
-                "level": 3,
-                "loot": [],
-                "shop": [
-                    {
-                        "name": "Silver Key",
-                        "description": "",
-                        "moneyValue": 100,
-                        "thumbnailPath": "assets/images/item1.png"
+    "locations": [
+        {
+            "name": "Cursed Church",
+            "backgroundPath": "/assets/images/location4-bg.png",
+            "fight": [
+                {
+                    "name": "Lesser Demon",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 1,
+                        "constitution": 15,
+                        "dexterity": 6,
+                        "intelligence": 1,
+                        "healthPoints": 15
                     },
-                    {
-                        "name": "Golden Key",
-                        "description": "",
-                        "moneyValue": 500,
-                        "thumbnailPath": "assets/images/item1.png"
-                    }
-                ],
-                "dialogue": "[sounds uninterested] New face, uh?"
-            },
-            {
-                "name": "Jhonny B. Goode",
-                "level": 3,
-                "loot": [],
-                "dialogue": "...",
-                "joinsParty": true,
-                "stats": {
-                    "charisma": 1,
-                    "strength": 2,
-                    "constitution": 27,
-                    "dexterity": 7,
-                    "wisdom": 2,
-                    "intelligence": 7,
-                    "healthPoints": 27
+                    "spells": []
                 },
-                "spells": []
-            }
-        ]
-    }
-]
+                {
+                    "name": "Lesser Demon",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 1,
+                        "constitution": 15,
+                        "dexterity": 6,
+                        "intelligence": 1,
+                        "healthPoints": 15
+                    },
+                    "spells": []
+                }
+            ],
+            "loot": [
+                {
+                    "name": "Holy Water",
+                    "description": "",
+                    "moneyValue": 500,
+                    "thumbnailPath": "assets/images/item3.png"
+                },
+                {
+                    "name": "1000 money"
+                }
+            ],
+            "actors": [
+                {
+                    "name": "Citizen",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": "[She can't talk as she is too scared to stop rattling]",
+                    "spells": []
+                },
+                {
+                    "name": "Priest",
+                    "imagePath": "/assets/images/actor1.png",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
+                    "spells": []
+                }
+            ]
+        },
+        {
+            "name": "Tavern",
+            "backgroundPath": "/assets/images/location2-bg.png",
+            "actors": [
+                {
+                    "name": "Innkeeper",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "if you feel tired from the sins of this lost city, we got some comfortable beds to get you through the night.",
+                    "spells": [],
+                    "rest": true
+                },
+                {
+                    "name": "Hairy Thomas",
+                    "imagePath": "/assets/images/actor2.png",
+                    "level": 3,
+                    "loot": [],
+                    "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
+                    "joinsParty": true,
+                    "stats": {
+                        "charisma": 2,
+                        "strength": 6,
+                        "constitution": 40,
+                        "dexterity": 2,
+                        "wisdom": 1,
+                        "intelligence": 2,
+                        "healthPoints": 40
+                    },
+                    "spells": []
+                }
+            ]
+        },
+        {
+            "name": "Unsettling Shop",
+            "backgroundPath": "/assets/images/location3-bg.png",
+            "loot": [],
+            "actors": [
+                {
+                    "name": "Unsettling merchant",
+                    "level": 3,
+                    "loot": [],
+                    "shop": [
+                        {
+                            "name": "Little Health Potion",
+                            "description": "Heals 10 hp",
+                            "moneyValue": 200,
+                            "thumbnailPath": "assets/images/item2.png"
+                        },
+                        {
+                            "name": "Holy Water",
+                            "description": "",
+                            "moneyValue": 500,
+                            "thumbnailPath": "assets/images/item3.png"
+                        }
+                    ],
+                    "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
+                },
+                {
+                    "name": "Unsettling statue",
+                    "level": 3,
+                    "loot": [],
+                    "interactions": [
+                        {
+                            "reactTo": "Holy Water",
+                            "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
+                            "effect": 2,
+                            "effectTarget": [
+                                {
+                                    "name": "Big Demon",
+                                    "level": 1,
+                                    "imagePath": "/assets/images/enemy2.png",
+                                    "loot": [],
+                                    "dialogue": "hello world",
+                                    "stats": {
+                                        "charisma": 2,
+                                        "strength": 8,
+                                        "constitution": 50,
+                                        "dexterity": 3,
+                                        "intelligence": 1,
+                                        "healthPoints": 50
+                                    },
+                                    "spells": []
+                                }
+                            ],
+                            "vanishes": "true"
+                        }
+                    ],
+                    "dialogue": "[the air is sick around here] ..."
+                }
+            ]
+        },
+        {
+            "name": "Open Backyard",
+            "backgroundPath": "/assets/assets/images/location4-bg.png",
+            "fight": [
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 10,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 10
+                    }
+                },
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 2,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 10
+                    }
+                },
+                {
+                    "name": "Goblin",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 2,
+                        "dexterity": 5,
+                        "intelligence": 2,
+                        "healthPoints": 10
+                    }
+                }
+            ],
+            "loot": [],
+            "actors": [
+                {
+                    "name": "Locked Trap Door",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
+                    "spells": [],
+                    "interactions": [
+                        {
+                            "reactTo": "Silver Key",
+                            "text": "The trapdoor opened making a terrible noise...",
+                            "effect": 1,
+                            "effectTarget": [
+                                {
+                                    "name": "Broadsword",
+                                    "description": "Heavy sword",
+                                    "moneyValue": 5000,
+                                    "thumbnailPath": "assets/images/item1.png"
+                                }
+                            ],
+                            "vanishes": "true"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "TEST LOCATION 1"
+        },
+        {
+            "name": "TEST LOCATION 2"
+        },
+        {
+            "name": "TEST LOCATION 3"
+        },
+        {
+            "name": "TEST LOCATION 4"
+        },
+        {
+            "name": "Thieves Guild Hideout",
+            "loot": [],
+            "fight": [
+                {
+                    "name": "Large Rat",
+                    "level": 1,
+                    "loot": [],
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 1,
+                        "constitution": 15,
+                        "dexterity": 6,
+                        "intelligence": 1,
+                        "healthPoints": 15
+                    },
+                    "spells": []
+                },
+                {
+                    "name": "Large Rat",
+                    "level": 1,
+                    "loot": [],
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 10,
+                        "dexterity": 4,
+                        "intelligence": 1,
+                        "healthPoints": 10
+                    },
+                    "spells": []
+                }
+            ],
+            "actors": [
+                {
+                    "name": "Merchant Thief",
+                    "level": 3,
+                    "loot": [],
+                    "shop": [
+                        {
+                            "name": "Silver Key",
+                            "description": "",
+                            "moneyValue": 100,
+                            "thumbnailPath": "assets/images/item1.png"
+                        },
+                        {
+                            "name": "Golden Key",
+                            "description": "",
+                            "moneyValue": 500,
+                            "thumbnailPath": "assets/images/item1.png"
+                        }
+                    ],
+                    "dialogue": "[sounds uninterested] New face, uh?"
+                },
+                {
+                    "name": "Jhonny B. Goode",
+                    "level": 3,
+                    "loot": [],
+                    "dialogue": "...",
+                    "joinsParty": true,
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 27,
+                        "dexterity": 7,
+                        "wisdom": 2,
+                        "intelligence": 7,
+                        "healthPoints": 27
+                    },
+                    "spells": []
+                }
+            ]
+        }
+    ]
+}
