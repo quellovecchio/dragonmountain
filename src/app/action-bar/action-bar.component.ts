@@ -99,4 +99,9 @@ export class ActionBarComponent implements OnInit {
       { name: "charisma", value: stats.charisma },
     ]
   }
+
+  boostStat(actor: PlayingCharacter, statName: string) {
+    this.run.experience = this.run.experience - 1;
+    (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
+  }
 }
