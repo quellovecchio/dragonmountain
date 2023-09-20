@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { Run } from '../model/Run';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunState } from '../model/RunState';
+import { Actor } from '../model/Actors/Actor';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-action-bar',
@@ -39,6 +41,8 @@ export class ActionBarComponent implements OnInit {
   @Output() moveToBossfightSignal = new EventEmitter<any>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
+  public actorMenuOpened: boolean = false;
+  public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
 
   constructor() { }
 
@@ -54,6 +58,10 @@ export class ActionBarComponent implements OnInit {
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
     setTimeout(() => {this.inventoryDisabled = false;}, 400);
+  }
+
+  toggleActorInfo(actor: PlayingCharacter) {
+    this.actorMenuOpened = !this.actorMenuOpened;
   }
 
   selectItem(item: any) {
