@@ -43,33 +43,15 @@ NEXT STEPS:
 
 - exp: after certain actions (fights, quests) ou gain 1 or more exp points, ou can choose to skill up a part element or to explore to find ohter locations with that
 
-- every class of playingcharacter can use every weapon
+- every class of playingcharacter can use every weapon but every class has classes advantages using a specific type of weapon.
+
 - every class has a damage bonus on two kinds of weapon and a passive skill (ex: rogue -> bonus arc, knives; skill vel + 15%)
 
 - max party size = 3 (including Hero)
 
 - scan skill should let you see the stats of people inside and outside combat
-   
-- reload locations animation:
 
-- steal speel costs little but if used and failed out battle it will summon guards to attack you
-
-.box{
-  animation: animName 2s linear infinite;
-  width:50px;
-  height:50px;
-  background:#0091EA;
-  margin:20px;
-}
-
-@keyframes animName {
- 0%{
-    transform: rotateY(0deg);
-   }
-100%{
-    transform: rotateY(360deg);
-   }
-}
+- steal spell costs little but if used and failed out battle it will summon guards to attack you
 
 - an evil merchant you can kill to loot
 
@@ -88,8 +70,6 @@ NEXT STEPS:
 - spells can be learned using tomes on characters. Every character can learn every spell, but every spell has a minimun wisdom
 	value to use it
 
-- an npc which sells you more money for mone (ex give 500$ he gives 1000$) because they're fake
-
 - hidden actors: the lowest cost spell in the game makes you reveal hidden actors
 	- unique item that shows you hidden actors
 
@@ -99,6 +79,8 @@ NEXT STEPS:
 
 - quest log?
 
+- text input interaction: you can input text. the interactions object describe how many letters are needed and 
+
 - Sacred woods Stage:
 	Sacred woods where elves live since the dawn of time are now menaced from orcs: they are settling in the forest
 	and capuring elves to sell for money 
@@ -107,7 +89,7 @@ NEXT STEPS:
 focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
 optionals like aesthetic items.
 
-FUTURE IDEAS:
+			LAUNCH MILESTONES:
 
 DIY UPDATE: (
 - custom run database available
@@ -119,11 +101,7 @@ DIY UPDATE: (
 CLASSES UPDATE: (
 - damage type (fire, ice ecc ecc) and type weaknesses
 - classes -> implements typ weaknesses
-- Vampire City stage, Florence inspired city with powerful vampires (class, weak to fire and light) leading the Town Hall.
-)
-
-DRAGON TOWER UPDATE: (
-- Dragon Tower Mode: Fight in this endless tower mode
+- Vampire City stage, Florence inspired city with powerful vampires (class, weak to fire and light) leading the Town Hall.	< - reworked into damned citadel
 )
 
 STATES UPDATE: (
@@ -136,20 +114,39 @@ STATES UPDATE: (
 - Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
 )
 
+EQUIP UPDATE: (
+- crafting, upgrade items and craft unique items
+- enchant equip to get special effects
+- The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
+)
+
+MAGIC UPDATE: (
+- skills gets added to the game!
+- make sure they are craftable in db
+- class skill tree and learning levels
+- skills only obtainable thru scrolls
+)
+
+
+			POST LAUNCH CONTENT:
+
+UI UPDATE: (
+- Skills tree show up, remembering informations from past runs. 
+)
+
+DRAGON TOWER UPDATE: (
+- Dragon Tower Mode: Fight in this endless tower mode
+)
+
 AUTOBATTLE UPDATE: (
 - tft like mode
 )
 
 COMMUNITY UPDATE: (
 - chat
+	- rooms: quick hints, masterclass, disq
 - global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
 - showcase mode: save your best runs teams to show it on your profile
-)
-
-EQUIP UPDATE: (
-- crafting, upgrade items and craft unique items
-- enchant equip to get special effects
-- The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
 )
 
 DIY UPDATE 2: (
@@ -276,28 +273,63 @@ SPELLS:
 
 PLOT: 
 
-Damned citadel: A corrupted city  holy water, gold bar, demon horn
+Damned citadel: A corrupted city  holy water, silver bar, demon horn
 ----------------
 
-        Thieves Guild Hideout: Deep within the citadel, you find the secret hideout of the thieves' guild. They offer you a chance to prove your skills. Fight some of them to earn their respect, making one of them join you. There's a shop selling you keys and equip for cheap
+	Common enemies: lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
+
+        Dark Sewers: Deep within the citadel, you find the secret hideout of the thieves' guild. They offer you a chance to prove your skills. Fight some of them to earn their respect, making one of them join you. There's a shop selling you keys and equip for cheap
 
          Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
          Unholy Church: Lesser Demons attack you when entered. Use the holy water given from the local priest to cleanse the statue and confront the demon that emerges. The Demon loots money.
 
-         Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party.
+	Unsettling Shop: There's a merchant selling you survival items for the stage. sells potions and a silver sword.
+
+         Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
          
-         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions
+         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong)
 
-         Opened backyard: three goblin attacks you. After fight theres a cadaver holding a golden key and a golden trap door you can open with that
-
+        Opened backyard: three goblin attacks you. After fight theres a cadaver holding a golden key and a golden trap door you can open with that
+	
 	Granma's house: lets you sleep. If ou talk to granma she will talk a lot and then giv ou food. ou can kill the grann. you will not be able to rest anmore, and the ghost of the grann attacks ou (prett strong enem)
 
 	Sadness boulevard: there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
 
-	Putrid street: there's a couple arguing, she tells him to stop touching her but he doesn't go away. You can use the charm spell to make him go away, or you can kill him. In the first case she gives you a revive item.
+	Putrid street: there's a couple arguing, she tells him to stop touching her but he doesn't go away. You can use the charm spell to make him go away, or you can kill him. If you use charm, he will get what he was doing wrong and runs away scared by himself, dropping a silver knife.
 
-	Necromancer's cave: there's a domestic goblin and a corpse running around looking for its head. if given strange doll's face, blesses you. spray holy water on tomb to fight boss
+	Laundry house: there's a merchant offering you 5000 fake money for 1000 money
+
+	Monster Tamer Farm: Abandoned farm, there's a machine. vanishes after using. You can give 5 demon horn to get an item that gives the 'demon' subclass to the people is given to, 5 holy water for 'ghost' class, 5 silver bars
+
+	City Hall: there's the mayor and two assessors. The mayor tells one of his assistants are acting strange. The strage assistant looks ill, is pallid and scratching itself prett hard. if the assessor is shown a silver bar it will burst out revealing itself as a vampire, attacking you. If the vampire is defeated, the mayor will give you money.
+
+	Cursed Library: In the abandoned library, you discover an ancient tome with dark powers. Reading it curses your party, causing them to slowly lose health. There's a librarian (you can steal something).
+
+	Mad Scientist's Lab: the mad scientist asks you a revive item or a revive spell on his golem built with pieces of his beloved ones, he says this way he will gain a soul. When conditions are met, the golem awakens and attacks you, killing the scientist too
+
+	Abandoned Farm: A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
+	
+	Town Square: A mischievous puppeteer's puppets have gone rogue and are causing chaos in the town square. Kill the puppets, or work with the puppeteer to resolve the situation peacefully. Depending on your choice, the puppeteer may become an ally or adversary.
+
+	Sad Mansion's Ballroom:
+
+Slot 1: Pianist Specter - The ghostly butler expresses sadness over an unfulfilled dance with the mansion's lady. He tells you he can't play the notes because he forgot them, but he remembers there's a hint into the painting because it deascribes the way she felt.
+Slot 2: Sad painting - There's a lady painted crying inside a large cage, with gold bars all around her.
+Slot 3: Grand Piano - You can input 'CAGED' to make the dancing lady appear and give you an item to get the ghost subclass.
+
+	Rotten Arena:
+
+Slot 1: Arena Master - Challenges you to duels for rewards. Starts fight vs 3 gladiator.
+Slot 2: Spectator - GIves health potion
+
+	
+
+
+	BOSS:
+		- Necromancer's cave: there's a domestic goblin and a corpse running around looking for its head. if given strange doll's face gives you 5 exp. spray holy water on tomb to fight boss.
+
+
 
 
 
@@ -312,9 +344,11 @@ Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and
          
          Alchemy Shack: Assist an eccentric mage in creating a potion to cure a rare ailment. Gather ingredients from him and he'll join the party.
 
-	Icy peaks: you get attacked by orcs entering. there's a ranger elf they killed who dies when interacted, giving you a letter for his love Lisa telling you to find her.
+	Icy peaks: you get attacked by orcs entering. there's a ranger elf they attacked, Luca. heal him and he'll join your party, telling you he has to return to his fiancee Lisa.
 
-	Elf camp: shop. Lisa: the elf's from icy peaks girl, when given his letter she joins your party to finish his quest.
+	Monster Tamer House: vanishes after using. You can give a monster's loot to give an element of the party a secondary monster class
+
+	Elf camp: there's a shop, an npc giving you something and Lisa, the best healer of the game. She will join you if Luca is in your party.
 
 
 Lost Oasis:
@@ -329,6 +363,8 @@ Power Palace: To earn the trust of the muscular women tribe, you must kill the B
 Nomad Diplomacy: Mediate a conflict between the muscular women tribe and the nomads. If Charisma is over a certain level they will give you money as a reward. If you kill one of them, the other will be pleased and give you a unique item (different ones)
 
 Temple's Test: Delve into the Desert Temple and decipher its ancient hieroglyphs. if wisdom is greater than a number, rewards you finding a sliding trap door containing a Golden Chest  (openable with a Golden Key) containing a rare equip.
+
+	Monster Tamer House: vanishes after using. You can give a monster's loot to give an element of the party a secondary monster class
 
 
 The Outside In: In this place, everyhing is messed up. You can encouter enemies that are made from semaphores and traffic things or walking paradoxes. All people getting there gets mad until they become one of the absurdities lying there. Who's the boss here? Obviusly it's Stephen Hawking
@@ -366,5 +402,7 @@ Mages Academy:
 Scroll shop: you can buy scrolls here
 
 Crowded Bathroom: three students are preparing Polijuice Potion, give them the ingredient they need and Harry will join your party
+
+The Love Potion: A hopeless romantic NPC seeks your help in creating a love potion to win the heart of their crush. Gather rare ingredients and combine them correctly to brew the potion. If you give ingredients to the NPC, he wil make a potion for you too. Love potion makes a fightable enemy join your team
 
 
