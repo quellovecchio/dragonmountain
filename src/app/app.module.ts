@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +48,10 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
     BrowserAnimationsModule,
     MatCardModule,
     NgxTypedJsModule,
-    NgTiltModule
+    NgTiltModule,
+    MatSliderModule,
+    MatIconModule,
+    FormsModule
   ],
   exports: [
     InfoBoxComponent,

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { InfoBoxComponent } from '../info-box/info-box.component';
 import { Run } from '../model/Run';
 import { SceneComponent } from '../scene/scene.component';
@@ -6,6 +6,7 @@ import { TextAreaComponent } from '../text-area/text-area.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
 import { Item } from '../model/Item';
+import { Settings } from '../model/Settings';
 
 @Component({
   selector: 'app-viewport',
@@ -15,6 +16,7 @@ import { Item } from '../model/Item';
 export class ViewportComponent implements OnInit {
 
   @Input() run: Run = new Run();
+  @Input() settings!: Settings;
 
   @ViewChild(InfoBoxComponent)
   infoBox: InfoBoxComponent;
@@ -29,6 +31,10 @@ export class ViewportComponent implements OnInit {
   textArea: TextAreaComponent;
 
   selectedItem?: Item = undefined;
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
 
   // image following cursor when an item is selected
   @ViewChild('followCursorImg', { static: false }) followCursorImg!: ElementRef;

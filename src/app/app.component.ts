@@ -4,10 +4,12 @@ import { Location } from './model/Location';
 import { ViewportComponent } from './viewport/viewport.component';
 import { RunState } from './model/RunState';
 import { HttpClient } from '@angular/common/http';
+import {MatSliderModule} from '@angular/material/slider';
 
 import packageJson from '../../package.json';
 import { Constants } from 'src/assets/constants';
 import { RunService } from './run.service';
+import { Settings } from './model/Settings';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +22,8 @@ export class AppComponent {
 
   public innerWidth: any;
   public scaledMode = false;
+
+  public settings: Settings = new Settings();
 
   @ViewChild(ViewportComponent)
   viewport: ViewportComponent;

@@ -9,7 +9,7 @@ import { Constants } from 'src/assets/constants';
 })
 export class TextAreaComponent implements OnInit {
 
-  textSpeed: number = Constants.TEXT_SPEED;
+  @Input() textSpeed!: number;
 
   currentText: string[] = [];
   needsCleanup: boolean = false;

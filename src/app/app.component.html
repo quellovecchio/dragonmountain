@@ -1,8 +1,21 @@
 <div class="background" [ngClass]="scaledMode == true? 'scaled' : ''">
   <div class="centered">
-    <app-viewport [run]="run"></app-viewport>
+    <app-viewport [settings]="settings" [run]="run"></app-viewport>
   </div>
   <div class="version" [ngClass]="scaledMode == true? 'scaled' : ''" style="position:absolute; top: 90%; left:90%; color: white; font-size: 50px;">
     {{version}}
   </div>
+  <div class="settings" [ngClass]="scaledMode == true? 'scaled' : ''" style="position:absolute; top: 88%; left:5%; color: white; font-size: 50px;">
+      <button style="background-color: transparent; border: 0px;" [hidden]="!viewport.scene.ready == true" [matMenuTriggerFor]="settingsMenu">
+        <img style="width: 80px; padding: 5px" src="/assets/images/settings-icon.png" />
+      </button>
+  </div>
+  <mat-menu #settingsMenu="matMenu" yPosition="above" xPosition="after">
+    <div style="height: 200px; width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+      TEXT SPEED:
+      <mat-slider style="width: 190px;" min="1" max="10" step="1" [(ngModel)]="settings.textSpeed" (click)="$event.stopPropagation()">
+        <input matSliderThumb>
+      </mat-slider>
+    </div>
+  </mat-menu>
 </div>
