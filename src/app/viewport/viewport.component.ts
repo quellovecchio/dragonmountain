@@ -32,10 +32,6 @@ export class ViewportComponent implements OnInit {
 
   selectedItem?: Item = undefined;
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
-
   // image following cursor when an item is selected
   @ViewChild('followCursorImg', { static: false }) followCursorImg!: ElementRef;
 
