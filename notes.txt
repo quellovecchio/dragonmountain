@@ -323,6 +323,10 @@ Slot 3: Grand Piano - You can input 'CAGED' to make the dancing lady appear and 
 Slot 1: Arena Master - Challenges you to duels for rewards. Starts fight vs 3 gladiator.
 Slot 2: Spectator - GIves health potion
 
+	Sacred hermitage:
+Slot 1: Monarch - Gives lore, tells you can use the forge.
+Slot 2: Sacred Forge - Lets you craft silver weapons (1 weapon type + n silver bar -> silver weapon of the same type)
+
 	
 
 
@@ -333,7 +337,7 @@ Slot 2: Spectator - GIves health potion
 
 
 
-Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and elves fighting them back. sacred apple, mystic soil
+Enchanted Forest: a sacred forest where elves and orcs are in war to reclaim the land. get to know those two races and choose your favourite side at the end. (elves are racist) sacred apple, mystic soil
 ------------------
 
          Lonely Tree: In a mystical garden, a talking tree seeks your help to heal its corrupted roots. Corruption will react to your presence attacking you after the talk, when defeated the tree will reward you leveling a random equipped element.
@@ -349,6 +353,11 @@ Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and
 	Monster Tamer House: vanishes after using. You can give a monster's loot to give an element of the party a secondary monster class
 
 	Elf camp: there's a shop, an npc giving you something and Lisa, the best healer of the game. She will join you if Luca is in your party.
+
+
+	BOSS:
+		- War grounds: the leader of he orcsand the queen of elves are side against side in war.choose your ally and fight the other! create other locations with the leaders.
+
 
 
 Lost Oasis:
