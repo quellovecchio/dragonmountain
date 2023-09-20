@@ -19,15 +19,4 @@ export class Stats {
         this.healthPoints = 20;
         this.magicPoints = 10;
     }
-
-    getStatsToDisplay() {
-        return [
-            { name: "strength", value: this.strength },
-            { name: "dexterity", value: this.dexterity },
-            { name: "constitution", value: this.dexterity },
-            { name: "intelligence", value: this.intelligence },
-            { name: "wisdom", value: this.wisdom },
-            { name: "charisma", value: this.charisma },
-        ]
-    }
 }
