@@ -41,8 +41,8 @@
                                 "dialogue": "hello world",
                                 "stats": {
                                     "charisma": 2,
-                                    "strength": 13,
-                                    "constitution": 110,
+                                    "strength": 5,
+                                    "constitution": 70,
                                     "dexterity": 10,
                                     "intelligence": 20,
                                     "healthPoints": 110
@@ -65,7 +65,7 @@
     },
     "locations": [
         {
-            "name": "Cursed Church",
+            "name": "Unholy Church",
             "backgroundPath": "/assets/images/location4-bg.png",
             "fight": [
                 {
@@ -114,24 +114,49 @@
             ],
             "actors": [
                 {
-                    "name": "Citizen",
-                    "level": 2,
+                    "name": "Unsettling statue",
+                    "level": 3,
                     "loot": [],
-                    "dialogue": "[She can't talk as she is too scared to stop rattling]",
-                    "spells": []
+                    "interactions": [
+                        {
+                            "reactTo": "Holy Water",
+                            "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
+                            "effect": 2,
+                            "effectTarget": [
+                                {
+                                    "name": "Big Demon",
+                                    "level": 1,
+                                    "imagePath": "/assets/images/enemy2.png",
+                                    "loot": [],
+                                    "dialogue": "hello world",
+                                    "stats": {
+                                        "charisma": 2,
+                                        "strength": 8,
+                                        "constitution": 50,
+                                        "dexterity": 3,
+                                        "intelligence": 1,
+                                        "healthPoints": 50
+                                    },
+                                    "spells": []
+                                }
+                            ],
+                            "vanishes": "true"
+                        }
+                    ],
+                    "dialogue": "[the air is sick around here] ..."
                 },
                 {
                     "name": "Priest",
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": "Thanks for slaying those demons. God decided it wasn't my time yet. I'm sure the demons were drawn to that strange merchant statue. I can feel evil forces running through it. ",
+                    "dialogue": "Thanks for slaying those demons. I think it's that statue's fault, it seems possessed...",
                     "spells": []
                 }
             ]
         },
         {
-            "name": "Tavern",
+            "name": "Mercenaries Tavern",
             "backgroundPath": "/assets/images/location2-bg.png",
             "actors": [
                 {
@@ -163,6 +188,20 @@
             ]
         },
         {
+            "name": "Granma's House",
+            "backgroundPath": "/assets/images/location2-bg.png",
+            "actors": [
+                {
+                    "name": "Granny",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": "I bet you are tired, why don't you rest?",
+                    "spells": [],
+                    "rest": true
+                }
+            ]
+        },
+        {
             "name": "Unsettling Shop",
             "backgroundPath": "/assets/images/location3-bg.png",
             "loot": [],
@@ -183,41 +222,15 @@
                             "description": "",
                             "moneyValue": 500,
                             "thumbnailPath": "assets/images/item3.png"
+                        },
+                        {
+                            "name": "Silver Sword",
+                            "description": "",
+                            "moneyValue": 3000,
+                            "thumbnailPath": "assets/images/item3.png"
                         }
                     ],
                     "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
-                },
-                {
-                    "name": "Unsettling statue",
-                    "level": 3,
-                    "loot": [],
-                    "interactions": [
-                        {
-                            "reactTo": "Holy Water",
-                            "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
-                            "effect": 2,
-                            "effectTarget": [
-                                {
-                                    "name": "Big Demon",
-                                    "level": 1,
-                                    "imagePath": "/assets/images/enemy2.png",
-                                    "loot": [],
-                                    "dialogue": "hello world",
-                                    "stats": {
-                                        "charisma": 2,
-                                        "strength": 8,
-                                        "constitution": 50,
-                                        "dexterity": 3,
-                                        "intelligence": 1,
-                                        "healthPoints": 50
-                                    },
-                                    "spells": []
-                                }
-                            ],
-                            "vanishes": "true"
-                        }
-                    ],
-                    "dialogue": "[the air is sick around here] ..."
                 }
             ]
         },
@@ -296,19 +309,7 @@
             ]
         },
         {
-            "name": "TEST LOCATION 1"
-        },
-        {
-            "name": "TEST LOCATION 2"
-        },
-        {
-            "name": "TEST LOCATION 3"
-        },
-        {
-            "name": "TEST LOCATION 4"
-        },
-        {
-            "name": "Thieves Guild Hideout",
+            "name": "Dark Sewers",
             "loot": [],
             "fight": [
                 {
@@ -376,6 +377,116 @@
                         "intelligence": 7,
                         "healthPoints": 27
                     },
+                    "spells": []
+                }
+            ]
+        },
+        {
+            "name": "City Hall",
+            "backgroundPath": "/assets/images/location4-bg.png",
+            "actors": [
+                {
+                    "name": "Assessor n.1",
+                    "level": 3,
+                    "loot": [],
+                    "interactions": [
+                        {
+                            "reactTo": "Holy Water",
+                            "text": "[Assessor n.1]: Oh no... IS THAT... MMMMMAAAAAARGH!!! [The assessor suddenly grows bigger canines and attacks the party!]",
+                            "effect": 2,
+                            "effectTarget": [
+                                {
+                                    "name": "Disguised Vampire",
+                                    "level": 1,
+                                    "imagePath": "/assets/images/enemy2.png",
+                                    "loot": [],
+                                    "dialogue": "hello world",
+                                    "stats": {
+                                        "charisma": 2,
+                                        "strength": 10,
+                                        "constitution": 30,
+                                        "dexterity": 6,
+                                        "intelligence": 10,
+                                        "healthPoints": 30
+                                    },
+                                    "spells": []
+                                }
+                            ],
+                            "vanishes": "true"
+                        }
+                    ],
+                    "dialogue": "[he's pale and he's scratching himself] Get off my way! The Mayor needs me!"
+                },
+                {
+                    "name": "The Mayor",
+                    "imagePath": "/assets/images/actor1.png",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": "This city is truly doomed... The assessor went crazy too...",
+                    "spells": []
+                },
+                {
+                    "name": "Assessor n.2",
+                    "imagePath": "/assets/images/actor1.png",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": "[looking at Assessor n.1] I don't know what he's having, but i don't want that.",
+                    "spells": []
+                }
+            ]
+        },
+        {
+            "name": "Battle Arena",
+            "backgroundPath": "/assets/images/location4-bg.png",
+            "fight": [
+                {
+                    "name": "Gladiator",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 10,
+                        "dexterity": 4,
+                        "intelligence": 1,
+                        "healthPoints": 10
+                    },
+                    "spells": []
+                },
+                {
+                    "name": "Gladiator",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "loot": [],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 2,
+                        "constitution": 10,
+                        "dexterity": 4,
+                        "intelligence": 1,
+                        "healthPoints": 10
+                    },
+                    "spells": []
+                }
+            ],
+            "loot": {
+                "name": "1000 money"
+            },
+            "actors": [
+                {
+                    "name": "Arena Master",
+                    "level": 3,
+                    "dialogue": "Very good fight my brother!! Wait, what?? Who are you?? How did you beat them??"
+                },
+                {
+                    "name": "Fan",
+                    "imagePath": "/assets/images/actor1.png",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": "I should have bet on",
                     "spells": []
                 }
             ]

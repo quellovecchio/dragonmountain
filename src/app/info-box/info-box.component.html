@@ -1,9 +1,9 @@
-<div *ngIf="run && run.party && run.party.length > 0" class="pixelated-border spacing">
+<div *ngIf="run.party && run.party.length > 0" class="pixelated-border spacing">
         <label>TECH DEMO</label>
         <label>level {{run.level}}</label>
         <label>{{run.stage.name}}</label>
         <label>EXP: {{run.experience}}</label>
 </div>
-<div class="pixelated-border spacing" *ngIf="run && run.party.length == 0">
+<div class="pixelated-border spacing" *ngIf="run.party.length <= 0">
         <label class="blink_me" style="font-size: 60px; color: red;">GAME OVER!</label>
 </div>
