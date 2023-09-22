@@ -288,7 +288,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
          Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
          
-         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong)
+         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong). Sells poisoned apples (kills a simple enemy)
 
         Opened backyard: three goblin attacks you. After fight theres a cadaver holding a golden key and a golden trap door you can open with that
 	
@@ -312,6 +312,11 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 	
 	Town Square: A mischievous puppeteer's puppets have gone rogue and are causing chaos in the town square. Kill the puppets, or work with the puppeteer to resolve the situation peacefully. Depending on your choice, the puppeteer may become an ally or adversary.
 
+	Rusty Downtown: 
+
+Slot 1: Child - A child asks you a demon horn to play with. He will give you a knife as a reward, telling you he 
+Slot 2: Spectator - GIves health potion
+
 	Sad Mansion's Ballroom:
 
 Slot 1: Pianist Specter - The ghostly butler expresses sadness over an unfulfilled dance with the mansion's lady. He tells you he can't play the notes because he forgot them, but he remembers there's a hint into the painting because it deascribes the way she felt.
@@ -323,6 +328,16 @@ Slot 3: Grand Piano - You can input 'CAGED' to make the dancing lady appear and 
 Slot 1: Arena Master - Challenges you to duels for rewards. Starts fight vs 3 gladiator.
 Slot 2: Spectator - GIves health potion
 
+	Sacred hermitage:
+Slot 1: Monarch - Gives lore, tells you can use the forge.
+Slot 2: Sacred Forge - Lets you craft silver weapons (1 weapon type + n silver bar -> silver weapon of the same type)
+
+	Disgrace Shop:
+Slot 1: Merchant - Gives +2 stat if you kill the extortionist.
+Slot 2: Mafioso - Killable, he's asking money to the merchant
+
+	
+
 	
 
 
@@ -333,7 +348,7 @@ Slot 2: Spectator - GIves health potion
 
 
 
-Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and elves fighting them back. sacred apple, mystic soil
+Enchanted Forest: a sacred forest where elves and orcs are in war to reclaim the land. get to know those two races and choose your favourite side at the end. (elves are racist) sacred apple, mystic soil
 ------------------
 
          Lonely Tree: In a mystical garden, a talking tree seeks your help to heal its corrupted roots. Corruption will react to your presence attacking you after the talk, when defeated the tree will reward you leveling a random equipped element.
@@ -349,6 +364,11 @@ Enchanted Forest: a sacred forest polluted by poachers orcs looking for loot and
 	Monster Tamer House: vanishes after using. You can give a monster's loot to give an element of the party a secondary monster class
 
 	Elf camp: there's a shop, an npc giving you something and Lisa, the best healer of the game. She will join you if Luca is in your party.
+
+
+	BOSS:
+		- War grounds: the leader of he orcsand the queen of elves are side against side in war.choose your ally and fight the other! create other locations with the leaders.
+
 
 
 Lost Oasis:
