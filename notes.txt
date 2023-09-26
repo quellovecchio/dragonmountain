@@ -314,7 +314,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 	Rusty Downtown: 
 
-Slot 1: Child - A child asks you a demon horn to play with. He will give you a knife as a reward, telling you he 
+Slot 1: Child - A child asks you a demon horn to play with. He will give you 300 gold as a reward, telling he stole them from his mother's purse
 Slot 2: Spectator - GIves health potion
 
 	Sad Mansion's Ballroom:

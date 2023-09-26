@@ -5,6 +5,8 @@ import { RunState } from '../model/RunState';
 import { Actor } from '../model/Actors/Actor';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Stats } from '../model/Stats';
+import { Item } from '../model/items/Item';
+import { Equip } from '../model/items/Equip';
 
 @Component({
   selector: 'app-action-bar',
@@ -103,5 +105,14 @@ export class ActionBarComponent implements OnInit {
   boostStat(actor: PlayingCharacter, statName: string) {
     this.run.experience = this.run.experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
+  }
+
+  isEquip(item: Item) {
+    let e = (item as Equip);
+    return (e.attack || e.defense || e.buffs);
+  }
+
+  getItemAsEquip(item: Item) {
+    return (item as Equip);
   }
 }

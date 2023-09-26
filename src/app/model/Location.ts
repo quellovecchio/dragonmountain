@@ -1,7 +1,7 @@
 import { Actor } from "./Actors/Actor";
 import { Character } from "./Actors/Character";
 import { TestEnemy } from "./Actors/Test/TestEnemy";
-import { Item } from "./Item";
+import { Item } from "./items/Item";
 
 export class Location {
     name: string = "test_location";

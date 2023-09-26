@@ -226,8 +226,11 @@
                         {
                             "name": "Silver Sword",
                             "description": "",
-                            "moneyValue": 3000,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "moneyValue": 1000,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 5,
+                            "defense": 0,
+                            "buffs": []
                         }
                     ],
                     "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"

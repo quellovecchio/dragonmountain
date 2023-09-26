@@ -6,7 +6,7 @@ import { Character } from '../model/Actors/Character';
 import { FightManagerService } from '../fight-manager.service';
 import { Actor } from '../model/Actors/Actor';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
-import { Item } from '../model/Item';
+import { Item } from '../model/items/Item';
 import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';

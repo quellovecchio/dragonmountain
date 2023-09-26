@@ -1,6 +1,6 @@
 
 import { Interaction } from "../Interaction";
-import { Item } from "../Item";
+import { Item } from "../items/Item";
 
 export class Actor {
 

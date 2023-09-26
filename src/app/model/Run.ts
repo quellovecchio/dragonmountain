@@ -1,6 +1,6 @@
 import { Character } from "./Actors/Character";
 import { PlayingCharacter } from "./Actors/PlayingCharacter";
-import { Item } from "./Item";
+import { Item } from "./items/Item";
 import { Location } from "./Location";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";

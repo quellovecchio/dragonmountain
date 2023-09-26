@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 import { Character } from '../model/Actors/Character';
 import { Location } from '../model/Location';
 import { Actor } from '../model/Actors/Actor';
-import { Item } from '../model/Item';
+import { Item } from '../model/items/Item';
 
 @Component({
   selector: 'app-location',

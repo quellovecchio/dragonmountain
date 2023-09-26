@@ -5,7 +5,7 @@ import { SceneComponent } from '../scene/scene.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
-import { Item } from '../model/Item';
+import { Item } from '../model/items/Item';
 import { Settings } from '../model/Settings';
 
 @Component({
