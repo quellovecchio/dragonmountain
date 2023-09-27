@@ -10,6 +10,7 @@ import { Item } from '../model/items/Item';
 import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-scene',
@@ -56,7 +57,7 @@ export class SceneComponent implements OnInit {
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
 
-  constructor(fightManager: FightManagerService, runService: RunService) {
+  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService) {
     this.run = new Run();
     this.fightManager = fightManager;
     this.runService = runService;
@@ -162,7 +163,7 @@ export class SceneComponent implements OnInit {
 
   buy(item: any) {
     // TODO: check money, if not enough error message
-    if (this.run.inventory.money <= item.moneyValue) {
+    if (this.run.inventory.money < item.moneyValue) {
       this.pushTextEvent.emit("[Merchant]: Sorry pal, that's too much money for you!");
     } else {
       this.run.inventory.money = this.run.inventory.money - item.moneyValue;

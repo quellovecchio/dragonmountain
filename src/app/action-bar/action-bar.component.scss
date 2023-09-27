@@ -19,18 +19,18 @@
 }
 
 .inventory-button {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     cursor: pointer;
 }
 
 .refresh-button {
-    background:none;
-    border:none;
-    margin:0;
-    padding:0;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     width: 100px;
     height: 100px;
     transform: scale(0.6);
@@ -74,4 +74,13 @@
 .hp-bar {
     position: relative;
     top: 90px;
+}
+
+.inventory-box {
+    width: 1%;
+    background-color: black;
+    margin: 4px;
+    padding: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
 }

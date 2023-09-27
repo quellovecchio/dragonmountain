@@ -1,5 +1,6 @@
 
 import { Interaction } from "../Interaction";
+import { Equip } from "../items/Equip";
 import { Item } from "../items/Item";
 
 export class Actor {
@@ -16,6 +17,8 @@ export class Actor {
     shop?: Item[] = [];
     // rest: can make you heal
     rest?: boolean = false;
+    // equip: used in fights and, if not fighting, steal
+    equipment: Equip[] = [];
     // an interaction can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
     interactions: Interaction[] = [];
     dialogue: string = '';

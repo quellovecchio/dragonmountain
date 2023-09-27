@@ -35,6 +35,15 @@
                     <div ngTiltParallax [distance]="10">
                         {{ item.moneyValue }}
                     </div>
+                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
+                        atk: {{ itemService.getItemAsEquip(item).attack }}
+                    </div>
+                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
+                        atk: {{ itemService.getItemAsEquip(item).defense }}
+                    </div>
+                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
+                        buf: {{ itemService.getItemAsEquip(item).buffs? 'X' : 'V' }}
+                    </div>
                 </div>
             </div>
         </div>
