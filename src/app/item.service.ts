@@ -11,7 +11,7 @@ export class ItemService {
 
   isEquip(item: Item) {
     let e = (item as Equip);
-    return (e.attack || e.defense || e.buffs);
+    return ((e.attack && e.attack > 0) || (e.defense && e.defense > 0) || (e.buffs && e.buffs.length > 0));
   }
 
   getItemAsEquip(item: Item) {

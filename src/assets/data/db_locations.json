@@ -361,6 +361,15 @@
                             "description": "",
                             "moneyValue": 500,
                             "thumbnailPath": "assets/images/item1.png"
+                        },
+                        {
+                            "name": "Butterfly Knife",
+                            "description": "",
+                            "moneyValue": 300,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 2,
+                            "defense": 0,
+                            "buffs": []
                         }
                     ],
                     "dialogue": "[sounds uninterested] New face, uh?"
