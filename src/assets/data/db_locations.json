@@ -47,6 +47,17 @@
                                     "intelligence": 20,
                                     "healthPoints": 110
                                 },
+                                "equipment": [
+                                    {
+                                        "name": "Poisonous Sword",
+                                        "description": "",
+                                        "moneyValue": 3000,
+                                        "thumbnailPath": "assets/images/item3.png",
+                                        "attack": 1,
+                                        "defense": 0,
+                                        "buffs": []
+                                    }
+                                ],
                                 "spells": []
                             }
                         ],
@@ -174,14 +185,25 @@
                     "loot": [],
                     "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
                     "joinsParty": true,
+                    "equipment": [
+                        {
+                            "name": "Chainmail",
+                            "description": "",
+                            "moneyValue": 1000,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 0,
+                            "defense": 3,
+                            "buffs": []
+                        }
+                    ],
                     "stats": {
                         "charisma": 2,
-                        "strength": 6,
-                        "constitution": 40,
+                        "strength": 3,
+                        "constitution": 25,
                         "dexterity": 2,
                         "wisdom": 1,
                         "intelligence": 2,
-                        "healthPoints": 40
+                        "healthPoints": 25
                     },
                     "spells": []
                 }
@@ -382,14 +404,25 @@
                     "joinsParty": true,
                     "stats": {
                         "charisma": 1,
-                        "strength": 2,
-                        "constitution": 27,
-                        "dexterity": 7,
+                        "strength": 1,
+                        "constitution": 19,
+                        "dexterity": 6,
                         "wisdom": 2,
                         "intelligence": 7,
-                        "healthPoints": 27
+                        "healthPoints": 19
                     },
-                    "spells": []
+                    "spells": [],
+                    "equipment": [
+                        {
+                            "name": "Butterfly Knife",
+                            "description": "",
+                            "moneyValue": 300,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 2,
+                            "defense": 0,
+                            "buffs": []
+                        }
+                    ]
                 }
             ]
         },

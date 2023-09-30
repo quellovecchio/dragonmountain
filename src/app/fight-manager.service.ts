@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Character } from './model/Actors/Character';
 import { PlayingCharacter } from './model/Actors/PlayingCharacter';
+import { ItemService } from './item.service';
+import { Constants } from 'src/assets/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class FightManagerService {
   //did last attack kill the enemy?
   public lastAttackKilled: boolean = false;
 
-  constructor() { }
+  constructor(private itemService: ItemService) { }
 
   startFight(enemies: Character[], party: PlayingCharacter[]) {
     this.fighting = true;
@@ -30,8 +32,8 @@ export class FightManagerService {
   }
 
   resumeFightLoop() {
-    while(this.isEnemyTurn && this.fighting) {
-      while(this.nextTurnBuffer.length == 0) {
+    while (this.isEnemyTurn && this.fighting) {
+      while (this.nextTurnBuffer.length == 0) {
         this.nextTurnBuffer = this.getNextTurnCharacter();
       }
       this.currentCharacter = this.nextTurnBuffer.pop()!;
@@ -60,53 +62,68 @@ export class FightManagerService {
     // extract random player from part to be attacked
     const randomAllyIndex = Math.floor(Math.random() * this.party.length);
     var defendingCharacter = this.party[randomAllyIndex];
-    console.log("the enemy is attacking " + defendingCharacter.name);
     this.processAttack(attackingCharacter, defendingCharacter);
     //this.resumeFighLoop();
   }
 
   processAttack(attackingCharacter: Character, defendingCharacter: Character) {
-    // step 1: calulate damage
-    var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
-    var updatedCharacter = defendingCharacter;
-    var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
-    if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
-      // update character in the party
-      var characterIndex = this.party.findIndex(el => { return el == defendingCharacter });
-      if (updatedHealthPoints > 0) {
-        updatedCharacter.stats.healthPoints = updatedHealthPoints;
-        console.log("updated health points: " + updatedHealthPoints)
-        this.party[characterIndex] = updatedCharacter as PlayingCharacter;
+    if (defendingCharacter) {
+      // step 1: calulate damage
+      console.log(attackingCharacter.name + " is attacking " + defendingCharacter.name);
+      var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
+      var updatedCharacter = defendingCharacter;
+      var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
+      if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
+        // update character in the party
+        var characterIndex = this.party.findIndex(el => { return el == defendingCharacter });
+        if (updatedHealthPoints > 0) {
+          updatedCharacter.stats.healthPoints = updatedHealthPoints;
+          console.log("updated health points: " + updatedHealthPoints)
+          this.party[characterIndex] = updatedCharacter as PlayingCharacter;
+        }
+        else {
+          this.lastAttackKilled = true;
+          delete this.party[characterIndex];
+          this.party = this.party.filter(item => item);
+        }
+      } else {
+        //update character in enemy party
+        var characterIndex = this.enemies.findIndex(el => { return el == defendingCharacter });
+        if (updatedHealthPoints > 0) {
+          updatedCharacter.stats.healthPoints = updatedHealthPoints;
+          this.enemies[characterIndex] = updatedCharacter;
+        }
+        else {
+          this.lastAttackKilled = true;
+          delete this.enemies[characterIndex];
+          this.enemies = this.enemies.filter(item => item);
+          if (this.isBattleOver())
+            this.endFight();
+        }
       }
-      else {
-        this.lastAttackKilled = true;
-        delete this.party[characterIndex];
-        this.party = this.party.filter(item => item);
-      }
-    } else {
-      //update character in enemy party
-      var characterIndex = this.enemies.findIndex(el => { return el == defendingCharacter });
-      if (updatedHealthPoints > 0) {
-        updatedCharacter.stats.healthPoints = updatedHealthPoints;
-        this.enemies[characterIndex] = updatedCharacter;
-      }
-      else {
-        this.lastAttackKilled = true;
-        delete this.enemies[characterIndex];
-        this.enemies = this.enemies.filter(item => item);
-        if (this.isBattleOver())
-          this.endFight();
-      }
+      // go on finding next character in turn
+      //this.currentCharacter = this.getNextTurnCharacter()? this.currentCharacter : this.currentCharacter;
+      return damage;
     }
-    // go on finding next character in turn
-    //this.currentCharacter = this.getNextTurnCharacter()? this.currentCharacter : this.currentCharacter;
-    return damage;
+    // game over
+    this.endFight(); 
+    return 0;
   }
 
   calculateDamage(attackingCharacter: Character, defendingCharacter: Character) {
     // TODO include in damage calculation equipment and handle magic damage
-    console.log("damage: " + attackingCharacter.stats.strength);
-    return attackingCharacter.stats.strength;
+    let baseDamage = attackingCharacter.stats.strength;
+    let attackBuff = this.itemService.calculateAttackBuff(attackingCharacter);
+    let defenseBuff = this.itemService.calculateDefenseBuff(defendingCharacter);
+    let finalDamage = baseDamage + attackBuff - defenseBuff;
+    if (Constants.DAMAGE_LOGGING) {
+      console.log("actor attack: " + attackingCharacter.stats.strength);
+      console.log("attack buff: " + attackBuff);
+      console.log("defense buff: " + defenseBuff);
+      console.log("final damage: " + finalDamage + " - rounded to one? " + ((finalDamage <= 0) ? 'Y' : 'N'));
+    }
+    // rule: 0 or negative damage gets rounded to 1
+    return finalDamage <= 0 ? 1 : finalDamage;
   }
 
   getEnemy(enemyIndex: number) {
@@ -119,17 +136,22 @@ export class FightManagerService {
     for (let i = 0; i < this.turnRotation.length; i++) {
       this.turnRotation[i].speedValue = this.turnRotation[i].speedValue + this.turnRotation[i].character.stats.dexterity;
       if (this.turnRotation[i].speedValue >= 100 && (this.enemies.includes(this.turnRotation[i].character) || this.party.includes(this.turnRotation[i].character as PlayingCharacter))) {
-        console.log("==============================");
-        console.log("character found: " + this.turnRotation[i].character.name);
-        console.log("==============================");
+        if (Constants.TURN_LOGGING) {
+          console.log("==============================");
+          console.log("character found: " + this.turnRotation[i].character.name);
+          console.log("==============================");
+        }
         this.turnRotation[i].speedValue = this.turnRotation[i].speedValue - 100;
         //nextCharacter = this.turnRotation[i].character;
         newBuffer.push(this.turnRotation[i].character);
       }
-      console.log("data after " + i + ": " + JSON.stringify(this.turnRotation.map(el => { return el.character.name + ' - ' + el.speedValue })));
+      if (Constants.TURN_LOGGING)
+        console.log("data after " + i + ": " + JSON.stringify(this.turnRotation.map(el => { return el.character.name + ' - ' + el.speedValue })));
     }
-    console.log("============RESULT============");
-    console.log(JSON.stringify(newBuffer.map(el => { return el.name })));
+    if (Constants.TURN_LOGGING) {
+      console.log("============RESULT============");
+      console.log(JSON.stringify(newBuffer.map(el => { return el.name })));
+    }
     return newBuffer;
   }
 
@@ -139,5 +161,10 @@ export class FightManagerService {
 
   endFight() {
     this.fighting = false;
+    this.enemies = [];
+    this.party = [];
+    this.currentCharacter = new Character();
+    this.turnRotation = [];
+    this.nextTurnBuffer = [];
   }
 }
