@@ -5,6 +5,7 @@ import { RunState } from '../model/RunState';
 import { Actor } from '../model/Actors/Actor';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Stats } from '../model/Stats';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -40,12 +41,13 @@ export class ActionBarComponent implements OnInit {
   @Output() onItemSelect = new EventEmitter<any>();
   @Output() refreshLocationsSignal = new EventEmitter<any>();
   @Output() moveToBossfightSignal = new EventEmitter<any>();
+  @Output() equipItemSignal = new EventEmitter<{equipSlot: number, actor: Actor}>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
 
-  constructor() { }
+  constructor(public itemService: ItemService) { }
 
   ngOnInit(): void {
   }
@@ -79,6 +81,10 @@ export class ActionBarComponent implements OnInit {
 
   moveToBossfightLocation() {
     this.moveToBossfightSignal.emit();
+  }
+
+  equipItem(slot: number) {
+    this.equipItemSignal.emit({equipSlot:slot, actor:this.displayedActorMenu});
   }
 
   isExploreEnabled() {

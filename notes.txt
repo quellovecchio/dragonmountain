@@ -21,11 +21,12 @@ if fanbase gets built, start with multiplayer plan
 
 NEXT STEPS:
 	- close test case. TODO:
-		-	dead state, revive by priest
+		-	dead state, revive by priest and other npc for a lot of money, rare event, spell that costs a lot
 		-	rework inventory as item -> number
-		-	character classes
 		-	flee
+		-	rework textArea to push text from a service, to push text anywhere needed (ex. enemies damage). the service will have the textArea and a textBuffer and will handle textArea changes when buffer is updated. the textarea will handle the library native calls to have better results. Analysis on rewriting library to have different kind of texts.
 		-	DB data rework
+		-	crit chance
 		-	basic spells and magic bars
 			-	give some enemy spells
 			-	steal
@@ -34,8 +35,11 @@ NEXT STEPS:
 			-	warmth
 		-	buffs / debuffs
 		-	replace actor when joins a fourth element of the party, select who goes away
-		-	equips (1 weapon
-		-	buffs
+		-	basic interactions (activate if actor is dead, talk, kill, kill and if actor is alive, spell)
+			-	use interaction consumes item
+		-	give actors items to be stolen
+		-	character classes
+		-	MORE ROOMS
 	
 
 
@@ -314,7 +318,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 	Rusty Downtown: 
 
-Slot 1: Child - A child asks you a demon horn to play with. He will give you a knife as a reward, telling you he 
+Slot 1: Child - A child asks you a demon horn to play with. He will give you 300 gold as a reward, telling he stole them from his mother's purse
 Slot 2: Spectator - GIves health potion
 
 	Sad Mansion's Ballroom:

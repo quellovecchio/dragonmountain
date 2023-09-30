@@ -5,8 +5,10 @@ import { SceneComponent } from '../scene/scene.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
-import { Item } from '../model/Item';
+import { Item } from '../model/items/Item';
 import { Settings } from '../model/Settings';
+import { Actor } from '../model/Actors/Actor';
+import { Equip } from '../model/items/Equip';
 
 @Component({
   selector: 'app-viewport',
@@ -38,7 +40,7 @@ export class ViewportComponent implements OnInit {
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
     if (this.selectedItem) {
-      if(this.followCursorImg) {
+      if (this.followCursorImg) {
         const imgElement = this.followCursorImg.nativeElement;
 
         const containerRect = imgElement.parentElement.getBoundingClientRect();
@@ -85,22 +87,52 @@ export class ViewportComponent implements OnInit {
   }
 
   refreshLocations() {
-    this.run.experience = this.run.experience -1;
+    this.run.experience = this.run.experience - 1;
     this.scene.refreshLocations();
   }
 
   addExp() {
-    this.run.experience ++;
+    this.run.experience++;
   }
 
   moveToBossfight() {
-    if(this.run.stage.bossfightLocked) {
+    if (this.run.stage.bossfightLocked) {
       console.log("first time unlocking bossfight");
       this.run.stage.bossfightLocked = false;
       this.run.experience = this.run.experience - 4 * this.run.level;
     }
     this.run.showBossfightLocation = !this.run.showBossfightLocation;
     console.log(this.run.showBossfightLocation);
+  }
+
+  equipItem(equipData: { equipSlot: number, actor: Actor }) {
+    if (this.selectedItem) {
+      let newEquip = (this.selectedItem as Equip);
+      if (newEquip.attack || newEquip.defense || newEquip.buffs.length > 0) {
+        // update character in the party
+        var characterIndex = this.run.party.findIndex(el => { return el == equipData.actor });
+        if (this.run.party[characterIndex].equipment.length < 3) {
+          this.run.party[characterIndex].equipment.push(newEquip);
+          this.textArea.pushText(newEquip.name + " is equipped by " + equipData.actor.name);
+          this.selectedItem = undefined;
+        } else {
+          let oldEquip = this.run.party[characterIndex].equipment[equipData.equipSlot];
+          this.run.party[characterIndex].equipment[equipData.equipSlot] = newEquip;
+          this.run.inventory.items.push(oldEquip);
+          this.textArea.pushText(newEquip.name + " is equipped by " + equipData.actor.name);
+          this.selectedItem = undefined;
+        }
+      } else {
+        this.textArea.pushText("The selected item is not an equipment");
+        this.selectedItem = undefined;
+      }
+
+    } else {
+      this.textArea.pushText("You have to select an item from inventory to equip it.");
+      this.selectedItem = undefined;
+    }
+
+
   }
 
 }

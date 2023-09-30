@@ -18,4 +18,8 @@ export class InfoBoxComponent {
     this.run = updatedRun;
   }
 
+  gameOver() {
+    return Object.keys(this.run.party).length <= 0;
+  }
+
 }
