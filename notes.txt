@@ -282,7 +282,13 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 	Common enemies: lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
 
-        Dark Sewers: Deep within the citadel, you find the secret hideout of the thieves' guild. They offer you a chance to prove your skills. Fight some of them to earn their respect, making one of them join you. There's a shop selling you keys and equip for cheap
+        Dark Sewers: 
+Rats attack you when entered.
+Slot 1: Stone trap door: Unlocked with Thieves Guild Key, brings you to the Thieves Guild Hall
+		Thieves Guild Hall:
+			Slot 1: Merchant, selling keys and equip
+			Slot 2: Jhonny B. Goode, if killed joins the party
+Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key (acquire through steal or kill).
 
          Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
@@ -304,7 +310,9 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 	Laundry house: there's a merchant offering you 5000 fake money for 1000 money
 
-	Monster Tamer Farm: Abandoned farm, there's a machine. vanishes after using. You can give 5 demon horn to get an item that gives the 'demon' subclass to the people is given to, 5 holy water for 'ghost' class, 5 silver bars
+	Monster Tamer Farm: 
+Slot 1: Monster tamer: he thinks monsters aren't undestood by people, explains that ghosts are incredible musicians. He tells you that you can use his machine.
+Slot 2: machine. vanishes after using. You can give 5 demon horn to get an item that gives the 'demon' subclass to the people is given to, 5 holy water for 'ghost' class, 5 silver bars
 
 	City Hall: there's the mayor and two assessors. The mayor tells one of his assistants are acting strange. The strage assistant looks ill, is pallid and scratching itself prett hard. if the assessor is shown a silver bar it will burst out revealing itself as a vampire, attacking you. If the vampire is defeated, the mayor will give you money.
 
@@ -315,6 +323,15 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 	Abandoned Farm: A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
 	
 	Town Square: A mischievous puppeteer's puppets have gone rogue and are causing chaos in the town square. Kill the puppets, or work with the puppeteer to resolve the situation peacefully. Depending on your choice, the puppeteer may become an ally or adversary.
+
+	The Haunted Merchant's Dilemma:
+
+Slot 1: Merchant: asks help, a poltergeist is haunting the shop ruining his business.
+Slot 2: Floating item: use holy water to make the poltergeist reveal itself and fight.
+
+Big Blacksmith's Forge:
+
+Slot 1: Big Blacksmith: says he can craft you a legendary weapon if you'll find his daughter
 
 	Rusty Downtown: 
 
@@ -339,6 +356,13 @@ Slot 2: Sacred Forge - Lets you craft silver weapons (1 weapon type + n silver b
 	Disgrace Shop:
 Slot 1: Merchant - Gives +2 stat if you kill the extortionist.
 Slot 2: Mafioso - Killable, he's asking money to the merchant
+
+	Hidden Alchemy Laboratory:
+NPCs: Mad Alchemist, Enchanted Golem, Apprentice Alchemist
+Quest: Uncover the secrets of a reclusive alchemist. The Mad Alchemist may attack you but has vital information. The Enchanted Golem guards the laboratory entrance and can be deactivated with a special item. The Apprentice Alchemist will join you if you save them from the lab's dangers.
+
+	The Haunted Theater:
+Slot 1: hunchback - Tells you to hush- music starts, the lights are litten, HERE COME THE PHANTOM OF THE OPERA! HE'S ATTACKING YOU!
 
 	
 
