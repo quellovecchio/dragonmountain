@@ -18,6 +18,11 @@
         <app-fight [fightData]="run.currentFight" [partyData]="run.party" (attackSignal)="attack($event)"
             (fleeSignal)="flee()"></app-fight>
     </div>
+    <div class="intro" *ngIf="run.state == 'intro'">
+        <video controls loop>
+            <source src="../assets/animation.mp4" type="video/mp4">
+        </video>
+    </div>
     <!-- shop -->
     <div [@inOutAnimation] *ngIf="shopOpened" class="shop pixelated-border"
         style="overflow-y: auto; overflow-x: hidden;">
