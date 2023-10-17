@@ -285,7 +285,7 @@
                     "stats": {
                         "charisma": 1,
                         "strength": 2,
-                        "constitution": 2,
+                        "constitution": 10,
                         "dexterity": 5,
                         "intelligence": 2,
                         "healthPoints": 10
@@ -299,7 +299,7 @@
                     "stats": {
                         "charisma": 1,
                         "strength": 2,
-                        "constitution": 2,
+                        "constitution": 10,
                         "dexterity": 5,
                         "intelligence": 2,
                         "healthPoints": 10

@@ -20,5 +20,9 @@
 .follow-cursor-img {
   z-index: 9999;
   position: absolute;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.1s linear;
+}
+
+.disabled {
+  pointer-events: none;
 }

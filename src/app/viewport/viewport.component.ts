@@ -3,12 +3,12 @@ import { InfoBoxComponent } from '../info-box/info-box.component';
 import { Run } from '../model/Run';
 import { SceneComponent } from '../scene/scene.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
-import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
 import { Item } from '../model/items/Item';
 import { Settings } from '../model/Settings';
 import { Actor } from '../model/Actors/Actor';
 import { Equip } from '../model/items/Equip';
+import { ViewportService } from './viewport.service';
 
 @Component({
   selector: 'app-viewport',
@@ -59,7 +59,8 @@ export class ViewportComponent implements OnInit {
   constructor(infoBox: InfoBoxComponent,
     scene: SceneComponent,
     textArea: TextAreaComponent,
-    actionBar: ActionBarComponent) {
+    actionBar: ActionBarComponent,
+    public viewportService: ViewportService) {
     this.infoBox = infoBox;
     this.scene = scene;
     this.textArea = textArea;
@@ -75,7 +76,6 @@ export class ViewportComponent implements OnInit {
 
   sceneIsReady(run: Run) {
     this.scene.ready = true;
-    this.scene.update(run)
   }
 
   selectItem(item: Item) {
@@ -89,6 +89,8 @@ export class ViewportComponent implements OnInit {
   refreshLocations() {
     this.run.experience = this.run.experience - 1;
     this.scene.refreshLocations();
+    this.viewportService.pushText("The party goes in exploration...");
+    this.viewportService.pushText("And they found three new areas!");
   }
 
   addExp() {
@@ -103,6 +105,8 @@ export class ViewportComponent implements OnInit {
     }
     this.run.showBossfightLocation = !this.run.showBossfightLocation;
     console.log(this.run.showBossfightLocation);
+    this.viewportService.pushText("I'm impressed you feel ready for the bossfight, but be careful!");
+    this.viewportService.pushText("The party moved to the boss fight location, " + this.run.stage.bossLocation.name + "!");
   }
 
   equipItem(equipData: { equipSlot: number, actor: Actor }) {

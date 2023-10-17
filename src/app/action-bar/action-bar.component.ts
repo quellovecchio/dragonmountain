@@ -6,6 +6,7 @@ import { Actor } from '../model/Actors/Actor';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Stats } from '../model/Stats';
 import { ItemService } from '../item.service';
+import { ViewportService } from '../viewport/viewport.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -47,7 +48,7 @@ export class ActionBarComponent implements OnInit {
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
 
-  constructor(public itemService: ItemService) { }
+  constructor(public itemService: ItemService, private viewportService: ViewportService) { }
 
   ngOnInit(): void {
   }
@@ -72,6 +73,7 @@ export class ActionBarComponent implements OnInit {
     this.inventoryOpened = !this.inventoryOpened;
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
     console.log(item.name + " selected")
+    this.viewportService.pushText(item.name + " selected");
     this.onItemSelect.emit(item);
   }
 

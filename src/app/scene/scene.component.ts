@@ -11,6 +11,7 @@ import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';
 import { ItemService } from '../item.service';
+import { ViewportService } from '../viewport/viewport.service';
 
 @Component({
   selector: 'app-scene',
@@ -57,7 +58,7 @@ export class SceneComponent implements OnInit {
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
 
-  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService) {
+  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
     this.run = new Run();
     this.fightManager = fightManager;
     this.runService = runService;
@@ -77,7 +78,7 @@ export class SceneComponent implements OnInit {
     this.pushTextEvent.emit("The party has moved to " + location.name + ".");
     if (location.fight && location.fight.length > 0) {
       // start fight
-      this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".");
+      this.pushTextEvent.emit("Enemies are attacking the party!");
       this.startFight(location.fight);
     } else {
       this.explore(location);
