@@ -9,6 +9,7 @@ import { Settings } from '../model/Settings';
 import { Actor } from '../model/Actors/Actor';
 import { Equip } from '../model/items/Equip';
 import { ViewportService } from './viewport.service';
+import { Character } from '../model/Actors/Character';
 
 @Component({
   selector: 'app-viewport',
@@ -135,8 +136,11 @@ export class ViewportComponent implements OnInit {
       this.textArea.pushText("You have to select an item from inventory to equip it.");
       this.selectedItem = undefined;
     }
+  }
 
-
+  interact(interactionData: any) {
+    this.selectedItem = undefined;
+    this.scene.interact({character: interactionData.actor, action: interactionData.action})
   }
 
 }

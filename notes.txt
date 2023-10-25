@@ -292,7 +292,7 @@ Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key
 
          Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
-         Unholy Church: Lesser Demons attack you when entered. Use the holy water given from the local priest to cleanse the statue and confront the demon that emerges. The Demon loots money.
+         Unholy Church: Lesser Demons attack you when entered, loot . Use the holy water given from the local priest to cleanse the statue and confront the demon that emerges. The Demon loots money.
 
 	Unsettling Shop: There's a merchant selling you survival items for the stage. sells potions and a silver sword.
 
