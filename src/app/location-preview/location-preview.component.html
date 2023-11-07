@@ -1,10 +1,13 @@
-<mat-card [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }" style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu"
-ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
+<div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
+
+<mat-card (click)="openMenu()" [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData.backgroundPath + ')' }"
+    style="background-position: center;" class="mat-elevation-z1 space pixelated-border" [matMenuTriggerFor]="menu"
+    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
     <div class="header" ngTiltParallax [distance]="50">
         <h6>{{locationData.name}}</h6>
     </div>
 </mat-card>
 
-<mat-menu #menu="matMenu" xPosition="before" yPosition="above" overlapTrigger="true">
+<mat-menu #menu="matMenu" class="menu pixelated-border">
     <button mat-menu-item (click)="explore()">Explore</button>
 </mat-menu>
