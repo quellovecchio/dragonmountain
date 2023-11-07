@@ -28,41 +28,34 @@ export class LocationPreviewComponent implements OnInit {
 
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
 
-  /*@HostListener('document:click', ['$event'])
+  @HostListener('document:click', ['$event'])
   clickout(event: any) {
     // check if the click is inside the box
     if(this.eRef.nativeElement.contains(event.target)) {
-      //this.contextMenuPosition.x = event.screenX;
-      //this.contextMenuPosition.y = event.screenY;
-      this.exploreMenuTrigger.menu.st .style.left = event.screenX;
-      this.menu.style.top = event.screenY;
-      this.
+      this.contextMenuPosition.x = event.y;
+      this.contextMenuPosition.y = event.x;
+      this.openMenu();
     }
-  }*/
+  }
 
-  //contextMenuPosition = {x: 0, y: 0};
+  contextMenuPosition = {x: 0, y: 0};
 
   @Input() locationData!: Location;
   @Output() exploreSignal = new EventEmitter<string>();
 
-  //xMenuPosition: number = 0;
-  //yMenuPosition: number = 0;
-
   animateLocation: boolean = false;
 
-  constructor(private readonly viewRef: ViewContainerRef) { }
+  constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef) { }
 
   ngOnInit(): void {
   }
 
   openMenu() {
     this.menuTrigger?.menuOpened.pipe(take(1)).subscribe(() => {
-      const menu = document.getElementsByClassName('menu')[0] as HTMLElement;
-      const position: DOMRect = this.viewRef.element.nativeElement.getBoundingClientRect();
-
+      const menu = document.getElementsByClassName('location-menu')[0] as HTMLElement;
       menu.style.position = 'absolute';
-      menu.style.top = `${position.top}px`;
-      menu.style.left = `${position.width}px`;
+      menu.style.top = `${this.contextMenuPosition.x}px`;
+      menu.style.left = `${this.contextMenuPosition.y}px`;
     });
 
     this.menuTrigger?.openMenu();
