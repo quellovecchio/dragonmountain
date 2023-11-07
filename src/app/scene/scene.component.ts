@@ -145,6 +145,7 @@ export class SceneComponent implements OnInit {
       console.log("reacted with sandard interaction");
       switch (data.action.effect.type) {
         case EffectType.heal:
+          this.pushTextEvent.emit(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution)? data.character.stats.constitution : newHpValue;
           break;

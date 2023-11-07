@@ -24,7 +24,6 @@ NEXT STEPS:
 		-	dead state, revive by priest and other npc for a lot of money, rare event, spell that costs a lot
 		-	rework inventory as item -> number
 		-	flee
-		-	rework textArea to push text from a service, to push text anywhere needed (ex. enemies damage). the service will have the textArea and a textBuffer and will handle textArea changes when buffer is updated. the textarea will handle the library native calls to have better results. Analysis on rewriting library to have different kind of texts.
 		-	DB data rework
 		-	crit chance
 		-	basic spells and magic bars

@@ -442,6 +442,7 @@
                         "intelligence": 10,
                         "healthPoints": 25
                     },
+                    "vanishes": true,
                     "spells": [],
                     "shop": [
                         {
@@ -454,7 +455,7 @@
                             "name": "Little Health Potion",
                             "effect": {
                                 "type": 3,
-                                "power": 15
+                                "power": 20
                             },
                             "description": "Heals 15 hp",
                             "moneyValue": 200,
@@ -464,10 +465,10 @@
                             "name": "Big Health Potion",
                             "effect": {
                                 "type": 3,
-                                "power": 30
+                                "power": 50
                             },
                             "description": "Heals 30 hp",
-                            "moneyValue": 300,
+                            "moneyValue": 350,
                             "thumbnailPath": "assets/images/item2.png"
                         }
                     ]

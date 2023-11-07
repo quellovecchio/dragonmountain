@@ -69,7 +69,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   toggleActorInfo(actor: PlayingCharacter) {
-    if(!this.selectItem) {
+    if(!this.selectedItem) {
       this.actorMenuOpened = !this.actorMenuOpened;
       this.displayedActorMenu = actor;
     } else {
