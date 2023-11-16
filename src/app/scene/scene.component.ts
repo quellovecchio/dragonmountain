@@ -11,6 +11,7 @@ import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';
 import { ItemService } from '../item.service';
+import { ViewportService } from '../viewport/viewport.service';
 
 @Component({
   selector: 'app-scene',
@@ -57,7 +58,7 @@ export class SceneComponent implements OnInit {
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
 
-  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService) {
+  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
     this.run = new Run();
     this.fightManager = fightManager;
     this.runService = runService;
@@ -77,7 +78,7 @@ export class SceneComponent implements OnInit {
     this.pushTextEvent.emit("The party has moved to " + location.name + ".");
     if (location.fight && location.fight.length > 0) {
       // start fight
-      this.pushTextEvent.emit("Enemies are attacking the party! " + location.name + ".");
+      this.pushTextEvent.emit("Enemies are attacking the party!");
       this.startFight(location.fight);
     } else {
       this.explore(location);
@@ -142,6 +143,16 @@ export class SceneComponent implements OnInit {
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
       console.log("reacted with sandard interaction");
+      switch (data.action.effect.type) {
+        case EffectType.heal:
+          this.pushTextEvent.emit(`${data.character.name} healed ${data.action.effect.power} HP`);
+          var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
+          data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution)? data.character.stats.constitution : newHpValue;
+          break;
+        default:
+          console.log("no data found for effect")
+          break;
+      }
     }
     // If the object has no effect, send an error message
     else {
@@ -180,7 +191,9 @@ export class SceneComponent implements OnInit {
   attack(enemyIndex: number) {
     let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
-    this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+    // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
+    if(defendingCharacter && defendingCharacter.name)
+      this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
     if (this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
     } else {

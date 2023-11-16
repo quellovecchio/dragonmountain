@@ -1,15 +1,20 @@
 @font-face {
-    font-family: "Enchanted-Land";
-    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype");
+    font-family: "Alagard";
+    src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype");
 }
 
 * {
-    font-family: "Enchanted-Land" !important;
-    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype") !important;
+    font-family: "Alagard" !important;
+    src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype") !important;
     /* Add !important to overwrite all elements */
     user-select: none;
     -webkit-user-select: none; /*Safari*/
     -moz-user-select: none; /*Firefox*/
+}
+
+body { 
+    --mat-focus-indicator-border-width: 0;
+    --mat-mdc-focus-indicator-border-width: 0;
 }
 
 .background {
@@ -17,18 +22,20 @@
     background-color: #cccccc;
 }
 
+.location-menu {
+    background-color: black;
+}
+
 
 .mat-card {
-    backdrop-filter: blur(2px);
-    background-color: #ffffff26;
+    //backdrop-filter: blur(2px);
+    background-color: #ffffff00;
+    filter: drop-shadow(2px 4px 6px black);
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    padding: 0 !important;
     cursor: pointer;
-}
-
-.header {
-    text-align: center;
 }
 
 @mixin vintage($width, $color, $bgcolor ) {
@@ -64,4 +71,9 @@ button {
 button:disabled {
     pointer-events: none;
     filter: grayscale(1);
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item.cdk-keyboard-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]) {
+    background-color: white !important;
+    color: black !important;
 }

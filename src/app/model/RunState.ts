@@ -3,4 +3,5 @@ export enum RunState {
     Exploration = "exploration",
     Fight = "fight",
     Location = "location",
+    Intro = "intro"
 }

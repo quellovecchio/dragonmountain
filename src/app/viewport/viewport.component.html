@@ -1,7 +1,7 @@
-<div class="viewport pixelated-border">
+<div class="viewport pixelated-border" [class.disabled]="!viewportService.isViewportEnabled()">
     <app-info-box [run]="run" style="z-index: 0;"></app-info-box>
     <app-scene [run]="run" [selectedItem]="selectedItem" (questCompletedSignal)="addExp()" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()" style="z-index: 2"></app-scene>
-    <app-action-bar (onItemSelect)="selectItem($event)" (moveToBossfightSignal)="moveToBossfight()" (refreshLocationsSignal)="refreshLocations()" (equipItemSignal)="equipItem($event)" [run]="run" style="z-index: 1;"></app-action-bar>
+    <app-action-bar (interactOnPartyActorSignal)="interact($any($event))" (onItemSelect)="selectItem($event)" (moveToBossfightSignal)="moveToBossfight()" (refreshLocationsSignal)="refreshLocations()" (equipItemSignal)="equipItem($event)" [run]="run" style="z-index: 1;"></app-action-bar>
     <app-text-area [textSpeed]="settings.textSpeed" style="z-index: 0;"></app-text-area>
 </div>
 <div class="item-use-container" *ngIf="selectedItem" style="z-index: 99;">

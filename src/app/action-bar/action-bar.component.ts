@@ -6,6 +6,9 @@ import { Actor } from '../model/Actors/Actor';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Stats } from '../model/Stats';
 import { ItemService } from '../item.service';
+import { ViewportService } from '../viewport/viewport.service';
+import { Item } from '../model/items/Item';
+import { Character } from '../model/Actors/Character';
 
 @Component({
   selector: 'app-action-bar',
@@ -42,12 +45,14 @@ export class ActionBarComponent implements OnInit {
   @Output() refreshLocationsSignal = new EventEmitter<any>();
   @Output() moveToBossfightSignal = new EventEmitter<any>();
   @Output() equipItemSignal = new EventEmitter<{equipSlot: number, actor: Actor}>();
+  @Output() interactOnPartyActorSignal = new EventEmitter<{action: Item, actor: Actor}>();
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
+  public selectedItem?: Item = undefined;
 
-  constructor(public itemService: ItemService) { }
+  constructor(public itemService: ItemService, private viewportService: ViewportService) { }
 
   ngOnInit(): void {
   }
@@ -64,14 +69,21 @@ export class ActionBarComponent implements OnInit {
   }
 
   toggleActorInfo(actor: PlayingCharacter) {
-    this.actorMenuOpened = !this.actorMenuOpened;
-    this.displayedActorMenu = actor;
+    if(!this.selectedItem) {
+      this.actorMenuOpened = !this.actorMenuOpened;
+      this.displayedActorMenu = actor;
+    } else {
+      this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
+      this.selectedItem = undefined;
+    }
   }
 
   selectItem(item: any) {
     this.inventoryOpened = !this.inventoryOpened;
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
     console.log(item.name + " selected")
+    this.viewportService.pushText(item.name + " selected");
+    this.selectedItem = item;
     this.onItemSelect.emit(item);
   }
 

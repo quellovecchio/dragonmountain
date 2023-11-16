@@ -3,6 +3,7 @@ import { Character } from './model/Actors/Character';
 import { PlayingCharacter } from './model/Actors/PlayingCharacter';
 import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
+import { ViewportService } from './viewport/viewport.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class FightManagerService {
   //did last attack kill the enemy?
   public lastAttackKilled: boolean = false;
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private viewportService: ViewportService) { }
 
   startFight(enemies: Character[], party: PlayingCharacter[]) {
     this.fighting = true;
@@ -62,7 +63,9 @@ export class FightManagerService {
     // extract random player from part to be attacked
     const randomAllyIndex = Math.floor(Math.random() * this.party.length);
     var defendingCharacter = this.party[randomAllyIndex];
-    this.processAttack(attackingCharacter, defendingCharacter);
+    let damage = this.processAttack(attackingCharacter, defendingCharacter);
+    this.viewportService.pushText("The enemy is attacking!");
+    this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
     //this.resumeFighLoop();
   }
 
@@ -83,8 +86,7 @@ export class FightManagerService {
         }
         else {
           this.lastAttackKilled = true;
-          delete this.party[characterIndex];
-          this.party = this.party.filter(item => item);
+          this.party[characterIndex].dead = true;
         }
       } else {
         //update character in enemy party

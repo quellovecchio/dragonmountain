@@ -16,6 +16,7 @@
     width: 95px;
     background-size: contain;
     background-position: 25% 75%;
+    margin-left: 0.5rem;
 }
 
 .inventory-button {
@@ -83,4 +84,9 @@
     width: 50px;
     margin-right: 10px;
     margin-left: 10px;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
 }

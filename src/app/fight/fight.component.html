@@ -1,19 +1,25 @@
-<div class="space">
-    <div class="actorsSpace" *ngIf="fightData" style="height: 100%;">
-        <div class="enemy" *ngFor="let actor of fightData; let i = index" [style]="'width: ' + getActorWidth() + '%;'"> 
-            <!-- fightData.length - 3 because 3 is max umber of enemies-->
-            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu"
-                ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
-                <div ngTiltParallax [distance]="50" style="text-shadow: 2px 2px 2px #000000;">{{actor.name}}</div>
-                <app-data-bar ngTiltParallax [distance]="50" [currentValue]="fightManager.getEnemy(i).stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
-                </app-data-bar>
-                <!--<img style="height: 70%;" src="{{actor.imagePath}}">-->
-                <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-                    <button mat-menu-item (click)="attack(i)">attack</button>
-                    <!-- spells -->
-                    <!-- items -->
-                </mat-menu>
-            </mat-card>
+<div>
+    <div *ngIf="fightData" style="height: 100%;">
+        <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;" class="enemies-row">
+            <div class="enemy" *ngFor="let actor of fightData; let i = index" style="width: 33%"> 
+                <!-- fightData.length - 3 because 3 is max umber of enemies-->
+                <mat-card class="mat-elevation-z1 image-bg pixelated-border"  (click)="setSelectedEnemyIndex(i)"
+                    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
+                    <div ngTiltParallax [distance]="20" style="text-shadow: 2px 2px 2px #000000; padding-top: 20px; text-align: center;">{{actor.name}}</div>
+                    <img style="width: 150%; margin-left: -35px;" ngTiltParallax [distance]="20" [src]="actor.imagePath" />
+                    <app-data-bar ngTiltParallax [distance]="20" [currentValue]="fightManager.getEnemy(i).stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
+                    </app-data-bar>
+                </mat-card>
+            </div>
         </div>
     </div>
 </div>
+
+<div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
+<mat-menu #menu="matMenu" class="location-menu pixelated-border">
+    <div *ngIf="selectedEnemyIndex != undefined">
+        <button mat-menu-item (click)="attack(selectedEnemyIndex!)">attack</button>
+        <!-- spells -->
+        <!-- items -->
+    </div>
+</mat-menu>
