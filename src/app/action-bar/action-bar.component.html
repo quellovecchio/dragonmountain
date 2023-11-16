@@ -36,9 +36,6 @@
             style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: white; background-color: #000; z-index: 8;">
             {{displayedActorMenu.name}}</div>
         <img style="width: 200px; height: 200px;" src="{{displayedActorMenu.imagePath}}">
-        <!--<app-data-bar class="hp-bar"
-            [currentValue]="getDisplayedActorMenuHealth()" [maxValue]="displayedActorMenu.stats.constitution" [barType]="1">
-        </app-data-bar>-->
         <div style="display: flex; margin-top: 5px; margin-bottom: 5px;">
             <div class="equip-slot pixelated-border" (click)="equipItem(0)">
                 <img style="margin: 1px;height: 50px; width: 50px;" *ngIf="displayedActorMenu.equipment && displayedActorMenu.equipment[0]" src="{{displayedActorMenu.equipment[0].thumbnailPath}}">
@@ -61,9 +58,9 @@
 <div class="action-bar pixelated-border" style="background-color: black;">
     <div *ngIf="run.party && run.party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
         <div *ngFor="let actor of run.party; let i = index">
-            <div *ngIf="actor" class="party-member space" (click)="toggleActorInfo(actor)" [class.isDisabled]="actor.dead"
+            <div *ngIf="actor" class="party-member pixelated-border space" (click)="toggleActorInfo(actor)" style="background-position-x: center; background-position-y: top; background-size: 200%;"
                 [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
-                <app-data-bar [minimized]="true" class="hp-bar" [ngStyle]="{ 'left': (-55 + (1 * i)) + 'px' }"
+                <app-data-bar [minimized]="true" class="hp-bar"
                     [currentValue]="actor.stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
             </div>

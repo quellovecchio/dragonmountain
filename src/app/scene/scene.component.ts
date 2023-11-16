@@ -191,7 +191,9 @@ export class SceneComponent implements OnInit {
   attack(enemyIndex: number) {
     let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
-    this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+    // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
+    if(defendingCharacter && defendingCharacter.name)
+      this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
     if (this.fightManager.isBattleOver()) {
       this.endFight(defendingCharacter);
     } else {

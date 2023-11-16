@@ -2,13 +2,13 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    width: 200px;
     height: 20px;
     padding: 5px;
     background: #ddd;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    margin: 5px;
     position: relative;
 }
 
@@ -33,5 +33,6 @@
 }
 
 .shrink {
-    transform: scale(0.3);
+    transform: scaleX(0.8);
+    transform: scaleY(0.8);
 }

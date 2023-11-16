@@ -81,7 +81,7 @@ export class FightComponent implements OnInit {
   }
 
   // duped code, TODO implement interface with method
-  getActorWidth(): number {
+  /*getActorWidth(): number {
     if (this.fightData?.length == 3) {
       return 32;
     } else if (this.fightData?.length == 2) {
@@ -89,7 +89,7 @@ export class FightComponent implements OnInit {
     } else {
       return 99;
     }
-  }
+  }*/
 
   setSelectedEnemyIndex(index: number) {
     this.selectedEnemyIndex = index;

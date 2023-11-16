@@ -1,16 +1,19 @@
 <div class="container-space">
-    <div class="actorsSpace" *ngIf="locationData" style="height: 100%;">
-        <div class="actor" *ngFor="let actor of locationData.actors" [style]="'width: ' + getActorWidth() + '%;'"
-            ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
-            <mat-card ngTiltParallax [distance]="50" [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" *ngIf="actor"
-                class="mat-elevation-z1 space image-bg" (click)="setSelectedActor(actor)">
-                <div>{{actor.name}}</div>
-                <!-- <img src="{{character.thumbnailPath}}"> -->
-            </mat-card>
+    <div *ngIf="locationData" style="height: 100%;">
+        <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;" class="actor-row">
+            <div class="actor" *ngFor="let actor of locationData.actors" style="width: 33%">
+                <mat-card *ngIf="actor" 
+                    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300"
+                    class="mat-elevation-z1 pixelated-border space image-bg" (click)="setSelectedActor(actor)">
+                    <div ngTiltParallax [distance]="20" style="text-shadow: 2px 2px 2px #000000; padding-top: 20px; text-align: center;">{{actor.name}}</div>
+                    <img style="width: 150%; margin-left: -35px;" ngTiltParallax [distance]="20" [src]="actor.imagePath" />
+                </mat-card>
+            </div>
         </div>
     </div>
-    <mat-card class="mat-elevation-z1 back-button space" (click)="goBackToScene()">
-        Back to Stage
+    <mat-card class="mat-elevation-z1 back-button space pixelated-border" (click)="goBackToScene()" style="height: 60px"
+        ngTilt [disableAxis]="'y'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.01" [speed]="300">
+        <div ngTiltParallax [distance]="10" style="text-shadow: 2px 2px 2px #000000; padding-top: 20px; text-align: center;">Back to Stage</div>
     </mat-card>
 </div>
 

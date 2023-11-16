@@ -28,16 +28,14 @@ body {
 
 
 .mat-card {
-    backdrop-filter: blur(2px);
-    background-color: #ffffff26;
+    //backdrop-filter: blur(2px);
+    background-color: #ffffff00;
+    filter: drop-shadow(2px 4px 6px black);
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
+    padding: 0 !important;
     cursor: pointer;
-}
-
-.header {
-    text-align: center;
 }
 
 @mixin vintage($width, $color, $bgcolor ) {
