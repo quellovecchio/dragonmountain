@@ -53,6 +53,7 @@ export class LocationPreviewComponent implements OnInit {
   openMenu() {
     this.menuTrigger?.menuOpened.pipe(take(1)).subscribe(() => {
       const menu = document.getElementsByClassName('location-menu')[0] as HTMLElement;
+      menu.focus();
       menu.style.position = 'absolute';
       menu.style.top = `${this.contextMenuPosition.x}px`;
       menu.style.left = `${this.contextMenuPosition.y}px`;

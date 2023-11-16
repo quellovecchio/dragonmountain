@@ -2,18 +2,21 @@
     <div class="actorsSpace" *ngIf="fightData" style="height: 100%;">
         <div class="enemy" *ngFor="let actor of fightData; let i = index" [style]="'width: ' + getActorWidth() + '%;'"> 
             <!-- fightData.length - 3 because 3 is max umber of enemies-->
-            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" class="mat-elevation-z1 space image-bg" [matMenuTriggerFor]="menu"
-                ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
+            <mat-card [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" class="mat-elevation-z1 space image-bg"
+                ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300" (click)="setSelectedEnemyIndex(i)">
                 <div ngTiltParallax [distance]="50" style="text-shadow: 2px 2px 2px #000000;">{{actor.name}}</div>
                 <app-data-bar ngTiltParallax [distance]="50" [currentValue]="fightManager.getEnemy(i).stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
-                <!--<img style="height: 70%;" src="{{actor.imagePath}}">-->
-                <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
-                    <button mat-menu-item (click)="attack(i)">attack</button>
-                    <!-- spells -->
-                    <!-- items -->
-                </mat-menu>
             </mat-card>
         </div>
     </div>
 </div>
+
+<div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
+<mat-menu #menu="matMenu" class="location-menu pixelated-border">
+    <div *ngIf="selectedEnemyIndex != undefined">
+        <button mat-menu-item (click)="attack(selectedEnemyIndex!)">attack</button>
+        <!-- spells -->
+        <!-- items -->
+    </div>
+</mat-menu>
