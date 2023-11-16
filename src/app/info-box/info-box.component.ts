@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Run } from '../model/Run';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-info-box',
@@ -19,7 +20,8 @@ export class InfoBoxComponent {
   }
 
   gameOver() {
-    return Object.keys(this.run.party).length <= 0;
+    // game is over if every member of the party is dead 
+    return this.run.party.every((item: PlayingCharacter) => item.dead);
   }
 
 }

@@ -86,8 +86,7 @@ export class FightManagerService {
         }
         else {
           this.lastAttackKilled = true;
-          delete this.party[characterIndex];
-          this.party = this.party.filter(item => item);
+          this.party[characterIndex].dead = true;
         }
       } else {
         //update character in enemy party

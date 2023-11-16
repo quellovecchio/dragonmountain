@@ -1,11 +1,11 @@
 @font-face {
-    font-family: "Enchanted-Land";
-    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype");
+    font-family: "Alagard";
+    src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype");
 }
 
 * {
-    font-family: "Enchanted-Land" !important;
-    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("truetype") !important;
+    font-family: "Alagard" !important;
+    src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype") !important;
     /* Add !important to overwrite all elements */
     user-select: none;
     -webkit-user-select: none; /*Safari*/
