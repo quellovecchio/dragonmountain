@@ -145,6 +145,11 @@ AUTOBATTLE UPDATE: (
 - tft like mode
 )
 
+POKEMON UPDATE: (
+- monster catcher mode (pokemon)
+)
+
+
 COMMUNITY UPDATE: (
 - chat
 	- rooms: quick hints, masterclass, disq

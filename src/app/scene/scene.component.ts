@@ -87,22 +87,7 @@ export class SceneComponent implements OnInit {
 
   private explore(location: Location) {
     // change background to location background
-
-    if (location.loot && location.loot.length > 0) {
-      // add loot to party inventory
-      location.loot.forEach(el => {
-        if (el.name.includes('money')) {
-          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g, "");
-          this.pushTextEvent.emit("You found " + el.name + "!");
-          this.pushTextEvent.emit("That was placed into the inventory");
-        } else {
-          this.run.inventory.items.push(el);
-          this.pushTextEvent.emit("You found a " + el.name + "!");
-          this.pushTextEvent.emit("The item was placed into the inventory");
-        }
-      });
-      location.loot = [];
-    }
+    this.loot(location);
     if (location.actors && location.actors?.length > 0) {
       this.run.state = RunState.Location;
     }
@@ -210,6 +195,7 @@ export class SceneComponent implements OnInit {
     let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name; });
     if (this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
       var deadActor = this.run.currentLocation?.actors[deadActorIndex] as PlayingCharacter;
+      this.loot(deadActor);
       if (deadActor && deadActor.joinsParty)
         joins = true;
     }
@@ -217,7 +203,6 @@ export class SceneComponent implements OnInit {
       this.run.currentLocation.actors.splice(deadActorIndex, 1);
     }
     this.run.state = RunState.Location;
-    // gets experience 
     var gainedExperience = this.run.experience + (1 * this.run.level);
     this.run.experience = gainedExperience;
     this.pushTextEvent.emit("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
@@ -245,6 +230,24 @@ export class SceneComponent implements OnInit {
 
   flee() {
     // TODO
+  }
+
+  loot(item: Location | Actor) {
+    if (item.loot && item.loot.length > 0) {
+      // add loot to party inventory
+      item.loot.forEach(el => {
+        if (el.name.includes('money')) {
+          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g, "");
+          this.pushTextEvent.emit("You found " + el.name + "!");
+          this.pushTextEvent.emit("That was placed into the inventory");
+        } else {
+          this.run.inventory.items.push(el);
+          this.pushTextEvent.emit("You found a " + el.name + "!");
+          this.pushTextEvent.emit("The item was placed into the inventory");
+        }
+      });
+      item.loot = [];
+    }
   }
 
   // NPC interactions

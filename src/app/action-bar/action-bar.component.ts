@@ -122,4 +122,8 @@ export class ActionBarComponent implements OnInit {
     this.run.experience = this.run.experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
   }
+
+  equipable() {
+    return (this.selectedItem && this.itemService.isEquip(this.selectedItem))
+  }
 }
