@@ -284,7 +284,7 @@ PLOT:
 Damned citadel: A corrupted city  holy water, silver bar, demon horn
 ----------------
 
-	Common enemies: lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
+	Common enemies: thiefling (has steal spell), lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
 
         Dark Sewers: 
 Rats attack you when entered.
@@ -294,21 +294,21 @@ Slot 1: Stone trap door: Unlocked with Thieves Guild Key, brings you to the Thie
 			Slot 2: Jhonny B. Goode, if killed joins the party
 Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key (acquire through steal or kill).
 
-         Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
+        Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
-         Unholy Church: Lesser Demons attack you when entered, loot . Use the holy water given from the local priest to cleanse the statue and confront the demon that emerges. The Demon loots money.
+        Unholy Church: Lesser Demons attack you when entered, loot . Use the holy water given from the local priest to cleanse the statue and confront the demon that emerges. The Demon loots money.
 
 	Unsettling Shop: There's a merchant selling you survival items for the stage. sells potions and a silver sword.
 
-         Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
+        Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
          
-         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong). Sells poisoned apples (kills a simple enemy)
+        Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong). Sells poisoned apples (kills a simple enemy)
 
         Opened backyard: three goblin attacks you. After fight theres a cadaver holding a golden key and a golden trap door you can open with that
 	
 	Granma's house: lets you sleep. If ou talk to granma she will talk a lot and then giv ou food. ou can kill the grann. you will not be able to rest anmore, and the ghost of the grann attacks ou (prett strong enem)
 
-	Sadness boulevard: there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
+	Sadness boulevard: entering ou are attacked b two lesser demons and a thiefling. there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
 
 	Putrid street: there's a couple arguing, she tells him to stop touching her but he doesn't go away. You can use the charm spell to make him go away, or you can kill him. If you use charm, he will get what he was doing wrong and runs away scared by himself, dropping a silver knife.
 
@@ -320,11 +320,11 @@ Slot 2: machine. vanishes after using. You can give 5 demon horn to get an item 
 
 	City Hall: there's the mayor and two assessors. The mayor tells one of his assistants are acting strange. The strage assistant looks ill, is pallid and scratching itself prett hard. if the assessor is shown a silver bar it will burst out revealing itself as a vampire, attacking you. If the vampire is defeated, the mayor will give you money.
 
-	Cursed Library: In the abandoned library, you discover an ancient tome with dark powers. Reading it curses your party, causing them to slowly lose health. There's a librarian (you can steal something).
+	Cursed Library: In the abandoned library, you discover an ancient tome with dark powers. Reading it curses your party, causing them to slowly lose health. if the book is dispelled with dispel, you get a powerful spell tome. There's a librarian (you can steal something).
 
 	Mad Scientist's Lab: the mad scientist asks you a revive item or a revive spell on his golem built with pieces of his beloved ones, he says this way he will gain a soul. When conditions are met, the golem awakens and attacks you, killing the scientist too
 
-	Abandoned Farm: A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
+	Abandoned Farm: you get attaced b a thiefling entering. A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
 	
 	Town Square: A mischievous puppeteer's puppets have gone rogue and are causing chaos in the town square. Kill the puppets, or work with the puppeteer to resolve the situation peacefully. Depending on your choice, the puppeteer may become an ally or adversary.
 
@@ -340,7 +340,6 @@ Slot 1: Big Blacksmith: says he can craft you a legendary weapon if you'll find 
 	Rusty Downtown: 
 
 Slot 1: Child - A child asks you a demon horn to play with. He will give you 300 gold as a reward, telling he stole them from his mother's purse
-Slot 2: Spectator - GIves health potion
 
 	Sad Mansion's Ballroom:
 
@@ -350,7 +349,7 @@ Slot 3: Grand Piano - You can input 'CAGED' to make the dancing lady appear and 
 
 	Rotten Arena:
 
-Slot 1: Arena Master - Challenges you to duels for rewards. Starts fight vs 3 gladiator.
+Slot 1: Arena Master - Challenges you to duels for rewards. Starts fight vs 3 gladiator. Loot 2000 money
 Slot 2: Spectator - GIves health potion
 
 	Sacred hermitage:
