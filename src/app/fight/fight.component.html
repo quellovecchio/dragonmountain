@@ -19,7 +19,12 @@
 <mat-menu #menu="matMenu" class="location-menu pixelated-border">
     <div *ngIf="selectedEnemyIndex != undefined">
         <button mat-menu-item (click)="attack(selectedEnemyIndex!)">attack</button>
-        <!-- spells -->
+        <button mat-menu-item [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
         <!-- items -->
     </div>
+</mat-menu>
+<mat-menu #skills="matMenu" class="location-menu pixelated-border">
+    <ng-template matMenuContent let-skills="skills">
+        <button *ngFor="let skill of skills" mat-menu-item (click)="useSkillOn(skill, selectedEnemyIndex!)">{{skill.name}}</button>
+    </ng-template>
 </mat-menu>

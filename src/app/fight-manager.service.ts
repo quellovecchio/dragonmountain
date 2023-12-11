@@ -4,6 +4,7 @@ import { PlayingCharacter } from './model/Actors/PlayingCharacter';
 import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
 import { ViewportService } from './viewport/viewport.service';
+import { RunService } from './run.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,11 @@ export class FightManagerService {
   //did last attack kill the enemy?
   public lastAttackKilled: boolean = false;
 
-  constructor(private itemService: ItemService, private viewportService: ViewportService) { }
+  constructor(private itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
 
   startFight(enemies: Character[], party: PlayingCharacter[]) {
     this.fighting = true;
+    enemies.forEach(enemy => enemy.class = this.runService.getClassById(enemy.classId));
     this.enemies = enemies;
     this.party = party;
     // Map enemies and party into turnRotation

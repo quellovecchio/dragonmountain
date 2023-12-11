@@ -5,6 +5,7 @@ import { Actor } from '../model/Actors/Actor';
 import { Character } from '../model/Actors/Character';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { Skill } from '../model/Skill';
 
 @Component({
   selector: 'app-fight',
@@ -33,6 +34,7 @@ export class FightComponent implements OnInit {
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
+  @Output() useSkillSignal = new EventEmitter<any>();
 
   selectedEnemyIndex?: number;
 
@@ -76,22 +78,35 @@ export class FightComponent implements OnInit {
     this.attackSignal.emit(enemyIndex);
   }
 
+  useSkillOn(skill: Skill, enemyIndex: number) {
+    /*const attackSignal$ = new Observable<void>((observer) => {
+      this.attackSignal.subscribe(() => {
+        observer.next();
+        observer.complete();
+      });
+    });
+
+    attackSignal$.subscribe(() => {
+      // is the enemy defeated?
+      if (this.fightManager.lastAttackKilled && this.fightData) {
+        delete this.fightData![enemyIndex];
+        this.fightData = this.fightData!.filter(item => item);
+        this.fightManager.lastAttackKilled = false;
+      }
+    });*/
+
+    this.useSkillSignal.emit(enemyIndex);
+  }
+
   getBindedActor(index: number) {
     return this.fightManager.getEnemy(index);
   }
 
-  // duped code, TODO implement interface with method
-  /*getActorWidth(): number {
-    if (this.fightData?.length == 3) {
-      return 32;
-    } else if (this.fightData?.length == 2) {
-      return 49;
-    } else {
-      return 99;
-    }
-  }*/
-
   setSelectedEnemyIndex(index: number) {
     this.selectedEnemyIndex = index;
+  }
+
+  getCurrentPlayerSkills(): {"skills": Skill[]} {
+    return {"skills": this.fightManager.currentCharacter.skills};
   }
 }

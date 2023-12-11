@@ -9,6 +9,7 @@ import { ItemService } from '../item.service';
 import { ViewportService } from '../viewport/viewport.service';
 import { Item } from '../model/items/Item';
 import { Character } from '../model/Actors/Character';
+import { RunService } from '../run.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -52,7 +53,7 @@ export class ActionBarComponent implements OnInit {
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
   public selectedItem?: Item = undefined;
 
-  constructor(public itemService: ItemService, private viewportService: ViewportService) { }
+  constructor(public itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
 
   ngOnInit(): void {
   }
@@ -121,6 +122,14 @@ export class ActionBarComponent implements OnInit {
   boostStat(actor: PlayingCharacter, statName: string) {
     this.run.experience = this.run.experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
+    var newSkillData = actor.class?.skillTree.find((el: { skillId: number; unlockLevel: string; unlockStat: string; }) => {return (el.unlockLevel == (actor.stats as any)[statName] && el.unlockStat == statName)});
+    if(newSkillData) {
+      var newSkill = this.runService.getSkillById(newSkillData.skillId);
+      if (newSkill) {
+        actor.skills.push(newSkill);
+        this.viewportService.pushText("Hold On... " + actor.name + " unlocked a new Skill, " + newSkill.name + "!");
+      }
+    }
   }
 
   equipable() {

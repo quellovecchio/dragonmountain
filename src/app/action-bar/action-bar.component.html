@@ -33,8 +33,11 @@
     style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; text-align-last: justify;">
     <div style="padding: 15px;">
         <div
-            style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: white; background-color: #000; z-index: 8;">
+            style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; z-index: 8;">
             {{displayedActorMenu.name}}</div>
+        <div
+            style="position: -webkit-sticky; position: sticky; top: 0;height:25px; font-size:25px; color: white; background-color: #000; z-index: 8;">
+            {{displayedActorMenu.class?.name}}</div>
         <img style="width: 200px; height: 200px;" src="{{displayedActorMenu.imagePath}}">
         <div style="display: flex; margin-top: 5px; margin-bottom: 5px;">
             <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(0)">

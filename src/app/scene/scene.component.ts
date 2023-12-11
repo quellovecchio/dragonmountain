@@ -12,6 +12,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';
 import { ItemService } from '../item.service';
 import { ViewportService } from '../viewport/viewport.service';
+import { Skill } from '../model/Skill';
 
 @Component({
   selector: 'app-scene',
@@ -127,7 +128,7 @@ export class SceneComponent implements OnInit {
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
-      console.log("reacted with sandard interaction");
+      console.log("reacted with standard interaction");
       switch (data.action.effect.type) {
         case EffectType.heal:
           this.pushTextEvent.emit(`${data.character.name} healed ${data.action.effect.power} HP`);
@@ -185,6 +186,23 @@ export class SceneComponent implements OnInit {
       this.fightManager.isEnemyTurn = true;
       this.fightManager.resumeFightLoop();
     }
+  }
+
+  useSkillOn(skill: Skill, enemyIndex: number) {
+    let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
+
+    TODO OFFENSIVE SPELLS LOGIC
+
+    /*let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter);
+    // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
+    if(defendingCharacter && defendingCharacter.name)
+      this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+    if (this.fightManager.isBattleOver()) {
+      this.endFight(defendingCharacter);
+    } else {
+      this.fightManager.isEnemyTurn = true;
+      this.fightManager.resumeFightLoop();
+    }*/
   }
 
   private endFight(defendingCharacter: Character) {

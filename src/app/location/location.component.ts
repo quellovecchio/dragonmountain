@@ -86,17 +86,6 @@ export class LocationComponent implements OnInit {
     this.selectedItem = undefined;
   }
 
-  // duped code, TODO implement interface with method
-  getActorWidth(): number {
-    if (this.locationData?.actors?.length == 3) {
-      return 33;
-    } else if (this.locationData?.actors?.length == 2) {
-      return 49;
-    } else {
-      return 99;
-    }
-  }
-
   toggleShop(actor: Actor) {
     this.openShopSignal.emit(actor.shop!);
   }

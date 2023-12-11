@@ -2,6 +2,22 @@
     "classes": [
         {
             "id": 0,
+            "name": "Hero",
+            "skillTree": [
+                {
+                    "skillId": 2,
+                    "unlockLevel": 5,
+                    "unlockStat": "wisdom"
+                },
+                {
+                    "skillId": 4,
+                    "unlockLevel": 6,
+                    "unlockStat": "strength"
+                }
+            ]
+        },
+        {
+            "id": 1,
             "name": "Thief",
             "skillTree": [
                 {
@@ -12,34 +28,13 @@
             ]
         },
         {
-            "id": 1,
-            "name": "Warlock",
-            "skillTree": [
-                {
-                    "skillId": 1,
-                    "unlockLevel": 5,
-                    "unlockStat": "wisdom"
-                },
-                {
-                    "skillId": 3,
-                    "unlockLevel": 10,
-                    "unlockStat": "wisdom"
-                }
-            ]
-        },
-        {
             "id": 2,
-            "name": "White Mage",
+            "name": "Berserk",
             "skillTree": [
                 {
                     "skillId": 2,
-                    "unlockLevel": 5,
-                    "unlockStat": "wisdom"
-                },
-                {
-                    "skillId": 3,
-                    "unlockLevel": 10,
-                    "unlockStat": "wisdom"
+                    "unlockLevel": 25,
+                    "unlockStat": "constitution"
                 }
             ]
         }
@@ -68,6 +63,11 @@
             "effect": 6,
             "power": 2,
             "effectTarget": "defense"
+        },
+        {
+            "id": 4,
+            "name": "Taunt",
+            "effect": 12
         }
     ],
     "bossfight": {
@@ -90,14 +90,14 @@
                 "level": 2,
                 "loot": [],
                 "dialogue": "My master is asleep in his tomb... EhhEh. What? You have to slay him to free the city from his sins? It sounds medieval to me, i like it... But i don't know eheh... Eheh  Eh... you know what? I'm sick of these putrid corpses. You can awake The Master spraying Holy Water on his tomb, but i bet you already knew that eheh...",
-                "spells": []
+                "skills": []
             },
             {
                 "name": "Dark Tomb",
                 "level": 2,
                 "loot": [],
                 "dialogue": "[The air is sick around here...]",
-                "spells": [],
+                "skills": [],
                 "interactions": [
                     {
                         "reactTo": "Holy Water",
@@ -129,7 +129,7 @@
                                         "buffs": []
                                     }
                                 ],
-                                "spells": []
+                                "skills": []
                             }
                         ],
                         "vanishes": "true"
@@ -141,7 +141,7 @@
                 "level": 2,
                 "loot": [],
                 "dialogue": "[He's running around, lookinf for its head. He moves around his arms trying to reach for it but he can feel nothing. He seems desperate.]",
-                "spells": []
+                "skills": []
             }
         ]
     },
@@ -164,7 +164,7 @@
                         "intelligence": 1,
                         "healthPoints": 15
                     },
-                    "spells": []
+                    "skills": []
                 },
                 {
                     "name": "Lesser Demon",
@@ -180,7 +180,7 @@
                         "intelligence": 1,
                         "healthPoints": 15
                     },
-                    "spells": []
+                    "skills": []
                 }
             ],
             "loot": [
@@ -219,7 +219,7 @@
                                         "intelligence": 1,
                                         "healthPoints": 40
                                     },
-                                    "spells": []
+                                    "skills": []
                                 }
                             ],
                             "vanishes": "true"
@@ -233,7 +233,7 @@
                     "level": 2,
                     "loot": [],
                     "dialogue": "Thanks for slaying those demons. I think it's that statue's fault, it seems possessed...",
-                    "spells": []
+                    "skills": []
                 }
             ]
         },
@@ -246,11 +246,12 @@
                     "level": 1,
                     "loot": [],
                     "dialogue": "We got some comfortable beds to get you through the night.",
-                    "spells": [],
+                    "skills": [],
                     "rest": true
                 },
                 {
                     "name": "Hairy Thomas",
+                    "classId": 2,
                     "imagePath": "/assets/images/actor2.png",
                     "level": 3,
                     "loot": [],
@@ -276,7 +277,7 @@
                         "intelligence": 2,
                         "healthPoints": 25
                     },
-                    "spells": []
+                    "skills": []
                 }
             ]
         },
@@ -289,7 +290,7 @@
                     "level": 1,
                     "loot": [],
                     "dialogue": "I bet you are tired, why don't you rest?",
-                    "spells": [],
+                    "skills": [],
                     "rest": true
                 }
             ]
@@ -374,6 +375,7 @@
                 },
                 {
                     "name": "Skid Column",
+                    "classId": 1,
                     "level": 3,
                     "loot": [],
                     "dialogue": "What?! I stole nothing from that man!",
@@ -398,7 +400,7 @@
                         "intelligence": 5,
                         "healthPoints": 15
                     },
-                    "spells": []
+                    "skills": []
                 }
             ]
         },
@@ -456,7 +458,7 @@
                     "level": 1,
                     "loot": [],
                     "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
-                    "spells": [],
+                    "skills": [],
                     "interactions": [
                         {
                             "reactTo": "Silver Key",
@@ -521,7 +523,7 @@
                         "healthPoints": 25
                     },
                     "vanishes": true,
-                    "spells": [],
+                    "skills": [],
                     "shop": [
                         {
                             "name": "Poisoned Apple",
@@ -569,7 +571,7 @@
                         "intelligence": 1,
                         "healthPoints": 15
                     },
-                    "spells": []
+                    "skills": []
                 },
                 {
                     "name": "Large Rat",
@@ -583,7 +585,7 @@
                         "intelligence": 1,
                         "healthPoints": 10
                     },
-                    "spells": []
+                    "skills": []
                 }
             ],
             "actors": [
@@ -618,6 +620,7 @@
                 },
                 {
                     "name": "Jhonny B. Goode",
+                    "classId": 1,
                     "level": 3,
                     "loot": [],
                     "dialogue": "...",
@@ -631,7 +634,7 @@
                         "intelligence": 7,
                         "healthPoints": 19
                     },
-                    "spells": [],
+                    "skills": [],
                     "equipment": [
                         {
                             "name": "Butterfly Knife",
@@ -674,7 +677,7 @@
                                         "intelligence": 10,
                                         "healthPoints": 30
                                     },
-                                    "spells": []
+                                    "skills": []
                                 }
                             ],
                             "vanishes": "true"
@@ -688,7 +691,7 @@
                     "level": 2,
                     "loot": [],
                     "dialogue": "This city is truly doomed... The assessor went crazy too...",
-                    "spells": []
+                    "skills": []
                 },
                 {
                     "name": "Assessor n.2",
@@ -696,7 +699,7 @@
                     "level": 2,
                     "loot": [],
                     "dialogue": "[looking at Assessor n.1] I don't know what he's having, but i don't want that.",
-                    "spells": []
+                    "skills": []
                 }
             ]
         },
@@ -718,7 +721,7 @@
                         "intelligence": 1,
                         "healthPoints": 10
                     },
-                    "spells": []
+                    "skills": []
                 },
                 {
                     "name": "Gladiator",
@@ -734,7 +737,7 @@
                         "intelligence": 1,
                         "healthPoints": 10
                     },
-                    "spells": []
+                    "skills": []
                 }
             ],
             "loot": [{
@@ -752,7 +755,7 @@
                     "level": 2,
                     "loot": [],
                     "dialogue": "I should have bet on",
-                    "spells": []
+                    "skills": []
                 }
             ]
         }

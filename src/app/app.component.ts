@@ -10,6 +10,8 @@ import packageJson from '../../package.json';
 import { Constants } from 'src/assets/constants';
 import { RunService } from './run.service';
 import { Settings } from './model/Settings';
+import { Class } from './model/Actors/Class';
+import { Skill } from './model/Skill';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +38,7 @@ export class AppComponent {
 
   constructor(viewport: ViewportComponent, private http: HttpClient, private runService: RunService) {
     this.viewport = viewport;
-    this.generateTestRun().then((newRun) => {
+    this.generateRun().then((newRun) => {
       console.log(newRun);
       this.run = newRun;
       if (!this.loadedSavedData) {
@@ -55,24 +57,25 @@ export class AppComponent {
       this.scaledMode = true;
   }
 
-  generateTestRun(): Promise<Run> {
-    console.log("generateTestRun() - start");
+  generateRun(): Promise<Run> {
+    console.log("generateRun() - start");
     return new Promise((resolve, reject) => {
-      this.http.get<{bossfight: Location, locations: Location[]}>('./assets/data/db_locations.json').subscribe({
+      this.http.get<{classes: Class[], skills: Skill[], bossfight: Location, locations: Location[]}>('./assets/data/db_locations.json').subscribe({
         next: (data) => {
           this.startingLocations = data.locations;
-          console.log("generateTestRun() - all locations:");
+          console.log("generateRun() - all locations:");
           console.log(this.startingLocations);
           let newRun = new Run();
           newRun.stage.locations = data.locations;
           newRun.stage.bossLocation = data.bossfight;
-          // TODO: extract the stage
-          // extract the first three random locations from stage
+          this.runService.setSkills(data.skills);
+          this.runService.setClasses(data.classes);
+          newRun.party[0].class = this.runService.classes[0];
           this.runService.setRun(newRun);
           newRun.stage.currentLocations = this.runService.getRefreshedLocations();
-          console.log("generateTestRun() - extracted locations:");
+          console.log("generateRun() - extracted locations:");
           console.log(newRun.stage.currentLocations);
-          console.log("generateTestRun() - end");
+          console.log("generateRun() - end");
           resolve(newRun);
         },
         error: (error) => {
