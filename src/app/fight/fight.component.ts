@@ -34,7 +34,7 @@ export class FightComponent implements OnInit {
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
-  @Output() useSkillSignal = new EventEmitter<any>();
+  @Output() useSkillSignal = new EventEmitter<{skill: Skill, enemyIndex: number}>();
 
   selectedEnemyIndex?: number;
 
@@ -95,7 +95,7 @@ export class FightComponent implements OnInit {
       }
     });*/
 
-    this.useSkillSignal.emit(enemyIndex);
+    this.useSkillSignal.emit({skill: skill, enemyIndex: enemyIndex});
   }
 
   getBindedActor(index: number) {

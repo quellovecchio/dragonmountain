@@ -5,6 +5,7 @@ import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
 import { ViewportService } from './viewport/viewport.service';
 import { RunService } from './run.service';
+import { Skill } from './model/Skill';
 
 @Injectable({
   providedIn: 'root'
@@ -63,19 +64,20 @@ export class FightManagerService {
 
   generateAiTurn(attackingCharacter: Character) {
     // extract random player from part to be attacked
+    // TODO implement skills on ai turn
     const randomAllyIndex = Math.floor(Math.random() * this.party.length);
     var defendingCharacter = this.party[randomAllyIndex];
-    let damage = this.processAttack(attackingCharacter, defendingCharacter);
+    let damage = this.processAttack(attackingCharacter, defendingCharacter, false);
     this.viewportService.pushText("The enemy is attacking!");
     this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
     //this.resumeFighLoop();
   }
 
-  processAttack(attackingCharacter: Character, defendingCharacter: Character) {
+  processAttack(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
     if (defendingCharacter) {
       // step 1: calulate damage
       console.log(attackingCharacter.name + " is attacking " + defendingCharacter.name);
-      var damage = this.calculateDamage(attackingCharacter, defendingCharacter);
+      var damage = this.calculateDamage(attackingCharacter, defendingCharacter, magical);
       var updatedCharacter = defendingCharacter;
       var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
       if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
@@ -114,12 +116,20 @@ export class FightManagerService {
     return 0;
   }
 
-  calculateDamage(attackingCharacter: Character, defendingCharacter: Character) {
-    // TODO include in damage calculation equipment and handle magic damage
-    let baseDamage = attackingCharacter.stats.strength;
-    let attackBuff = this.itemService.calculateAttackBuff(attackingCharacter);
-    let defenseBuff = this.itemService.calculateDefenseBuff(defendingCharacter);
-    let finalDamage = baseDamage + attackBuff - defenseBuff;
+  calculateDamage(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
+    var baseDamage: number = 0;
+    var attackBuff: number = 0;
+    var defenseBuff: number = 0;
+    var finalDamage: number = 0;
+    if(magical) {
+      baseDamage = attackingCharacter.stats.wisdom;
+      finalDamage = baseDamage + attackBuff - defenseBuff;
+    } else {
+      baseDamage = attackingCharacter.stats.strength;
+      attackBuff = this.itemService.calculateAttackBuff(attackingCharacter);
+      defenseBuff = this.itemService.calculateDefenseBuff(defendingCharacter);
+      finalDamage = baseDamage + attackBuff - defenseBuff;
+    }
     if (Constants.DAMAGE_LOGGING) {
       console.log("actor attack: " + attackingCharacter.stats.strength);
       console.log("attack buff: " + attackBuff);
@@ -128,6 +138,10 @@ export class FightManagerService {
     }
     // rule: 0 or negative damage gets rounded to 1
     return finalDamage <= 0 ? 1 : finalDamage;
+  }
+
+  deductSkillPoints(skill: Skill) {
+    this.currentCharacter.stats.skillPoints = this.currentCharacter.stats.skillPoints - skill.cost;
   }
 
   getEnemy(enemyIndex: number) {
