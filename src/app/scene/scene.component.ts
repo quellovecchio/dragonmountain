@@ -59,6 +59,10 @@ export class SceneComponent implements OnInit {
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
 
+  joinsParty: boolean = false;
+  joiningCharacters: PlayingCharacter[] = [];
+  toDeleteIndexes: number[] = [];
+
   constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
     this.run = new Run();
     this.fightManager = fightManager;
@@ -168,8 +172,20 @@ export class SceneComponent implements OnInit {
       this.run.inventory.items.push(item);
     }
   }
+  
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
+    this.run.currentFight = fight;
+    fight.forEach(actor => {
+      if((actor as Character).joinsParty) {
+        this.joinsParty = true;
+        this.joiningCharacters.push(actor as PlayingCharacter);
+      }
+      this.run.currentLocation!.actors!.forEach((roomActor, i) => {
+        if(roomActor.name === actor.name)
+          this.toDeleteIndexes.push(i);
+      });
+    });
     this.fightManager.startFight(fight, this.run.party);
     this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?");
   }
@@ -180,7 +196,7 @@ export class SceneComponent implements OnInit {
     // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
     if(defendingCharacter && defendingCharacter.name)
       this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
-    this.goOnWithFight(defendingCharacter);
+    this.goOnWithFight();
   }
 
   useSkillOn(data: {skill: Skill, enemyIndex: number}) {
@@ -204,6 +220,7 @@ export class SceneComponent implements OnInit {
       if(successPerc <= 100) {
         successPerc = successPerc + this.getRandomNumber(0, 20);
         if(successPerc <= 100) {
+          successPerc = successPerc + 15;
           let seed = this.getRandomNumber(0, 100);
           if(successPerc >= seed)
             stealSuccess = true;
@@ -222,47 +239,43 @@ export class SceneComponent implements OnInit {
 
     // TODO implement aoe damage, 
 
-    this.goOnWithFight(defendingCharacter);
+    this.goOnWithFight();
   }
 
-  private goOnWithFight(defendingCharacter: Character) {
+  private goOnWithFight() {
     if (this.fightManager.isBattleOver()) {
-      this.endFight(defendingCharacter);
+      this.endFight();
     } else {
       this.fightManager.isEnemyTurn = true;
       this.fightManager.resumeFightLoop();
     }
   }
 
-  private endFight(defendingCharacter: Character) {
-    var joins = false;
+  private endFight() {
+    this.run.currentFight!.forEach(actor => { 
+      this.loot(actor); 
+    });
+    this.toDeleteIndexes.forEach(index => {
+      this.run.currentLocation!.actors!.splice(index ,1);
+    })
     this.fightManager.endFight();
-    if (this.run.currentLocation)
-      this.run.currentLocation.fight = [];
-    let deadActorIndex = this.run.currentLocation?.actors?.findIndex(c => { return c.name === defendingCharacter.name; });
-    if (this.run.currentLocation && this.run.currentLocation?.actors && deadActorIndex) {
-      var deadActor = this.run.currentLocation?.actors[deadActorIndex] as PlayingCharacter;
-      this.loot(deadActor);
-      if (deadActor && deadActor.joinsParty)
-        joins = true;
-    }
-    if (this.run.currentLocation && this.run.currentLocation.actors && deadActorIndex && deadActorIndex > -1) {
-      this.run.currentLocation.actors.splice(deadActorIndex, 1);
-    }
     this.run.state = RunState.Location;
     var gainedExperience = this.run.experience + (1 * this.run.level);
     this.run.experience = gainedExperience;
     this.pushTextEvent.emit("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
-    if (joins) {
-      deadActor!.stats.healthPoints = deadActor!.stats.constitution;
-      this.run.party.push(deadActor!);
-      this.pushTextEvent.emit(deadActor!.name + " decided to join your party!");
-      if (this.run.currentLocation)
-        this.explore(this.run.currentLocation);
-    } else {
-      if (this.run.currentLocation)
-        this.explore(this.run.currentLocation);
+    if (this.joinsParty) {
+      this.joiningCharacters.forEach(actor => {
+        actor.stats.healthPoints = actor.stats.constitution;
+        this.run.party.push(actor);
+        this.pushTextEvent.emit(actor.name + " decided to join your party!");
+        if (this.run.currentLocation)
+          this.explore(this.run.currentLocation);
+      });
+      this.joiningCharacters = [];
+      this.joinsParty = false;
     }
+    if (this.run.currentLocation)
+      this.explore(this.run.currentLocation);
   }
 
   rest() {

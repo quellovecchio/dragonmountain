@@ -159,7 +159,14 @@
                     "name": "Lesser Demon",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [],
+                    "loot": [
+                        {
+                            "name": "Little Horn",
+                            "description": "",
+                            "moneyValue": 150,
+                            "thumbnailPath": "assets/images/item3.png"
+                        }
+                    ],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -175,7 +182,14 @@
                     "name": "Lesser Demon",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [],
+                    "loot": [
+                        {
+                            "name": "Little Horn",
+                            "description": "",
+                            "moneyValue": 150,
+                            "thumbnailPath": "assets/images/item3.png"
+                        }
+                    ],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -716,7 +730,9 @@
                     "name": "Gladiator",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [],
+                    "loot": [{
+                        "name": "1000 money"
+                    }],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -732,7 +748,9 @@
                     "name": "Gladiator",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [],
+                    "loot": [{
+                        "name": "1000 money"
+                    }],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -745,9 +763,6 @@
                     "skills": []
                 }
             ],
-            "loot": [{
-                "name": "1000 money"
-            }],
             "actors": [
                 {
                     "name": "Arena Master",
