@@ -211,6 +211,13 @@ export class SceneComponent implements OnInit {
       // TODO
     }
 
+    if(data.skill.effect == EffectType.magicDamage) {
+      let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
+      let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
+      if(defendingCharacter && defendingCharacter.name)
+        this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+    }
+
     if(data.skill.effect == EffectType.steal) {
       // steal calculates a percentage of probability given the intelligence and charisma of the character
       let charisma = this.fightManager.currentCharacter.stats.charisma;

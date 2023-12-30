@@ -5,8 +5,8 @@
             "name": "Hero",
             "skillTree": [
                 {
-                    "skillId": 2,
-                    "unlockLevel": 5,
+                    "skillId": 1,
+                    "unlockLevel": 6,
                     "unlockStat": "wisdom"
                 },
                 {
