@@ -79,22 +79,21 @@ export class FightComponent implements OnInit {
   }
 
   useSkillOn(skill: Skill, enemyIndex: number) {
-    /*const attackSignal$ = new Observable<void>((observer) => {
-      this.attackSignal.subscribe(() => {
+    const useSkillSignal$ = new Observable<void>((observer) => {
+      this.useSkillSignal.subscribe(() => {
         observer.next();
         observer.complete();
       });
     });
 
-    attackSignal$.subscribe(() => {
+    useSkillSignal$.subscribe(() => {
       // is the enemy defeated?
       if (this.fightManager.lastAttackKilled && this.fightData) {
         delete this.fightData![enemyIndex];
         this.fightData = this.fightData!.filter(item => item);
         this.fightManager.lastAttackKilled = false;
       }
-    });*/
-
+    });
     this.useSkillSignal.emit({skill: skill, enemyIndex: enemyIndex});
   }
 
