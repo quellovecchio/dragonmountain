@@ -13,9 +13,11 @@
 }
 
 .bar {
+    background: #c54;
     width: 100%;
     height: 10px;
     position: relative;
+
     transition: width .5s linear;
 }
 
@@ -33,12 +35,4 @@
 .shrink {
     transform: scaleX(0.8);
     transform: scaleY(0.8);
-}
-
-.health {
-    background: #c54;
-}
-
-.skill {
-    background: rgb(49, 49, 130);
 }
