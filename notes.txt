@@ -62,6 +62,19 @@ NEXT STEPS:
 
 - time attack mode?
 
+- starting characters:
+	-	The Traveller: 
+			hero class: +20% damage if health is low
+			he has a spark spell unlocked at start. learns magic spells, both offensive and defensive. Is equipped with
+			a short knife.
+	-	Mr Ecko:
+			conman class: money found +20%
+			high charisma and spells that help you avoid battles and win more easily. he uses an aoe weapon, a boomerang
+	-	Katie
+			apprentice class: skill point used -10%
+			she's 6 yo and has a passion for magic
+			she got a New Rod.
+
 - not enough locations - game over condition? insert left refreshes counter to avoid that?
 
 - crafting: some locations will let you craft items for others. on every stage there will be some recurrent items (ex: damned city
