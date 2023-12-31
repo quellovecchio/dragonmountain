@@ -140,8 +140,13 @@ export class FightManagerService {
     return finalDamage <= 0 ? 1 : finalDamage;
   }
 
-  deductSkillPoints(skill: Skill) {
-    this.currentCharacter.stats.skillPoints = this.currentCharacter.stats.skillPoints - skill.cost;
+  deductSkillPoints(skill: Skill): boolean {
+    // returns false if spell can't be launched
+    if(this.currentCharacter.stats.skillPoints - skill.cost >= 0) {
+      this.currentCharacter.stats.skillPoints = this.currentCharacter.stats.skillPoints - skill.cost;
+      return true;
+    } else 
+    return false;
   }
 
   getEnemy(enemyIndex: number) {

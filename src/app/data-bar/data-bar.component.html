@@ -1,4 +1,4 @@
-<div class="pixelated-border data-bar" [ngClass]="minimized == true? 'shrink' : ''">
+<div class="pixelated-border data-bar" [ngClass]="{'shrink' : minimized == true, 'health' : barType == 1, 'skill' : barType != 1}">
     <div class="bar" [style.width.%]="barWidth"></div>
     <div class="hit" [style.width.%]="hitWidth"></div>
 </div>

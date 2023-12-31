@@ -200,53 +200,56 @@ export class SceneComponent implements OnInit {
   }
 
   useSkillOn(data: {skill: Skill, enemyIndex: number}) {
-    this.fightManager.deductSkillPoints(data.skill);
-    let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-    if(data.skill.effect == EffectType.magicDamage) {
-      let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-      this.pushTextEvent.emit(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
-    }
-
-    if(data.skill.effect == EffectType.heal) {
-      // TODO
-    }
-
-    if(data.skill.effect == EffectType.magicDamage) {
+    if(this.fightManager.deductSkillPoints(data.skill)) {
       let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-      let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-      if(defendingCharacter && defendingCharacter.name)
-        this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
-    }
-
-    if(data.skill.effect == EffectType.steal) {
-      // steal calculates a percentage of probability given the intelligence and charisma of the character
-      let charisma = this.fightManager.currentCharacter.stats.charisma;
-      let intelligence = this.fightManager.currentCharacter.stats.intelligence;
-      let successPerc = charisma + intelligence;
-      let stealSuccess = false;
-      if(successPerc <= 100) {
-        successPerc = successPerc + this.getRandomNumber(0, 20);
-        if(successPerc <= 100) {
-          successPerc = successPerc + 15;
-          let seed = this.getRandomNumber(0, 100);
-          if(successPerc >= seed)
-            stealSuccess = true;
-        }
+      if(data.skill.effect == EffectType.magicDamage) {
+        let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
+        this.pushTextEvent.emit(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
       }
 
-      if(stealSuccess) {
-        let enemy = this.fightManager.enemies[data.enemyIndex];
-        let enemyInventory = [ ...enemy.loot, ...enemy.equipment ];
-        let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
-        this.run.inventory.items.push(stolenItem);
-        this.pushTextEvent.emit("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
-      } else
-        this.pushTextEvent.emit("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
+      if(data.skill.effect == EffectType.heal) {
+        // TODO
+      }
+
+      if(data.skill.effect == EffectType.magicDamage) {
+        let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
+        let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
+        if(defendingCharacter && defendingCharacter.name)
+          this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+      }
+
+      if(data.skill.effect == EffectType.steal) {
+        // steal calculates a percentage of probability given the intelligence and charisma of the character
+        let charisma = this.fightManager.currentCharacter.stats.charisma;
+        let intelligence = this.fightManager.currentCharacter.stats.intelligence;
+        let successPerc = charisma + intelligence;
+        let stealSuccess = false;
+        if(successPerc <= 100) {
+          successPerc = successPerc + this.getRandomNumber(0, 20);
+          if(successPerc <= 100) {
+            successPerc = successPerc + 15;
+            let seed = this.getRandomNumber(0, 100);
+            if(successPerc >= seed)
+              stealSuccess = true;
+          }
+        }
+
+        if(stealSuccess) {
+          let enemy = this.fightManager.enemies[data.enemyIndex];
+          let enemyInventory = [ ...enemy.loot, ...enemy.equipment ];
+          let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
+          this.run.inventory.items.push(stolenItem);
+          this.pushTextEvent.emit("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
+        } else
+          this.pushTextEvent.emit("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
+      }
+
+      // TODO implement aoe damage, 
+
+      this.goOnWithFight();
+    } else {
+      this.pushTextEvent.emit("That man is too tired to use that skill...");
     }
-
-    // TODO implement aoe damage, 
-
-    this.goOnWithFight();
   }
 
   private goOnWithFight() {
