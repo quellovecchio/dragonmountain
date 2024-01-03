@@ -23,6 +23,18 @@ export class ViewportService {
     this.textBuffer.push(text);
   }
 
+  talkToNpcPushText(actorName: string, text: string | string[]): void {
+    if(typeof text === 'string') {
+      this.textBuffer.push(`${actorName}: ${text}`);
+    } else {
+      this.textBuffer.push(`${actorName}: ${text[0]}`);
+      // dialogue array case
+      for(let i = 1; i < text.length; i++) {
+        this.textBuffer.push(text[i]);
+      }
+    }
+  }
+
   cleanTextBuffer() {
     this.textBuffer = [];
   }

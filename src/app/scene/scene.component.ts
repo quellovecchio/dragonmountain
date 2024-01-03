@@ -11,8 +11,8 @@ import { EffectType, Interaction } from '../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../run.service';
 import { ItemService } from '../item.service';
-import { ViewportService } from '../viewport/viewport.service';
 import { Skill } from '../model/Skill';
+import { ViewportService } from '../viewport/viewport.service';
 
 @Component({
   selector: 'app-scene',
@@ -80,10 +80,10 @@ export class SceneComponent implements OnInit {
 
   moveTo(location: Location) {
     this.run.currentLocation = location;
-    this.pushTextEvent.emit("The party has moved to " + location.name + ".");
+    this.viewportService.pushText("The party has moved to " + location.name + ".");
     if (location.fight && location.fight.length > 0) {
       // start fight
-      this.pushTextEvent.emit("Enemies are attacking the party!");
+      this.viewportService.pushText("Enemies are attacking the party!");
       this.startFight(location.fight);
     } else {
       this.explore(location);
@@ -102,8 +102,8 @@ export class SceneComponent implements OnInit {
     this.run.state = RunState.Exploration;
     this.run.currentLocation = undefined;
     if (location) {
-      this.pushTextEvent.emit("The party is back from the " + location.name + ".");
-      this.pushTextEvent.emit("What's our next move?");
+      this.viewportService.pushText("The party is back from the " + location.name + ".");
+      this.viewportService.pushText("What's our next move?");
     }
   }
 
@@ -112,14 +112,14 @@ export class SceneComponent implements OnInit {
     if (data.character.interactions ? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
       let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name)[0];
       if (interaction.effect == EffectType.fight) {
-        this.pushTextEvent.emit(interaction.text);
+        this.viewportService.pushText(interaction.text);
         this.startFight(interaction.effectTarget);
       }
       if (interaction.effect == EffectType.giveItem) {
         interaction.effectTarget.forEach((el: Item) => {
           this.run.inventory.items.push(el);
-          this.pushTextEvent.emit(data.character.name + " gave you a " + el.name + "!")
-          this.pushTextEvent.emit("The item was placed into the inventory");
+          this.viewportService.pushText(data.character.name + " gave you a " + el.name + "!")
+          this.viewportService.pushText("The item was placed into the inventory");
         });
       }
       if (interaction.vanishes) {
@@ -128,14 +128,14 @@ export class SceneComponent implements OnInit {
         this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
       }
       this.questCompletedSignal.emit();
-      this.pushTextEvent.emit("You gained 1 EXP!");
+      this.viewportService.pushText("You gained 1 EXP!");
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
       console.log("reacted with standard interaction");
       switch (data.action.effect.type) {
         case EffectType.heal:
-          this.pushTextEvent.emit(`${data.character.name} healed ${data.action.effect.power} HP`);
+          this.viewportService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution)? data.character.stats.constitution : newHpValue;
           break;
@@ -146,7 +146,7 @@ export class SceneComponent implements OnInit {
     }
     // If the object has no effect, send an error message
     else {
-      this.pushTextEvent.emit("Using " + data.action.name + " on " + data.character.name + " had no effect...");
+      this.viewportService.pushText("Using " + data.action.name + " on " + data.character.name + " had no effect...");
     }
     this.selectedItem = undefined;
     this.interactionEndSignal.emit();
@@ -157,18 +157,18 @@ export class SceneComponent implements OnInit {
     if (items) this.shopItems = items;
     this.shopOpened = !this.shopOpened;
     if (this.shopOpened)
-      this.pushTextEvent.emit("[Merchant]: Take a good look!");
+      this.viewportService.pushText("[Merchant]: Take a good look!");
     else
-      this.pushTextEvent.emit("[Merchant]: Thanks for your business.");
+      this.viewportService.pushText("[Merchant]: Thanks for your business.");
   }
 
   buy(item: any) {
     // TODO: check money, if not enough error message
     if (this.run.inventory.money < item.moneyValue) {
-      this.pushTextEvent.emit("[Merchant]: Sorry pal, that's too much money for you!");
+      this.viewportService.pushText("[Merchant]: Sorry pal, that's too much money for you!");
     } else {
       this.run.inventory.money = this.run.inventory.money - item.moneyValue;
-      this.pushTextEvent.emit("That's a great deal! It's yours.");
+      this.viewportService.pushText("That's a great deal! It's yours.");
       this.run.inventory.items.push(item);
     }
   }
@@ -187,7 +187,6 @@ export class SceneComponent implements OnInit {
       });
     });
     this.fightManager.startFight(fight, this.run.party);
-    this.pushTextEvent.emit("Now it's " + this.fightManager.currentCharacter.name + "'s turn. What will be his next Action?");
   }
 
   attack(enemyIndex: number) {
@@ -195,7 +194,7 @@ export class SceneComponent implements OnInit {
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, false);
     // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
     if(defendingCharacter && defendingCharacter.name)
-      this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+      this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
     this.goOnWithFight();
   }
 
@@ -204,7 +203,7 @@ export class SceneComponent implements OnInit {
       let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
       if(data.skill.effect == EffectType.magicDamage) {
         let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-        this.pushTextEvent.emit(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
+        this.viewportService.pushText(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
       }
 
       if(data.skill.effect == EffectType.heal) {
@@ -215,7 +214,7 @@ export class SceneComponent implements OnInit {
         let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
         let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
         if(defendingCharacter && defendingCharacter.name)
-          this.pushTextEvent.emit(defendingCharacter.name + " gets " + damage + " points of damage!");
+          this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
       }
 
       if(data.skill.effect == EffectType.steal) {
@@ -239,16 +238,16 @@ export class SceneComponent implements OnInit {
           let enemyInventory = [ ...enemy.loot, ...enemy.equipment ];
           let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
           this.run.inventory.items.push(stolenItem);
-          this.pushTextEvent.emit("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
+          this.viewportService.pushText("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
         } else
-          this.pushTextEvent.emit("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
+          this.viewportService.pushText("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
       }
 
       // TODO implement aoe damage, 
 
       this.goOnWithFight();
     } else {
-      this.pushTextEvent.emit("That man is too tired to use that skill...");
+      this.viewportService.pushText("That man is too tired to use that skill...");
     }
   }
 
@@ -272,12 +271,12 @@ export class SceneComponent implements OnInit {
     this.run.state = RunState.Location;
     var gainedExperience = this.run.experience + (1 * this.run.level);
     this.run.experience = gainedExperience;
-    this.pushTextEvent.emit("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
+    this.viewportService.pushText("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
     if (this.joinsParty) {
       this.joiningCharacters.forEach(actor => {
         actor.stats.healthPoints = actor.stats.constitution;
         this.run.party.push(actor);
-        this.pushTextEvent.emit(actor.name + " decided to join your party!");
+        this.viewportService.pushText(actor.name + " decided to join your party!");
         if (this.run.currentLocation)
           this.explore(this.run.currentLocation);
       });
@@ -290,11 +289,11 @@ export class SceneComponent implements OnInit {
 
   rest() {
     if (this.run.inventory.money < 200) {
-      this.pushTextEvent.emit("I can make you rest here for 200$, but i don't think you have that much money");
+      this.viewportService.pushText("I can make you rest here for 200$, but i don't think you have that much money");
     } else {
       this.run.inventory.money = this.run.inventory.money - 200;
       this.run.party.forEach(el => el.stats.healthPoints = el.stats.constitution);
-      this.pushTextEvent.emit("You and your party wake up well rested after a full night of sleep.");
+      this.viewportService.pushText("You and your party wake up well rested after a full night of sleep.");
     }
   }
 
@@ -308,12 +307,12 @@ export class SceneComponent implements OnInit {
       item.loot.forEach(el => {
         if (el.name.includes('money')) {
           this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g, "");
-          this.pushTextEvent.emit("You found " + el.name + "!");
-          this.pushTextEvent.emit("That was placed into the inventory");
+          this.viewportService.pushText("You found " + el.name + "!");
+          this.viewportService.pushText("That was placed into the inventory");
         } else {
           this.run.inventory.items.push(el);
-          this.pushTextEvent.emit("You found a " + el.name + "!");
-          this.pushTextEvent.emit("The item was placed into the inventory");
+          this.viewportService.pushText("You found a " + el.name + "!");
+          this.viewportService.pushText("The item was placed into the inventory");
         }
       });
       item.loot = [];
@@ -323,13 +322,12 @@ export class SceneComponent implements OnInit {
   // NPC interactions
 
   talkToActor(a: Actor) {
-    console.log(this.run.currentLocation?.actors)
-    this.pushTextEvent.emit(a.name + ": " + a.dialogue);
+    this.viewportService.talkToNpcPushText(a.name, a.dialogue);
   }
 
   engageFightWith(a: Actor) {
     console.log(this.run.currentLocation?.actors)
-    this.pushTextEvent.emit("You engaged combat with " + a.name + ".");
+    this.viewportService.pushText("You engaged combat with " + a.name + ".");
     this.startFight([a as Character]);
   }
 

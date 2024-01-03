@@ -251,7 +251,12 @@
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": "Thanks for slaying those demons. I think it's that statue's fault, it seems possessed...",
+                    "dialogue": [
+                        "Thanks for slaying those demons.",
+                        "I think it's that statue's fault, it seems possessed...",
+                        "Pouring holy water on top of it should help cleanse that devil,",
+                        "but beware of the consequences!"
+                    ],
                     "skills": []
                 }
             ]
@@ -702,14 +707,20 @@
                             "vanishes": "true"
                         }
                     ],
-                    "dialogue": "[he's pale and he's scratching himself] Get off my way! The Mayor needs me!"
+                    "dialogue": [
+                        "[he's pale and he's scratching himself]", 
+                        "Grrnn... This light is killing me!"
+                    ]
                 },
                 {
                     "name": "The Mayor",
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": "This city is truly doomed... The assessor went crazy too...",
+                    "dialogue": [
+                        "This city is truly doomed... The assessor went crazy too...",
+                        "Please help him!"
+                    ],
                     "skills": []
                 },
                 {
@@ -717,7 +728,7 @@
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": "[looking at Assessor n.1] I don't know what he's having, but i don't want that.",
+                    "dialogue": ["[looking at Assessor 1, scared]...", "I don't know what he's having, but i don't want that."],
                     "skills": []
                 }
             ]
