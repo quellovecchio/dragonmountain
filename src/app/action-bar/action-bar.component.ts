@@ -70,12 +70,14 @@ export class ActionBarComponent implements OnInit {
   }
 
   toggleActorInfo(actor: PlayingCharacter) {
-    if(!this.selectedItem) {
-      this.actorMenuOpened = !this.actorMenuOpened;
-      this.displayedActorMenu = actor;
-    } else {
-      this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
-      this.selectedItem = undefined;
+    if(this.run.state != RunState.Fight) {
+      if(!this.selectedItem) {
+        this.actorMenuOpened = !this.actorMenuOpened;
+        this.displayedActorMenu = actor;
+      } else {
+        this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
+        this.selectedItem = undefined;
+      }
     }
   }
 

@@ -43,6 +43,7 @@ export class FightManagerService {
       this.currentCharacter = this.nextTurnBuffer.pop()!;
       this.isEnemyTurn = this.nextTurn();
     }
+    this.viewportService.pushText("Now it's " + this.currentCharacter.name + "'s turn. What will be his next Action?");
   }
 
   generateTurnRotation() {
