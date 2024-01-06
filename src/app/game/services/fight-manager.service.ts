@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Character } from './model/Actors/Character';
-import { PlayingCharacter } from './model/Actors/PlayingCharacter';
+import { Character } from '../../model/Actors/Character';
+import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
-import { ViewportService } from './viewport/viewport.service';
+import { ViewportService } from '../viewport/viewport.service';
 import { RunService } from './run.service';
-import { Skill } from './model/Skill';
+import { Skill } from '../../model/Skill';
 
 @Injectable({
   providedIn: 'root'

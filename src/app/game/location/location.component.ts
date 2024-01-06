@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Character } from '../model/Actors/Character';
-import { Location } from '../model/Location';
-import { Actor } from '../model/Actors/Actor';
-import { Item } from '../model/items/Item';
+import { Character } from '../../model/Actors/Character';
+import { Location } from '../../model/Location';
+import { Actor } from '../../model/Actors/Actor';
+import { Item } from '../../model/items/Item';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
 

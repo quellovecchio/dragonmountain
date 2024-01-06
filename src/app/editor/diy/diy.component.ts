@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Run } from '../model/Run';
+import { Run } from '../../model/Run';
 
 @Component({
   selector: 'app-diy',

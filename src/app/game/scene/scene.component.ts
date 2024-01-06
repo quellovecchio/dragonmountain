@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Run } from '../model/Run';
-import { RunState } from '../model/RunState';
-import { Location } from '../model/Location';
-import { Character } from '../model/Actors/Character';
-import { FightManagerService } from '../fight-manager.service';
-import { Actor } from '../model/Actors/Actor';
-import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
-import { Item } from '../model/items/Item';
-import { EffectType, Interaction } from '../model/Interaction';
+import { Run } from '../../model/Run';
+import { RunState } from '../../model/RunState';
+import { Location } from '../../model/Location';
+import { Character } from '../../model/Actors/Character';
+import { FightManagerService } from '../services/fight-manager.service';
+import { Actor } from '../../model/Actors/Actor';
+import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
+import { Item } from '../../model/items/Item';
+import { EffectType, Interaction } from '../../model/Interaction';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { RunService } from '../run.service';
-import { ItemService } from '../item.service';
-import { Skill } from '../model/Skill';
+import { RunService } from '../services/run.service';
+import { ItemService } from '../services/item.service';
+import { Skill } from '../../model/Skill';
 import { ViewportService } from '../viewport/viewport.service';
 
 @Component({

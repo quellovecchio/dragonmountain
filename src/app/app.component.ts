@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Run } from './model/Run';
 import { Location } from './model/Location';
-import { ViewportComponent } from './viewport/viewport.component';
+import { ViewportComponent } from './game/viewport/viewport.component';
 import { RunState } from './model/RunState';
 import { HttpClient } from '@angular/common/http';
 import {MatSliderModule} from '@angular/material/slider';
 
 import packageJson from '../../package.json';
 import { Constants } from 'src/assets/constants';
-import { RunService } from './run.service';
+import { RunService } from './game/services/run.service';
 import { Settings } from './model/Settings';
 import { Class } from './model/Actors/Class';
 import { Skill } from './model/Skill';

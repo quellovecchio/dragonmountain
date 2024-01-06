@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Run } from './model/Run';
+import { Run } from '../../model/Run';
 import { Constants } from 'src/assets/constants';
-import { Location } from "./model/Location";
-import { Class } from './model/Actors/Class';
-import { Skill } from './model/Skill';
-import { Item } from './model/items/Item';
+import { Location } from "../../model/Location";
+import { Class } from '../../model/Actors/Class';
+import { Skill } from '../../model/Skill';
+import { Item } from '../../model/items/Item';
 
 @Injectable({
   providedIn: 'root'

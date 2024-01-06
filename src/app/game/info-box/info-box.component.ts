@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Run } from '../model/Run';
-import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
+import { Run } from '../../model/Run';
+import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-info-box',

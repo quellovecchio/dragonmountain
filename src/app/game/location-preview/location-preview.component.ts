@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { Location } from "../model/Location";
+import { Location } from "../../model/Location";
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MatCard } from '@angular/material/card';
 import { take } from 'rxjs';

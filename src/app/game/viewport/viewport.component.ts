@@ -1,15 +1,15 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { InfoBoxComponent } from '../info-box/info-box.component';
-import { Run } from '../model/Run';
+import { Run } from '../../model/Run';
 import { SceneComponent } from '../scene/scene.component';
 import { TextAreaComponent } from '../text-area/text-area.component';
 import { ActionBarComponent } from '../action-bar/action-bar.component';
-import { Item } from '../model/items/Item';
-import { Settings } from '../model/Settings';
-import { Actor } from '../model/Actors/Actor';
-import { Equip } from '../model/items/Equip';
+import { Item } from '../../model/items/Item';
+import { Settings } from '../../model/Settings';
+import { Actor } from '../../model/Actors/Actor';
+import { Equip } from '../../model/items/Equip';
 import { ViewportService } from './viewport.service';
-import { Character } from '../model/Actors/Character';
+import { Character } from '../../model/Actors/Character';
 
 @Component({
   selector: 'app-viewport',

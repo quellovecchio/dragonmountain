@@ -1,11 +1,11 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable, take } from 'rxjs';
-import { FightManagerService } from '../fight-manager.service';
-import { Actor } from '../model/Actors/Actor';
-import { Character } from '../model/Actors/Character';
-import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
+import { FightManagerService } from '../services/fight-manager.service';
+import { Actor } from '../../model/Actors/Actor';
+import { Character } from '../../model/Actors/Character';
+import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Skill } from '../model/Skill';
+import { Skill } from '../../model/Skill';
 
 @Component({
   selector: 'app-fight',
