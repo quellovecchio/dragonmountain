@@ -8,6 +8,7 @@
 }
 
 .mat-tab-label {
+    font-size: 25px;
     min-width: 25px !important;
     padding: 5px;
     background-color: transparent;
@@ -16,6 +17,7 @@
 }
 
 .mat-tab-label.mat-tab-label-active {
+    font-size: 30px;
     min-width: 25px !important;
     padding: 5px;
     background-color: black;
@@ -24,4 +26,8 @@
 }
 .mat-ink-bar {
     background-color: rgba(128, 128, 128, 0);
+}
+
+.mat-tab-body-content {
+    height: 100% !important;
 }

@@ -1,30 +1,44 @@
-<div class="centered pixelated-border" style="height: 80%; width: 80%; background-color: chocolate;">
+<div class="centered pixelated-border" style="height: 1000px; width: 1600px; background-color: chocolate;">
     <div style="margin: 0.5rem;">
         <h1>DragonMountain Editor</h1>
         <h2>
             Run's name: FILE NAME
         </h2>
-        <mat-tab-group class="pixelated-border">
+        <mat-tab-group class="pixelated-border" style="width: 1520px; margin-left: 25px;">
             <mat-tab label="items">
+                <app-item-editor>
 
+                </app-item-editor>
             </mat-tab>
             <mat-tab label="skills">
+                <app-skills-editor>
 
+                </app-skills-editor>
             </mat-tab>
             <mat-tab label="classes">
+                <app-classes-editor>
 
+                </app-classes-editor>
             </mat-tab>
-            <mat-tab label="enemies">
+            <mat-tab label="enemies">  
+                <app-enemies-editor>
 
+                </app-enemies-editor>
             </mat-tab>
             <mat-tab label="npcs">
-
+                <app-npcs-editor>
+                
+                </app-npcs-editor>
             </mat-tab>
             <mat-tab label="locations">
+                <app-locations-editor>
 
+                </app-locations-editor>
             </mat-tab>
             <mat-tab label="stages">
+                <app-stages-editor>
 
+                </app-stages-editor>
             </mat-tab>
         </mat-tab-group>
     </div>

@@ -1,0 +1,21 @@
+<div style="height: 780px; width: 100%; color: white; background-color: black;" class="pixelated-border">
+    <button class="pixelated-border" style="height: 275px; width: 275px" (click)="addNewItem()">
+        add new item
+    </button>
+    <div *ngFor="let item of savedItems">
+        <button class="pixelated-border" style="height: 275px; width: 275px">
+            <div class="space" style="color: white; width: 50%;" ngTilt [disableAxis]="'x'" [maxTilt]="1"
+                [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300" >
+                <div ngTiltParallax [distance]="10" style="height: 100px; width: 100px; background-size: contain;"
+                    class="inventory-item" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                </div>
+                <div ngTiltParallax [distance]="10">
+                    {{ item.name }}
+                </div>
+                <div ngTiltParallax [distance]="10">
+                    {{ item.moneyValue }}
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
