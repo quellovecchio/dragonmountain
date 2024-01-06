@@ -10,6 +10,7 @@ import { ViewportService } from '../viewport/viewport.service';
 import { Item } from '../model/items/Item';
 import { Character } from '../model/Actors/Character';
 import { RunService } from '../run.service';
+import { Skill } from '../model/Skill';
 
 @Component({
   selector: 'app-action-bar',
@@ -90,6 +91,16 @@ export class ActionBarComponent implements OnInit {
     this.onItemSelect.emit(item);
   }
 
+  selectSkill(skill: Skill) {
+    /*this.inventoryOpened = !this.inventoryOpened;
+    setTimeout(() => { this.inventoryDisabled = false; }, 400);
+    this.viewportService.pushText(item.name + " selected");
+    this.selectedItem = item;
+    this.onItemSelect.emit(item);*/
+
+    console.log(skill.name + " selected");
+  }
+
   refreshLocations() {
     this.refreshLocationsSignal.emit();
   }
@@ -136,5 +147,9 @@ export class ActionBarComponent implements OnInit {
 
   equipable() {
     return (this.selectedItem && this.itemService.isEquip(this.selectedItem))
+  }
+
+  getCurrentPlayerSkills(): {"skills": Skill[]} {
+    return {"skills": this.displayedActorMenu.skills};
   }
 }

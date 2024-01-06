@@ -50,6 +50,7 @@
                 <img style="margin: 1px;height: 50px; width: 50px;" *ngIf="displayedActorMenu.equipment && displayedActorMenu.equipment[2]" src="{{displayedActorMenu.equipment[1].thumbnailPath}}">
             </div>
         </div>
+        <button [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
         <div *ngFor="let stat of getStatsToDisplay(displayedActorMenu.stats)">
             <div style="color: white; font-size:23px;">
                 {{stat.name}}: {{stat.value}} <a *ngIf="run.experience >= 1"
@@ -57,6 +58,11 @@
             </div>
         </div>
     </div>
+    <mat-menu #skills="matMenu" class="location-menu pixelated-border">
+        <ng-template matMenuContent let-skills="skills">
+            <button *ngFor="let skill of skills" mat-menu-item (click)="selectSkill(skill)">{{skill.name}}</button>
+        </ng-template>
+    </mat-menu>
 </div>
 <div class="action-bar pixelated-border" style="background-color: black;">
     <div *ngIf="run.party && run.party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
