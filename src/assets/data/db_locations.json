@@ -423,6 +423,7 @@
             "actors": [
                 {
                     "name": "Skinny clochard",
+                    "imagePath": "/assets/images/actor4.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": [
@@ -909,6 +910,7 @@
             "actors": [
                 {
                     "name": "Merchant Thief",
+                    "imagePath": "/assets/images/actor4.png",
                     "level": 3,
                     "loot": [],
                     "shop": [
@@ -973,7 +975,7 @@
             "actors": [
                 {
                     "name": "Assessor n.1",
-                    "imagePath": "/assets/images/actor2.png",
+                    "imagePath": "/assets/images/actor4.png",
                     "level": 3,
                     "loot": [],
                     "interactions": [

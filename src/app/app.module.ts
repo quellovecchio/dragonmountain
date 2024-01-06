@@ -22,6 +22,10 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { DataBarComponent } from './data-bar/data-bar.component';
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
+import { DiyComponent } from './diy/diy.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { GameComponent } from './game/game.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
     FightComponent,
     ActionBarComponent,
     ContextMenuComponent,
-    DataBarComponent
+    DataBarComponent,
+    DiyComponent,
+    NotFoundComponent,
+    GameComponent
   ],
   imports: [
     HttpClientModule,
@@ -51,6 +58,7 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
     NgTiltModule,
     MatSliderModule,
     MatIconModule,
+    MatTabsModule,
     FormsModule
   ],
   exports: [
