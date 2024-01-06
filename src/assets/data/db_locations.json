@@ -92,13 +92,20 @@
         "actors": [
             {
                 "name": "Domestic Goblin",
+                "imagePath": "/assets/images/actor2.png",
                 "level": 2,
                 "loot": [],
-                "dialogue": "My master is asleep in his tomb... EhhEh. What? You have to slay him to free the city from his sins? It sounds medieval to me, i like it... But i don't know eheh... Eheh  Eh... you know what? I'm sick of these putrid corpses. You can awake The Master spraying Holy Water on his tomb, but i bet you already knew that eheh...",
+                "dialogue": [
+                    "My master is asleep in his tomb... EhhEh. What?",
+                    "You have to slay him to free the city from his sins? It sounds medieval to me, i like it...",
+                    "But i don't know, eheh... Eheh  Eh... you know what? I'm sick of these putrid corpses.",
+                    "You can awake The Master spraying Holy Water on his tomb, but i bet you already knew that eheh..."
+                ],
                 "skills": []
             },
             {
                 "name": "Dark Tomb",
+                "imagePath": "/assets/images/actor2.png",
                 "level": 2,
                 "loot": [],
                 "dialogue": "[The air is sick around here...]",
@@ -142,11 +149,38 @@
                 ]
             },
             {
-                "name": "Headless animated corpse",
+                "name": "Headless animated mannequin",
+                "imagePath": "/assets/images/actor2.png",
                 "level": 2,
                 "loot": [],
-                "dialogue": "[He's running around, lookinf for its head. He moves around his arms trying to reach for it but he can feel nothing. He seems desperate.]",
-                "skills": []
+                "dialogue": "[He's running around, looking for its head. He moves around his arms trying to reach for it but he can feel nothing. He seems desperate.]",
+                "skills": [],
+                "interactions": [
+                    {
+                        "reactTo": "Doll Face",
+                        "text": [
+                            "[you put the Doll Face on the top of the mannequin's neck and it calms him down]",
+                            "[Suddenly, his mouth opens:]",
+                            "Thanks for your help, kind traveller.",
+                            "For i am pleased by kindness and i admire your courage i gift you a powerful spell.",
+                            "May this help you find greatness.",
+                            "[The mannequin leaves the cave]"
+                        ],
+                        "effect": 1,
+                        "effectTarget": [
+                            {
+                                "name": "Vampire Sword",
+                                "description": "",
+                                "moneyValue": 2000,
+                                "thumbnailPath": "assets/images/item3.png",
+                                "attack": 2,
+                                "defense": 0,
+                                "buffs": []
+                            }
+                        ],
+                        "vanishes": "true"
+                    }
+                ]
             }
         ]
     },
@@ -216,6 +250,7 @@
             "actors": [
                 {
                     "name": "Unsettling statue",
+                    "imagePath": "/assets/images/actor1.png",
                     "level": 3,
                     "loot": [],
                     "interactions": [
@@ -262,6 +297,83 @@
             ]
         },
         {
+            "name": "Haunted Shop",
+            "backgroundPath": "/assets/images/location4-bg.png",
+            "actors": [
+                {
+                    "name": "Floating teaspoon",
+                    "level": 3,
+                    "loot": [],
+                    "interactions": [
+                        {
+                            "reactTo": "Holy Water",
+                            "text": "[The teaspoon started smoking and turned into a ghost!]",
+                            "effect": 2,
+                            "effectTarget": [
+                                {
+                                    "name": "Poltergeist",
+                                    "level": 1,
+                                    "imagePath": "/assets/images/enemy2.png",
+                                    "loot": [],
+                                    "dialogue": "hello world",
+                                    "stats": {
+                                        "charisma": 2,
+                                        "strength": 4,
+                                        "constitution": 40,
+                                        "dexterity": 5,
+                                        "intelligence": 10,
+                                        "healthPoints": 40
+                                    },
+                                    "skills": []
+                                }
+                            ],
+                            "vanishes": "true"
+                        }
+                    ],
+                    "dialogue": "[why is this teaspoon floating?]"
+                },
+                {
+                    "name": "Troubled Merchant",
+                    "imagePath": "/assets/images/actor1.png",
+                    "level": 2,
+                    "loot": [],
+                    "dialogue": [
+                        "Uff... That's too tough! Another poltergeist!",
+                        "I don't have enough money to call the priest once again!",
+                        "I bet a little bit of holy water could help, but i'm too scared to try!"
+                    ],
+                    "skills": [],
+                    "shop": [
+                        {
+                            "name": "Little Health Potion",
+                            "effect": {
+                                "type": 3,
+                                "power": 15
+                            },
+                            "description": "Heals 15 hp",
+                            "moneyValue": 150,
+                            "thumbnailPath": "assets/images/item2.png"
+                        },
+                        {
+                            "name": "Holy Water",
+                            "description": "",
+                            "moneyValue": 500,
+                            "thumbnailPath": "assets/images/item3.png"
+                        },
+                        {
+                            "name": "Hooded Robe",
+                            "description": "Classic vest for travellers.",
+                            "moneyValue": 500,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 0,
+                            "defense": 1,
+                            "buffs": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "Mercenaries Tavern",
             "backgroundPath": "/assets/images/location2-bg.png",
             "actors": [
@@ -302,6 +414,184 @@
                         "healthPoints": 25
                     },
                     "skills": []
+                }
+            ]
+        },
+        {
+            "name": "Sadness Boulevard",
+            "backgroundPath": "/assets/images/location2-bg.png",
+            "actors": [
+                {
+                    "name": "Skinny clochard",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": [
+                        "...",
+                        "I'm ill... Could you give me a potion?"
+                    ],
+                    "skills": [],
+                    "rest": true,
+                    "interactions": [
+                        {
+                            "reactTo": "Little Potion",
+                            "text": [
+                                "[He drinks the potion and seems to feel better]",
+                                "Thanks, man! I can only give you this. It will come handy, trust me.",
+                                "Give it to someone who really need it."
+                            ],
+                            "effect": 1,
+                            "effectTarget": [
+                                {
+                                    "name": "Doll Face",
+                                    "effect": {
+                                        "type": 3,
+                                        "power": 15
+                                    },
+                                    "description": "A very big doll face.",
+                                    "moneyValue": 600,
+                                    "thumbnailPath": "assets/images/item2.png"
+                                }
+                            ],
+                            "vanishes": "false"
+                        }
+                    ]
+                }
+            ],
+            "fight": [
+                {
+                    "name": "thielf",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 1,
+                        "constitution": 10,
+                        "dexterity": 9,
+                        "intelligence": 1,
+                        "healthPoints": 10
+                    },
+                    "skills": []
+                },
+                {
+                    "name": "Lesser Demon",
+                    "level": 1,
+                    "imagePath": "/assets/images/enemy1.png",
+                    "loot": [
+                        {
+                            "name": "Little Horn",
+                            "description": "",
+                            "moneyValue": 150,
+                            "thumbnailPath": "assets/images/item3.png"
+                        }
+                    ],
+                    "dialogue": "hello world",
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 1,
+                        "constitution": 15,
+                        "dexterity": 6,
+                        "intelligence": 1,
+                        "healthPoints": 15
+                    },
+                    "skills": []
+                }
+            ]
+        },
+        {
+            "name": "Putrid Street",
+            "backgroundPath": "/assets/images/location2-bg.png",
+            "actors": [
+                {
+                    "name": "Scary man",
+                    "level": 1,
+                    "loot": [
+                        {
+                            "name": "Butterfly Knife",
+                            "description": "",
+                            "moneyValue": 300,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 2,
+                            "defense": 0,
+                            "buffs": []
+                        }
+                    ],
+                    "dialogue": [
+                        "Come on baby... UH!",
+                        "Leave us alone, dude!"
+                    ],
+                    "skills": [],
+                    "rest": true,
+                    "stats": {
+                        "charisma": 1,
+                        "strength": 3,
+                        "constitution": 15,
+                        "dexterity": 2,
+                        "wisdom": 1,
+                        "intelligence": 1,
+                        "healthPoints": 15
+                    },
+                    "equipment": [
+                        {
+                            "name": "Butterfly Knife",
+                            "description": "",
+                            "moneyValue": 300,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 2,
+                            "defense": 0,
+                            "buffs": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Woman",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": [
+                        "Please no! Don't touch me! No!",
+                        "Sir! Sir please help me! Sir!!"
+                    ],
+                    "skills": []
+                }
+            ]
+        },
+        {
+            "name": "The House Of The Rising Sun",
+            "backgroundPath": "/assets/images/location2-bg.png",
+            "actors": [
+                {
+                    "name": "Very fast woman",
+                    "level": 1,
+                    "dialogue": [
+                        "Come on man, make it quick: buy or leave, buy or leave"
+                    ],
+                    "shop": [
+                        {
+                            "name": "250 money",
+                            "description": "",
+                            "moneyValue": 180,
+                            "thumbnailPath": "assets/images/item3.png"
+                        },
+                        {
+                            "name": "500 money",
+                            "description": "",
+                            "moneyValue": 300,
+                            "thumbnailPath": "assets/images/item3.png",
+                            "attack": 5,
+                            "defense": 0,
+                            "buffs": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Hooker",
+                    "level": 1,
+                    "loot": [],
+                    "dialogue": [
+                        "I can make you 'rest'... For money."
+                    ],
+                    "skills": [],
+                    "rest": true
                 }
             ]
         },
@@ -434,6 +724,7 @@
             "fight": [
                 {
                     "name": "Goblin",
+                    "imagePath": "/assets/images/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -448,6 +739,7 @@
                 },
                 {
                     "name": "Goblin",
+                    "imagePath": "/assets/images/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -462,6 +754,7 @@
                 },
                 {
                     "name": "Goblin",
+                    "imagePath": "/assets/images/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -508,7 +801,7 @@
             "actors": [
                 {
                     "name": "The Witch",
-                    "imagePath": "/assets/images/actor2.png",
+                    "imagePath": "/assets/images/actor3.png",
                     "level": 3,
                     "loot": [
                         {
@@ -581,6 +874,7 @@
         },
         {
             "name": "Dark Sewers",
+            "backgroundPath": "/assets/assets/images/location4-bg.png",
             "loot": [],
             "fight": [
                 {
@@ -679,6 +973,7 @@
             "actors": [
                 {
                     "name": "Assessor n.1",
+                    "imagePath": "/assets/images/actor2.png",
                     "level": 3,
                     "loot": [],
                     "interactions": [
@@ -708,7 +1003,7 @@
                         }
                     ],
                     "dialogue": [
-                        "[he's pale and he's scratching himself]", 
+                        "[he's pale and he's scratching himself]",
                         "Grrnn... This light is killing me!"
                     ]
                 },
@@ -728,7 +1023,10 @@
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": ["[looking at Assessor 1, scared]...", "I don't know what he's having, but i don't want that."],
+                    "dialogue": [
+                        "[looking at Assessor 1, scared]...",
+                        "I don't know what he's having, but i don't want that."
+                    ],
                     "skills": []
                 }
             ]
@@ -741,9 +1039,11 @@
                     "name": "Gladiator",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [{
-                        "name": "1000 money"
-                    }],
+                    "loot": [
+                        {
+                            "name": "1000 money"
+                        }
+                    ],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -759,9 +1059,11 @@
                     "name": "Gladiator",
                     "level": 1,
                     "imagePath": "/assets/images/enemy1.png",
-                    "loot": [{
-                        "name": "1000 money"
-                    }],
+                    "loot": [
+                        {
+                            "name": "1000 money"
+                        }
+                    ],
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -777,6 +1079,7 @@
             "actors": [
                 {
                     "name": "Arena Master",
+                    "imagePath": "/assets/images/actor2.png",
                     "level": 3,
                     "dialogue": "Very good fight my brother!! Wait, what?? Who are you?? How did you beat them??"
                 },
@@ -785,7 +1088,7 @@
                     "imagePath": "/assets/images/actor1.png",
                     "level": 2,
                     "loot": [],
-                    "dialogue": "I should have bet on",
+                    "dialogue": "I should have bet on you!",
                     "skills": []
                 }
             ]
