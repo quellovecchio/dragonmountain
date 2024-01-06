@@ -54,7 +54,9 @@ NEXT STEPS:
 
 - scan skill should let you see the stats of people inside and outside combat
 
-- steal spell costs little but if used and failed out battle it will summon guards to attack you
+- engage fight attacking or casting a spell, damage effective and make ambushes attack monsters first. make everbod attackable (with consequences)
+
+- steal skill
 
 - an evil merchant you can kill to loot
 
@@ -233,7 +235,7 @@ artwork with witches and wizards behind a 80ies ibm pc
 Ask for Leocorno's help for the writing process!!!!!
 
 game loop:
-1) you choose hero's name (and maybe choose from some characters with unique stats andmaybe skills)
+1) choose from some starting characters
 2) choose the next Stage choosing from 3 options
 3) you can Explore the Stage, choosing from three Locations. You can refresh the Locations paying 1 EXP.
 4) while exploring a Location you can fight or interact with NPCS. If enemies are ready for an ambush, you have to defeat first.
@@ -286,18 +288,18 @@ SPELLS:
 	poison: ranger basic skill. poisons an enemy (fixed dmg every turn)
 	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell
 	steal: during fight, steals an item from selected enemy. in location does the same, but if fails you have to fight cops.
-	charm: in location some npc will be affected by this spell. in fight, can make you escape.
+	charm: in location some npc will be affected by this spell. in fight, makes you escape.
 	spark: does 1*wisdom magic dmg
 	warmth: heals 1*wisdom magic dmg
+	stun: stuns enemy for 1 turn
+	ice storm: magic dmg + stun all enemies
 	
-
-
 PLOT: 
 
 Damned citadel: A corrupted city  holy water, silver bar, demon horn
 ----------------
 
-	Common enemies: thiefling (has steal spell), lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
+	Common enemies: thielf (has steal spell little elf thief), lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
 
         Dark Sewers: 
 Rats attack you when entered.
@@ -321,11 +323,13 @@ Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key
 	
 	Granma's house: lets you sleep. If ou talk to granma she will talk a lot and then giv ou food. ou can kill the grann. you will not be able to rest anmore, and the ghost of the grann attacks ou (prett strong enem)
 
-	Sadness boulevard: entering ou are attacked b two lesser demons and a thiefling. there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
+	Sadness boulevard: entering ou are attacked b two lesser demons and a thielf. there's a very skinny clochard, wants 400€ for a strange doll face. You can give it to the headless corpse in boss location to give you a blessing or a reward idk
 
 	Putrid street: there's a couple arguing, she tells him to stop touching her but he doesn't go away. You can use the charm spell to make him go away, or you can kill him. If you use charm, he will get what he was doing wrong and runs away scared by himself, dropping a silver knife.
 
-	Laundry house: there's a merchant offering you 5000 fake money for 1000 money
+	House of the rising sun: a hooker that lets ou rest and a strange girl with fake mone
+
+	Glenn's house: There's Glenn, he joins ou if ou solve a riddle for him
 
 	Monster Tamer Farm: 
 Slot 1: Monster tamer: he thinks monsters aren't undestood by people, explains that ghosts are incredible musicians. He tells you that you can use his machine.
@@ -337,9 +341,7 @@ Slot 2: machine. vanishes after using. You can give 5 demon horn to get an item 
 
 	Mad Scientist's Lab: the mad scientist asks you a revive item or a revive spell on his golem built with pieces of his beloved ones, he says this way he will gain a soul. When conditions are met, the golem awakens and attacks you, killing the scientist too
 
-	Abandoned Farm: you get attaced b a thiefling entering. A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
-	
-	Town Square: A mischievous puppeteer's puppets have gone rogue and are causing chaos in the town square. Kill the puppets, or work with the puppeteer to resolve the situation peacefully. Depending on your choice, the puppeteer may become an ally or adversary.
+	Abandoned Farm: you get attaced b a thielf entering. A farmer has been accidentally transformed into a chicken by a misfired spell. It still has his clothes around there. You can choose to reverse the transformation using the dispel skill, he will give a golden egg.
 
 	The Haunted Merchant's Dilemma:
 
