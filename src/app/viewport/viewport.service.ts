@@ -19,8 +19,14 @@ export class ViewportService {
     this.enableViewport = value;
   }
 
-  pushText(text: string) {
-    this.textBuffer.push(text);
+  pushText(text: string | string[]) {
+    if(typeof text === 'string') {
+      this.textBuffer.push(text);
+    } else {
+      for(let i = 0; i < text.length; i++) {
+        this.textBuffer.push(text[i]);
+      }
+    }
   }
 
   talkToNpcPushText(actorName: string, text: string | string[]): void {

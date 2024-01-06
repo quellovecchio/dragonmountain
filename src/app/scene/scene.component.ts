@@ -116,6 +116,7 @@ export class SceneComponent implements OnInit {
         this.startFight(interaction.effectTarget);
       }
       if (interaction.effect == EffectType.giveItem) {
+        this.viewportService.pushText(interaction.text)
         interaction.effectTarget.forEach((el: Item) => {
           this.run.inventory.items.push(el);
           this.viewportService.pushText(data.character.name + " gave you a " + el.name + "!")
