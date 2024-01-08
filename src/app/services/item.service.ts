@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Item } from '../../model/items/Item';
-import { Equip } from '../../model/items/Equip';
-import { Character } from '../../model/Actors/Character';
+import { Item } from '../model/items/Item';
+import { Equip } from '../model/items/Equip';
+import { Character } from '../model/Actors/Character';
 
 @Injectable({
   providedIn: 'root'

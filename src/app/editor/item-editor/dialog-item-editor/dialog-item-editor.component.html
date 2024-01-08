@@ -1,0 +1,28 @@
+<button mat-icon-button class="close-button" mat-dialog-close>
+    <mat-icon color="warn">X</mat-icon>
+</button>
+<h1 mat-dialog-title> Edit item {{item.id}} </h1>
+<div style="overflow-y: hidden;">
+    <h2>Picture</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="item.thumbnailPath">
+        <option *ngFor="let image of images" [value]="image"> 
+            <img src="image">
+        </option>
+    </select>
+    <h2>Name</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="item.name" maxlength="25">
+    <h2>Money value</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="item.moneyValue" maxlength="5">
+    <div style="display: flex; flex-direction: row;">
+        <h2>Is equip?</h2>
+        <input type="checkbox" class="text-box" style="height: 35px; width: 35px; position: relative; top: 20px; left: 300px" [(ngModel)]="isEquip"/>
+    </div>
+    <div *ngIf="isEquip">
+        equip things TODO
+    </div>
+    <h2 style="position: relative; top: -10px;">Effect</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="item.effect">
+        <option [value]="undefined"> No Effect </option>
+        <option *ngFor="let effectType of effectTypes" [value]="effectType"> {{effectType}} </option>
+    </select>
+</div>

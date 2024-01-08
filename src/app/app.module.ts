@@ -26,13 +26,15 @@ import { DiyComponent } from './editor/diy/diy.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { GameComponent } from './game/game.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
 import { SkillsEditorComponent } from './editor/skills-editor/skills-editor.component';
 import { ClassesEditorComponent } from './editor/classes-editor/classes-editor.component';
 import { EnemiesEditorComponent } from './editor/enemies-editor/enemies-editor.component';
 import { NpcsEditorComponent } from './editor/npcs-editor/npcs-editor.component';
 import { LocationsEditorComponent } from './editor/locations-editor/locations-editor.component';
 import { StagesEditorComponent } from './editor/stages-editor/stages-editor.component';
+import { DialogItemEditorComponent } from './editor/item-editor/dialog-item-editor/dialog-item-editor.component';
+import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -51,13 +53,14 @@ import { StagesEditorComponent } from './editor/stages-editor/stages-editor.comp
     DiyComponent,
     NotFoundComponent,
     GameComponent,
-    ItemEditorComponent,
     SkillsEditorComponent,
     ClassesEditorComponent,
     EnemiesEditorComponent,
     NpcsEditorComponent,
     LocationsEditorComponent,
-    StagesEditorComponent
+    StagesEditorComponent,
+    DialogItemEditorComponent,
+    ItemEditorComponent,
   ],
   imports: [
     HttpClientModule,
@@ -73,7 +76,8 @@ import { StagesEditorComponent } from './editor/stages-editor/stages-editor.comp
     MatSliderModule,
     MatIconModule,
     MatTabsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   exports: [
     InfoBoxComponent,

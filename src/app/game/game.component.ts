@@ -7,7 +7,7 @@ import { Location } from '../model/Location';
 import { RunState } from '../model/RunState';
 import { Settings } from '../model/Settings';
 import { Skill } from '../model/Skill';
-import { RunService } from './services/run.service';
+import { RunService } from '../services/run.service';
 import { ViewportComponent } from './viewport/viewport.component';
 import packageJson from '../../../package.json';
 

@@ -8,11 +8,13 @@
     src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype") !important;
     /* Add !important to overwrite all elements */
     user-select: none;
-    -webkit-user-select: none; /*Safari*/
-    -moz-user-select: none; /*Firefox*/
+    -webkit-user-select: none;
+    /*Safari*/
+    -moz-user-select: none;
+    /*Firefox*/
 }
 
-body { 
+body {
     --mat-focus-indicator-border-width: 0;
     --mat-mdc-focus-indicator-border-width: 0;
 }
@@ -41,25 +43,22 @@ h6 {
     font-size: 12px !important;
 }
 
-::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: gray;
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: gray;
 }
 
-::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: black;
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: black;
 }
 
-::-webkit-scrollbar-thumb
-{
-	background-color: white;
-	
-	background-image: -webkit-gradient(linear, 0 0, 0 100%,
-	                   color-stop(.5, rgba(255, 255, 255, .2)),
-					   color-stop(.5, transparent), to(transparent));
+::-webkit-scrollbar-thumb {
+    background-color: white;
+
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,
+            color-stop(.5, rgba(255, 255, 255, .2)),
+            color-stop(.5, transparent), to(transparent));
 }
 
 .background {
@@ -110,7 +109,7 @@ h6 {
 }
 
 button {
-    font-size: 30px!important;
+    font-size: 30px !important;
 }
 
 button:disabled {
@@ -118,7 +117,20 @@ button:disabled {
     filter: grayscale(1);
 }
 
-.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item.cdk-keyboard-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]) {
+.mat-menu-item:hover:not([disabled]),
+.mat-menu-item.cdk-program-focused:not([disabled]),
+.mat-menu-item.cdk-keyboard-focused:not([disabled]),
+.mat-menu-item-highlighted:not([disabled]) {
     background-color: white !important;
     color: black !important;
+}
+
+.gothic-dialog {
+    mat-dialog-container {
+        background-color: black !important;
+    }
+}
+
+.close-button {
+    float: right;
 }

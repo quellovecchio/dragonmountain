@@ -77,13 +77,13 @@
     ],
     "bossfight": {
         "name": "Necromancer's Tomb",
-        "backgroundPath": "/assets/images/location4-bg.png",
+        "backgroundPath": "/assets/images/locations/location4-bg.png",
         "loot": [
             {
                 "name": "Holy Water",
                 "description": "",
                 "moneyValue": 500,
-                "thumbnailPath": "assets/images/item3.png"
+                "thumbnailPath": "assets/images/items/item3.png"
             },
             {
                 "name": "1000 money"
@@ -92,7 +92,7 @@
         "actors": [
             {
                 "name": "Domestic Goblin",
-                "imagePath": "/assets/images/actor2.png",
+                "imagePath": "/assets/images/actors/actor2.png",
                 "level": 2,
                 "loot": [],
                 "dialogue": [
@@ -105,7 +105,7 @@
             },
             {
                 "name": "Dark Tomb",
-                "imagePath": "/assets/images/actor2.png",
+                "imagePath": "/assets/images/actors/actor2.png",
                 "level": 2,
                 "loot": [],
                 "dialogue": "[The air is sick around here...]",
@@ -119,7 +119,7 @@
                             {
                                 "name": "Master Necromancer [sinner of the dark city of sin and darkness and misery]",
                                 "level": 1,
-                                "imagePath": "/assets/images/enemy2.png",
+                                "imagePath": "/assets/images/actors/enemy2.png",
                                 "loot": [],
                                 "dialogue": "hello world",
                                 "stats": {
@@ -135,7 +135,7 @@
                                         "name": "Poisonous Sword",
                                         "description": "",
                                         "moneyValue": 3000,
-                                        "thumbnailPath": "assets/images/item3.png",
+                                        "thumbnailPath": "assets/images/items/item3.png",
                                         "attack": 1,
                                         "defense": 0,
                                         "buffs": []
@@ -150,7 +150,7 @@
             },
             {
                 "name": "Headless animated mannequin",
-                "imagePath": "/assets/images/actor2.png",
+                "imagePath": "/assets/images/actors/actor2.png",
                 "level": 2,
                 "loot": [],
                 "dialogue": "[He's running around, looking for its head. He moves around his arms trying to reach for it but he can feel nothing. He seems desperate.]",
@@ -172,7 +172,7 @@
                                 "name": "Vampire Sword",
                                 "description": "",
                                 "moneyValue": 2000,
-                                "thumbnailPath": "assets/images/item3.png",
+                                "thumbnailPath": "assets/images/items/item3.png",
                                 "attack": 2,
                                 "defense": 0,
                                 "buffs": []
@@ -187,18 +187,18 @@
     "locations": [
         {
             "name": "Unholy Church",
-            "backgroundPath": "/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
             "fight": [
                 {
                     "name": "Lesser Demon",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "loot": [
                         {
                             "name": "Little Horn",
                             "description": "",
                             "moneyValue": 150,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         }
                     ],
                     "dialogue": "hello world",
@@ -215,13 +215,13 @@
                 {
                     "name": "Lesser Demon",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "loot": [
                         {
                             "name": "Little Horn",
                             "description": "",
                             "moneyValue": 150,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         }
                     ],
                     "dialogue": "hello world",
@@ -241,7 +241,7 @@
                     "name": "Holy Water",
                     "description": "",
                     "moneyValue": 500,
-                    "thumbnailPath": "assets/images/item3.png"
+                    "thumbnailPath": "assets/images/items/item3.png"
                 },
                 {
                     "name": "500 money"
@@ -250,7 +250,7 @@
             "actors": [
                 {
                     "name": "Unsettling statue",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 3,
                     "loot": [],
                     "interactions": [
@@ -262,7 +262,7 @@
                                 {
                                     "name": "Big Demon",
                                     "level": 1,
-                                    "imagePath": "/assets/images/enemy2.png",
+                                    "imagePath": "/assets/images/actors/enemy2.png",
                                     "loot": [],
                                     "dialogue": "hello world",
                                     "stats": {
@@ -283,7 +283,7 @@
                 },
                 {
                     "name": "Priest",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 2,
                     "loot": [],
                     "dialogue": [
@@ -298,7 +298,7 @@
         },
         {
             "name": "Haunted Shop",
-            "backgroundPath": "/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
             "actors": [
                 {
                     "name": "Floating teaspoon",
@@ -313,7 +313,7 @@
                                 {
                                     "name": "Poltergeist",
                                     "level": 1,
-                                    "imagePath": "/assets/images/enemy2.png",
+                                    "imagePath": "/assets/images/actors/enemy2.png",
                                     "loot": [],
                                     "dialogue": "hello world",
                                     "stats": {
@@ -334,7 +334,7 @@
                 },
                 {
                     "name": "Troubled Merchant",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 2,
                     "loot": [],
                     "dialogue": [
@@ -352,19 +352,19 @@
                             },
                             "description": "Heals 15 hp",
                             "moneyValue": 150,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         },
                         {
                             "name": "Holy Water",
                             "description": "",
                             "moneyValue": 500,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         },
                         {
                             "name": "Hooded Robe",
                             "description": "Classic vest for travellers.",
                             "moneyValue": 500,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 0,
                             "defense": 1,
                             "buffs": []
@@ -375,7 +375,7 @@
         },
         {
             "name": "Mercenaries Tavern",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "Innkeeper",
@@ -388,7 +388,7 @@
                 {
                     "name": "Hairy Thomas",
                     "classId": 2,
-                    "imagePath": "/assets/images/actor2.png",
+                    "imagePath": "/assets/images/actors/actor2.png",
                     "level": 3,
                     "loot": [],
                     "dialogue": "[he's drunk as fuck] Hic! You seem ready for a fight... Come taste my sword! Hic!",
@@ -398,7 +398,7 @@
                             "name": "Chainmail",
                             "description": "",
                             "moneyValue": 1000,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 0,
                             "defense": 3,
                             "buffs": []
@@ -419,11 +419,11 @@
         },
         {
             "name": "Sadness Boulevard",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "Skinny clochard",
-                    "imagePath": "/assets/images/actor4.png",
+                    "imagePath": "/assets/images/actors/actor4.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": [
@@ -450,7 +450,7 @@
                                     },
                                     "description": "A very big doll face.",
                                     "moneyValue": 600,
-                                    "thumbnailPath": "assets/images/item2.png"
+                                    "thumbnailPath": "assets/images/items/item2.png"
                                 }
                             ],
                             "vanishes": "false"
@@ -462,7 +462,7 @@
                 {
                     "name": "thielf",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "dialogue": "hello world",
                     "stats": {
                         "charisma": 1,
@@ -477,13 +477,13 @@
                 {
                     "name": "Lesser Demon",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "loot": [
                         {
                             "name": "Little Horn",
                             "description": "",
                             "moneyValue": 150,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         }
                     ],
                     "dialogue": "hello world",
@@ -501,7 +501,7 @@
         },
         {
             "name": "Putrid Street",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "Scary man",
@@ -511,7 +511,7 @@
                             "name": "Butterfly Knife",
                             "description": "",
                             "moneyValue": 300,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 2,
                             "defense": 0,
                             "buffs": []
@@ -537,7 +537,7 @@
                             "name": "Butterfly Knife",
                             "description": "",
                             "moneyValue": 300,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 2,
                             "defense": 0,
                             "buffs": []
@@ -558,7 +558,7 @@
         },
         {
             "name": "The House Of The Rising Sun",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "Very fast woman",
@@ -571,13 +571,13 @@
                             "name": "250 money",
                             "description": "",
                             "moneyValue": 180,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         },
                         {
                             "name": "500 money",
                             "description": "",
                             "moneyValue": 300,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 5,
                             "defense": 0,
                             "buffs": []
@@ -598,7 +598,7 @@
         },
         {
             "name": "Granma's House",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "Granny",
@@ -612,7 +612,7 @@
         },
         {
             "name": "Unsettling Shop",
-            "backgroundPath": "/assets/images/location3-bg.png",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
             "loot": [],
             "actors": [
                 {
@@ -628,19 +628,19 @@
                             },
                             "description": "Heals 15 hp",
                             "moneyValue": 150,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         },
                         {
                             "name": "Holy Water",
                             "description": "",
                             "moneyValue": 500,
-                            "thumbnailPath": "assets/images/item3.png"
+                            "thumbnailPath": "assets/images/items/item3.png"
                         },
                         {
                             "name": "Silver Sword",
                             "description": "",
                             "moneyValue": 1000,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 5,
                             "defense": 0,
                             "buffs": []
@@ -652,7 +652,7 @@
         },
         {
             "name": "Market Square",
-            "backgroundPath": "/assets/images/location3-bg.png",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
             "loot": [],
             "actors": [
                 {
@@ -664,13 +664,13 @@
                             "name": "Steal Scroll",
                             "description": "Use it to teach 'Steal' spell to an element of the party",
                             "moneyValue": 1000,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         },
                         {
                             "name": "Heal Scroll",
                             "description": "Use it to teach 'Heal' spell to an element of the party",
                             "moneyValue": 1000,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         }
                     ],
                     "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
@@ -700,7 +700,7 @@
                             "name": "Wedding Ring",
                             "description": "A cheap silver ring, maybe important to someone.",
                             "moneyValue": 100,
-                            "thumbnailPath": "assets/images/item2.png",
+                            "thumbnailPath": "assets/images/items/item2.png",
                             "attack": 0,
                             "defense": 0,
                             "buffs": []
@@ -721,11 +721,11 @@
         },
         {
             "name": "Open Backyard",
-            "backgroundPath": "/assets/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
             "fight": [
                 {
                     "name": "Goblin",
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -740,7 +740,7 @@
                 },
                 {
                     "name": "Goblin",
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -755,7 +755,7 @@
                 },
                 {
                     "name": "Goblin",
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "level": 1,
                     "loot": [],
                     "dialogue": "hello world",
@@ -787,7 +787,7 @@
                                     "name": "Broadsword",
                                     "description": "Heavy sword",
                                     "moneyValue": 5000,
-                                    "thumbnailPath": "assets/images/item1.png"
+                                    "thumbnailPath": "assets/images/items/item1.png"
                                 }
                             ],
                             "vanishes": "true"
@@ -798,11 +798,11 @@
         },
         {
             "name": "Witch House",
-            "backgroundPath": "/assets/images/location2-bg.png",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
                 {
                     "name": "The Witch",
-                    "imagePath": "/assets/images/actor3.png",
+                    "imagePath": "/assets/images/actors/actor3.png",
                     "level": 3,
                     "loot": [
                         {
@@ -812,7 +812,7 @@
                             "name": "Black Vest",
                             "description": "",
                             "moneyValue": 400,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 0,
                             "defense": 1,
                             "buffs": []
@@ -825,7 +825,7 @@
                             "name": "Black Vest",
                             "description": "",
                             "moneyValue": 400,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 0,
                             "defense": 1,
                             "buffs": []
@@ -847,7 +847,7 @@
                             "name": "Poisoned Apple",
                             "description": "This lethal apple can kill whoever eats it",
                             "moneyValue": 500,
-                            "thumbnailPath": "assets/images/item1.png"
+                            "thumbnailPath": "assets/images/items/item1.png"
                         },
                         {
                             "name": "Little Health Potion",
@@ -857,7 +857,7 @@
                             },
                             "description": "Heals 15 hp",
                             "moneyValue": 200,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         },
                         {
                             "name": "Big Health Potion",
@@ -867,7 +867,7 @@
                             },
                             "description": "Heals 30 hp",
                             "moneyValue": 350,
-                            "thumbnailPath": "assets/images/item2.png"
+                            "thumbnailPath": "assets/images/items/item2.png"
                         }
                     ]
                 }
@@ -875,7 +875,7 @@
         },
         {
             "name": "Dark Sewers",
-            "backgroundPath": "/assets/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
             "loot": [],
             "fight": [
                 {
@@ -910,7 +910,7 @@
             "actors": [
                 {
                     "name": "Merchant Thief",
-                    "imagePath": "/assets/images/actor4.png",
+                    "imagePath": "/assets/images/actors/actor4.png",
                     "level": 3,
                     "loot": [],
                     "shop": [
@@ -918,19 +918,19 @@
                             "name": "Silver Key",
                             "description": "",
                             "moneyValue": 100,
-                            "thumbnailPath": "assets/images/item1.png"
+                            "thumbnailPath": "assets/images/items/item1.png"
                         },
                         {
                             "name": "Golden Key",
                             "description": "",
                             "moneyValue": 500,
-                            "thumbnailPath": "assets/images/item4.png"
+                            "thumbnailPath": "assets/images/items/item4.png"
                         },
                         {
                             "name": "Butterfly Knife",
                             "description": "",
                             "moneyValue": 300,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 2,
                             "defense": 0,
                             "buffs": []
@@ -960,7 +960,7 @@
                             "name": "Butterfly Knife",
                             "description": "",
                             "moneyValue": 300,
-                            "thumbnailPath": "assets/images/item3.png",
+                            "thumbnailPath": "assets/images/items/item3.png",
                             "attack": 2,
                             "defense": 0,
                             "buffs": []
@@ -971,11 +971,11 @@
         },
         {
             "name": "City Hall",
-            "backgroundPath": "/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
             "actors": [
                 {
                     "name": "Assessor n.1",
-                    "imagePath": "/assets/images/actor4.png",
+                    "imagePath": "/assets/images/actors/actor4.png",
                     "level": 3,
                     "loot": [],
                     "interactions": [
@@ -987,7 +987,7 @@
                                 {
                                     "name": "Disguised Vampire",
                                     "level": 1,
-                                    "imagePath": "/assets/images/enemy2.png",
+                                    "imagePath": "/assets/images/actors/enemy2.png",
                                     "loot": [],
                                     "dialogue": "hello world",
                                     "stats": {
@@ -1011,7 +1011,7 @@
                 },
                 {
                     "name": "The Mayor",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 2,
                     "loot": [],
                     "dialogue": [
@@ -1022,7 +1022,7 @@
                 },
                 {
                     "name": "Assessor n.2",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 2,
                     "loot": [],
                     "dialogue": [
@@ -1035,12 +1035,12 @@
         },
         {
             "name": "Battle Arena",
-            "backgroundPath": "/assets/images/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
             "fight": [
                 {
                     "name": "Gladiator",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "loot": [
                         {
                             "name": "1000 money"
@@ -1060,7 +1060,7 @@
                 {
                     "name": "Gladiator",
                     "level": 1,
-                    "imagePath": "/assets/images/enemy1.png",
+                    "imagePath": "/assets/images/actors/enemy1.png",
                     "loot": [
                         {
                             "name": "1000 money"
@@ -1081,13 +1081,13 @@
             "actors": [
                 {
                     "name": "Arena Master",
-                    "imagePath": "/assets/images/actor2.png",
+                    "imagePath": "/assets/images/actors/actor2.png",
                     "level": 3,
                     "dialogue": "Very good fight my brother!! Wait, what?? Who are you?? How did you beat them??"
                 },
                 {
                     "name": "Fan",
-                    "imagePath": "/assets/images/actor1.png",
+                    "imagePath": "/assets/images/actors/actor1.png",
                     "level": 2,
                     "loot": [],
                     "dialogue": "I should have bet on you!",

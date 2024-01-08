@@ -1,11 +1,12 @@
-.space {
-    transition: transform .2s;
-    cursor: pointer;
+::ng-deep .mat-ink-bar {
+    display: none !important;
 }
 
-.space:hover {
-    transform: scale(1.15);
-    z-index: 60 !important;
-    filter: none;
-    -webkit-filter: none;
+.texture {
+    background-color: black;
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
 }

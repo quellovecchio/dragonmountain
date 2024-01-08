@@ -8,7 +8,7 @@ import {MatSliderModule} from '@angular/material/slider';
 
 import packageJson from '../../package.json';
 import { Constants } from 'src/assets/constants';
-import { RunService } from './game/services/run.service';
+import { RunService } from './services/run.service';
 import { Settings } from './model/Settings';
 import { Class } from './model/Actors/Class';
 import { Skill } from './model/Skill';

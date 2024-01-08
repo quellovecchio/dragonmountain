@@ -1,21 +1,24 @@
-<div style="height: 780px; width: 100%; color: white; background-color: black;" class="pixelated-border">
-    <button class="pixelated-border" style="height: 275px; width: 275px" (click)="addNewItem()">
-        add new item
-    </button>
-    <div *ngFor="let item of savedItems">
-        <button class="pixelated-border" style="height: 275px; width: 275px">
-            <div class="space" style="color: white; width: 50%;" ngTilt [disableAxis]="'x'" [maxTilt]="1"
-                [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300" >
-                <div ngTiltParallax [distance]="10" style="height: 100px; width: 100px; background-size: contain;"
-                    class="inventory-item" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
-                </div>
-                <div ngTiltParallax [distance]="10">
-                    {{ item.name }}
-                </div>
-                <div ngTiltParallax [distance]="10">
-                    {{ item.moneyValue }}
-                </div>
+<div style="height: 680px; width: 100%; color: white;" class="pixelated-border" class="texture">
+    <div class="texture">
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+            <button class="pixelated-border" style="margin: 1rem; height: 175px; width: 175px" (click)="addNewItem()"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
+                add new item
+            </button>
+            <div *ngFor="let item of savedItems">
+                <button class="pixelated-border edit-button" style="margin: 1rem; height: 175px; width: 175px; background-color: transparent;" 
+                    ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                    (click)="openItemEditorDialog(item)">
+                    <div style="color: white; width: 50%;">
+                        <div ngTiltParallax [distance]="10" style="height: 150px; width: 150px; background-size: contain;"
+                            class="inventory-item" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                        </div>
+                        <div ngTiltParallax [distance]="10" style="width: 175px;">
+                            {{ item.name }}
+                        </div>
+                    </div>
+                </button>
             </div>
-        </button>
+        </div>
     </div>
 </div>

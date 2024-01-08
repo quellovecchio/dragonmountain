@@ -5,11 +5,11 @@ import { RunState } from '../../model/RunState';
 import { Actor } from '../../model/Actors/Actor';
 import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { Stats } from '../../model/Stats';
-import { ItemService } from '../services/item.service';
+import { ItemService } from '../../services/item.service';
 import { ViewportService } from '../viewport/viewport.service';
 import { Item } from '../../model/items/Item';
 import { Character } from '../../model/Actors/Character';
-import { RunService } from '../services/run.service';
+import { RunService } from '../../services/run.service';
 import { Skill } from '../../model/Skill';
 
 @Component({

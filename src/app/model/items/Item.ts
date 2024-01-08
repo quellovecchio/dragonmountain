@@ -1,7 +1,10 @@
 import { ItemEffect } from "./ItemEffect";
 
+var idCounter = 0;
+
 export class Item {
 
+    id: number = 0;
     name: string;
     // what happens when used on NPC
     effect?: ItemEffect;
@@ -9,8 +12,9 @@ export class Item {
     moneyValue: number;
 
     constructor() {
-            this.name = "test_item";
-            this.thumbnailPath = "assets/images/item1.png";
+            this.id = idCounter++;
+            this.name = "item";
+            this.thumbnailPath = "assets/images/items/item2.png";
             this.moneyValue = 0;
         }
 }
