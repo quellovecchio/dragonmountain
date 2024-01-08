@@ -3,8 +3,11 @@ import { Interaction } from "../Interaction";
 import { Equip } from "../items/Equip";
 import { Item } from "../items/Item";
 
+var idCounter = 0;
+
 export class Actor {
 
+    id = 0;
     imagePath: string = "/assets/images/actors/actor1.png";
     name: string = "Hero";
     level: number = 1;
@@ -24,5 +27,6 @@ export class Actor {
     dialogue: string[] = [''];
 
     constructor() {
+        this.id = idCounter++;
     }
 }

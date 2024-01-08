@@ -35,6 +35,11 @@ import { StagesEditorComponent } from './editor/stages-editor/stages-editor.comp
 import { DialogItemEditorComponent } from './editor/item-editor/dialog-item-editor/dialog-item-editor.component';
 import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DialogSkillEditorComponent } from './editor/skills-editor/dialog-skill-editor/dialog-skill-editor.component';
+import { DialogClassEditorComponent } from './editor/classes-editor/dialog-class-editor/dialog-class-editor.component';
+import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor/dialog-npc-editor.component';
+import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
+import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
 
 
 @NgModule({
@@ -61,6 +66,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     StagesEditorComponent,
     DialogItemEditorComponent,
     ItemEditorComponent,
+    DialogSkillEditorComponent,
+    DialogClassEditorComponent,
+    DialogNpcEditorComponent,
+    DialogLocationEditorComponent,
+    DialogStageEditorComponent,
   ],
   imports: [
     HttpClientModule,

@@ -1,3 +1,21 @@
-<div style="height: 680px; width: 100%; color: white; background-color: black;" class="pixelated-border">
-    holaaaa    
+<div style="height: 680px; width: 100%; color: white;" class="pixelated-border" class="texture">
+    <div class="texture">
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+            <button class="pixelated-border" style="margin: 1rem; height: 175px; width: 175px" (click)="addNewClass()"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
+                add new class
+            </button>
+            <div *ngFor="let class of savedClasses">
+                <button class="pixelated-border edit-button" style="margin: 1rem; height: 175px; width: 175px; background-color: transparent;" 
+                    ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                    (click)="openClassEditorDialog(class)">
+                    <div style="color: white; width: 50%;">
+                        <div ngTiltParallax [distance]="10" style="width: 175px;">
+                            {{ class.name }}
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
