@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Character } from 'src/app/model/Actors/Character';
 import { DialogNpcEditorComponent } from './dialog-npc-editor/dialog-npc-editor.component';
+import { EditorService } from 'src/app/services/editor.service';
+import { Actor } from 'src/app/model/Actors/Actor';
 
 @Component({
   selector: 'app-npcs-editor',
@@ -10,18 +12,22 @@ import { DialogNpcEditorComponent } from './dialog-npc-editor/dialog-npc-editor.
 })
 export class NpcsEditorComponent implements OnInit {
 
-  savedNpcs: Character[] = [];
+  savedNpcs: Actor[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService) { }
 
   ngOnInit(): void {
   }
 
-  addNewNpc() { 
-    this.savedNpcs.push(new Character());
+  save(): void {
+    this.editorService.saveCurrentActors(this.savedNpcs);
   }
 
-  openNpcEditorDialog(npc: Character) {
+  addNewNpc() { 
+    this.savedNpcs.push(new Actor());
+  }
+
+  openNpcEditorDialog(npc: Actor) {
     this.dialog.open(DialogNpcEditorComponent, {
       height: '700px',
       width: '600px',

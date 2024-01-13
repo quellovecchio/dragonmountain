@@ -10,6 +10,8 @@ import { FileService } from 'src/app/services/file.service';
 })
 export class DialogNpcEditorComponent implements OnInit {
 
+  images = this.fileService.getAllActorsFilePaths();
+
   npc: Character;
   isEquip = false;
 
@@ -19,5 +21,4 @@ export class DialogNpcEditorComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

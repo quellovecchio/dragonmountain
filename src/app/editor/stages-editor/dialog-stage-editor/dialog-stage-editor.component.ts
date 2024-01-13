@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Stage } from 'src/app/model/Stage';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-dialog-stage-editor',
@@ -7,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogStageEditorComponent implements OnInit {
 
-  constructor() { }
+  stage: Stage;
+  isEquip = false;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Stage, private fileService: FileService) {
+    this.stage = data;
+  }
 
   ngOnInit(): void {
   }

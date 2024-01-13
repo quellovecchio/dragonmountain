@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EnemiesEditorComponent } from './enemies-editor.component';
+import { DiyBinderComponent } from './diy-binder.component';
 
-describe('EnemiesEditorComponent', () => {
-  let component: EnemiesEditorComponent;
-  let fixture: ComponentFixture<EnemiesEditorComponent>;
+describe('DiyBinderComponent', () => {
+  let component: DiyBinderComponent;
+  let fixture: ComponentFixture<DiyBinderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EnemiesEditorComponent ]
+      declarations: [ DiyBinderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EnemiesEditorComponent);
+    fixture = TestBed.createComponent(DiyBinderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

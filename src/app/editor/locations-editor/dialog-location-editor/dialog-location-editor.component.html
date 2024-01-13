@@ -1,14 +1,41 @@
 <button mat-icon-button class="close-button" mat-dialog-close>
     <mat-icon color="warn">X</mat-icon>
 </button>
-<h1 mat-dialog-title> Edit npc {{npc.id}} </h1>
+<h1 mat-dialog-title> Edit location {{location.id}} </h1>
 <div style="overflow-y: hidden;">
+    <h2>Picture</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="location.backgroundPath">
+        <option *ngFor="let image of images" [value]="image">
+            <img src="image">
+        </option>
+    </select>
     <h2>Name</h2>
-    <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="npc.name" maxlength="25">
+    <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="location.name"
+        maxlength="25">
+    <h2>Actors</h2>
+
+    <app-diy-binder></app-diy-binder>
+
+    <div *ngIf="location.actors && location.actors.length>0"
+        style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+        <div *ngFor="let npc of location.actors; let i=index">
+            <button class="pixelated-border edit-button"
+                style="margin: 1rem; height: 100px; width: 100px; background-color: transparent; background: round;"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="removeActorFromLocation(i)" [ngStyle]="{ 'background-image': 'url(' + npc.imagePath + ')' }">
+                <div style="color: white; width: 50%;">
+                    <div ngTiltParallax [distance]="10" style="width: 100px;">
+                        {{ npc.name }}
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
     <!--<h2>Money value</h2>
     <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="item.moneyValue" maxlength="5">
     <div style="display: flex; flex-direction: row;">
-        <h2>Is equip?</h2>
+        <h2>Is eActorsquip?</h2>
         <input type="checkbox" class="text-box" style="height: 35px; width: 35px; position: relative; top: 20px; left: 300px" [(ngModel)]="isEquip"/>
     </div>
     <div *ngIf="isEquip">

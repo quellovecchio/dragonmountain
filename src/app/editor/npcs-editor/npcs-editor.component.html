@@ -6,9 +6,9 @@
                 add new npc
             </button>
             <div *ngFor="let npc of savedNpcs">
-                <button class="pixelated-border edit-button" style="margin: 1rem; height: 175px; width: 175px; background-color: transparent;" 
+                <button class="pixelated-border edit-button" style="margin: 1rem; height: 175px; width: 175px; background-color: transparent; background: round;" 
                     ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
-                    (click)="openNpcEditorDialog(npc)">
+                    (click)="openNpcEditorDialog(npc)" [ngStyle]="{ 'background-image': 'url(' + npc.imagePath + ')' }">
                     <div style="color: white; width: 50%;">
                         <div ngTiltParallax [distance]="10" style="width: 175px;">
                             {{ npc.name }}

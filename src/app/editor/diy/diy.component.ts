@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Run } from '../../model/Run';
+import { NpcsEditorComponent } from '../npcs-editor/npcs-editor.component';
 
 @Component({
   selector: 'app-diy',
@@ -9,11 +10,17 @@ import { Run } from '../../model/Run';
 })
 export class DiyComponent implements OnInit {
 
+  @ViewChild('npcEditor') npcEditor!: NpcsEditorComponent;
   loadedRun = new Run();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onTabChanged($event: any): void{
+    console.log('saving...');
+    this.npcEditor.save();
   }
 
 }

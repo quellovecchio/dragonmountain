@@ -56,7 +56,7 @@ NEXT STEPS:
 
 - engage fight attacking or casting a spell, damage effective and make ambushes attack monsters first. make everbod attackable (with consequences)
 
-- steal skill
+- binded locations: locations transforming or opening new locations
 
 - an evil merchant you can kill to loot
 

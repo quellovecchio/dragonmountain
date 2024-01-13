@@ -4,7 +4,7 @@
         <h2>
             Run's name: FILE NAME
         </h2>
-        <mat-tab-group disableRipple [@.disabled]="true" class="pixelated-border" style="width: 1520px; margin-left: 25px;">
+        <mat-tab-group disableRipple [@.disabled]="true" class="pixelated-border" style="width: 1520px; margin-left: 25px;" (selectedTabChange)="onTabChanged($event);">
             <mat-tab label="items">
                 <app-item-editor>
 
@@ -21,8 +21,8 @@
                 </app-classes-editor>
             </mat-tab>
             <mat-tab label="npcs">
-                <app-npcs-editor>
-                
+                <app-npcs-editor #npcEditor>
+
                 </app-npcs-editor>
             </mat-tab>
             <mat-tab label="locations">

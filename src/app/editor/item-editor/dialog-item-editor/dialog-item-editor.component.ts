@@ -12,7 +12,7 @@ import { FileService } from 'src/app/services/file.service';
 export class DialogItemEditorComponent implements OnInit {
 
   effectTypes = Object.keys(EffectType).filter(value => Number.isNaN(parseInt(value)));
-  images = this.fileService.getAllImagesFilePaths();
+  images = this.fileService.getAllItemsImagesFilePaths();
 
   item: Item;
   isEquip = false;

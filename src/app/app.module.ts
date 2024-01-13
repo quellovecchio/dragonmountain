@@ -28,19 +28,19 @@ import { GameComponent } from './game/game.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SkillsEditorComponent } from './editor/skills-editor/skills-editor.component';
 import { ClassesEditorComponent } from './editor/classes-editor/classes-editor.component';
-import { EnemiesEditorComponent } from './editor/enemies-editor/enemies-editor.component';
 import { NpcsEditorComponent } from './editor/npcs-editor/npcs-editor.component';
 import { LocationsEditorComponent } from './editor/locations-editor/locations-editor.component';
 import { StagesEditorComponent } from './editor/stages-editor/stages-editor.component';
 import { DialogItemEditorComponent } from './editor/item-editor/dialog-item-editor/dialog-item-editor.component';
 import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DialogSkillEditorComponent } from './editor/skills-editor/dialog-skill-editor/dialog-skill-editor.component';
 import { DialogClassEditorComponent } from './editor/classes-editor/dialog-class-editor/dialog-class-editor.component';
 import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor/dialog-npc-editor.component';
 import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
 import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
-
+import { DiyBinderComponent } from './editor/diy-binder/diy-binder.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-
     GameComponent,
     SkillsEditorComponent,
     ClassesEditorComponent,
-    EnemiesEditorComponent,
     NpcsEditorComponent,
     LocationsEditorComponent,
     StagesEditorComponent,
@@ -71,6 +70,7 @@ import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-
     DialogNpcEditorComponent,
     DialogLocationEditorComponent,
     DialogStageEditorComponent,
+    DiyBinderComponent,
   ],
   imports: [
     HttpClientModule,
@@ -87,7 +87,8 @@ import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-
     MatIconModule,
     MatTabsModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule
   ],
   exports: [
     InfoBoxComponent,

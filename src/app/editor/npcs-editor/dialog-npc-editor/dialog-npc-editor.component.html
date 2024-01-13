@@ -3,6 +3,12 @@
 </button>
 <h1 mat-dialog-title> Edit npc {{npc.id}} </h1>
 <div style="overflow-y: hidden;">
+    <h2>Picture</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="npc.imagePath">
+        <option *ngFor="let image of images" [value]="image"> 
+            <img src="image">
+        </option>
+    </select>
     <h2>Name</h2>
     <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="npc.name" maxlength="25">
     <!--<h2>Money value</h2>
