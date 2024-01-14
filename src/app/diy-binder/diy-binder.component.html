@@ -1,0 +1,10 @@
+<div style="width: 100%; display: flex;">
+    <input style="font-size: 35px;" type="text" [(ngModel)]="searchTerm" (input)="filterItems()"
+        placeholder="Search..." (ngModelChange)="selection = undefined">
+    <div class="pixelated-border" *ngIf="searchTerm != '' && filteredItems.length > 0" class="autocomplete">
+        <div style="font-size: 30px;" *ngFor="let item of filteredItems" (click)="selectItem(item)">
+            {{ item.name }}
+            <hr>
+        </div>
+    </div>
+</div>

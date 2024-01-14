@@ -40,7 +40,7 @@ import { DialogClassEditorComponent } from './editor/classes-editor/dialog-class
 import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor/dialog-npc-editor.component';
 import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
 import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
-import { DiyBinderComponent } from './editor/diy-binder/diy-binder.component';
+import { DiyBinderComponent } from './diy-binder/diy-binder.component';
 
 @NgModule({
   declarations: [

@@ -14,7 +14,10 @@
         maxlength="25">
     <h2>Actors</h2>
 
-    <app-diy-binder></app-diy-binder>
+    <app-diy-binder style="width: 75%;" [list]="currentActors" [(selection)]="selectedActor"></app-diy-binder>
+    <button [disabled]="!selectedActor" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addActorToLocation()">
+        <mat-icon color="green">+</mat-icon>
+    </button>
 
     <div *ngIf="location.actors && location.actors.length>0"
         style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
