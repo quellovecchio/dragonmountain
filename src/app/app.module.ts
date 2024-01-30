@@ -41,6 +41,7 @@ import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor
 import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
 import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
 import { DiyBinderComponent } from './diy-binder/diy-binder.component';
+import { EnemiesEditorComponent } from './editor/enemies-editor/enemies-editor.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DiyBinderComponent } from './diy-binder/diy-binder.component';
     DialogLocationEditorComponent,
     DialogStageEditorComponent,
     DiyBinderComponent,
+    EnemiesEditorComponent,
   ],
   imports: [
     HttpClientModule,

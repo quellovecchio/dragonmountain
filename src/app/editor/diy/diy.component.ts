@@ -11,6 +11,7 @@ import { NpcsEditorComponent } from '../npcs-editor/npcs-editor.component';
 export class DiyComponent implements OnInit {
 
   @ViewChild('npcEditor') npcEditor!: NpcsEditorComponent;
+  @ViewChild('itemEditor') itemEditor!: NpcsEditorComponent;
   loadedRun = new Run();
 
   constructor() { }
@@ -21,6 +22,7 @@ export class DiyComponent implements OnInit {
   onTabChanged($event: any): void{
     console.log('saving...');
     this.npcEditor.save();
+    this.itemEditor.save();
   }
 
 }

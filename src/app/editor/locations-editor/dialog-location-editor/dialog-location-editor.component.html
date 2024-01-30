@@ -12,10 +12,11 @@
     <h2>Name</h2>
     <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="location.name"
         maxlength="25">
+
     <h2>Actors</h2>
 
     <app-diy-binder style="width: 75%;" [list]="currentActors" [(selection)]="selectedActor"></app-diy-binder>
-    <button [disabled]="!selectedActor" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addActorToLocation()">
+    <button [disabled]="!selectedActor || location.actors.length >= 3" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addActorToLocation()">
         <mat-icon color="green">+</mat-icon>
     </button>
 
@@ -29,6 +30,52 @@
                 <div style="color: white; width: 50%;">
                     <div ngTiltParallax [distance]="10" style="width: 100px;">
                         {{ npc.name }}
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+    
+    <h2>Fight</h2>
+
+    <app-diy-binder style="width: 75%;" [list]="currentEnemies" [(selection)]="selectedActorFight"></app-diy-binder>
+    <button [disabled]="!selectedActorFight || location.fight.length >= 3" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addActorToFight()">
+        <mat-icon color="green">+</mat-icon>
+    </button>
+
+    <div *ngIf="location.fight && location.fight.length>0"
+        style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+        <div *ngFor="let npc of location.fight; let i=index">
+            <button class="pixelated-border edit-button"
+                style="margin: 1rem; height: 100px; width: 100px; background-color: transparent; background: round;"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="removeActorFromFight(i)" [ngStyle]="{ 'background-image': 'url(' + npc.imagePath + ')' }">
+                <div style="color: white; width: 50%;">
+                    <div ngTiltParallax [distance]="10" style="width: 100px;">
+                        {{ npc.name }}
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <h2>Loot</h2>
+
+    <app-diy-binder style="width: 75%;" [list]="currentItems" [(selection)]="selectedItem"></app-diy-binder>
+    <button [disabled]="!selectedItem" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addItemToLoot()">
+        <mat-icon color="green">+</mat-icon>
+    </button>
+
+    <div *ngIf="location.actors && location.actors.length>0"
+        style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+        <div *ngFor="let item of location.loot; let i=index">
+            <button class="pixelated-border edit-button"
+                style="margin: 1rem; height: 100px; width: 100px; background-color: transparent; background: round;"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="removeItemFromLoot(i)" [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
+                <div style="color: white; width: 50%;">
+                    <div ngTiltParallax [distance]="10" style="width: 100px;">
+                        {{ item.name }}
                     </div>
                 </div>
             </button>

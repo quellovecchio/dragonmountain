@@ -6,7 +6,7 @@
         </h2>
         <mat-tab-group disableRipple [@.disabled]="true" class="pixelated-border" style="width: 1520px; margin-left: 25px;" (selectedTabChange)="onTabChanged($event);">
             <mat-tab label="items">
-                <app-item-editor>
+                <app-item-editor #itemEditor>
 
                 </app-item-editor>
             </mat-tab>
@@ -24,6 +24,11 @@
                 <app-npcs-editor #npcEditor>
 
                 </app-npcs-editor>
+            </mat-tab>
+            <mat-tab label="enemies">
+                <app-enemies-editor #npcEditor>
+
+                </app-enemies-editor>
             </mat-tab>
             <mat-tab label="locations">
                 <app-locations-editor>

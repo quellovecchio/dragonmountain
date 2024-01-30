@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/model/items/Item';
 import { DialogItemEditorComponent } from './dialog-item-editor/dialog-item-editor.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-item-editor',
@@ -12,9 +13,13 @@ export class ItemEditorComponent implements OnInit {
 
   savedItems: Item[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService) { }
 
   ngOnInit(): void {
+  }
+
+  save(): void {
+    this.editorService.saveCurrentItems(this.savedItems);
   }
 
   addNewItem() { 

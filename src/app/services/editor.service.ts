@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actor } from '../model/Actors/Actor';
+import { Item } from '../model/items/Item';
+import { Character } from '../model/Actors/Character';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,7 @@ import { Actor } from '../model/Actors/Actor';
 export class EditorService {
 
   currentActors: Actor[] = [];
+  currentItems: Item[] = [];
 
   constructor() { }
 
@@ -16,5 +19,17 @@ export class EditorService {
 
   saveCurrentActors(actors: Actor[]): void {
     this.currentActors = actors;
+  }
+
+  getCurrentItems(): Item[] {
+    return this.currentItems;
+  }
+
+  saveCurrentItems(items: Item[]): void {
+    this.currentItems = items;
+  }
+
+  getCurrentEnemies(): Character[] {
+    return [];
   }
 }
