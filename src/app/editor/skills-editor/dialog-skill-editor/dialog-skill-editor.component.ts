@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EffectType } from 'src/app/model/Interaction';
 import { Skill } from 'src/app/model/Skill';
 import { FileService } from 'src/app/services/file.service';
 
@@ -9,6 +10,8 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./dialog-skill-editor.component.scss']
 })
 export class DialogSkillEditorComponent implements OnInit {
+
+  effectTypes = Object.keys(EffectType).filter(value => Number.isNaN(parseInt(value)));
 
   skill: Skill;
   isEquip = false;
