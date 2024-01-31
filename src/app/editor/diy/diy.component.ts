@@ -12,6 +12,7 @@ export class DiyComponent implements OnInit {
 
   @ViewChild('npcEditor') npcEditor!: NpcsEditorComponent;
   @ViewChild('itemEditor') itemEditor!: NpcsEditorComponent;
+  @ViewChild('skillsEditor') skillsEditor!: NpcsEditorComponent;
   loadedRun = new Run();
 
   constructor() { }
@@ -23,6 +24,7 @@ export class DiyComponent implements OnInit {
     console.log('saving...');
     this.npcEditor.save();
     this.itemEditor.save();
+    this.skillsEditor.save();
   }
 
 }

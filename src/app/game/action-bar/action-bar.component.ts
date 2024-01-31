@@ -135,7 +135,7 @@ export class ActionBarComponent implements OnInit {
   boostStat(actor: PlayingCharacter, statName: string) {
     this.run.experience = this.run.experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
-    var newSkillData = actor.class?.skillTree.find((el: { skillId: number; unlockLevel: string; unlockStat: string; }) => {return (el.unlockLevel == (actor.stats as any)[statName] && el.unlockStat == statName)});
+    var newSkillData = actor.class?.skillTree.find((el: { skillId: number; unlockLevel: number; unlockStat: string; }) => {return (el.unlockLevel == (actor.stats as any)[statName] && el.unlockStat == statName)});
     if(newSkillData) {
       var newSkill = this.runService.getSkillById(newSkillData.skillId);
       if (newSkill) {

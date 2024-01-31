@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Skill } from 'src/app/model/Skill';
 import { DialogSkillEditorComponent } from './dialog-skill-editor/dialog-skill-editor.component';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-skills-editor',
@@ -12,9 +13,13 @@ export class SkillsEditorComponent implements OnInit {
 
   savedSkills: Skill[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService) { }
 
   ngOnInit(): void {
+  }
+
+  save(): void {
+    this.editorService.saveCurrentSkills(this.savedSkills);
   }
 
   addNewItem() { 

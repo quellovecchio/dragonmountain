@@ -4,7 +4,7 @@ export class Class {
 
     id: number = 0;
     name: string = 'class';
-    skillTree: {skillId: number, unlockLevel: string, unlockStat: string}[] = [];
+    skillTree: {skillId: number, unlockLevel: number, unlockStat: string}[] = [];
 
     constructor() {
         this.id = idCounter++;
