@@ -1,0 +1,17 @@
+data: {
+	skills:
+	items:
+	classes:
+	actors:
+	lastStage: {
+		<stage>
+	},
+	stages: [
+		<stages>
+	}
+}
+
+
+Expected breaking stuff: items, actors, money logic
+
+		MONEY LOGIC: expect to change items function as item : quantity instead of array of items

@@ -41,7 +41,7 @@ export class DialogClassEditorComponent implements OnInit {
   removeSkillEntry(index: number): void {
       this.classParam.skillTree.splice(index, 1);
       // Trigger change detection
-      this.classParam.skillTree = [...this.classParam.skillTree];
+      this.classParam.skillTree = [...this.classParam.skillTree ];
   }
 
 }
