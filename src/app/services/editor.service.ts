@@ -4,6 +4,7 @@ import { Item } from '../model/items/Item';
 import { Character } from '../model/Actors/Character';
 import { Skill } from '../model/Skill';
 import { RunService } from './run.service';
+import { Class } from '../model/Actors/Class';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class EditorService {
   currentActors: Actor[] = [];
   currentItems: Item[] = [];
   currentSkills: Skill[] = [];
+  currentClasses: Class[] = [];
 
   constructor(private runService: RunService) { }
 
@@ -20,6 +22,7 @@ export class EditorService {
     this.currentActors = [];
     this.currentItems = [];
     this.currentSkills = [];
+    this.currentClasses = [];
   }
 
   loadFromFile(data: any) {
@@ -30,6 +33,8 @@ export class EditorService {
     this.runService.setClasses(data.classes);
     this.currentActors = this.runService.populateActors(data.stages[0].locations);*/
     this.currentItems = data.items;
+    this.currentSkills = data.skills;
+    this.currentClasses = data.classes;
   }
 
   getCurrentActors(): Actor[] {
@@ -60,7 +65,15 @@ export class EditorService {
     this.currentSkills = skills;
   }
 
-  getCurrentEnemies(): Character[] {
-    return [];
+  getCurrentClasses(): Class[] {
+    return this.currentClasses;
+  }
+
+  getClassById(id: number) : Class {
+    return this.currentClasses.filter((el: Class) => el.id === id)[0];
+  }
+
+  saveCurrentClasses(classes: Class[]): void {
+    this.currentClasses = classes;
   }
 }

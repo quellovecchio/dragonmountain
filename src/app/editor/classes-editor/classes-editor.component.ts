@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Class } from 'src/app/model/Actors/Class';
 import { DialogClassEditorComponent } from './dialog-class-editor/dialog-class-editor.component';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-classes-editor',
@@ -12,9 +13,20 @@ export class ClassesEditorComponent implements OnInit {
 
   savedClasses: Class[] = [];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewChecked(): void {
+    if(this.editorService.getCurrentClasses() !== this.savedClasses) {
+      this.savedClasses = this.editorService.getCurrentClasses();
+      this.savedClasses = [...this.savedClasses]
+    }
+  }
+
+  save(): void {
+    this.editorService.saveCurrentClasses(this.savedClasses);
   }
 
   addNewClass() { 

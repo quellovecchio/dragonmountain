@@ -17,7 +17,6 @@ export class DialogLocationEditorComponent implements OnInit {
 
   images = this.fileService.getAllLocationsImagesFilePaths();
   currentActors: Actor[]  = [];
-  currentEnemies: Actor[]  = [];
   currentItems: Item[]  = [];
   selectedActor?: Actor = undefined;
   selectedActorFight?: Actor = undefined;
@@ -29,7 +28,6 @@ export class DialogLocationEditorComponent implements OnInit {
     this.location = data;
     this.currentActors = this.editorService.getCurrentActors();
     this.currentItems = this.editorService.getCurrentItems();
-    this.currentEnemies = this.editorService.getCurrentEnemies();
   }
 
   ngOnInit(): void {
@@ -54,7 +52,7 @@ export class DialogLocationEditorComponent implements OnInit {
     if (this.selectedActorFight && this.location.fight.length < 3) {
       console.log(`added actor ${this.selectedActorFight.id} - ${this.selectedActorFight.name}`);
       this.location.fight.push(this.selectedActorFight as Character);
-      this.currentEnemies = this.currentEnemies.filter(item => item.id !== this.selectedActorFight!.id);
+      this.currentActors = this.currentActors.filter(item => item.id !== this.selectedActorFight!.id);
       this.selectedActorFight = undefined;
     }
   }

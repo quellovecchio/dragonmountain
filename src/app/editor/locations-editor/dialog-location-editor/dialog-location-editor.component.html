@@ -38,7 +38,7 @@
     
     <h2>Fight</h2>
 
-    <app-diy-binder style="width: 75%;" [list]="currentEnemies" [(selection)]="selectedActorFight"></app-diy-binder>
+    <app-diy-binder style="width: 75%;" [list]="currentActors" [(selection)]="selectedActorFight"></app-diy-binder>
     <button [disabled]="!selectedActorFight || location.fight.length >= 3" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addActorToFight()">
         <mat-icon color="green">+</mat-icon>
     </button>
