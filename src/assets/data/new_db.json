@@ -397,7 +397,7 @@
             "loot": [],
             "interactions": [
                 {
-                    "reactTo": "Holy Water",
+                    "reactTo": 1,
                     "text": "[The teaspoon started smoking and turned into a ghost!]",
                     "effect": 2,
                     "effectTarget": [
@@ -848,7 +848,9 @@
 	},
 	"stages": [
         {
-            "bossfight": {
+            "id": 0,
+            "name": "Damned Citadel",
+            "bossLocation": {
                 "name": "Necromancer's Tomb",
                 "backgroundPath": "/assets/images/locations/location4-bg.png",
                 "loot": [ 

@@ -10,6 +10,11 @@ import { Skill } from '../model/Skill';
 import { RunService } from '../services/run.service';
 import { ViewportComponent } from './viewport/viewport.component';
 import packageJson from '../../../package.json';
+import { Stage } from '../model/Stage';
+import { Item } from '../model/items/Item';
+import { Actor } from '../model/Actors/Actor';
+import { StageDto } from '../model/StageDto';
+import { ActorDto } from '../model/Actors/ActorDto';
 
 @Component({
   selector: 'app-game',
@@ -32,8 +37,6 @@ export class GameComponent implements OnInit {
   run: Run = new Run();
   loadingRun: Run = new Run();
 
-  startingLocations: Location[] = [];
-
   constructor(viewport: ViewportComponent, private http: HttpClient, private runService: RunService) {
     this.viewport = viewport;
     this.generateRun().then((newRun) => {
@@ -48,8 +51,8 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
-    alert(Constants.TECH_DEMO_INTRO);
-    alert(Constants.TECH_DEMO_HINT);
+    //alert(Constants.TECH_DEMO_INTRO);
+    //alert(Constants.TECH_DEMO_HINT);
     this.innerWidth = window.innerWidth;
     if(this.innerWidth < 590)
       this.scaledMode = true;
@@ -58,16 +61,15 @@ export class GameComponent implements OnInit {
   generateRun(): Promise<Run> {
     console.log("generateRun() - start");
     return new Promise((resolve, reject) => {
-      this.http.get<{classes: Class[], skills: Skill[], bossfight: Location, locations: Location[]}>('./assets/data/db_locations.json').subscribe({
+      this.http.get<{actors: ActorDto[], items: Item[], classes: Class[], skills: Skill[], lastStage: StageDto, stages: StageDto[]}>('./assets/data/new_db.json').subscribe({
         next: (data) => {
-          this.startingLocations = data.locations;
-          console.log("generateRun() - all locations:");
-          console.log(this.startingLocations);
           let newRun = new Run();
-          newRun.stage.locations = data.locations;
-          newRun.stage.bossLocation = data.bossfight;
+          this.runService.setItems(data.items);
+          this.runService.setActors(data.actors);
           this.runService.setSkills(data.skills);
           this.runService.setClasses(data.classes);
+          newRun.stage.locations = this.runService.populateLocations(data.stages[0].locations);
+          newRun.stage.bossLocation = this.runService.populateLocation(data.stages[0].bossLocation);
           newRun.party[0].class = this.runService.classes[0];
           this.runService.setRun(newRun);
           newRun.stage.currentLocations = this.runService.getRefreshedLocations();

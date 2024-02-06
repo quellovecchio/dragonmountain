@@ -1,6 +1,5 @@
 import { Actor } from "./Actors/Actor";
 import { Character } from "./Actors/Character";
-import { TestEnemy } from "./Actors/Test/TestEnemy";
 import { Item } from "./items/Item";
 
 var idCounter = 0;
