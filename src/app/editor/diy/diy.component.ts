@@ -27,4 +27,12 @@ export class DiyComponent implements OnInit {
     this.skillsEditor.save();
   }
 
+  loadDb() {
+
+  }
+
+  exportDb() {
+    
+  }
+
 }

@@ -4,6 +4,7 @@
 }
 
 * {
+    text-shadow: 2px 2px 2px #7D7463;
     font-family: "Alagard" !important;
     src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype") !important;
     /* Add !important to overwrite all elements */
@@ -105,7 +106,7 @@ h6 {
 }
 
 .pixelated-border {
-    @include vintage(1.4px, white, black);
+    @include vintage(1.4px, #f7ecd8e1, #2b2721b6);
 }
 
 button {
