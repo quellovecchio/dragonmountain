@@ -34,6 +34,7 @@ import { StagesEditorComponent } from './editor/stages-editor/stages-editor.comp
 import { DialogItemEditorComponent } from './editor/item-editor/dialog-item-editor/dialog-item-editor.component';
 import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DialogSkillEditorComponent } from './editor/skills-editor/dialog-skill-editor/dialog-skill-editor.component';
 import { DialogClassEditorComponent } from './editor/classes-editor/dialog-class-editor/dialog-class-editor.component';
@@ -41,6 +42,8 @@ import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor
 import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
 import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
 import { DiyBinderComponent } from './diy-binder/diy-binder.component';
+import { LoadDialogComponent } from './editor/diy/load-dialog/load-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import { DiyBinderComponent } from './diy-binder/diy-binder.component';
     DialogLocationEditorComponent,
     DialogStageEditorComponent,
     DiyBinderComponent,
+    LoadDialogComponent,
   ],
   imports: [
     HttpClientModule,
@@ -88,13 +92,15 @@ import { DiyBinderComponent } from './diy-binder/diy-binder.component';
     MatTabsModule,
     FormsModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    LocationPreviewComponent
+    LocationPreviewComponent,
   ],
   providers: [
     ViewportComponent,
