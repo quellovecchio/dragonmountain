@@ -844,143 +844,162 @@
             "skills": []
         }
     ],
+    "locations": [
+        {
+            "id": 0,
+            "name": "Necromancer's Tomb",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [ 
+                1
+            ],
+            "actors": [
+                0, 1, 2
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Unholy Church",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "fight": [ 
+                3, 3
+            ],
+            "loot": [ 
+                1
+            ],
+            "actors": [
+                4, 5
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Haunted Shop",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "actors": [
+                6, 7
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Mercenaries Tavern",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                8, 9
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Sadness Boulevard",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                10
+            ],
+            "fight": [
+                11, 3
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Putrid Street",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                12, 13
+            ]
+        },
+        {
+            "id": 6,
+            "name": "The House Of The Rising Sun",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                14, 15
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Granma's House",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                16
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Unsettling Shop",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
+            "loot": [],
+            "actors": [
+                17
+            ]
+        },
+        {
+            "id": 9,
+            "name": "Market Square",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
+            "loot": [],
+            "actors": [
+                18, 19
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Open Backyard",
+            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
+            "fight": [
+                20, 20, 20
+            ],
+            "loot": [],
+            "actors": [
+                21
+            ]
+        },
+        {
+            "id": 11,
+            "name": "Witch House",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "actors": [
+                22
+            ]
+        },
+        {
+            "id": 12,
+            "name": "Dark Sewers",
+            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "fight": [
+                23, 23
+            ],
+            "actors": [
+                24, 25
+            ]
+        },
+        {
+            "id": 13,
+            "name": "City Hall",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "actors": [
+                26, 27, 28
+            ]
+        },
+        {
+            "id": 14,
+            "name": "Battle Arena",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "fight": [
+                29, 29
+            ],
+            "actors": [
+                30, 31
+            ]
+        }
+    ],
     "lastStage": {
 	},
 	"stages": [
         {
             "id": 0,
             "name": "Damned Citadel",
-            "bossLocation": {
-                "name": "Necromancer's Tomb",
-                "backgroundPath": "/assets/images/locations/location4-bg.png",
-                "loot": [ 
-                    1
-                ],
-                "actors": [
-                    0, 1, 2
-                ]
-            },
+            "bossLocation": 0,
             "locations": [
-                {
-                    "name": "Unholy Church",
-                    "backgroundPath": "/assets/images/locations/location4-bg.png",
-                    "fight": [ 
-                        3, 3
-                    ],
-                    "loot": [ 
-                        1
-                    ],
-                    "actors": [
-                        4, 5
-                    ]
-                },
-                {
-                    "name": "Haunted Shop",
-                    "backgroundPath": "/assets/images/locations/location4-bg.png",
-                    "actors": [
-                        6, 7
-                    ]
-                },
-                {
-                    "name": "Mercenaries Tavern",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        8, 9
-                    ]
-                },
-                {
-                    "name": "Sadness Boulevard",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        10
-                    ],
-                    "fight": [
-                        11, 3
-                    ]
-                },
-                {
-                    "name": "Putrid Street",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        12, 13
-                    ]
-                },
-                {
-                    "name": "The House Of The Rising Sun",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        14, 15
-                    ]
-                },
-                {
-                    "name": "Granma's House",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        16
-                    ]
-                },
-                {
-                    "name": "Unsettling Shop",
-                    "backgroundPath": "/assets/images/locations/location3-bg.png",
-                    "loot": [],
-                    "actors": [
-                        17
-                    ]
-                },
-                {
-                    "name": "Market Square",
-                    "backgroundPath": "/assets/images/locations/location3-bg.png",
-                    "loot": [],
-                    "actors": [
-                        18, 19
-                    ]
-                },
-                {
-                    "name": "Open Backyard",
-                    "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
-                    "fight": [
-                        20, 20, 20
-                    ],
-                    "loot": [],
-                    "actors": [
-                        21
-                    ]
-                },
-                {
-                    "name": "Witch House",
-                    "backgroundPath": "/assets/images/locations/location2-bg.png",
-                    "actors": [
-                        22
-                    ]
-                },
-                {
-                    "name": "Dark Sewers",
-                    "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
-                    "loot": [],
-                    "fight": [
-                        23, 23
-                    ],
-                    "actors": [
-                        24, 25
-                    ]
-                },
-                {
-                    "name": "City Hall",
-                    "backgroundPath": "/assets/images/locations/location4-bg.png",
-                    "actors": [
-                        26, 27, 28
-                    ]
-                },
-                {
-                    "name": "Battle Arena",
-                    "backgroundPath": "/assets/images/locations/location4-bg.png",
-                    "fight": [
-                        29, 29
-                    ],
-                    "actors": [
-                        30, 31
-                    ]
-                }
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
             ]
         }
     ]

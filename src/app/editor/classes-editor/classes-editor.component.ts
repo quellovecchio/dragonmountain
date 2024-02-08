@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Class } from 'src/app/model/Actors/Class';
 import { DialogClassEditorComponent } from './dialog-class-editor/dialog-class-editor.component';
@@ -9,7 +9,7 @@ import { EditorService } from 'src/app/services/editor.service';
   templateUrl: './classes-editor.component.html',
   styleUrls: ['./classes-editor.component.scss']
 })
-export class ClassesEditorComponent implements OnInit {
+export class ClassesEditorComponent implements OnInit, AfterViewChecked {
 
   savedClasses: Class[] = [];
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Character } from 'src/app/model/Actors/Character';
 import { DialogNpcEditorComponent } from './dialog-npc-editor/dialog-npc-editor.component';
@@ -10,13 +10,20 @@ import { Actor } from 'src/app/model/Actors/Actor';
   templateUrl: './npcs-editor.component.html',
   styleUrls: ['./npcs-editor.component.scss']
 })
-export class NpcsEditorComponent implements OnInit {
+export class NpcsEditorComponent implements OnInit, AfterViewChecked {
 
   savedNpcs: Actor[] = [];
 
   constructor(private dialog: MatDialog, private editorService: EditorService) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewChecked(): void {
+    if(this.editorService.getCurrentActors() !== this.savedNpcs) {
+      this.savedNpcs = this.editorService.getCurrentActors();
+      this.savedNpcs = [...this.savedNpcs]
+    }
   }
 
   save(): void {

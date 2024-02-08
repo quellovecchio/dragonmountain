@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actor } from '../model/Actors/Actor';
 import { Item } from '../model/items/Item';
-import { Character } from '../model/Actors/Character';
 import { Skill } from '../model/Skill';
 import { RunService } from './run.service';
 import { Class } from '../model/Actors/Class';
+import { StageDto } from '../model/StageDto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +26,17 @@ export class EditorService {
   }
 
   loadFromFile(data: any) {
-    /*this.runService.setRun(data);
+    this.currentItems = data.items;
+    this.currentSkills = data.skills;
+    this.currentClasses = data.classes;
+    this.runService.setRun(data);
     this.runService.setItems(data.items);
     this.runService.setActors(data.actors);
     this.runService.setSkills(data.skills);
     this.runService.setClasses(data.classes);
-    this.currentActors = this.runService.populateActors(data.stages[0].locations);*/
-    this.currentItems = data.items;
-    this.currentSkills = data.skills;
-    this.currentClasses = data.classes;
+    this.currentActors = this.runService.populateActors(data.actors);
+    // TODO reorganize data to have location as a new slot of data and locations in stages only list of ids
+    //this.currentLocations = this.runService.populateLocations
   }
 
   getCurrentActors(): Actor[] {
