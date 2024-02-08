@@ -11,6 +11,8 @@ import { ActorDto } from '../model/Actors/ActorDto';
 import { Equip } from '../model/items/Equip';
 import { Character } from '../model/Actors/Character';
 import { CharacterDto } from '../model/Actors/CharacterDto';
+import { StageDto } from '../model/StageDto';
+import { Stage } from '../model/Stage';
 
 @Injectable({
   providedIn: 'root'
@@ -202,6 +204,30 @@ export class RunService {
     var r: Location[] = [];
     dtos.forEach(dto => {
       r.push(this.populateLocation(dto))
+    })
+    return r;
+  }
+
+  populateStage(dto: StageDto): Stage {
+    var r = new Stage();
+    r.id = dto.id;
+    r.name = dto.name;
+    r.backgroundPath = dto.backgroundPath;
+    if(dto.locations) {
+      dto.locations.forEach(id => {
+        r.locations.push(this.populateLocation(id))
+      })
+    }
+    if(dto.bossLocation) {
+      r.bossLocation = this.populateLocation(dto.bossLocation);
+    } 
+    return r;
+  }
+
+  populateStages(dtos: StageDto[]): Stage[] {
+    var r: Stage[] = [];
+    dtos.forEach(dto => {
+      r.push(this.populateStage(dto))
     })
     return r;
   }

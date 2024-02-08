@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { EditorService } from 'src/app/services/editor.service';
 import { ItemEditorComponent } from '../item-editor/item-editor.component';
 import { SkillsEditorComponent } from '../skills-editor/skills-editor.component';
+import { LocationsEditorComponent } from '../locations-editor/locations-editor.component';
+import { ClassesEditorComponent } from '../classes-editor/classes-editor.component';
 
 @Component({
   selector: 'app-diy',
@@ -19,6 +21,8 @@ export class DiyComponent implements OnInit {
   @ViewChild('npcEditor') npcEditor!: NpcsEditorComponent;
   @ViewChild('itemEditor') itemEditor!: ItemEditorComponent;
   @ViewChild('skillsEditor') skillsEditor!: SkillsEditorComponent;
+  @ViewChild('classesEditor') classesEditor!: ClassesEditorComponent;
+  @ViewChild('locationEditor') locationsEditor!: LocationsEditorComponent;
   loadedRun = new Run();
 
   constructor(private dialog: MatDialog, private editorService: EditorService) { }
@@ -31,6 +35,8 @@ export class DiyComponent implements OnInit {
     this.npcEditor.save();
     this.itemEditor.save();
     this.skillsEditor.save();
+    this.classesEditor.save();
+    this.locationsEditor.save();
   }
 
   loadDatabaseFile(result: File) {

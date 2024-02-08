@@ -4,7 +4,8 @@ import { Item } from '../model/items/Item';
 import { Skill } from '../model/Skill';
 import { RunService } from './run.service';
 import { Class } from '../model/Actors/Class';
-import { StageDto } from '../model/StageDto';
+import { Location } from '../model/Location';
+import { Stage } from '../model/Stage';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class EditorService {
   currentItems: Item[] = [];
   currentSkills: Skill[] = [];
   currentClasses: Class[] = [];
+  currentLocations: Location[] = [];
+  currentStages: Stage[] = [];
 
   constructor(private runService: RunService) { }
 
@@ -23,6 +26,8 @@ export class EditorService {
     this.currentItems = [];
     this.currentSkills = [];
     this.currentClasses = [];
+    this.currentLocations = [];
+    this.currentStages = [];
   }
 
   loadFromFile(data: any) {
@@ -35,8 +40,8 @@ export class EditorService {
     this.runService.setSkills(data.skills);
     this.runService.setClasses(data.classes);
     this.currentActors = this.runService.populateActors(data.actors);
-    // TODO reorganize data to have location as a new slot of data and locations in stages only list of ids
-    //this.currentLocations = this.runService.populateLocations
+    this.currentLocations = this.runService.populateLocations(data.locations);
+    this.currentStages = this.runService.populateStages(data.stages);
   }
 
   getCurrentActors(): Actor[] {
@@ -77,5 +82,29 @@ export class EditorService {
 
   saveCurrentClasses(classes: Class[]): void {
     this.currentClasses = classes;
+  }
+
+  getCurrentLocations(): Location[] {
+    return this.currentLocations;
+  }
+
+  getLocationById(id: number) : Location {
+    return this.currentLocations.filter((el: Location) => el.id === id)[0];
+  }
+
+  saveCurrentLocations(locations: Location[]): void {
+    this.currentLocations = locations;
+  }
+
+  getCurrentStages(): Stage[] {
+    return this.currentStages;
+  }
+
+  getStageById(id: number) : Stage {
+    return this.currentStages.filter((el: Stage) => el.id === id)[0];
+  }
+
+  saveCurrentStages(classes: Stage[]): void {
+    this.currentStages = classes;
   }
 }
