@@ -25,6 +25,7 @@ export class RunService {
   items: Item[] = [];
   actors: ActorDto[] = [];
   classes: Class[] = [];
+  locations: Location[] = [];
 
   constructor() { }
 
@@ -65,6 +66,21 @@ export class RunService {
 
   getClassById(id: number): Class | undefined {
     return this.classes.find(c => c.id === id);
+  }
+
+  setLocations(dtos: LocationDto[]): void {
+    this.locations = this.populateLocations(dtos);
+  }
+
+  getLocationById(id: number): Location {
+    var r = this.locations.find(l => l.id === id);
+    return r ? r : new Location();
+  }
+
+  getLocations(ids: number[]): Location[] {
+    var r: Location[] = [];
+    ids.forEach(id => r.push(this.getLocationById(id)));
+    return r;
   }
 
   getRefreshedLocations() {
@@ -208,14 +224,15 @@ export class RunService {
     return r;
   }
 
-  populateStage(dto: StageDto): Stage {
+  populateStage(dto: StageDto, locations: Location[]): Stage {
     var r = new Stage();
     r.id = dto.id;
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
     if(dto.locations) {
       dto.locations.forEach(id => {
-        r.locations.push(this.populateLocation(id))
+        var data = locations.find(el => el.id === id);
+        r.locations.push(data!);
       })
     }
     if(dto.bossLocation) {
@@ -224,10 +241,12 @@ export class RunService {
     return r;
   }
 
-  populateStages(dtos: StageDto[]): Stage[] {
+  populateStages(dtos: StageDto[], locations: Location[]): Stage[] {
     var r: Stage[] = [];
     dtos.forEach(dto => {
-      r.push(this.populateStage(dto))
+      var s = new Stage();
+      s = this.populateStage(dto, locations);
+      r.push(s);
     })
     return r;
   }

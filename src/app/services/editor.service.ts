@@ -41,7 +41,7 @@ export class EditorService {
     this.runService.setClasses(data.classes);
     this.currentActors = this.runService.populateActors(data.actors);
     this.currentLocations = this.runService.populateLocations(data.locations);
-    this.currentStages = this.runService.populateStages(data.stages);
+    this.currentStages = this.runService.populateStages(data.stages, data.locations);
   }
 
   getCurrentActors(): Actor[] {
@@ -104,7 +104,7 @@ export class EditorService {
     return this.currentStages.filter((el: Stage) => el.id === id)[0];
   }
 
-  saveCurrentStages(classes: Stage[]): void {
-    this.currentStages = classes;
+  saveCurrentStages(stages: Stage[]): void {
+    this.currentStages = stages;
   }
 }

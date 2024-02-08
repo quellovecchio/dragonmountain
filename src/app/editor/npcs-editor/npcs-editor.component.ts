@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Character } from 'src/app/model/Actors/Character';
 import { DialogNpcEditorComponent } from './dialog-npc-editor/dialog-npc-editor.component';
@@ -14,7 +14,7 @@ export class NpcsEditorComponent implements OnInit, AfterViewChecked {
 
   savedNpcs: Actor[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -22,7 +22,7 @@ export class NpcsEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentActors() !== this.savedNpcs) {
       this.savedNpcs = this.editorService.getCurrentActors();
-      this.savedNpcs = [...this.savedNpcs]
+      this.changeDetectorRef.detectChanges();
     }
   }
 

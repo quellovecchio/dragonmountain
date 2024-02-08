@@ -32,10 +32,15 @@ export class DiyComponent implements OnInit {
 
   onTabChanged(): void {
     console.log('saving...');
+    if(this.npcEditor)
     this.npcEditor.save();
+    if(this.itemEditor)
     this.itemEditor.save();
+    if(this.skillsEditor)
     this.skillsEditor.save();
+    if(this.classesEditor)
     this.classesEditor.save();
+    if(this.locationsEditor)
     this.locationsEditor.save();
   }
 

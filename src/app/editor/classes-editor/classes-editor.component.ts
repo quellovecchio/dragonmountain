@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Class } from 'src/app/model/Actors/Class';
 import { DialogClassEditorComponent } from './dialog-class-editor/dialog-class-editor.component';
@@ -13,7 +13,7 @@ export class ClassesEditorComponent implements OnInit, AfterViewChecked {
 
   savedClasses: Class[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class ClassesEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentClasses() !== this.savedClasses) {
       this.savedClasses = this.editorService.getCurrentClasses();
-      this.savedClasses = [...this.savedClasses]
+      this.changeDetectorRef.detectChanges();
     }
   }
 

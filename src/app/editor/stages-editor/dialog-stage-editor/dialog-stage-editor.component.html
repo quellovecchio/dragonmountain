@@ -5,18 +5,23 @@
 <div style="overflow-y: hidden;">
     <h2>Name</h2>
     <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="stage.name" maxlength="25">
-    <!--<h2>Money value</h2>
-    <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="item.moneyValue" maxlength="5">
-    <div style="display: flex; flex-direction: row;">
-        <h2>Is equip?</h2>
-        <input type="checkbox" class="text-box" style="height: 35px; width: 35px; position: relative; top: 20px; left: 300px" [(ngModel)]="isEquip"/>
+    <h2>Locations</h2>
+    <app-diy-binder style="width: 75%;" [list]="currentLocations" [(selection)]="selectedLocation"></app-diy-binder>
+    <button [disabled]="!selectedLocation" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addLocation()">
+        <mat-icon color="green">+</mat-icon>
+    </button>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+        <div *ngFor="let location of stage.locations; let i=index">
+            <button class="pixelated-border edit-button"
+                style="margin: 1rem; height: 100px; width: 100px; background-color: transparent; background: round;"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="removeLocation(i)">
+                <div style="color: white; width: 50%;">
+                    <div ngTiltParallax [distance]="10" style="width: 100px;">
+                        {{ location.name }}
+                    </div>
+                </div>
+            </button>
+        </div>
     </div>
-    <div *ngIf="isEquip">
-        equip things TODO
-    </div>
-    <h2 style="position: relative; top: -10px;">Effect</h2>
-    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="item.effect">
-        <option [value]="undefined"> No Effect </option>
-        <option *ngFor="let effectType of effectTypes" [value]="effectType"> {{effectType}} </option>
-    </select>-->
 </div>

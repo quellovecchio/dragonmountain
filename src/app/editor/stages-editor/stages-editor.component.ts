@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Stage } from 'src/app/model/Stage';
 import { DialogStageEditorComponent } from './dialog-stage-editor/dialog-stage-editor.component';
@@ -13,7 +13,7 @@ export class StagesEditorComponent implements OnInit, AfterViewChecked {
 
   savedStages: Stage[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class StagesEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentStages() !== this.savedStages) {
       this.savedStages = this.editorService.getCurrentStages();
-      this.savedStages = [...this.savedStages]
+      this.changeDetectorRef.detectChanges();
     }
   }
 

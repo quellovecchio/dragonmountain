@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/model/items/Item';
 import { DialogItemEditorComponent } from './dialog-item-editor/dialog-item-editor.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ export class ItemEditorComponent implements OnInit, AfterViewChecked {
 
   savedItems: Item[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class ItemEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentItems() !== this.savedItems) {
       this.savedItems = this.editorService.getCurrentItems();
-      this.savedItems = [...this.savedItems]
+      this.changeDetectorRef.detectChanges();
     }
   }
 

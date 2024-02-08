@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Stage } from 'src/app/model/Stage';
-import { FileService } from 'src/app/services/file.service';
+import { Location } from 'src/app/model/Location';
+import { EditorService } from 'src/app/services/editor.service';
 
 @Component({
   selector: 'app-dialog-stage-editor',
@@ -11,13 +12,26 @@ import { FileService } from 'src/app/services/file.service';
 export class DialogStageEditorComponent implements OnInit {
 
   stage: Stage;
-  isEquip = false;
+  currentLocations: Location[]  = [];
+  selectedLocation?: Location = undefined;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Stage, private fileService: FileService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Stage, private editorService: EditorService) {
     this.stage = data;
+    this.currentLocations = this.editorService.getCurrentLocations();
   }
 
   ngOnInit(): void {
+  }
+
+  addLocation(): void {
+      this.stage.locations.push(this.selectedLocation!);
+      this.selectedLocation = undefined;
+  }
+
+  removeLocation(index: number): void {
+      this.stage.locations.splice(index, 1);
+      // Trigger change detection
+      this.stage.locations = [...this.stage.locations ];
   }
 
 }

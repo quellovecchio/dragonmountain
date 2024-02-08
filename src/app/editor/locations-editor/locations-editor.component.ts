@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Location } from 'src/app/model/Location';
 import { DialogLocationEditorComponent } from './dialog-location-editor/dialog-location-editor.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ export class LocationsEditorComponent implements OnInit, AfterViewChecked {
 
   savedLocations: Location[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class LocationsEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentLocations() !== this.savedLocations) {
       this.savedLocations = this.editorService.getCurrentLocations();
-      this.savedLocations = [...this.savedLocations]
+      this.changeDetectorRef.detectChanges();
     }
   }
 

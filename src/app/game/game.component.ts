@@ -69,7 +69,8 @@ export class GameComponent implements OnInit {
           this.runService.setActors(data.actors);
           this.runService.setSkills(data.skills);
           this.runService.setClasses(data.classes);
-          newRun.stage.locations = this.runService.populateLocations(data.locations);
+          this.runService.setLocations(data.locations);
+          newRun.stage.locations = this.runService.getLocations(data.stages[0].locations);
           newRun.stage.bossLocation = this.runService.populateLocation(data.stages[0].bossLocation);
           newRun.party[0].class = this.runService.classes[0];
           this.runService.setRun(newRun);

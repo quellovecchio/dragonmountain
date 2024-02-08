@@ -6,7 +6,7 @@ export class StageDto {
     id: number = 0;
     name: string;
     backgroundPath: string;
-    locations: LocationDto[];
+    locations: number[];
     bossLocation: LocationDto;
 
     constructor () {
