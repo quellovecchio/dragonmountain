@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Run } from '../../model/Run';
 import { NpcsEditorComponent } from '../npcs-editor/npcs-editor.component';
 import { LoadDialogComponent } from './load-dialog/load-dialog.component';
@@ -9,6 +9,7 @@ import { ItemEditorComponent } from '../item-editor/item-editor.component';
 import { SkillsEditorComponent } from '../skills-editor/skills-editor.component';
 import { LocationsEditorComponent } from '../locations-editor/locations-editor.component';
 import { ClassesEditorComponent } from '../classes-editor/classes-editor.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-diy',
@@ -25,7 +26,9 @@ export class DiyComponent implements OnInit {
   @ViewChild('locationEditor') locationsEditor!: LocationsEditorComponent;
   loadedRun = new Run();
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(
+    private dialog: MatDialog,
+    private editorService: EditorService) { }
 
   ngOnInit(): void {
   }
@@ -58,7 +61,7 @@ export class DiyComponent implements OnInit {
     }
   }
 
-  openLoadDialog() {
+  loadClicked() {
     this.openDialog().subscribe((result) => {
       if (result) {
         this.loadDatabaseFile(result);
@@ -78,8 +81,31 @@ export class DiyComponent implements OnInit {
     return dialogRef.afterClosed();
   }
 
-  exportDb() {
+  exportClicked() {
+    // Your data to be included in the JSON file
+    const jsonData = this.generateExportJsonData();
 
+    const jsonString = JSON.stringify(jsonData, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    const download = document.createElement("a");
+    download.style.display = "none";
+    
+    const fileURL = URL.createObjectURL(blob);
+    download.href = fileURL;
+    download.download = 'data.json';
+    download.click();
+  }
+
+  generateExportJsonData() {
+    return {
+      skills : this.editorService.getCurrentSkills(),
+      classes : this.editorService.getCurrentClasses(),
+      items : this.editorService.getCurrentItems(),
+      actors : this.editorService.exportActors(),
+      locations : this.editorService.exportLocations(),
+      stages : this.editorService.exportStages(),
+    }
   }
 
 }

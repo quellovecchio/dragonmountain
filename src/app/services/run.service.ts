@@ -236,7 +236,8 @@ export class RunService {
       })
     }
     if(dto.bossLocation) {
-      r.bossLocation = this.populateLocation(dto.bossLocation);
+      var data = locations.find(el => el.id === dto.bossLocation);
+      r.bossLocation = data!;
     } 
     return r;
   }

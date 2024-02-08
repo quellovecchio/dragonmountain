@@ -7,13 +7,13 @@ export class StageDto {
     name: string;
     backgroundPath: string;
     locations: number[];
-    bossLocation: LocationDto;
+    bossLocation: number;
 
     constructor () {
             this.id = idCounter++;
             this.name = "stage";
             this.locations =  [];
             this.backgroundPath = '';
-            this.bossLocation = new LocationDto();
+            this.bossLocation = 0;
         }
 }

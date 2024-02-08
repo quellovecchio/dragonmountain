@@ -6,6 +6,10 @@ import { RunService } from './run.service';
 import { Class } from '../model/Actors/Class';
 import { Location } from '../model/Location';
 import { Stage } from '../model/Stage';
+import { StageDto } from '../model/StageDto';
+import { LocationDto } from '../model/LocationDto';
+import { ActorDto } from '../model/Actors/ActorDto';
+import { Character } from '../model/Actors/Character';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +56,23 @@ export class EditorService {
     this.currentActors = actors;
   }
 
+  exportActors(): ActorDto[] {
+    let r: ActorDto[] = [];
+    this.currentActors.forEach((el: Actor) => {
+      let dto = new ActorDto();
+      dto.id = el.id ? el.id : 0
+      dto.name = el.name ? el.name : 'error';
+      dto.imagePath = el.imagePath ? el.imagePath : 'error';
+      dto.dialogue = el.dialogue ? el.dialogue : [];
+      dto.interactions = el.interactions ? el.interactions : [];
+      dto.rest = el.rest ? el.rest : false;
+      dto.shop = el.shop ? el.shop.map((el: Item) => el.id) : [];
+      dto.equipment = el.equipment ? el.equipment.map((el: Item) => el.id) : [];
+      dto.loot = el.loot.map((el: Item) => el.id);
+    });
+    return r;
+  }
+
   getCurrentItems(): Item[] {
     return this.currentItems;
   }
@@ -96,6 +117,20 @@ export class EditorService {
     this.currentLocations = locations;
   }
 
+  exportLocations(): LocationDto[] {
+    let r: LocationDto[] = [];
+    this.currentLocations.forEach((el: Location) => {
+      let dto = new LocationDto();
+      dto.id = el.id;
+      dto.name = el.name;
+      dto.backgroundPath = el.backgroundPath;
+      dto.fight = el.fight.map((el: Actor) => el.id);
+      dto.actors = el.actors.map((el: Actor) => el.id);
+      dto.loot = el.loot.map((el: Item) => el.id);
+    });
+    return r;
+  }
+
   getCurrentStages(): Stage[] {
     return this.currentStages;
   }
@@ -106,5 +141,18 @@ export class EditorService {
 
   saveCurrentStages(stages: Stage[]): void {
     this.currentStages = stages;
+  }
+
+  exportStages(): StageDto[] {
+    let r: StageDto[] = [];
+    this.currentStages.forEach((el: Stage) => {
+      let dto = new StageDto();
+      dto.id = el.id;
+      dto.name = el.name;
+      dto.backgroundPath = el.backgroundPath;
+      dto.locations = el.locations.map((el: Location) => el.id);
+      dto.bossLocation = el.bossLocation.id;
+    });
+    return r;
   }
 }

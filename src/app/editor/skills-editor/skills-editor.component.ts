@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Skill } from 'src/app/model/Skill';
 import { DialogSkillEditorComponent } from './dialog-skill-editor/dialog-skill-editor.component';
@@ -13,7 +13,7 @@ export class SkillsEditorComponent implements OnInit, AfterViewChecked {
 
   savedSkills: Skill[] = [];
 
-  constructor(private dialog: MatDialog, private editorService: EditorService) { }
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class SkillsEditorComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(this.editorService.getCurrentSkills() !== this.savedSkills) {
       this.savedSkills = this.editorService.getCurrentSkills();
-      this.savedSkills = [...this.savedSkills]
+      this.changeDetectorRef.detectChanges();
     }
   }
 
