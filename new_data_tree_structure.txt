@@ -12,6 +12,13 @@ data: {
 }
 
 
-Expected breaking stuff: items, actors, money logic
+Expected breaking stuff: items, actors, money logic, interactions to objects, effecttarget when given objects
 
 		MONEY LOGIC: expect to change items function as item : quantity instead of array of items
+
+
+
+
+little hp 6
+holy water 1\ 
+hooded robe 7

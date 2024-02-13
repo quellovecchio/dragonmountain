@@ -69,6 +69,7 @@ export class EditorService {
       dto.shop = el.shop ? el.shop.map((el: Item) => el.id) : [];
       dto.equipment = el.equipment ? el.equipment.map((el: Item) => el.id) : [];
       dto.loot = el.loot.map((el: Item) => el.id);
+      r.push(dto);
     });
     return r;
   }
@@ -127,6 +128,7 @@ export class EditorService {
       dto.fight = el.fight.map((el: Actor) => el.id);
       dto.actors = el.actors.map((el: Actor) => el.id);
       dto.loot = el.loot.map((el: Item) => el.id);
+      r.push(dto);
     });
     return r;
   }
@@ -152,6 +154,7 @@ export class EditorService {
       dto.backgroundPath = el.backgroundPath;
       dto.locations = el.locations.map((el: Location) => el.id);
       dto.bossLocation = el.bossLocation.id;
+      r.push(dto);
     });
     return r;
   }
