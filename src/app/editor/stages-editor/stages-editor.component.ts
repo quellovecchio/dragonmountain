@@ -33,6 +33,11 @@ export class StagesEditorComponent implements OnInit, AfterViewChecked {
     this.savedStages.push(new Stage());
   }
 
+  delete(index: number) {
+    this.savedStages.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openStageEditorDialog(stage: Stage) {
     this.dialog.open(DialogStageEditorComponent, {
       height: '700px',

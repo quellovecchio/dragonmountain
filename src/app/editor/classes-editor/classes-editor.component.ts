@@ -33,6 +33,11 @@ export class ClassesEditorComponent implements OnInit, AfterViewChecked {
     this.savedClasses.push(new Class());
   }
 
+  delete(index: number) {
+    this.savedClasses.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openClassEditorDialog(classParam: Class) {
     this.dialog.open(DialogClassEditorComponent, {
       height: '700px',
