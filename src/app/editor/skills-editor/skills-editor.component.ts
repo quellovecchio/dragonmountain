@@ -33,6 +33,11 @@ export class SkillsEditorComponent implements OnInit, AfterViewChecked {
     this.savedSkills.push(new Skill());
   }
 
+  remove(index: number) {
+    this.savedSkills.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openSkillEditorDialog(skill: Skill) {
     this.dialog.open(DialogSkillEditorComponent, {
       height: '700px',

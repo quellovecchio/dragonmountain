@@ -33,7 +33,7 @@ export class StagesEditorComponent implements OnInit, AfterViewChecked {
     this.savedStages.push(new Stage());
   }
 
-  delete(index: number) {
+  remove(index: number) {
     this.savedStages.splice(index, 1);
     this.changeDetectorRef.detectChanges();
   }

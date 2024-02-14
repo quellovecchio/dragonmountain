@@ -34,6 +34,11 @@ export class NpcsEditorComponent implements OnInit, AfterViewChecked {
     this.savedNpcs.push(new Actor());
   }
 
+  remove(index: number) {
+    this.savedNpcs.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openNpcEditorDialog(npc: Actor) {
     this.dialog.open(DialogNpcEditorComponent, {
       height: '700px',

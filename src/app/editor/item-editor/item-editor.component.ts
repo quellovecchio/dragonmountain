@@ -33,6 +33,11 @@ export class ItemEditorComponent implements OnInit, AfterViewChecked {
     this.savedItems.push(new Item());
   }
 
+  remove(index: number) {
+    this.savedItems.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openItemEditorDialog(item: Item) {
     this.dialog.open(DialogItemEditorComponent, {
       height: '700px',

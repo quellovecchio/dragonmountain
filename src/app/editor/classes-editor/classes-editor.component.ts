@@ -33,7 +33,7 @@ export class ClassesEditorComponent implements OnInit, AfterViewChecked {
     this.savedClasses.push(new Class());
   }
 
-  delete(index: number) {
+  remove(index: number) {
     this.savedClasses.splice(index, 1);
     this.changeDetectorRef.detectChanges();
   }

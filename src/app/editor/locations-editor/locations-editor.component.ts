@@ -33,6 +33,11 @@ export class LocationsEditorComponent implements OnInit, AfterViewChecked {
     this.savedLocations.push(new Location());
   }
 
+  remove(index: number) {
+    this.savedLocations.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
   openLocationEditorDialog(location: Location) {
     this.dialog.open(DialogLocationEditorComponent, {
       height: '700px',
