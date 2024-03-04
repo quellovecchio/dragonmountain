@@ -210,7 +210,7 @@ export class RunService {
     }
     if(dto.actors) {
       dto.actors.forEach(id => {
-        r.actors.push(this.populateActor(id))
+        r.actors.push(this.populateCharacter(id))
       })
     }
     return r;
