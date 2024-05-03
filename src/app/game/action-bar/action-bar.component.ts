@@ -67,6 +67,7 @@ export class ActionBarComponent implements OnInit {
     this.onItemSelect.emit(undefined);
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
+    this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
@@ -75,6 +76,7 @@ export class ActionBarComponent implements OnInit {
       if(!this.selectedItem) {
         this.actorMenuOpened = !this.actorMenuOpened;
         this.displayedActorMenu = actor;
+        this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
       } else {
         this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
         this.selectedItem = undefined;
