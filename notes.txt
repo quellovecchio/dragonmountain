@@ -49,7 +49,11 @@ NEXT STEPS:
 		-	ui redesign
 			-	cards rarity/foil
 		-	three stages
-	
+
+
+==================================	IMPORTANT UPDATE	===================================
+link llama3 locally to produce text for the game based on the context given to the llm
+===================================================================================================
 
 
 - inspo for animations: pokemon crstal
