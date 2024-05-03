@@ -24,37 +24,43 @@ NEXT STEPS:
 		-	dead state, revive by priest and other npc for a lot of money, rare event, spell that costs a lot
 		-	rework inventory as item -> number
 		-	flee
-		-	DB data rework
+		-	aoe damage
 		-	crit chance
-		-	basic spells and magic bars
-			-	give some enemy spells
+		-	program other spells
+			-	spellbooks to learn spells
+			-	ai enemy using spells, adding spells to enemies
 			-	steal
 			-	charm
-			-	spark
-			-	warmth
+			-	taunt
+			-	reflect dmg
+			-	scan
+			-	stun
+			-	aoe
 		-	buffs / debuffs
+			-	spells to buff and debuff
 		-	replace actor when joins a fourth element of the party, select who goes away
 		-	basic interactions (activate if actor is dead, talk, kill, kill and if actor is alive, spell)
 			-	use interaction consumes item
 		-	give actors items to be stolen
 		-	character classes
-		-	MORE ROOMS
+		-	animations
+		-	text input riddle interaction (ex. phantom piano location)
+		-	crafting
+		-	ui redesign
+			-	cards rarity/foil
+		-	three stages
 	
 
 
 - inspo for animations: pokemon crstal
 
-- exp: after certain actions (fights, quests) ou gain 1 or more exp points, ou can choose to skill up a part element or to explore to find ohter locations with that
-
 - every class of playingcharacter can use every weapon but every class has classes advantages using a specific type of weapon.
 
 - every class has a damage bonus on two kinds of weapon and a passive skill (ex: rogue -> bonus arc, knives; skill vel + 15%)
 
-- max party size = 3 (including Hero)
-
 - scan skill should let you see the stats of people inside and outside combat
 
-- engage fight attacking or casting a spell, damage effective and make ambushes attack monsters first. make everbod attackable (with consequences)
+- engage fight attacking or casting a spell, damage effective and make ambushes attack monsters first. make everybody attackable (with consequences)
 
 - binded locations: locations transforming or opening new locations
 
@@ -75,7 +81,7 @@ NEXT STEPS:
 	-	Katie
 			apprentice class: skill point used -10%
 			she's 6 yo and has a passion for magic
-			she got a New Rod.
+			she got a Brand New Rod.
 
 - not enough locations - game over condition? insert left refreshes counter to avoid that?
 
@@ -250,39 +256,36 @@ Milestones:
 
 0.02	OK	-	locations and fights are playable
 0.03	OK	-	basic game logic done (you can play a stage from start to end)
-0.04		-	ui components: inventory, party, health bars
+0.04	OK	-	ui components: inventory, party, health bars
 				\____________________
 					- during every state of the game the inventory and the party icons will be visualized
 					- clicking on a party member will open the equip and stats window that will be rendered on top of 						the scene
 					clicking on the inventory will open the inventory window that will be rendered on top of the scene. the inventory window will show all items in party's inventory.
-0.20  OK	-	build a small database of characters, items, locations for testing purposes
-0.1		-	basic graphics
+0.20    OK	-	build a small database of characters, items, locations for testing purposes
+0.1	OK	-	basic graphics
 				\____________________
 					work on firsts locations, npc and enemies, put images for those
 					images for ui
 					css textures on ui components to simulate stone and foliage
 0.11		-	basic animations
-0.12		-	textBuffer refinements
+0.12	OK	-	textBuffer refinements
 
-	------------------------------
-		START TIKTOK MARKETING
-	------------------------------
-
-0.21		-	actors logic partially done (interactions, shops)
-0.22		-	fight logic partially done (party, turns, damage, offensive spells, leveling)
-0.23		- 	items logic partially done (use, equip)
+0.21	OK	-	actors logic partially done (interactions, shops)
+0.22	OK	-	fight logic partially done (party, turns, damage, offensive spells, leveling)
+0.23	OK	- 	items logic partially done (use, equip)
 0.24		- 	game logic done (you can play a game from start to end)
-0.24		-	character logic partially done (ai)
-0.25		-	characters classes logic
-0.25		-	rng based generation of stages, locations and characters
-0.3		-	actors, locations and items
+0.24	OK	-	character logic partially done (ai)
+0.25	OK	-	characters classes logic partially done
+0.25	OK	-	rng based generation of stages, locations and characters
+0.3	OK	-	actors, locations and items
 
 0.3->0.9	-	polish, implement missing gamplay functions
-0.9->1.0	-	auth system and donations interface
+0.9->1.0	-	web/app wrapper, auth system, payments
 
-	-------------------------------
-		PUBLISHING
-	-------------------------------
+	------------------------------
+		MARKETING
+	------------------------------
+
 
 SPELLS:
 	poison: ranger basic skill. poisons an enemy (fixed dmg every turn)
