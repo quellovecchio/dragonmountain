@@ -13,6 +13,7 @@ import { RunService } from '../../services/run.service';
 import { ItemService } from '../../services/item.service';
 import { Skill } from '../../model/Skill';
 import { ViewportService } from '../viewport/viewport.service';
+import { Constants } from 'src/assets/constants';
 
 @Component({
   selector: 'app-scene',
@@ -138,7 +139,7 @@ export class SceneComponent implements OnInit {
         case EffectType.heal:
           this.viewportService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
-          data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution)? data.character.stats.constitution : newHpValue;
+          data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
           break;
         default:
           console.log("no data found for effect")
@@ -173,70 +174,79 @@ export class SceneComponent implements OnInit {
       this.run.inventory.items.push(item);
     }
   }
-  
+
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
     this.run.currentFight = fight;
     fight.forEach(actor => {
-      if((actor as Character).joinsParty) {
+      if ((actor as Character).joinsParty) {
         this.joinsParty = true;
         this.joiningCharacters.push(actor as PlayingCharacter);
       }
       this.run.currentLocation!.actors!.forEach((roomActor, i) => {
-        if(roomActor.name === actor.name)
+        if (roomActor.name === actor.name)
           this.toDeleteIndexes.push(i);
       });
     });
     this.fightManager.startFight(fight, this.run.party);
   }
 
-  attack(enemyIndex: number) {
-    let defendingCharacter = this.fightManager.getEnemy(enemyIndex);
+  animateAttackOn(actor: Actor) {
+    actor.attacked = true;
+    setTimeout(() => {
+      actor.attacked = false;
+    }, 3500 / Constants.TEXT_SPEED);
+  }
+
+  attack(data: { enemyIndex: number, enemy: Actor }) {
+    this.animateAttackOn(data.enemy);
+    let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
+    // TODO animate defense;
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, false);
-    // WORKAROUND: bugs if there is not this check but this has to be fixed removing the if statement
-    if(defendingCharacter && defendingCharacter.name)
+    if (defendingCharacter && defendingCharacter.name)
       this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
     this.goOnWithFight();
   }
 
-  useSkillOn(data: {skill: Skill, enemyIndex: number}) {
-    if(this.fightManager.deductSkillPoints(data.skill)) {
+  useSkillOn(data: { skill: Skill, enemyIndex: number, enemy: Actor }) {
+    this.animateAttackOn(data.enemy);
+    if (this.fightManager.deductSkillPoints(data.skill)) {
       let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-      if(data.skill.effect == EffectType.magicDamage) {
+      if (data.skill.effect == EffectType.magicDamage) {
         let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
         this.viewportService.pushText(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
       }
 
-      if(data.skill.effect == EffectType.heal) {
+      if (data.skill.effect == EffectType.heal) {
         // TODO
       }
 
-      if(data.skill.effect == EffectType.magicDamage) {
+      if (data.skill.effect == EffectType.magicDamage) {
         let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
         let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-        if(defendingCharacter && defendingCharacter.name)
+        if (defendingCharacter && defendingCharacter.name)
           this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
       }
 
-      if(data.skill.effect == EffectType.steal) {
+      if (data.skill.effect == EffectType.steal) {
         // steal calculates a percentage of probability given the intelligence and charisma of the character
         let charisma = this.fightManager.currentCharacter.stats.charisma;
         let intelligence = this.fightManager.currentCharacter.stats.intelligence;
         let successPerc = charisma + intelligence;
         let stealSuccess = false;
-        if(successPerc <= 100) {
+        if (successPerc <= 100) {
           successPerc = successPerc + this.getRandomNumber(0, 20);
-          if(successPerc <= 100) {
+          if (successPerc <= 100) {
             successPerc = successPerc + 15;
             let seed = this.getRandomNumber(0, 100);
-            if(successPerc >= seed)
+            if (successPerc >= seed)
               stealSuccess = true;
           }
         }
 
-        if(stealSuccess) {
+        if (stealSuccess) {
           let enemy = this.fightManager.enemies[data.enemyIndex];
-          let enemyInventory = [ ...enemy.loot, ...enemy.equipment ];
+          let enemyInventory = [...enemy.loot, ...enemy.equipment];
           let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
           this.run.inventory.items.push(stolenItem);
           this.viewportService.pushText("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
@@ -262,11 +272,11 @@ export class SceneComponent implements OnInit {
   }
 
   private endFight() {
-    this.run.currentFight!.forEach(actor => { 
-      this.loot(actor); 
+    this.run.currentFight!.forEach(actor => {
+      this.loot(actor);
     });
     this.toDeleteIndexes.forEach(index => {
-      this.run.currentLocation!.actors!.splice(index ,1);
+      this.run.currentLocation!.actors!.splice(index, 1);
     })
     this.fightManager.endFight();
     this.run.state = RunState.Location;

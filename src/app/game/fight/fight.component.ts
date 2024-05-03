@@ -34,9 +34,11 @@ export class FightComponent implements OnInit {
   @Input() partyData: PlayingCharacter[] = [];
 
   @Output() attackSignal = new EventEmitter<any>();
-  @Output() useSkillSignal = new EventEmitter<{skill: Skill, enemyIndex: number}>();
+  @Output() useSkillSignal = new EventEmitter<{skill: Skill, enemyIndex: number, enemy: Actor}>();
 
   selectedEnemyIndex?: number;
+  selectedEnemy?: Actor;
+  public currentAttackAnimation: string = '/assets/animations/slash.gif';
 
   constructor(fightManager: FightManagerService, private eRef: ElementRef) {
     this.fightManager = fightManager;
@@ -58,7 +60,8 @@ export class FightComponent implements OnInit {
     this.menuTrigger?.openMenu();
   }
 
-  attack(enemyIndex: number) {
+  attack(enemyIndex: number, enemy: Actor) {
+    // TODO change animation to represent the attack
     const attackSignal$ = new Observable<void>((observer) => {
       this.attackSignal.subscribe(() => {
         observer.next();
@@ -75,10 +78,11 @@ export class FightComponent implements OnInit {
       }
     });
 
-    this.attackSignal.emit(enemyIndex);
+    this.attackSignal.emit({enemyIndex, enemy});
   }
 
-  useSkillOn(skill: Skill, enemyIndex: number) {
+  useSkillOn(skill: Skill, enemyIndex: number, enemy: Actor) {
+    // TODO change animation to represent the attack
     const useSkillSignal$ = new Observable<void>((observer) => {
       this.useSkillSignal.subscribe(() => {
         observer.next();
@@ -94,14 +98,15 @@ export class FightComponent implements OnInit {
         this.fightManager.lastAttackKilled = false;
       }
     });
-    this.useSkillSignal.emit({skill: skill, enemyIndex: enemyIndex});
+    this.useSkillSignal.emit({skill: skill, enemyIndex: enemyIndex, enemy: enemy});
   }
 
   getBindedActor(index: number) {
     return this.fightManager.getEnemy(index);
   }
 
-  setSelectedEnemyIndex(index: number) {
+  setSelectedEnemy(enemy: Character, index: number) {
+    this.selectedEnemy = enemy;
     this.selectedEnemyIndex = index;
   }
 

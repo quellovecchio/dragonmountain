@@ -25,6 +25,7 @@ export class Actor {
     // an interaction can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
     interactions: Interaction[] = [];
     dialogue: string[] = [''];
+    attacked: boolean = false;
 
     constructor() {
         this.id = idCounter++;
