@@ -44,6 +44,7 @@ export class FightManagerService {
       this.isEnemyTurn = this.nextTurn();
     }
     this.viewportService.pushText("Now it's " + this.currentCharacter.name + "'s turn. What will be his next Action?");
+    this.currentCharacter.active = true;
   }
 
   generateTurnRotation() {
@@ -75,6 +76,7 @@ export class FightManagerService {
   }
 
   processAttack(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
+    this.currentCharacter.active = false;
     if (defendingCharacter) {
       // step 1: calulate damage
       console.log(attackingCharacter.name + " is attacking " + defendingCharacter.name);

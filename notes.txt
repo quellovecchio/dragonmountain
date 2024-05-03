@@ -52,7 +52,8 @@ NEXT STEPS:
 
 
 ==================================	IMPORTANT UPDATE	===================================
-link llama3 locally to produce text for the game based on the context given to the llm
+- link llama3 locally to produce text for the game based on the context given to the llm
+- potential UI rework: get rid of the black block behind, get HD backgrounds and use all the screen avaliable
 ===================================================================================================
 
 

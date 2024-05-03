@@ -94,13 +94,3 @@
     pointer-events: none;
     filter: grayscale(1);
 }
-
-@keyframes blinkingText{
-    0%		{ background-color: #000000;}
-    50%		{ background-color: #fff}
-}
-
-.glow {
-    background-color: black;
-    animation: blinkingText 2s infinite;
-}
