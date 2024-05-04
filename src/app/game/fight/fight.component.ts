@@ -53,24 +53,94 @@ export class FightComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.calculateActorsStartingPositions();
     this.startFightScene();
+  }
+
+  calculateActorsStartingPositions() {
+    // i'm not really sure if the order is right
+    for (var i = 0; i < this.partyCharacters.length; i++) {
+      this.partyData[i].fightPositionX = this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom;
+      this.partyData[i].fightPositionY = this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right;
+    }
+    for (i = 0; i < this.enemyCharacters.length; i++) {
+      this.fightData![i].fightPositionX = this.enemyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom;
+      this.fightData![i].fightPositionY = this.enemyCharacters.get(i)!.nativeElement.getBoundingClientRect().right;
+    }
   }
 
   startFightScene() {
     setInterval(() => {
-      Promise.all(this.partyCharacters.map((element) => {
-        return this.aggroAndMove(element.nativeElement, this.enemyCharacters.toArray());
-      })).then(() => {
-        Promise.all(this.enemyCharacters.map((element) => {
-          return this.aggroAndMove(element.nativeElement, this.partyCharacters.toArray());
-        })).catch((error) => {
-          console.error(error);
-        });
-      }).catch((error) => {
-        console.error(error);
-      });
-    }, 1000);
+      for (var i = 0; i < this.partyCharacters.length; i++) {
+        this.aggroAndMove(this.partyData[i], i, true, this.fightData!);
+      }
+      for (var i = 0; i < this.fightData!.length; i++) {
+        this.aggroAndMove(this.fightData![i], i, false, this.partyData);
+      }
+    }, 200);
   }
+
+  aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
+    // Calculate the distance between the actor and each enemy
+    const distances = enemies.map(enemy => this.calculateDistance(actor, enemy));
+
+    // Find the index of the closest enemy
+    const closestEnemyIndex = distances.indexOf(Math.min(...distances));
+
+    // Get the closest enemy
+    const closestEnemy = enemies[closestEnemyIndex];
+
+    // Move towards the closest enemy
+    this.moveTowards(actor, actorIndex, friendly, closestEnemy)
+  }
+
+  calculateDistance(actor: Character, enemy: Character): number {
+    // Calculate the distance between two points using Pythagorean theorem
+    const dx = actor.fightPositionX - enemy.fightPositionX;
+    const dy = actor.fightPositionY - enemy.fightPositionY;
+    return (Math.sqrt(dx * dx + dy * dy));
+  }
+
+  moveTowards(actor: Character, actorIndex: number = 0, friendly: boolean, target: Character) {
+    // Calculate the distance between the actor and the target
+    const dx = target.fightPositionX - actor.fightPositionX;
+    const dy = target.fightPositionY - actor.fightPositionY;
+
+    // Calculate the angle between the actor and the target
+    const angle = Math.atan2(dy, dx);
+
+    // Calculate the new position of the actor
+    const speed = 10; // TODO move speed different for each character
+    const distanceX = +(Math.cos(angle) * speed).toFixed(3);
+    const distanceY = +(Math.sin(angle) * speed).toFixed(3);
+
+    // Update the position of the actor
+    actor.fightPositionX += distanceX;
+    actor.fightPositionY += distanceY; // Adjust the timeout value as needed
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log(actor.name + ' - distance x ' + distanceX + ' -  distance y ' + distanceY);
+    console.log(actor.name + ' - x ' + actor.fightPositionX + ' - y ' + actor.fightPositionY);
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+    if(friendly)
+      this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX}px, ${actor.fightPositionY}px)`;
+    else
+      this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX}px, ${actor.fightPositionY}px)`;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // OLDER CODE reuse or cleanup
 
   openMenu() {
     this.menuTrigger?.menuOpened.pipe(take(1)).subscribe(() => {
@@ -136,57 +206,6 @@ export class FightComponent implements OnInit {
 
   getCurrentPlayerSkills(): { "skills": Skill[] } {
     return { "skills": this.fightManager.currentCharacter.skills };
-  }
-
-  aggroAndMove(actor: any, enemies: any[]): Promise<void> {
-    return new Promise<void>((resolve) => {
-      // Calculate the distance between the actor and each enemy
-      const distances = enemies.map(enemy => this.calculateDistance(actor, enemy.nativeElement));
-
-      // Find the index of the closest enemy
-      const closestEnemyIndex = distances.indexOf(Math.min(...distances));
-
-      // Get the closest enemy
-      const closestEnemy = enemies[closestEnemyIndex];
-
-      // Move towards the closest enemy
-      this.moveTowards(actor, closestEnemy).then(() => {
-        resolve();
-      }).catch((error) => {
-        console.error(error);
-        resolve();
-      });
-    });
-  }
-
-  calculateDistance(actor: any, enemy: any): number {
-    // Calculate the distance between two points using Pythagorean theorem
-    const dx = actor.getBoundingClientRect().x - enemy.getBoundingClientRect().x;
-    const dy = actor.getBoundingClientRect().y - enemy.getBoundingClientRect().y;
-    return (Math.sqrt(dx * dx + dy * dy));
-  }
-
-  moveTowards(actor: any, target: any): Promise<void> {
-    return new Promise<void>((resolve) => {      
-      // Calculate the distance between the actor and the target
-      const dx = target.nativeElement.getBoundingClientRect().x - actor.getBoundingClientRect().x;
-      const dy = target.nativeElement.getBoundingClientRect().y - actor.getBoundingClientRect().y;
-
-      // Calculate the angle between the actor and the target
-      const angle = Math.atan2(dy, dx);
-
-      // Calculate the new position of the actor
-      const speed = 10; // TODO move speed for characters
-      const distanceX = +(Math.cos(angle) * speed).toFixed(3);
-      const distanceY = +(Math.sin(angle) * speed).toFixed(3);
-
-      // Update the position of the actor
-      actor.style.transform = `translate(${distanceX}px, ${distanceY}px)`;
-      actor.getBoundingClientRect().x += distanceX;
-      actor.getBoundingClientRect().y += distanceY; // Adjust the timeout value as needed
-
-      resolve();
-    });
   }
 
 }

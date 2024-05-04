@@ -10,6 +10,8 @@ export class Character extends Actor {
     classId: number = 0;
     class?: Class;
     skills: Skill[] = [];
+    fightPositionX: number = 0;
+    fightPositionY: number = 0;
 
     constructor() {
         super();

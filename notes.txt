@@ -43,7 +43,7 @@ NEXT STEPS:
 		-	basic interactions (activate if actor is dead, talk, kill, kill and if actor is alive, spell)
 			-	use interaction consumes item
 		-	give actors items to be stolen
-		-	character classes
+		-	character classes -> done, todo design classes for the game
 		-	animations
 		-	text input riddle interaction (ex. phantom piano location)
 		-	crafting
