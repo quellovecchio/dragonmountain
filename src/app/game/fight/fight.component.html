@@ -1,31 +1,30 @@
-<div>
-    <div *ngIf="fightData" style="height: 100%;">
-        <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;" class="enemies-row">
-            <div class="enemy" *ngFor="let actor of fightData; let i = index" style="width: 33%"> 
-                <!-- fightData.length - 3 because 3 is max umber of enemies-->
-                <mat-card class="mat-elevation-z1 image-bg pixelated-border"  (click)="setSelectedEnemy(actor, i)"
-                    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
-                    <div ngTiltParallax [distance]="20" style="padding-top: 20px; text-align: center;">{{actor.name}}</div>
-                    <img style="width: 150%; margin-left: -35px;" ngTiltParallax [distance]="20" [src]="actor.imagePath" />
-                    <img *ngIf="actor.attacked" style="position: absolute; bottom: 10px;" ngTiltParallax [distance]="20" [src]="currentAttackAnimation" />
-                    <app-data-bar ngTiltParallax [distance]="20" [currentValue]="fightManager.getEnemy(i).stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
-                    </app-data-bar>
-                </mat-card>
+<div class="battlefield">
+    <div class="characters">
+        <!-- Template for spawning characters -->
+        <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index" style="width: 100px; height: 100px; float: left;"> 
+            <div *ngIf="actor" class="party-member pixelated-border space" style="background-position-x: center; background-position-y: top; background-size: 200%;"
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
+                <app-data-bar [minimized]="true" class="hp-bar"
+                    [currentValue]="actor.stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
+                </app-data-bar>
+                <app-data-bar [minimized]="true" class="hp-bar"
+                    [currentValue]="actor.stats.skillPoints" [maxValue]="actor.stats.intelligence" [barType]="2">
+                </app-data-bar>
+            </div>
+        </div>
+    </div>
+    <div class="enemies">
+        <!-- Template for spawning enemies -->
+        <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index" style="width: 100px; height: 100px; float: right;"> 
+            <div *ngIf="actor" class="party-member pixelated-border space" style="background-position-x: center; background-position-y: top; background-size: 200%;"
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
+                <app-data-bar [minimized]="true" class="hp-bar"
+                    [currentValue]="actor.stats.healthPoints" [maxValue]="actor.stats.constitution" [barType]="1">
+                </app-data-bar>
+                <app-data-bar [minimized]="true" class="hp-bar"
+                    [currentValue]="actor.stats.skillPoints" [maxValue]="actor.stats.intelligence" [barType]="2">
+                </app-data-bar>
             </div>
         </div>
     </div>
 </div>
-
-<div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
-<mat-menu #menu="matMenu" class="location-menu pixelated-border">
-    <div *ngIf="selectedEnemyIndex != undefined">
-        <button mat-menu-item (click)="attack(selectedEnemyIndex, selectedEnemy)">attack</button>
-        <button mat-menu-item [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
-        <!-- items -->
-    </div>
-</mat-menu>
-<mat-menu #skills="matMenu" class="location-menu pixelated-border">
-    <ng-template matMenuContent let-skills="skills">
-        <button *ngFor="let skill of skills" mat-menu-item (click)="useSkillOn(skill, selectedEnemyIndex!, selectedEnemy)">{{skill.name}}</button>
-    </ng-template>
-</mat-menu>

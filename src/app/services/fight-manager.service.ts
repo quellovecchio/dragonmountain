@@ -31,48 +31,8 @@ export class FightManagerService {
     this.enemies = enemies;
     this.party = party;
     // Map enemies and party into turnRotation
-    this.turnRotation = this.generateTurnRotation();
-    this.resumeFightLoop();
-  }
-
-  resumeFightLoop() {
-    while (this.isEnemyTurn && this.fighting) {
-      while (this.nextTurnBuffer.length == 0) {
-        this.nextTurnBuffer = this.getNextTurnCharacter();
-      }
-      this.currentCharacter = this.nextTurnBuffer.pop()!;
-      this.isEnemyTurn = this.nextTurn();
-    }
-    this.viewportService.pushText("Now it's " + this.currentCharacter.name + "'s turn. What will be his next Action?");
-    this.currentCharacter.active = true;
-  }
-
-  generateTurnRotation() {
-    return [
-      ...this.enemies.map(enemy => ({ character: enemy, speedValue: 0 })),
-      ...this.party.map(player => ({ character: player, speedValue: 0 }))
-    ];
-  }
-
-  nextTurn() {
-    if (!this.enemies.includes(this.currentCharacter)) {
-      return false;
-    }
-    else {
-      this.generateAiTurn(this.currentCharacter);
-      return true;
-    }
-  }
-
-  generateAiTurn(attackingCharacter: Character) {
-    // extract random player from part to be attacked
-    // TODO implement skills on ai turn
-    const randomAllyIndex = Math.floor(Math.random() * this.party.length);
-    var defendingCharacter = this.party[randomAllyIndex];
-    let damage = this.processAttack(attackingCharacter, defendingCharacter, false);
-    this.viewportService.pushText("The enemy is attacking!");
-    this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
-    //this.resumeFighLoop();
+    //this.turnRotation = this.generateTurnRotation();
+    //this.resumeFightLoop();
   }
 
   processAttack(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
@@ -154,31 +114,6 @@ export class FightManagerService {
 
   getEnemy(enemyIndex: number) {
     return this.enemies[enemyIndex];
-  }
-
-  getNextTurnCharacter() {
-    var newBuffer: Character[] = [];
-    // updates the speedValue of a character by adding its speed value until someones value is 100
-    for (let i = 0; i < this.turnRotation.length; i++) {
-      this.turnRotation[i].speedValue = this.turnRotation[i].speedValue + this.turnRotation[i].character.stats.dexterity;
-      if (this.turnRotation[i].speedValue >= 100 && (this.enemies.includes(this.turnRotation[i].character) || this.party.includes(this.turnRotation[i].character as PlayingCharacter))) {
-        if (Constants.TURN_LOGGING) {
-          console.log("==============================");
-          console.log("character found: " + this.turnRotation[i].character.name);
-          console.log("==============================");
-        }
-        this.turnRotation[i].speedValue = this.turnRotation[i].speedValue - 100;
-        //nextCharacter = this.turnRotation[i].character;
-        newBuffer.push(this.turnRotation[i].character);
-      }
-      if (Constants.TURN_LOGGING)
-        console.log("data after " + i + ": " + JSON.stringify(this.turnRotation.map(el => { return el.character.name + ' - ' + el.speedValue })));
-    }
-    if (Constants.TURN_LOGGING) {
-      console.log("============RESULT============");
-      console.log(JSON.stringify(newBuffer.map(el => { return el.name })));
-    }
-    return newBuffer;
   }
 
   isBattleOver() {

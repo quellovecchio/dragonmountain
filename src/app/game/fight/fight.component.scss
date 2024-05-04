@@ -8,7 +8,8 @@
 }
 
 .enemy {
-    height: 100%;
+    height: 100px;
+    width: 100px;
     display: inline-block;
 }
 
@@ -16,4 +17,9 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.hp-bar {
+    position: relative;
+    top: 75px;
 }

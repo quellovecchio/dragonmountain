@@ -203,9 +203,6 @@ export class SceneComponent implements OnInit {
     let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
     // TODO animate defense;
     let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, false);
-    if (defendingCharacter && defendingCharacter.name)
-      this.viewportService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
-    this.goOnWithFight();
   }
 
   useSkillOn(data: { skill: Skill, enemyIndex: number, enemy: Actor }) {
@@ -254,20 +251,9 @@ export class SceneComponent implements OnInit {
           this.viewportService.pushText("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
       }
 
-      // TODO implement aoe damage, 
-
-      this.goOnWithFight();
+      // TODO implement aoe damage,
     } else {
       this.viewportService.pushText("That man is too tired to use that skill...");
-    }
-  }
-
-  private goOnWithFight() {
-    if (this.fightManager.isBattleOver()) {
-      this.endFight();
-    } else {
-      this.fightManager.isEnemyTurn = true;
-      this.fightManager.resumeFightLoop();
     }
   }
 
