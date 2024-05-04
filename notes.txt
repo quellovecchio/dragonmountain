@@ -29,6 +29,7 @@ NEXT STEPS:
 		-	program other spells
 			-	spellbooks to learn spells
 			-	ai enemy using spells, adding spells to enemies
+			-	revive
 			-	steal
 			-	charm
 			-	taunt
@@ -54,6 +55,7 @@ NEXT STEPS:
 ==================================	IMPORTANT UPDATE	===================================
 - link llama3 locally to produce text for the game based on the context given to the llm
 - potential UI rework: get rid of the black block behind, get HD backgrounds and use all the screen avaliable
+- fight rework: copy king god castle autofight gameplay
 ===================================================================================================
 
 
