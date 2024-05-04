@@ -60,12 +60,14 @@ export class FightComponent implements OnInit {
   calculateActorsStartingPositions() {
     // i'm not really sure if the order is right
     for (var i = 0; i < this.partyCharacters.length; i++) {
-      this.partyData[i].fightPositionX = this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom;
-      this.partyData[i].fightPositionY = this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right;
+      this.partyData[i].fightPositionX = 20;
+      this.partyData[i].fightPositionY = - 50 * (i-1);
+      console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
     }
-    for (i = 0; i < this.enemyCharacters.length; i++) {
-      this.fightData![i].fightPositionX = this.enemyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom;
-      this.fightData![i].fightPositionY = this.enemyCharacters.get(i)!.nativeElement.getBoundingClientRect().right;
+    for (i = this.enemyCharacters.length; i > 0; i--) {
+      this.fightData![i - 1].fightPositionX = 500;
+      this.fightData![i - 1].fightPositionY = - 50 * (i-1);
+      console.log('name : ' + this.fightData![i - 1].name + ' fightPositionX : ' + this.fightData![i - 1].fightPositionX + ' fightPositionY : ' + this.fightData![i - 1].fightPositionY + ' bottom: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().right);
     }
   }
 
@@ -77,7 +79,7 @@ export class FightComponent implements OnInit {
       for (var i = 0; i < this.fightData!.length; i++) {
         this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, 200);
+    }, 50);
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
@@ -110,22 +112,24 @@ export class FightComponent implements OnInit {
     const angle = Math.atan2(dy, dx);
 
     // Calculate the new position of the actor
-    const speed = 10; // TODO move speed different for each character
+    const speed = 4; // TODO move speed different for each character
     const distanceX = +(Math.cos(angle) * speed).toFixed(3);
     const distanceY = +(Math.sin(angle) * speed).toFixed(3);
 
-    // Update the position of the actor
-    actor.fightPositionX += distanceX;
-    actor.fightPositionY += distanceY; // Adjust the timeout value as needed
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    console.log(actor.name + ' - distance x ' + distanceX + ' -  distance y ' + distanceY);
-    console.log(actor.name + ' - x ' + actor.fightPositionX + ' - y ' + actor.fightPositionY);
-    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    if (actor.fightPositionX + distanceX < 600 && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < 200 && actor.fightPositionY + distanceY > -200) {
+      // Update the position of the actor
+      actor.fightPositionX += distanceX;
+      actor.fightPositionY += distanceY; // Adjust the timeout value as needed
+      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+      console.log(actor.name + ' - distance x ' + distanceX + ' -  distance y ' + distanceY);
+      console.log(actor.name + ' - x ' + actor.fightPositionX + ' - y ' + actor.fightPositionY);
+      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
-    if(friendly)
-      this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX}px, ${actor.fightPositionY}px)`;
-    else
-      this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX}px, ${actor.fightPositionY}px)`;
+      if (friendly)
+        this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX + distanceX}px, ${actor.fightPositionY + distanceY}px)`;
+      else
+        this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${(actor.fightPositionX + distanceX)}px, ${actor.fightPositionY + distanceY}px)`;
+    }
   }
 
 
