@@ -33,6 +33,8 @@ export class FightComponent implements OnInit {
 
   @Input() fightData?: Character[] = [];
   @Input() partyData: PlayingCharacter[] = [];
+  @Input() fightSpeed!: number;
+
 
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
   @ViewChildren('enemyCharacter') enemyCharacters!: QueryList<ElementRef>;
@@ -85,7 +87,7 @@ export class FightComponent implements OnInit {
         if(!this.fightData![i].dead)
           this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, Constants.FIGHT_CLOCK_SPEED);
+    }, this.fightSpeed);
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
@@ -123,7 +125,7 @@ export class FightComponent implements OnInit {
       console.log('actor decided to attack');
       if(actor.actualAttackCooldown >= 0) {
         console.log('...but his cooldown is yet to be resolved');
-        actor.actualAttackCooldown -= Constants.FIGHT_CLOCK_SPEED;
+        actor.actualAttackCooldown -= this.fightSpeed;
         console.log('cooldown left: ' + actor.actualAttackCooldown);
       } else {
         let attackData = this.fightManager.processAttack(actor, target, false);

@@ -46,6 +46,7 @@ import { Constants } from 'src/assets/constants';
 export class SceneComponent implements OnInit {
 
   @Input() run: Run;
+  @Input() fightSpeed!: number;
   @Input() selectedItem?: Item = undefined;
   @Output() pushTextEvent = new EventEmitter<string>();
   @Output() interactionEndSignal = new EventEmitter<any>();
@@ -289,8 +290,10 @@ export class SceneComponent implements OnInit {
       this.joiningCharacters = [];
       this.joinsParty = false;
     }
-    if (this.run.currentLocation)
+    if (this.run.currentLocation) {
+      this.run.currentLocation.fight = [];
       this.explore(this.run.currentLocation);
+    }
   }
 
   rest() {

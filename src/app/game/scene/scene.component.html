@@ -17,7 +17,7 @@
             (openShopSignal)="toggleShop($event)" (fightSignal)="engageFightWith($event)" (restSignal)="rest()"></app-location>
     </div>
     <div class="fight" *ngIf="run.state == 'fight'">
-        <app-fight [fightData]="run.currentFight" [partyData]="run.party" (attackSignal)="attack($event)" (useSkillSignal)="useSkillOn($event)"
+        <app-fight [fightSpeed]="fightSpeed" [fightData]="run.currentFight" [partyData]="run.party" (attackSignal)="attack($event)" (useSkillSignal)="useSkillOn($event)"
             (fleeSignal)="flee()"></app-fight>
     </div>
     <div class="intro" *ngIf="run.state == 'intro'">

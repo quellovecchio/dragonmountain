@@ -17,5 +17,11 @@
         <input matSliderThumb>
       </mat-slider>
     </div>
+    <div style="height: 200px; width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+      FIGHT SPEED:
+      <mat-slider style="width: 190px;" min="50" max="200" step="50" [(ngModel)]="settings.fightSpeed" (click)="$event.stopPropagation()">
+        <input matSliderThumb>
+      </mat-slider>
+    </div>
   </mat-menu>
 </div>
