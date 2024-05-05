@@ -14,6 +14,8 @@ import { Skill } from '../../model/Skill';
 })
 export class FightComponent implements OnInit {
 
+  public static FIGHT_CLOCK_SPEED = 50;
+
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
 
   @HostListener('document:click', ['$event'])
@@ -61,12 +63,12 @@ export class FightComponent implements OnInit {
     // i'm not really sure if the order is right
     for (var i = 0; i < this.partyCharacters.length; i++) {
       this.partyData[i].fightPositionX = 20;
-      this.partyData[i].fightPositionY = - 50 * (i-1);
+      this.partyData[i].fightPositionY = - 50 * (i - 1);
       console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
     }
     for (i = this.enemyCharacters.length; i > 0; i--) {
-      this.fightData![i - 1].fightPositionX = 500;
-      this.fightData![i - 1].fightPositionY = - 50 * (i-1);
+      this.fightData![i - 1].fightPositionX = 300;
+      this.fightData![i - 1].fightPositionY = - 50 * (i - 1);
       console.log('name : ' + this.fightData![i - 1].name + ' fightPositionX : ' + this.fightData![i - 1].fightPositionX + ' fightPositionY : ' + this.fightData![i - 1].fightPositionY + ' bottom: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().right);
     }
   }
@@ -79,7 +81,7 @@ export class FightComponent implements OnInit {
       for (var i = 0; i < this.fightData!.length; i++) {
         this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, 50);
+    }, FightComponent.FIGHT_CLOCK_SPEED);
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
@@ -93,7 +95,7 @@ export class FightComponent implements OnInit {
     const closestEnemy = enemies[closestEnemyIndex];
 
     // Move towards the closest enemy
-    this.moveTowards(actor, actorIndex, friendly, closestEnemy)
+    this.moveTowardsOrAttack(actor, actorIndex, friendly, closestEnemy)
   }
 
   calculateDistance(actor: Character, enemy: Character): number {
@@ -103,33 +105,50 @@ export class FightComponent implements OnInit {
     return (Math.sqrt(dx * dx + dy * dy));
   }
 
-  moveTowards(actor: Character, actorIndex: number = 0, friendly: boolean, target: Character) {
+  moveTowardsOrAttack(actor: Character, actorIndex: number = 0, friendly: boolean, target: Character) {
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    console.log('actor: ' + actor.name + ' - target ' + target.name);
     // Calculate the distance between the actor and the target
     const dx = target.fightPositionX - actor.fightPositionX;
     const dy = target.fightPositionY - actor.fightPositionY;
+    console.log(actor.name + ' - dx: ' + dx + ' -  dy: ' + dy);
 
-    // Calculate the angle between the actor and the target
-    const angle = Math.atan2(dy, dx);
+    if (Math.abs(dx) < actor.attackRange && Math.abs(dy) < actor.attackRange) {
+      console.log('actor decided to attack');
+      if(actor.attackCooldown > 0) {
+        console.log('...but his cooldown is yet to be resolved');
+        actor.attackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
+        console.log('cooldown left: ' + actor.attackCooldown);
+      } else {
+        let damage = this.fightManager.processAttack(actor, target, false);
+        actor.attackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
+        console.log('damage dealt: ' + damage);
+      }
+    } else {
+      console.log('actor decided to move');
+      // Calculate the angle between the actor and the target
+      const angle = Math.atan2(dy, dx);
 
-    // Calculate the new position of the actor
-    const speed = 4; // TODO move speed different for each character
-    const distanceX = +(Math.cos(angle) * speed).toFixed(3);
-    const distanceY = +(Math.sin(angle) * speed).toFixed(3);
-
-    if (actor.fightPositionX + distanceX < 600 && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < 200 && actor.fightPositionY + distanceY > -200) {
-      // Update the position of the actor
-      actor.fightPositionX += distanceX;
-      actor.fightPositionY += distanceY; // Adjust the timeout value as needed
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log(actor.name + ' - distance x ' + distanceX + ' -  distance y ' + distanceY);
-      console.log(actor.name + ' - x ' + actor.fightPositionX + ' - y ' + actor.fightPositionY);
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
-      if (friendly)
-        this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX + distanceX}px, ${actor.fightPositionY + distanceY}px)`;
-      else
-        this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${(actor.fightPositionX + distanceX)}px, ${actor.fightPositionY + distanceY}px)`;
+      // Calculate the new position of the actor
+      const speed = 4; // TODO move speed different for each character
+      const distanceX = +(Math.cos(angle) * speed).toFixed(3);
+      const distanceY = +(Math.sin(angle) * speed).toFixed(3);
+      console.log(actor.name + ' - distance to cover x ' + distanceX + ' -  distance to cover y ' + distanceY);
+      console.log('current X position: ' + actor.fightPositionX + ' - current Y position:  ' + actor.fightPositionY);
+      if (actor.fightPositionX + distanceX < 400 && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < 200 && actor.fightPositionY + distanceY > -200) {
+        // Update the position of the actor
+        actor.fightPositionX += distanceX;
+        actor.fightPositionY += distanceY; // Adjust the timeout value as needed
+        console.log('updated X position: ' + actor.fightPositionX + ' - updated Y position:  ' + actor.fightPositionY);
+        if (friendly)
+          this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX + distanceX}px, ${actor.fightPositionY + distanceY}px)`;
+        else
+          this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${(actor.fightPositionX + distanceX)}px, ${actor.fightPositionY + distanceY}px)`;
+      } else {
+        console.log('position not updated: trying to reach out of bounds area');
+      }
     }
+    console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }
 
 

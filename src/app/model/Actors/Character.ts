@@ -12,6 +12,8 @@ export class Character extends Actor {
     skills: Skill[] = [];
     fightPositionX: number = 0;
     fightPositionY: number = 0;
+    actualAttackCooldown: number = 0;
+    attackCooldown: number = 200;
 
     constructor() {
         super();
