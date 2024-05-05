@@ -23,3 +23,8 @@
     position: relative;
     top: 75px;
 }
+
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
+}

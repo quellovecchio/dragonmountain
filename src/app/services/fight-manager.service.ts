@@ -6,6 +6,7 @@ import { Constants } from 'src/assets/constants';
 import { ViewportService } from '../game/viewport/viewport.service';
 import { RunService } from './run.service';
 import { Skill } from '../model/Skill';
+import { FightComponent } from '../game/fight/fight.component';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +46,11 @@ export class FightManagerService {
           this.party[characterIndex] = updatedCharacter as PlayingCharacter;
         }
         else {
+          console.log("target killed");
           killed = true;
           this.party[characterIndex].dead = true;
+          updatedCharacter.stats.healthPoints = 0;
+          this.party[characterIndex] = updatedCharacter as PlayingCharacter;
         }
       } else {
         //update character in enemy party
@@ -57,8 +61,9 @@ export class FightManagerService {
         }
         else {
           killed = true;
-          delete this.enemies[characterIndex];
-          this.enemies = this.enemies.filter(item => item);
+          this.enemies[characterIndex].dead = true;
+          updatedCharacter.stats.healthPoints = 0;
+          this.enemies[characterIndex] = updatedCharacter as PlayingCharacter;
           if (this.isBattleOver())
             this.endFight();
         }

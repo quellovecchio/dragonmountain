@@ -6,6 +6,7 @@ import { Character } from '../../model/Actors/Character';
 import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill } from '../../model/Skill';
+import { Constants } from 'src/assets/constants';
 
 @Component({
   selector: 'app-fight',
@@ -13,8 +14,6 @@ import { Skill } from '../../model/Skill';
   styleUrls: ['./fight.component.scss']
 })
 export class FightComponent implements OnInit {
-
-  public static FIGHT_CLOCK_SPEED = 50;
 
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
 
@@ -79,12 +78,14 @@ export class FightComponent implements OnInit {
         clearInterval(intervalId);
       }
       for (var i = 0; i < this.partyCharacters.length; i++) {
-        this.aggroAndMove(this.partyData[i], i, true, this.fightData!);
+        if(!this.partyData[i].dead)
+          this.aggroAndMove(this.partyData[i], i, true, this.fightData!);
       }
       for (var i = 0; i < this.fightData!.length; i++) {
-        this.aggroAndMove(this.fightData![i], i, false, this.partyData);
+        if(!this.fightData![i].dead)
+          this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, FightComponent.FIGHT_CLOCK_SPEED);
+    }, Constants.FIGHT_CLOCK_SPEED);
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
@@ -122,7 +123,7 @@ export class FightComponent implements OnInit {
       console.log('actor decided to attack');
       if(actor.actualAttackCooldown >= 0) {
         console.log('...but his cooldown is yet to be resolved');
-        actor.actualAttackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
+        actor.actualAttackCooldown -= Constants.FIGHT_CLOCK_SPEED;
         console.log('cooldown left: ' + actor.actualAttackCooldown);
       } else {
         let attackData = this.fightManager.processAttack(actor, target, false);
@@ -130,11 +131,9 @@ export class FightComponent implements OnInit {
         console.log('damage dealt: ' + attackData.damage);
         if (attackData.killed && this.fightData!.length > 0 && this.partyData.length > 0) {
           if(!friendly) {
-            delete this.partyData[actorIndex];
-            this.partyData = this.partyData.filter(item => item);
+            this.partyData[actorIndex].dead = true;
           } else {
-            delete this.fightData![actorIndex];
-            this.fightData = this.fightData!.filter(item => item);
+            this.fightData![actorIndex].dead = true;
           }
         }
       }

@@ -14,6 +14,7 @@ export class Character extends Actor {
     fightPositionY: number = 0;
     actualAttackCooldown: number = 0;
     attackCooldown: number = 1000;
+    dead: boolean = false;
 
     constructor() {
         super();

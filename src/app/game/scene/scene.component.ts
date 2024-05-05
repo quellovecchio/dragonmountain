@@ -280,6 +280,7 @@ export class SceneComponent implements OnInit {
     if (this.joinsParty) {
       this.joiningCharacters.forEach(actor => {
         actor.stats.healthPoints = actor.stats.constitution;
+        actor.dead = false;
         this.run.party.push(actor);
         this.viewportService.pushText(actor.name + " decided to join your party!");
         if (this.run.currentLocation)
