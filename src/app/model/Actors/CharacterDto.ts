@@ -7,6 +7,7 @@ export class CharacterDto extends ActorDto {
     joinsParty: boolean = false;
     classId: number = 0;
     skills: number[] = [];
+    attackCooldown: number = 1000;
 
     constructor() {
         super();

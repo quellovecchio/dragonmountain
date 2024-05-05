@@ -469,7 +469,8 @@
                 "intelligence": 2,
                 "healthPoints": 25
             },
-            "skills": []
+            "skills": [],
+            "attackCooldown": 5000
         },
         {
             "id": 10,
@@ -697,7 +698,8 @@
             "skills": [],
             "shop": [
                 17, 6, 18
-            ]
+            ],
+            "attackCooldown": 1500
         },
         {
             "id": 23,

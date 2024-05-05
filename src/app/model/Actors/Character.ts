@@ -13,7 +13,7 @@ export class Character extends Actor {
     fightPositionX: number = 0;
     fightPositionY: number = 0;
     actualAttackCooldown: number = 0;
-    attackCooldown: number = 200;
+    attackCooldown: number = 1000;
 
     constructor() {
         super();

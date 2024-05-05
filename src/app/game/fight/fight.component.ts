@@ -74,7 +74,10 @@ export class FightComponent implements OnInit {
   }
 
   startFightScene() {
-    setInterval(() => {
+    const intervalId = setInterval(() => {
+      if (this.fightManager.isBattleOver()) {
+        clearInterval(intervalId);
+      }
       for (var i = 0; i < this.partyCharacters.length; i++) {
         this.aggroAndMove(this.partyData[i], i, true, this.fightData!);
       }
@@ -85,6 +88,8 @@ export class FightComponent implements OnInit {
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
+    if(enemies.length === 0) 
+      return;
     // Calculate the distance between the actor and each enemy
     const distances = enemies.map(enemy => this.calculateDistance(actor, enemy));
 
@@ -115,14 +120,23 @@ export class FightComponent implements OnInit {
 
     if (Math.abs(dx) < actor.attackRange && Math.abs(dy) < actor.attackRange) {
       console.log('actor decided to attack');
-      if(actor.attackCooldown > 0) {
+      if(actor.actualAttackCooldown >= 0) {
         console.log('...but his cooldown is yet to be resolved');
-        actor.attackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
-        console.log('cooldown left: ' + actor.attackCooldown);
+        actor.actualAttackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
+        console.log('cooldown left: ' + actor.actualAttackCooldown);
       } else {
-        let damage = this.fightManager.processAttack(actor, target, false);
-        actor.attackCooldown -= FightComponent.FIGHT_CLOCK_SPEED;
-        console.log('damage dealt: ' + damage);
+        let attackData = this.fightManager.processAttack(actor, target, false);
+        actor.actualAttackCooldown = actor.attackCooldown;
+        console.log('damage dealt: ' + attackData.damage);
+        if (attackData.killed && this.fightData!.length > 0 && this.partyData.length > 0) {
+          if(!friendly) {
+            delete this.partyData[actorIndex];
+            this.partyData = this.partyData.filter(item => item);
+          } else {
+            delete this.fightData![actorIndex];
+            this.fightData = this.fightData!.filter(item => item);
+          }
+        }
       }
     } else {
       console.log('actor decided to move');
@@ -177,7 +191,7 @@ export class FightComponent implements OnInit {
     this.menuTrigger?.openMenu();
   }
 
-  attack(enemyIndex: number, enemy: Actor) {
+  /*attack(enemyIndex: number, enemy: Actor) {
     // TODO change animation to represent the attack
     const attackSignal$ = new Observable<void>((observer) => {
       this.attackSignal.subscribe(() => {
@@ -222,13 +236,8 @@ export class FightComponent implements OnInit {
     return this.fightManager.getEnemy(index);
   }
 
-  setSelectedEnemy(enemy: Character, index: number) {
-    this.selectedEnemy = enemy;
-    this.selectedEnemyIndex = index;
-  }
-
-  getCurrentPlayerSkills(): { "skills": Skill[] } {
-    return { "skills": this.fightManager.currentCharacter.skills };
-  }
+  getCharacterSkills(character: Character): { "skills": Skill[] } {
+    return { "skills": character.skills };
+  }*/
 
 }

@@ -189,6 +189,12 @@ export class SceneComponent implements OnInit {
       });
     });
     this.fightManager.startFight(fight, this.run.party);
+    const intervalId = setInterval(() => {
+      if (this.fightManager.isBattleOver()) {
+        this.endFight();
+        clearInterval(intervalId);
+      }
+    }, 2000);
   }
 
   animateAttackOn(actor: Actor) {
@@ -198,6 +204,8 @@ export class SceneComponent implements OnInit {
     }, 3500 / Constants.TEXT_SPEED);
   }
 
+
+  /* OLD CODE TO MOVE
   attack(data: { enemyIndex: number, enemy: Actor }) {
     this.animateAttackOn(data.enemy);
     let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
@@ -255,7 +263,7 @@ export class SceneComponent implements OnInit {
     } else {
       this.viewportService.pushText("That man is too tired to use that skill...");
     }
-  }
+  } */
 
   private endFight() {
     this.run.currentFight!.forEach(actor => {

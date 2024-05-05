@@ -181,6 +181,9 @@ export class RunService {
     if(actorData.joinsParty) {
       r.joinsParty = actorData.joinsParty;
     }
+    if(actorData.attackCooldown) {
+      r.attackCooldown = actorData.attackCooldown;
+    }
     if(actorData.classId) {
       r.class = this.getClassById(actorData.classId);
     }

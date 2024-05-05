@@ -14,14 +14,7 @@ export class FightManagerService {
 
   public enemies: Character[] = [];
   party: PlayingCharacter[] = [];
-  public turnRotation: { character: Character, speedValue: number }[] = [];
   fighting: boolean = false;
-  isEnemyTurn: boolean = true;
-  currentCharacter: Character = new Character();
-  nextTurnBuffer: Character[] = []; // if more chars clock at the same time, gets stored in buffer
-
-  //did last attack kill the enemy?
-  public lastAttackKilled: boolean = false;
 
   constructor(private itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
 
@@ -35,11 +28,11 @@ export class FightManagerService {
     //this.resumeFightLoop();
   }
 
-  processAttack(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
-    this.currentCharacter.active = false;
+  processAttack(attackingCharacter: Character, defendingCharacter: Character, magical: boolean): { damage: number, killed: boolean } {
     if (defendingCharacter) {
       // step 1: calulate damage
       console.log(attackingCharacter.name + " is attacking " + defendingCharacter.name);
+      var killed = false;
       var damage = this.calculateDamage(attackingCharacter, defendingCharacter, magical);
       var updatedCharacter = defendingCharacter;
       var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
@@ -52,7 +45,7 @@ export class FightManagerService {
           this.party[characterIndex] = updatedCharacter as PlayingCharacter;
         }
         else {
-          this.lastAttackKilled = true;
+          killed = true;
           this.party[characterIndex].dead = true;
         }
       } else {
@@ -63,7 +56,7 @@ export class FightManagerService {
           this.enemies[characterIndex] = updatedCharacter;
         }
         else {
-          this.lastAttackKilled = true;
+          killed = true;
           delete this.enemies[characterIndex];
           this.enemies = this.enemies.filter(item => item);
           if (this.isBattleOver())
@@ -72,11 +65,11 @@ export class FightManagerService {
       }
       // go on finding next character in turn
       //this.currentCharacter = this.getNextTurnCharacter()? this.currentCharacter : this.currentCharacter;
-      return damage;
+      return {damage: damage, killed: killed};
     }
     // game over
     this.endFight(); 
-    return 0;
+    return {damage: 0, killed: false};
   }
 
   calculateDamage(attackingCharacter: Character, defendingCharacter: Character, magical: boolean) {
@@ -103,10 +96,10 @@ export class FightManagerService {
     return finalDamage <= 0 ? 1 : finalDamage;
   }
 
-  deductSkillPoints(skill: Skill): boolean {
+  deductSkillPoints(character: Character, skill: Skill): boolean {
     // returns false if spell can't be launched
-    if(this.currentCharacter.stats.skillPoints - skill.cost >= 0) {
-      this.currentCharacter.stats.skillPoints = this.currentCharacter.stats.skillPoints - skill.cost;
+    if(character.stats.skillPoints - skill.cost >= 0) {
+      character.stats.skillPoints = character.stats.skillPoints - skill.cost;
       return true;
     } else 
     return false;
@@ -124,8 +117,5 @@ export class FightManagerService {
     this.fighting = false;
     this.enemies = [];
     this.party = [];
-    this.currentCharacter = new Character();
-    this.turnRotation = [];
-    this.nextTurnBuffer = [];
   }
 }
