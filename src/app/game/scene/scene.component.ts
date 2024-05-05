@@ -178,7 +178,7 @@ export class SceneComponent implements OnInit {
 
   private startFight(fight: Character[]) {
     this.run.state = RunState.Fight;
-    this.run.currentFight = fight;
+    this.run.currentFight = this.createFightToDisplay(fight);
     fight.forEach(actor => {
       if ((actor as Character).joinsParty) {
         this.joinsParty = true;
@@ -189,13 +189,30 @@ export class SceneComponent implements OnInit {
           this.toDeleteIndexes.push(i);
       });
     });
-    this.fightManager.startFight(fight, this.run.party);
+    this.fightManager.startFight(this.run.currentFight, this.run.party);
     const intervalId = setInterval(() => {
       if (this.fightManager.isBattleOver()) {
         this.endFight();
         clearInterval(intervalId);
       }
     }, 2000);
+  }
+
+  createFightToDisplay(fight: Character[]): Character[] {
+    let newFight: Character[] = [];
+    let usedCharactersIds: number[] = [];
+    for (let i = 0; i < fight.length; i++) {
+      let character = fight[i];
+      let newCharacter = character;
+      if(usedCharactersIds.includes(newCharacter.id)) {
+        newCharacter.name = newCharacter.name + ' ' + i;
+      } else {
+        usedCharactersIds.push(newCharacter.id);
+      }
+      newCharacter.id = i;
+      newFight.push(newCharacter);
+    }
+    return newFight;
   }
 
   animateAttackOn(actor: Actor) {

@@ -37,9 +37,9 @@ export class FightManagerService {
       var damage = this.calculateDamage(attackingCharacter, defendingCharacter, magical);
       var updatedCharacter = defendingCharacter;
       var updatedHealthPoints = updatedCharacter.stats.healthPoints - damage;
-      if (this.party.findIndex(el => { return el == defendingCharacter }) >= 0) {
+      if (this.party.findIndex(el => { return el.id == defendingCharacter.id }) >= 0) {
         // update character in the party
-        var characterIndex = this.party.findIndex(el => { return el == defendingCharacter });
+        var characterIndex = this.party.findIndex(el => { return el.id == defendingCharacter.id });
         if (updatedHealthPoints > 0) {
           updatedCharacter.stats.healthPoints = updatedHealthPoints;
           console.log("updated health points: " + updatedHealthPoints)
@@ -54,7 +54,7 @@ export class FightManagerService {
         }
       } else {
         //update character in enemy party
-        var characterIndex = this.enemies.findIndex(el => { return el == defendingCharacter });
+        var characterIndex = this.enemies.findIndex(el => { return el.id == defendingCharacter.id });
         if (updatedHealthPoints > 0) {
           updatedCharacter.stats.healthPoints = updatedHealthPoints;
           this.enemies[characterIndex] = updatedCharacter;
