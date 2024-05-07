@@ -28,3 +28,12 @@
     pointer-events: none;
     filter: grayscale(1);
 }
+
+.damaged {
+    animation: blinking 0.1s infinite;
+}
+
+@keyframes blinking{
+    0%		{ opacity: 0; }
+    50%		{ opacity: 1; }
+}

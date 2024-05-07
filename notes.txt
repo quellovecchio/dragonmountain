@@ -56,6 +56,7 @@ NEXT STEPS:
 - link llama3 locally to produce text for the game based on the context given to the llm
 - potential UI rework: get rid of the black block behind, get HD backgrounds and use all the screen avaliable
 - fight rework: copy king god castle autofight gameplay
+- make rest free
 ===================================================================================================
 
 
@@ -303,6 +304,15 @@ SPELLS:
 	warmth: heals 1*wisdom magic dmg
 	stun: stuns enemy for 1 turn
 	ice storm: magic dmg + stun all enemies
+
+
+----------------------------------------------------
+BUG TRACKER
+----------------------------------------------------
+- the scene isn't exploring if room is empty
+- attack is aoe by default wtf
+
+
 	
 PLOT: 
 

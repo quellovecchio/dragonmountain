@@ -8,6 +8,15 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill } from '../../model/Skill';
 import { Constants } from 'src/assets/constants';
 
+class FightAnimation {
+  source: string = '';
+  duration: number = 0;
+  id: number  = 0;
+  x: number = 0;
+  y: number = 0;
+  rotationAngle: number = 0;
+}
+
 @Component({
   selector: 'app-fight',
   templateUrl: './fight.component.html',
@@ -38,6 +47,7 @@ export class FightComponent implements OnInit {
 
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
   @ViewChildren('enemyCharacter') enemyCharacters!: QueryList<ElementRef>;
+  animations: FightAnimation[] = [];
 
 
   @Output() attackSignal = new EventEmitter<any>();
@@ -119,7 +129,9 @@ export class FightComponent implements OnInit {
     // Calculate the distance between the actor and the target
     const dx = target.fightPositionX - actor.fightPositionX;
     const dy = target.fightPositionY - actor.fightPositionY;
-    console.log(actor.name + ' - dx: ' + dx + ' -  dy: ' + dy);
+    // Calculate the angle between the actor and the target
+    const angle = Math.atan2(dy, dx);
+    console.log(actor.name + ' - dx: ' + dx + ' -  dy: ' + dy, ' - angle: ' + angle);
 
     if (Math.abs(dx) < actor.attackRange && Math.abs(dy) < actor.attackRange) {
       console.log('actor decided to attack');
@@ -128,6 +140,26 @@ export class FightComponent implements OnInit {
         actor.actualAttackCooldown -= this.fightSpeed;
         console.log('cooldown left: ' + actor.actualAttackCooldown);
       } else {
+        // attack animations
+        target.damaged = true;
+        setTimeout(() => {
+          target.damaged = false;
+        }, 500);
+        // todo insert source and duration of the animation basing on attack
+        var attackAnimation : FightAnimation = {
+          source: '/assets/animations/slash.gif',
+          duration: 200,
+          id: this.animations.length,
+          x: target.fightPositionX,
+          y: target.fightPositionY,
+          rotationAngle: angle,
+        }
+        this.animations.push(attackAnimation);
+        setTimeout(() => {
+          let r = this.animations.filter(animation => animation.id !== attackAnimation.id);
+          this.animations = this.animations.filter(animation => animation.id !== attackAnimation.id);
+        }, 300);
+
         let attackData = this.fightManager.processAttack(actor, target, false);
         actor.actualAttackCooldown = actor.attackCooldown;
         console.log('damage dealt: ' + attackData.damage);
@@ -141,9 +173,6 @@ export class FightComponent implements OnInit {
       }
     } else {
       console.log('actor decided to move');
-      // Calculate the angle between the actor and the target
-      const angle = Math.atan2(dy, dx);
-
       // Calculate the new position of the actor
       const speed = 4; // TODO move speed different for each character
       const distanceX = +(Math.cos(angle) * speed).toFixed(3);
@@ -166,7 +195,9 @@ export class FightComponent implements OnInit {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }
 
-
+  getAnimationTransform(animation: FightAnimation) {
+    return 'translate(' + (animation.x) + 'px, ' + (animation.y - 530) + 'px) rotate(' + animation.rotationAngle + 'rad)';
+  }
 
 
 
@@ -240,5 +271,4 @@ export class FightComponent implements OnInit {
   getCharacterSkills(character: Character): { "skills": Skill[] } {
     return { "skills": character.skills };
   }*/
-
 }
