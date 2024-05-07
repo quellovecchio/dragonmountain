@@ -53,7 +53,7 @@ NEXT STEPS:
 
 
 ==================================	IMPORTANT UPDATE	===================================
-- link llama3 locally to produce text for the game based on the context given to the llm
+- link llama3 locally to produce text for the game based on the context given to the llm. make it sort of react with a sentiment, maybe basing on the despicable actions you do.
 - potential UI rework: get rid of the black block behind, get HD backgrounds and use all the screen avaliable
 - fight rework: copy king god castle autofight gameplay
 - make rest free
@@ -275,24 +275,69 @@ Milestones:
 					work on firsts locations, npc and enemies, put images for those
 					images for ui
 					css textures on ui components to simulate stone and foliage
-0.11		-	basic animations
+0.11	OK	-	basic animations
 0.12	OK	-	textBuffer refinements
 
 0.21	OK	-	actors logic partially done (interactions, shops)
 0.22	OK	-	fight logic partially done (party, turns, damage, offensive spells, leveling)
 0.23	OK	- 	items logic partially done (use, equip)
-0.24		- 	game logic done (you can play a game from start to end)
+0.24	OK	- 	game logic done (you can play a stage from start to end)
 0.24	OK	-	character logic partially done (ai)
 0.25	OK	-	characters classes logic partially done
 0.25	OK	-	rng based generation of stages, locations and characters
 0.3	OK	-	actors, locations and items
 
-0.3->0.9	-	polish, implement missing gamplay functions
-0.9->1.0	-	web/app wrapper, auth system, payments
+------------------- HOLY FUCK I TOUGHT I COULD DO THIS IN FOUR MONTHS IT'S BEEN FUCKING TWO YEARS --------------
 
-	------------------------------
-		MARKETING
-	------------------------------
+0.4/0.5
+
+		priorities:
+			-	call leocorno and ask for help or advice and maybe a brainstorm
+			-	implement holo cards style css
+			-	call Nicola about ui
+
+
+
+		-	spells update
+			- 	analysis on spells that the game and the damned citadel stage will offer. ask leocorno for help
+			-	actors and enemies can cast spells. 
+			-	revive state, revive spell, revive option from actors
+			-	characters and enemies can attack from distance (missile style damage)
+			-	fight polish
+		-	content update
+			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
+			- 	midjourney generation of the assets
+			-	implementation of the content
+		-	card finish update
+			-	implementation of the card finishes from pokemon in css
+			-	evaluate splash art with background instead of no background full pic and card frame
+			- 	traslucency polish
+		-	ui update
+			-	evaluate removing static black backgrounds and using all space avaliable
+			-	evaluate using black fog as background for text area content
+			-	evaluate changes in ui weaknesses, contact my pugliese friend for ui consueling
+			-	evaluate a stylish 'swipe left or right' animation to refresh the view when chaning location or hiring someone for drawing animations
+			-	push on cheap options
+
+
+---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
+	---------------------------------------------------------------
+		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS
+	---------------------------------------------------------------
+
+0.7		-	ai impl
+			-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
+			-	rest api to llm text impl
+			-	study how to apply sentiment, maybe good/despicable action system
+				- 	maybe apply difficulty on sentiment??? just a multiplicator on stats with maybe some unlucy stuff happening could be fine
+
+----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
+----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
+
+0.8->0.9	-	web/app wrapper, auth system, payments
+			-	look for investors
+1.0		-	launch version, polish
+
 
 
 SPELLS:
