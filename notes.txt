@@ -60,7 +60,7 @@ NEXT STEPS:
 ===================================================================================================
 
 
-- inspo for animations: pokemon crstal
+- inspo for animations: pokemon crystal
 
 - every class of playingcharacter can use every weapon but every class has classes advantages using a specific type of weapon.
 
@@ -90,8 +90,6 @@ NEXT STEPS:
 			apprentice class: skill point used -10%
 			she's 6 yo and has a passion for magic
 			she got a Brand New Rod.
-
-- not enough locations - game over condition? insert left refreshes counter to avoid that?
 
 - crafting: some locations will let you craft items for others. on every stage there will be some recurrent items (ex: damned city
 -> hol water) needed in those crafting rooms
@@ -220,9 +218,6 @@ COMMUNITY UDATE 4: (
 - item packs & featured items can be bought to avoid single player grind
 )
 
-TECH UPDATE: (
-- ai generated run (possible only with good training data, need healthy marketplace) ((maybe $$$?))
-)
 
 COMMUNITY UDATE 4: (
 - battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included, ai runs
@@ -289,25 +284,47 @@ Milestones:
 
 ------------------- HOLY FUCK I TOUGHT I COULD DO THIS IN FOUR MONTHS IT'S BEEN FUCKING TWO YEARS --------------
 
-0.4/0.5
+0.4/0.7
 
 		priorities:
-			-	call leocorno and ask for help or advice and maybe a brainstorm
-			-	implement holo cards style css
-			-	call Nicola about ui
+			-	define ALL content in test stage
 
 
+		-	content update
+			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
+			- 	midjourney generation of the assets
+			-	implementation of the content
+			-	study in direction of choises: choises is the max engagement, build and powerness not enough
 
+----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
+
+		-	gameplay update
+			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
+				-	insert places to rest in questlines to balance the game, remove them from the pool
+				-	questlog to track quests
+				-	interactive tutorial (explain stuff while happening via dialogs)
+			-	implement auto-refresh on quest completing
+			-	implement little choises: example touch or dont touch the relic and what happen if you do or dont
+			-	random encounters (random drops in locations)
+			-	test different gameplay setups
 		-	spells update
+			-	introduce spell and actor element
 			- 	analysis on spells that the game and the damned citadel stage will offer. ask leocorno for help
 			-	actors and enemies can cast spells. 
 			-	revive state, revive spell, revive option from actors
 			-	characters and enemies can attack from distance (missile style damage)
 			-	fight polish
-		-	content update
-			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
-			- 	midjourney generation of the assets
-			-	implementation of the content
+
+----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
+
+		-	fight update
+			-	implement ranged attacks and missiles logic
+			-	implement collisions between players
+			-	 fight bugfixes
+			-	refinement to animations
+
+---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
+
 		-	card finish update
 			-	implementation of the card finishes from pokemon in css
 			-	evaluate splash art with background instead of no background full pic and card frame
@@ -319,20 +336,22 @@ Milestones:
 			-	evaluate a stylish 'swipe left or right' animation to refresh the view when chaning location or hiring someone for drawing animations
 			-	push on cheap options
 
-
----------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
 	---------------------------------------------------------------
 		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS
 	---------------------------------------------------------------
 
-0.7		-	ai impl
+		-	ai impl
 			-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
 			-	rest api to llm text impl
 			-	study how to apply sentiment, maybe good/despicable action system
 				- 	maybe apply difficulty on sentiment??? just a multiplicator on stats with maybe some unlucy stuff happening could be fine
+			-	lore information as vectorestate, implementation of lore
 
-----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
-----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
+
+
+
+
+
 
 0.8->0.9	-	web/app wrapper, auth system, payments
 			-	look for investors
@@ -341,9 +360,9 @@ Milestones:
 
 
 SPELLS:
-	poison: ranger basic skill. poisons an enemy (fixed dmg every turn)
-	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell
-	steal: during fight, steals an item from selected enemy. in location does the same, but if fails you have to fight cops.
+	poison: ranger basic skill. poisons an enemy (fixed dmg every turn). stacks. aoe version too.
+	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell. aoe version too.
+	steal: during fight, steals an item from attacked enemy. in location does the same but with selection.
 	charm: in location some npc will be affected by this spell. in fight, makes you escape.
 	spark: does 1*wisdom magic dmg
 	warmth: heals 1*wisdom magic dmg
@@ -366,13 +385,64 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 	Common enemies: thielf (has steal spell little elf thief), lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
 
-        Dark Sewers: 
-Rats attack you when entered.
-Slot 1: Stone trap door: Unlocked with Thieves Guild Key, brings you to the Thieves Guild Hall
-		Thieves Guild Hall:
-			Slot 1: Merchant, selling keys and equip
-			Slot 2: Jhonny B. Goode, if killed joins the party
-Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key (acquire through steal or kill).
+
+	Questlines:	ADD TAVERNS! (ex, dark sewers should appear in every quest phace of theives guild)
+	
+		- thieves guild questline
+	
+			phase 1 - 
+        			Dark Sewers: 
+					Rats attack you when entered.
+					Merchant, selling keys and equip and can make you rest. Cheers you for completing the thives guild entrance exam, to find that place. Gives you a Steal scroll as a reward.
+					Jhonny B. Goode, if killed joins the party
+			phase 2.a -
+				Imperial prison:
+					Sharp Dressed Prisoner: tells you he is a thief guild member, asks you to help him get free
+					Imperial Guard: Menaces you to stay away from the prisoners. Has the Prison Key (acquire through steal).
+			phase 2.b -
+				Market Square: 
+					At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
+			phase 3.a.a -
+				boh: 
+					Ci sono il prigioniero di prima e un tizio della gilda dei ladri. il prigioniero dice che e innocente ma il tizio della gilda dei ladri dice che e' un truffatore e deve dei soldi alla gilda. se uccidi il prigioniero il boss sara' l'Emissario del Re Lontano, mandato a vendicare l'uccisione del suo Messaggero mentre uccidendo il tizio della gilda il boss sara il Capo dei Ladri
+
+			phase 3.b.a -
+				boh:
+					Vengono delle guardie a 
+				
+			phase 3.b.b -
+
+		- vampire corruption / save the city questline
+				necromancer's quest
+
+				you enter in the Municipal Hall, and you find out one of the Assessors is sick. Exposing him to a Silver Bar will make him transform into a vampire and it attacks you. Later, the major will thank you and give 2000 gold. He tells you something strange is happening and he's worried other vampires made it to the high grounds of the city. He asks you if you can investigate any further, and tells there is a cave rumored to be vampire's hideout or to ask help to the governor.
+
+				next stages are the Governor's Mansion (1) or Vampire Hideout (2).
+				(1): there is the governor. You report the vampire problem to him but you find out he's hesitant to help facing the problem. Using a Silver Bar on him will make him transform and he'll attack you. Defeated, he will tell you there's no time and the Supreme Vampire has already been warned and they are preparing an assault to the city.
+
+
+				(2): vampires attack you upon entering. In the room there is the Vampire Master, telling you you can join them and get power and wealth. If you don't join the vampires, he will attack you and when defeated transforms into a bat and flies away manacing to kill the Major. If you join the vampires, he will give you a 'bloodsuck' scroll, used to learn a spell that makes you absorb damage.
+
+				next stages are the King's Court (1) or the Damned Plaza (2)
+				(1): If you joined the vampires you will unlock King's Court where you'll face the King and his guards as the bosses of the Stage.
+				(2): If you didn't join the vampire legion you will unlock Damned Plaza. You find out Vampires are attacking the city. In the location there's the Supreme Vampire (boss)
+
+
+				details to add:
+				- transformation animation for npcs
+				- contextual info upon entering a location
+				
+		- a fake heir questline
+
+			you defend a young girl with some people following her from soldiers. she tells you she is the real heir.
+			you encounter her back and she is cheered by people. gives you a sword and makes you her Knight/Ambassador, and she tells you to got to bring her to the fortune teller to prove her royal blood.
+			you go to the Fortune Teller Tent. The Fortune Teller says that the one who will touch the glass ball and the ball will glow is the heir, and the actor 'Glass Bowl' spawns.  
+			you can touch the ball or make the girl touch it. 
+			either way the ball will glow. if you touch it, her followers will accuse you of being a fake and the boss will be her knights (already seen in locations but friends), if the girl touches it the boss will be the King and his knights
+
+
+
+
 
         Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
@@ -380,7 +450,7 @@ Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key
 
 	Unsettling Shop: There's a merchant selling you survival items for the stage. sells potions and a silver sword.
 
-        Market Square: At the market square, the merchant offers you a reward if you can retrieve a stolen item from a pickpocket. You can use the skill "steal" to take the item from the thief and give it back to the merchant, which will give you the item back as a reward. If you fight the thief instead, he will join your party. There is a scroll shop too, selling you the "steal" skill and "fireball" spells.
+
          
         Witch's House: the witch will let you explore for money, fightable with loot health and mana potions (strong). Sells poisoned apples (kills a simple enemy)
 
@@ -399,8 +469,6 @@ Slot 2: Guard: Menaces you to stay away from the door. Has the Thieves Guild Key
 	Monster Tamer Farm: 
 Slot 1: Monster tamer: he thinks monsters aren't undestood by people, explains that ghosts are incredible musicians. He tells you that you can use his machine.
 Slot 2: machine. vanishes after using. You can give 5 demon horn to get an item that gives the 'demon' subclass to the people is given to, 5 holy water for 'ghost' class, 5 silver bars
-
-	City Hall: there's the mayor and two assessors. The mayor tells one of his assistants are acting strange. The strage assistant looks ill, is pallid and scratching itself prett hard. if the assessor is shown a silver bar it will burst out revealing itself as a vampire, attacking you. If the vampire is defeated, the mayor will give you money.
 
 	Cursed Library: In the abandoned library, you discover an ancient tome with dark powers. Reading it curses your party, causing them to slowly lose health. if the book is dispelled with dispel, you get a powerful spell tome. There's a librarian (you can steal something).
 
