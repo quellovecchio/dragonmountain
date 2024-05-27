@@ -3,16 +3,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Constants } from 'src/assets/constants';
 import { Class } from '../model/Actors/Class';
 import { Run } from '../model/Run';
-import { Location } from '../model/Location';
 import { RunState } from '../model/RunState';
 import { Settings } from '../model/Settings';
 import { Skill } from '../model/Skill';
 import { RunService } from '../services/run.service';
 import { ViewportComponent } from './viewport/viewport.component';
 import packageJson from '../../../package.json';
-import { Stage } from '../model/Stage';
 import { Item } from '../model/items/Item';
-import { Actor } from '../model/Actors/Actor';
 import { StageDto } from '../model/StageDto';
 import { ActorDto } from '../model/Actors/ActorDto';
 import { LocationDto } from '../model/LocationDto';
@@ -71,10 +68,14 @@ export class GameComponent implements OnInit {
           this.runService.setClasses(data.classes);
           this.runService.setLocations(data.locations);
           newRun.stage.locations = this.runService.getLocations(data.stages[0].locations);
+          newRun.stage.questlines = this.runService.getQuestlineTree(data.stages[0].questlines);
           newRun.stage.bossLocation = this.runService.getLocationById(data.stages[0].bossLocation);
           newRun.party[0].class = this.runService.classes[0];
           this.runService.setRun(newRun);
-          newRun.stage.currentLocations = this.runService.getRefreshedLocations();
+          newRun.stage.questlines.forEach((questline, i) => {
+            if(newRun.stage.questlines[i])
+              newRun.stage.currentLocations.push(newRun.stage.questlines[i].root.location);
+          });
           console.log("generateRun() - extracted locations:");
           console.log(newRun.stage.currentLocations);
           console.log("generateRun() - end");

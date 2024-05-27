@@ -1,4 +1,4 @@
-import { LocationDto } from "./LocationDto";
+import { QuestlineTreeDto } from "./QuestlineTreeDto";
 
 var idCounter = 0;
 
@@ -7,6 +7,7 @@ export class StageDto {
     name: string;
     backgroundPath: string;
     locations: number[];
+    questlines: QuestlineTreeDto[];
     bossLocation: number;
 
     constructor () {
@@ -15,5 +16,6 @@ export class StageDto {
             this.locations =  [];
             this.backgroundPath = '';
             this.bossLocation = 0;
+            this.questlines = [];
         }
 }

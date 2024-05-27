@@ -13,6 +13,8 @@ import { Character } from '../model/Actors/Character';
 import { CharacterDto } from '../model/Actors/CharacterDto';
 import { StageDto } from '../model/StageDto';
 import { Stage } from '../model/Stage';
+import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
+import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +85,33 @@ export class RunService {
     return r;
   }
 
+  getQuestlineTree(questlines: QuestlineTreeDto[]): QuestlineTree[] {
+    const questlineTrees: QuestlineTree[] = [];
+    questlines.forEach(questlineDto => {
+      const rootLocation = this.getLocationById(questlineDto.root.location);
+      const questlineTree = new QuestlineTree(rootLocation);
+      const queueDto: TreeNodeDto[] = [questlineDto.root];
+      const queue: TreeNode[] = [questlineTree.root];
+
+      while (queueDto.length > 0) {
+        const currentNodeDto = queueDto.shift();
+        const currentNode = queue.shift();
+
+        if (currentNodeDto && currentNode) {
+          currentNodeDto.children.forEach(childDto => {
+            const childLocation = this.getLocationById(childDto.location);
+            const childNode = new TreeNode(childLocation);
+            currentNode.addChild(childNode);
+            queueDto.push(childDto);
+            queue.push(childNode);
+          });
+        }
+      }
+      questlineTrees.push(questlineTree);
+    });
+    return questlineTrees;
+  }
+
   getRefreshedLocations() {
     var count = Constants.MAX_STAGE_ELEMENTS;
     if (count >= this.run.stage.locations.length) {
@@ -91,14 +120,14 @@ export class RunService {
       this.run.stage.locations.length = 0; // Clear the original list
       return result;
     }
-  
+
     const result: Location[] = [];
     for (let i = 0; i < count; i++) {
       const randomIndex = Math.floor(Math.random() * this.run.stage.locations.length);
       result.push(this.run.stage.locations[randomIndex]);
       this.run.stage.locations.splice(randomIndex, 1); // Remove the selected element from the list
     }
-  
+
     return result;
   }
 
@@ -116,29 +145,29 @@ export class RunService {
     r.id = actorData.id;
     r.name = actorData.name;
     r.imagePath = actorData.imagePath;
-    if(actorData.loot) {
+    if (actorData.loot) {
       actorData.loot.forEach(id => {
         r.loot.push(this.getItemById(id))
       })
     }
-    if(actorData.shop) {
+    if (actorData.shop) {
       r.shop = [];
       actorData.shop.forEach(id => {
         r.shop!.push(this.getItemById(id))
       })
     }
-    if(actorData.rest) {
+    if (actorData.rest) {
       r.rest = actorData.rest;
     }
-    if(actorData.equipment) {
+    if (actorData.equipment) {
       actorData.equipment.forEach(id => {
         r.equipment.push(this.getItemById(id) as Equip)
       })
     }
-    if(actorData.interactions) {
+    if (actorData.interactions) {
       r.interactions = actorData.interactions;
     }
-    if(actorData.dialogue) {
+    if (actorData.dialogue) {
       r.dialogue = actorData.dialogue;
     }
     return r;
@@ -150,44 +179,44 @@ export class RunService {
     r.id = actorData.id;
     r.name = actorData.name;
     r.imagePath = actorData.imagePath;
-    if(actorData.loot) {
+    if (actorData.loot) {
       actorData.loot.forEach(id => {
         r.loot.push(this.getItemById(id))
       })
     }
-    if(actorData.shop) {
+    if (actorData.shop) {
       r.shop = [];
       actorData.shop.forEach(id => {
         r.shop!.push(this.getItemById(id))
       })
     }
-    if(actorData.rest) {
+    if (actorData.rest) {
       r.rest = actorData.rest;
     }
-    if(actorData.equipment) {
+    if (actorData.equipment) {
       actorData.equipment.forEach(id => {
         r.equipment.push(this.getItemById(id) as Equip)
       })
     }
-    if(actorData.interactions) {
+    if (actorData.interactions) {
       r.interactions = actorData.interactions;
     }
-    if(actorData.dialogue) {
+    if (actorData.dialogue) {
       r.dialogue = actorData.dialogue;
     }
-    if(actorData.stats) {
+    if (actorData.stats) {
       r.stats = actorData.stats;
     }
-    if(actorData.joinsParty) {
+    if (actorData.joinsParty) {
       r.joinsParty = actorData.joinsParty;
     }
-    if(actorData.attackCooldown) {
+    if (actorData.attackCooldown) {
       r.attackCooldown = actorData.attackCooldown;
     }
-    if(actorData.classId) {
+    if (actorData.classId) {
       r.class = this.getClassById(actorData.classId);
     }
-    if(actorData.skills) {
+    if (actorData.skills) {
       r.skills = [];
       actorData.skills.forEach(id => {
         r.skills!.push(this.getSkillById(id))
@@ -201,17 +230,17 @@ export class RunService {
     r.id = dto.id;
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
-    if(dto.fight) {
+    if (dto.fight) {
       dto.fight.forEach(id => {
         r.fight.push(this.populateCharacter(id))
       })
     }
-    if(dto.loot) {
+    if (dto.loot) {
       dto.loot.forEach(id => {
         r.loot.push(this.getItemById(id))
       })
     }
-    if(dto.actors) {
+    if (dto.actors) {
       dto.actors.forEach(id => {
         r.actors.push(this.populateCharacter(id))
       })
@@ -232,16 +261,16 @@ export class RunService {
     r.id = dto.id;
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
-    if(dto.locations) {
+    if (dto.locations) {
       dto.locations.forEach(id => {
         var data = locations.find(el => el.id === id);
         r.locations.push(data!);
       })
     }
-    if(dto.bossLocation) {
+    if (dto.bossLocation) {
       var data = locations.find(el => el.id === dto.bossLocation);
       r.bossLocation = data!;
-    } 
+    }
     return r;
   }
 
