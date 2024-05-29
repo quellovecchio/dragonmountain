@@ -2,7 +2,7 @@
     <div class="map" *ngIf="run.state == 'exploration' && !run.showBossfightLocation && ready">
         <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;" class="locations-row">
             <div class="location" *ngFor="let location of run.stage.currentLocations">
-                <app-location-preview [locationData]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
+                <app-location-preview [location]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
             </div>
         </div>
     </div>

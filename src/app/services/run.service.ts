@@ -99,10 +99,10 @@ export class RunService {
 
         if (currentNodeDto && currentNode) {
           currentNodeDto.children.forEach(childDto => {
-            const childLocation = this.getLocationById(childDto.location);
+            const childLocation = this.getLocationById(childDto);
             const childNode = new TreeNode(childLocation);
             currentNode.addChild(childNode);
-            queueDto.push(childDto);
+            //queueDto.push(childDto);
             queue.push(childNode);
           });
         }

@@ -14,6 +14,7 @@ import { ItemService } from '../../services/item.service';
 import { Skill } from '../../model/Skill';
 import { ViewportService } from '../viewport/viewport.service';
 import { Constants } from 'src/assets/constants';
+import { TreeNode } from 'src/app/model/QuestlineTree';
 
 @Component({
   selector: 'app-scene',
@@ -92,11 +93,20 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  private explore(location: Location) {
-    // change background to location background
-    this.loot(location);
-    if (location.actors && location.actors?.length > 0) {
-      this.run.state = RunState.Location;
+  private explore(location: any) {
+    // BUG: children is always false, check DTO compose
+    if(!location.children) {
+      this.run.currentQuestlinePhase = location as TreeNode;
+
+      this.loot((location as TreeNode).location);
+      if ((location as TreeNode).location.actors && (location as TreeNode).location.actors?.length > 0) {
+        this.run.state = RunState.Location;
+      }
+    } else {
+      this.loot(location);
+      if (location.actors && location.actors?.length > 0) {
+        this.run.state = RunState.Location;
+      }
     }
   }
 

@@ -1,13 +1,13 @@
 export class TreeNodeDto {
     location: number;
-    children: TreeNodeDto[];
+    children: number[];
 
     constructor(value: number) {
         this.location = value;
         this.children = [];
     }
 
-    addChild(child: TreeNodeDto): void {
+    addChild(child: number): void {
         this.children.push(child);
     }
 }

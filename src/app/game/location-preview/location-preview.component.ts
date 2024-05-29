@@ -4,6 +4,7 @@ import { Location } from "../../model/Location";
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MatCard } from '@angular/material/card';
 import { take } from 'rxjs';
+import { TreeNode } from 'src/app/model/QuestlineTree';
 
 @Component({
   selector: 'app-location-preview',
@@ -40,7 +41,8 @@ export class LocationPreviewComponent implements OnInit {
 
   contextMenuPosition = {x: 0, y: 0};
 
-  @Input() locationData!: Location;
+  locationData?: Location;
+  @Input() location!: any;
   @Output() exploreSignal = new EventEmitter<string>();
 
   animateLocation: boolean = false;
@@ -48,6 +50,13 @@ export class LocationPreviewComponent implements OnInit {
   constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef) { }
 
   ngOnInit(): void {
+    if(this.location.children) {
+      // Location is a treenode, questline location
+      this.locationData = this.location.location;
+    } else {
+      // Location is not a treenode, normal location
+      this.locationData = this.location;
+    }
   }
 
   openMenu() {
@@ -63,7 +72,7 @@ export class LocationPreviewComponent implements OnInit {
   }
 
   explore() {
-    this.exploreSignal.emit("The party moved to " + this.locationData.name + ".");
+    this.exploreSignal.emit("The party moved to " + this.locationData!.name + ".");
   }
 
   reloadLocations(){

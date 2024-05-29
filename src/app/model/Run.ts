@@ -2,6 +2,7 @@ import { Character } from "./Actors/Character";
 import { PlayingCharacter } from "./Actors/PlayingCharacter";
 import { Item } from "./items/Item";
 import { Location } from "./Location";
+import { QuestlineTree, TreeNode } from "./QuestlineTree";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
@@ -16,6 +17,13 @@ export class Run {
     currentFight?: Character[];
     experience: number = 5;
     showBossfightLocation: boolean = false;
+
+    // questline data
+    showNextQuestlinePhase: boolean = true;
+    currentQuestline?: QuestlineTree;
+    currentQuestlinePhase?: TreeNode;
+    questlineCounter: number = 0;
+
 
     constructor() {
     }

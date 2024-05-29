@@ -1004,13 +1004,13 @@
                 {
                     "root": {
                         "location": 12,
-                        "children": []
+                        "children": [ 2 ]
                     }
                 },
                 {
                     "root": {
                         "location": 10,
-                        "children": []
+                        "children": [ 3 ]
                     }
                 }
             ],

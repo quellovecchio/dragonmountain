@@ -72,9 +72,9 @@ export class GameComponent implements OnInit {
           newRun.stage.bossLocation = this.runService.getLocationById(data.stages[0].bossLocation);
           newRun.party[0].class = this.runService.classes[0];
           this.runService.setRun(newRun);
-          newRun.stage.questlines.forEach((questline, i) => {
-            if(newRun.stage.questlines[i])
-              newRun.stage.currentLocations.push(newRun.stage.questlines[i].root.location);
+          newRun.stage.questlines.forEach((questline) => {
+            if(questline)
+              newRun.stage.currentLocations.push(questline.root);
           });
           console.log("generateRun() - extracted locations:");
           console.log(newRun.stage.currentLocations);
