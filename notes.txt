@@ -284,48 +284,61 @@ Milestones:
 
 ------------------- HOLY FUCK I TOUGHT I COULD DO THIS IN FOUR MONTHS IT'S BEEN FUCKING TWO YEARS --------------
 
-0.4/0.7
+----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
 
-		priorities:
-			-	define ALL content in test stage
+0.4/0.5
+
+		-	gameplay update
+			-	fix every people killable
+			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
+				-	change refresh dynamics: you can't leave some rooms if not resolved
+					-	implement refresh counter and quests logic
+					-	make sure every iteration cann fill the quest counter
+					-	make sure counter scales with stage number
+				-	insert places to rest in questlines to balance the game, remove them from the pool
+				-	little choises: example touch or dont touch the relic and what happen if you do or dont
+				-	play questline from bottom to end
+				-	play stage from bottom to end
+				-	questlog to track quests
+				-	interactive tutorial (explain stuff while happening via dialogs)
+			-	animation when talking to an npc he goes to the center and the others disappear
+			-	random encounters (random drops in locations)
+			-	test different gameplay setups
+			-	spawn also people (not only locations) during exploration
+				-	for example spawn granny instead of location
+			- 	fix mobile game (leo says it's faster)
+
+			
+		-	spells update
+			-	introduce spell and spell on actor element
+			-	introduce buffs and debuffs
+			-	actors and enemies can cast spells. 
+			-	revive state, revive spell, revive option from actors
 
 
 		-	content update
 			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
+				-	go for choises over classic gdr stuff
 			- 	midjourney generation of the assets
-			-	implementation of the content
-			-	study in direction of choises: choises is the max engagement, build and powerness not enough
-
-----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
-
-		-	gameplay update
-			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
-				-	insert places to rest in questlines to balance the game, remove them from the pool
-				-	questlog to track quests
-				-	interactive tutorial (explain stuff while happening via dialogs)
-			-	implement auto-refresh on quest completing
-			-	implement little choises: example touch or dont touch the relic and what happen if you do or dont
-			-	random encounters (random drops in locations)
-			-	test different gameplay setups
-		-	spells update
-			-	introduce spell and actor element
-			- 	analysis on spells that the game and the damned citadel stage will offer. ask leocorno for help
-			-	actors and enemies can cast spells. 
-			-	revive state, revive spell, revive option from actors
-			-	characters and enemies can attack from distance (missile style damage)
-			-	fight polish
+			-	implementation of content
+			-	make actors in party swappable
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
+
+0.6
 
 		-	fight update
 			-	implement ranged attacks and missiles logic
 			-	implement collisions between players
-			-	 fight bugfixes
+			-	fight bugfixes
 			-	refinement to animations
+			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
 ---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
 
-		-	card finish update
+0.7
+
+		-	card rarity update
 			-	implementation of the card finishes from pokemon in css
 			-	evaluate splash art with background instead of no background full pic and card frame
 			- 	traslucency polish
@@ -340,6 +353,8 @@ Milestones:
 		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS
 	---------------------------------------------------------------
 
+0.8
+
 		-	ai impl
 			-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
 			-	rest api to llm text impl
@@ -348,13 +363,8 @@ Milestones:
 			-	lore information as vectorestate, implementation of lore
 
 
-
-
-
-
-
-0.8->0.9	-	web/app wrapper, auth system, payments
-			-	look for investors
+0.9		-	web/app wrapper, auth system, payments
+			-	look for investors or funds
 1.0		-	launch version, polish
 
 
@@ -363,10 +373,10 @@ SPELLS:
 	poison: ranger basic skill. poisons an enemy (fixed dmg every turn). stacks. aoe version too.
 	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell. aoe version too.
 	steal: during fight, steals an item from attacked enemy. in location does the same but with selection.
-	charm: in location some npc will be affected by this spell. in fight, makes you escape.
+	charm: in location some npc will be affected by this spell. in fight, makes you escape (or debuff??).
 	spark: does 1*wisdom magic dmg
 	warmth: heals 1*wisdom magic dmg
-	stun: stuns enemy for 1 turn
+	blunt: stuns enemy for 1 turn
 	ice storm: magic dmg + stun all enemies
 
 
@@ -439,6 +449,8 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 			you go to the Fortune Teller Tent. The Fortune Teller says that the one who will touch the glass ball and the ball will glow is the heir, and the actor 'Glass Bowl' spawns.  
 			you can touch the ball or make the girl touch it. 
 			either way the ball will glow. if you touch it, her followers will accuse you of being a fake and the boss will be her knights (already seen in locations but friends), if the girl touches it the boss will be the King and his knights
+
+		add bonus\secret questline (pacific run & kill all run)
 
 
 

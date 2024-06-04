@@ -14,6 +14,8 @@ export class ActorDto {
     equipment: number[] = [];
     interactions: Interaction[] = [];
     dialogue: string[] = [''];
+    clearanceRequirements: [] = [];
+    clearanceDialogue: [] = [];
 
     constructor() {
         this.id = idCounter++;

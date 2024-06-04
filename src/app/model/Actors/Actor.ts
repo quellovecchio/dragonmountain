@@ -2,6 +2,7 @@
 import { Interaction } from "../Interaction";
 import { Equip } from "../items/Equip";
 import { Item } from "../items/Item";
+import { Requirement } from "../Reqirement";
 
 var idCounter = 0;
 
@@ -25,12 +26,14 @@ export class Actor {
     // an interaction can proc landing in the room, winning a fight against him or giving the neededItem and can make the npc vanish
     interactions: Interaction[] = [];
     dialogue: string[] = [''];
+    clearanceDialogue: string[] = [''];
     // used to handle attack animations in fights
     attacked: boolean = false;
     // used to handle current turn animations in fights
     active: boolean = false;
     // placeholder or TODO: define attack range for
     attackRange: number = 100;
+    clearanceRequirements: Requirement[] = [];
 
     constructor() {
         this.id = idCounter++;

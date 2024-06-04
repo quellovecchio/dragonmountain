@@ -81,23 +81,26 @@ export class SceneComponent implements OnInit {
 
   // Location actions
 
-  moveTo(location: Location) {
-    this.run.currentLocation = location;
-    this.viewportService.pushText("The party has moved to " + location.name + ".");
-    if (location.fight && location.fight.length > 0) {
+  moveTo(location: any) {
+    var locationValue = undefined;
+    if(location.children)
+      locationValue = location.location;
+    else
+      locationValue = location;
+    this.run.currentLocation = locationValue;
+    this.viewportService.pushText("The party has moved to " + locationValue.name + ".");
+    if (locationValue.fight && locationValue.fight.length > 0) {
       // start fight
       this.viewportService.pushText("Enemies are attacking the party!");
-      this.startFight(location.fight);
+      this.startFight(locationValue.fight);
     } else {
       this.explore(location);
     }
   }
 
   private explore(location: any) {
-    // BUG: children is always false, check DTO compose
-    if(!location.children) {
+    if(location.children) {
       this.run.currentQuestlinePhase = location as TreeNode;
-
       this.loot((location as TreeNode).location);
       if ((location as TreeNode).location.actors && (location as TreeNode).location.actors?.length > 0) {
         this.run.state = RunState.Location;

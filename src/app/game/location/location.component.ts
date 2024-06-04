@@ -5,6 +5,7 @@ import { Actor } from '../../model/Actors/Actor';
 import { Item } from '../../model/items/Item';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
+import { Requirement } from 'src/app/model/Reqirement';
 
 @Component({
   selector: 'app-location',
@@ -66,6 +67,13 @@ export class LocationComponent implements OnInit {
 
   talk(a: Actor) {
     this.talkSignal.emit(a);
+    // BUG: clearanceRequirements and clearanceDialog always empty
+
+    var talkRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type == 'talk');
+    if(talkRequirements.length > 0) {
+      var newRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type != 'talk');
+      a.clearanceRequirements = newRequirements;
+    }
   }
 
   engageCombat(a: Actor): any {
@@ -104,6 +112,10 @@ export class LocationComponent implements OnInit {
 
   setSelectedActor(actor: Actor) {
     this.selectedActor = actor;
+  }
+
+  locked() {
+    return this.locationData?.actors.map((el: Actor) => el.clearanceRequirements).length == 0; 
   }
 
 }

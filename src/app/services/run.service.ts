@@ -170,6 +170,12 @@ export class RunService {
     if (actorData.dialogue) {
       r.dialogue = actorData.dialogue;
     }
+    if (actorData.clearanceDialogue) {
+      r.clearanceDialogue = actorData.clearanceDialogue;
+    }
+    if (actorData.clearanceRequirements) {
+      r.clearanceRequirements = actorData.clearanceRequirements;
+    }
     return r;
   }
 

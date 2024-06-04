@@ -725,7 +725,20 @@
             "shop": [
                 14, 9
             ],
-            "dialogue": "[sounds uninterested] New face, uh?"
+            "dialogue": [
+                "[sounds uninterested] New face, uh?",
+                "Congratulations, you're welcome to the Thives Guild!",
+                "What? You don't know adout us? I mean, who cares!",
+                "You reached the Dark Sewers, and that's enough.",
+                "Getting here is the entrance test.",
+                "Be ready to hear from us, you'll receive some quests soon."
+            ],
+            "clearanceDialogue": [
+                "Be ready to hear from us, you'll receive some quests soon.",
+                "You can shop here, by the way!",
+                "Feel free to serve yourself."
+            ],
+            "requirements": ["talk"]
         },
         {
             "id": 25,
