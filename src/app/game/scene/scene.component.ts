@@ -120,6 +120,7 @@ export class SceneComponent implements OnInit {
       this.viewportService.pushText("The party is back from the " + location.name + ".");
       this.viewportService.pushText("What's our next move?");
     }
+    this.refreshLocations();
   }
 
   interact(data: { character: Character; action: any }) {
@@ -359,7 +360,7 @@ export class SceneComponent implements OnInit {
   }
 
   // NPC interactions
-
+  
   talkToActor(a: Actor) {
     this.viewportService.talkToNpcPushText(a.name, a.dialogue);
   }
