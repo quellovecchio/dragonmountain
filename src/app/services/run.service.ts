@@ -15,6 +15,7 @@ import { StageDto } from '../model/StageDto';
 import { Stage } from '../model/Stage';
 import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
 import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
+import { Requirement } from '../model/Reqirement';
 
 @Injectable({
   providedIn: 'root'
@@ -226,6 +227,15 @@ export class RunService {
       r.skills = [];
       actorData.skills.forEach(id => {
         r.skills!.push(this.getSkillById(id))
+      })
+    }
+    if (actorData.clearanceDialogue) {
+      r.clearanceDialogue = actorData.clearanceDialogue;
+    }
+    if (actorData.clearanceRequirements) {
+      // TODO update with additional requirement info
+      actorData.clearanceRequirements.forEach(req => {
+        r.clearanceRequirements.push(new Requirement(req, ''));
       })
     }
     return r;
