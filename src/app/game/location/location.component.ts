@@ -117,7 +117,7 @@ export class LocationComponent implements OnInit {
   locked() {
     var clearanceArray = this.locationData!.actors.map((el: Actor) => el.clearanceRequirements);
     var cleared = clearanceArray.every(innerArr => Array.isArray(innerArr) && innerArr.length === 0);
-    console.log(clearanceArray + ' ' + cleared);
+    //console.log(clearanceArray + ' ' + cleared);
     return cleared;
   }
 

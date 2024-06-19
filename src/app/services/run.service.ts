@@ -126,7 +126,8 @@ export class RunService {
     for (let i = 0; i < count; i++) {
       const randomIndex = Math.floor(Math.random() * this.run.stage.locations.length);
       result.push(this.run.stage.locations[randomIndex]);
-      this.run.stage.locations.splice(randomIndex, 1); // Remove the selected element from the list
+      // commented because mechanics changed: room is extracted from set when completed
+      //this.run.stage.locations.splice(randomIndex, 1); // Remove the selected element from the list
     }
 
     return result;
@@ -298,5 +299,16 @@ export class RunService {
       r.push(s);
     })
     return r;
+  }
+
+  removeLocationFromPool(locationId: number) {
+    console.log("------- updating stage locations -------")
+    console.log("array before:")
+    console.log(this.run.stage.locations);
+    var locationIndex = this.run.stage.locations.findIndex((l: Location) => {l.id == locationId});
+    this.run.stage.locations.splice(locationIndex, 1);
+    console.log("array after:")
+    console.log(this.run.stage.locations);
+    console.log("------- done updating stage locations -------")
   }
 }

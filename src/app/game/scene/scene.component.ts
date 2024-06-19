@@ -117,9 +117,10 @@ export class SceneComponent implements OnInit {
     this.run.state = RunState.Exploration;
     this.run.currentLocation = undefined;
     if (location) {
-      this.viewportService.pushText("The party is back from the " + location.name + ".");
+      this.viewportService.pushText("The party is back from " + location.name + ".");
       this.viewportService.pushText("What's our next move?");
     }
+    this.runService.removeLocationFromPool(location.id);
     this.refreshLocations();
   }
 
