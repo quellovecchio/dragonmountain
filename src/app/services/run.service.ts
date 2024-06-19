@@ -247,6 +247,7 @@ export class RunService {
     r.id = dto.id;
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
+    r.storylineCounter = dto.storylineCounter;
     if (dto.fight) {
       dto.fight.forEach(id => {
         r.fight.push(this.populateCharacter(id))

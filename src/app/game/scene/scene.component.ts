@@ -120,8 +120,19 @@ export class SceneComponent implements OnInit {
       this.viewportService.pushText("The party is back from " + location.name + ".");
       this.viewportService.pushText("What's our next move?");
     }
+    console.log("----- updating questline counter -------");
+    console.log("older counter value: " + this.run.questlineCounter);
+    this.run.questlineCounter = this.run.questlineCounter + location.storylineCounter;
+    console.log("updated counter value: " + this.run.questlineCounter);
+    console.log("----- done updating questline counter -------");
     this.runService.removeLocationFromPool(location.id);
-    this.refreshLocations();
+    if(this.run.questlineCounter > (2 + ((this.run.level - 1) * 0.2))) {
+      // if storyline counter crosses the limit go to next questline stage
+      // TODO set locations from storyline
+    } else {
+      // if not, call locations from pool
+      this.refreshLocations();
+    }
   }
 
   interact(data: { character: Character; action: any }) {

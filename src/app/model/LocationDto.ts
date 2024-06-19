@@ -8,6 +8,7 @@ export class LocationDto {
     fight: number[] = [];
     loot: number[] = [];
     actors: number[] = [];
+    storylineCounter: number = 0.5; //default value
 
     constructor() {
         this.id = idCounter++;

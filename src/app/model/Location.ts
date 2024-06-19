@@ -13,6 +13,7 @@ export class Location {
     loot: Item[] = [];
     actors: Actor[] = [];
     bindedLocation?: Location[];
+    storylineCounter: number = 0.5; //default value
 
     constructor() {
         this.id = idCounter++;
