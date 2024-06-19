@@ -294,18 +294,11 @@ Milestones:
 				-	change refresh dynamics: you can't leave some rooms if not resolved
 					-	implement refresh counter and quests logic
 					-	make sure every iteration cann fill the quest counter
-					-	make sure counter scales with stage number
 				-	insert places to rest in questlines to balance the game, remove them from the pool
 				-	little choises: example touch or dont touch the relic and what happen if you do or dont
 				-	play questline from bottom to end
 				-	play stage from bottom to end
-				-	questlog to track quests
-				-	interactive tutorial (explain stuff while happening via dialogs)
-			-	animation when talking to an npc he goes to the center and the others disappear
-			-	random encounters (random drops in locations)
 			-	test different gameplay setups
-			-	spawn also people (not only locations) during exploration
-				-	for example spawn granny instead of location
 			- 	fix mobile game (leo says it's faster)
 
 			
@@ -334,6 +327,15 @@ Milestones:
 			-	refinement to animations
 			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
+		-	gameplay update 2
+			-	make sure storyline counter scales with stage number
+			-	questlog to track quests
+			-	interactive tutorial (explain stuff while happening via dialogs)
+			-	random encounters (random drops in locations)
+			-	spawn also people (not only locations) during exploration
+				-	example: spawn granny or wanderer seller instead of location
+
+
 ---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
 
 0.7
@@ -347,7 +349,9 @@ Milestones:
 			-	evaluate using black fog as background for text area content
 			-	evaluate changes in ui weaknesses, contact my pugliese friend for ui consueling
 			-	evaluate a stylish 'swipe left or right' animation to refresh the view when chaning location or hiring someone for drawing animations
-			-	push on cheap options
+			-	animation when talking to an npc he goes to the center and the others disappear
+			-	animation for appearance of back to stage
+			-	animation for dead actors
 
 	---------------------------------------------------------------
 		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS
