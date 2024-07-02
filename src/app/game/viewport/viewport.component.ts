@@ -89,7 +89,7 @@ export class ViewportComponent implements OnInit {
 
   refreshLocations() {
     this.run.experience = this.run.experience - 1;
-    this.scene.refreshLocations();
+    this.scene.refreshLocations(false);
     this.viewportService.pushText("The party goes in exploration...");
     this.viewportService.pushText("And they found three new areas!");
   }

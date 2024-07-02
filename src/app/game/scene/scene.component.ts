@@ -126,13 +126,13 @@ export class SceneComponent implements OnInit {
     console.log("updated counter value: " + this.run.questlineCounter);
     console.log("----- done updating questline counter -------");
     this.runService.removeLocationFromPool(location.id);
-    if(this.run.questlineCounter > (2 + ((this.run.level - 1) * 0.2))) {
-      // if storyline counter crosses the limit go to next questline stage
-      // TODO set locations from storyline
-    } else {
-      // if not, call locations from pool
-      this.refreshLocations();
-    }
+    var questlineCounterCrossed = false;
+    if(this.run.questlineCounter >= (1.5 + ((this.run.level - 1) * 0.2)))
+      questlineCounterCrossed = true;
+
+    // if storyline counter crosses the limit go to next questline stage
+    // if not, call locations from pool
+    this.refreshLocations(questlineCounterCrossed);
   }
 
   interact(data: { character: Character; action: any }) {
@@ -391,8 +391,11 @@ export class SceneComponent implements OnInit {
     return "/assets/images/splash_art.png";
   }
 
-  refreshLocations() {
-    this.run.stage.currentLocations = this.runService.getRefreshedLocations();
+  refreshLocations(fromQuestlineFlag: boolean) {
+    if(!fromQuestlineFlag)
+      this.run.stage.currentLocations = this.runService.getRefreshedLocations();
+    else 
+      this.run.stage.currentLocations = this.runService.getNextStorylineLocations();
   }
 
   getRandomNumber(min: number, max: number) {

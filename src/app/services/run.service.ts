@@ -133,6 +133,13 @@ export class RunService {
     return result;
   }
 
+  getNextStorylineLocations(): TreeNode[] {
+    var result: TreeNode[] = [];
+    if(this.run.currentQuestline?.root.children && this.run.currentQuestline?.root.children.length > 0)
+      result = this.run.currentQuestline?.root.children;
+    return result;
+  }
+
   populateActors(dtos: ActorDto[]): Actor[] {
     var r: Actor[] = [];
     dtos.forEach(dto => {
@@ -247,7 +254,7 @@ export class RunService {
     r.id = dto.id;
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
-    r.storylineCounter = dto.storylineCounter;
+    r.storylineCounter = dto.storylineCounter ? dto.storylineCounter : 0.5;
     if (dto.fight) {
       dto.fight.forEach(id => {
         r.fight.push(this.populateCharacter(id))
