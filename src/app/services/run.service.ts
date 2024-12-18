@@ -16,13 +16,15 @@ import { Stage } from '../model/Stage';
 import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
 import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
 import { Requirement } from '../model/Reqirement';
+import { STARTING_STATS } from '../editor/diy/diy.component';
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RunService {
 
-  run: Run = new Run();
+  run: Run = new Run(new PlayingCharacter(STARTING_STATS));
 
   skills: Skill[] = [];
   items: Item[] = [];

@@ -10,6 +10,8 @@ import { Actor } from '../../model/Actors/Actor';
 import { Equip } from '../../model/items/Equip';
 import { ViewportService } from './viewport.service';
 import { Character } from '../../model/Actors/Character';
+import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
+import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-viewport',
@@ -18,7 +20,7 @@ import { Character } from '../../model/Actors/Character';
 })
 export class ViewportComponent implements OnInit {
 
-  @Input() run: Run = new Run();
+  @Input() run: Run = new Run(new PlayingCharacter(STARTING_STATS));
   @Input() settings!: Settings;
 
   @ViewChild(InfoBoxComponent)

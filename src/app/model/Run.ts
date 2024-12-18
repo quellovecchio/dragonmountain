@@ -7,7 +7,7 @@ import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
 export class Run {
-    party: PlayingCharacter[] = [ new PlayingCharacter ];
+    party: PlayingCharacter[] = [];
     inventory: { items: Item[], money: number } = { items: [], money: 1500 };
     level: number = 1;
     stage: Stage = new Stage();
@@ -25,7 +25,8 @@ export class Run {
     questlineCounter: number = 0;
 
 
-    constructor() {
+    constructor(hero: PlayingCharacter) {
+      this.party.push(hero);
     }
 
   }

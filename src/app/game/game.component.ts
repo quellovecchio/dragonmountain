@@ -13,6 +13,8 @@ import { Item } from '../model/items/Item';
 import { StageDto } from '../model/StageDto';
 import { ActorDto } from '../model/Actors/ActorDto';
 import { LocationDto } from '../model/LocationDto';
+import { STARTING_STATS } from '../editor/diy/diy.component'
+import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
 @Component({
   selector: 'app-game',
@@ -32,8 +34,7 @@ export class GameComponent implements OnInit {
   viewport: ViewportComponent;
 
   loadedSavedData: boolean = false;
-  run: Run = new Run();
-  loadingRun: Run = new Run();
+  run: Run = new Run(new PlayingCharacter(STARTING_STATS));
 
   constructor(viewport: ViewportComponent, private http: HttpClient, private runService: RunService) {
     this.viewport = viewport;
@@ -61,7 +62,7 @@ export class GameComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.get<{actors: ActorDto[], items: Item[], classes: Class[], skills: Skill[], locations: LocationDto[], lastStage: StageDto, stages: StageDto[]}>('./assets/data/new_db.json').subscribe({
         next: (data) => {
-          let newRun = new Run();
+          let newRun = new Run(new PlayingCharacter(STARTING_STATS));
           this.runService.setItems(data.items);
           this.runService.setActors(data.actors);
           this.runService.setSkills(data.skills);
@@ -83,7 +84,7 @@ export class GameComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          let newRun = new Run();
+          let newRun = new Run(new PlayingCharacter(STARTING_STATS));
           reject(newRun);
         }
       });

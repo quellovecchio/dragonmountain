@@ -6,6 +6,7 @@ import { Item } from '../../model/items/Item';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
 import { Requirement } from 'src/app/model/Reqirement';
+import { Stats } from 'src/app/model/Stats';
 
 @Component({
   selector: 'app-location',
@@ -106,8 +107,9 @@ export class LocationComponent implements OnInit {
     return (actor.rest ? actor.rest : false);
   }
 
-  isFightable(a: Actor): any {
-    return (a as Character).stats;
+  isFightable(a: Character): any {
+    let statsZero = new Stats();
+    return JSON.stringify(a.stats) != JSON.stringify(statsZero);
   }
 
   setSelectedActor(actor: Actor) {

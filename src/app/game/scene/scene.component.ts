@@ -15,6 +15,7 @@ import { Skill } from '../../model/Skill';
 import { ViewportService } from '../viewport/viewport.service';
 import { Constants } from 'src/assets/constants';
 import { TreeNode } from 'src/app/model/QuestlineTree';
+import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 
 @Component({
   selector: 'app-scene',
@@ -67,7 +68,7 @@ export class SceneComponent implements OnInit {
   toDeleteIndexes: number[] = [];
 
   constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
-    this.run = new Run();
+    this.run = new Run(new PlayingCharacter(STARTING_STATS));
     this.fightManager = fightManager;
     this.runService = runService;
   }
@@ -177,6 +178,7 @@ export class SceneComponent implements OnInit {
     else {
       this.viewportService.pushText("Using " + data.action.name + " on " + data.character.name + " had no effect...");
     }
+    this.runService.items.filter((item) => item.id == this.selectedItem!.id);
     this.selectedItem = undefined;
     this.interactionEndSignal.emit();
   }
@@ -375,6 +377,7 @@ export class SceneComponent implements OnInit {
   
   talkToActor(a: Actor) {
     this.viewportService.talkToNpcPushText(a.name, a.dialogue);
+    this.loot(a);
   }
 
   engageFightWith(a: Actor) {

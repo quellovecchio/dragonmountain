@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Run } from '../../model/Run';
 import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
+import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 
 @Component({
   selector: 'app-info-box',
@@ -12,7 +13,7 @@ export class InfoBoxComponent {
   @Input() run: Run;
 
   constructor() { 
-    this.run = new Run();
+    this.run = new Run(new PlayingCharacter(STARTING_STATS));
   }
 
   update(updatedRun: Run) {

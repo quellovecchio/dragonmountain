@@ -162,7 +162,7 @@
             "description": "",
             "moneyValue": 300,
             "thumbnailPath": "assets/images/items/item3.png",
-            "attack": 2,
+            "attack": 1,
             "defense": 0,
             "buffs": []
         },
@@ -247,7 +247,7 @@
         {
             "id": 0,
             "name": "Domestic Goblin",
-            "imagePath": "/assets/images/actors/actor2.png",
+            "imagePath": "/assets/images/actors/enemy3.png",
             "level": 2,
             "loot": [],
             "dialogue": [
@@ -640,7 +640,7 @@
         {
             "id": 20,
             "name": "Goblin",
-            "imagePath": "/assets/images/actors/enemy1.png",
+            "imagePath": "/assets/images/actors/enemy3.png",
             "level": 1,
             "loot": [],
             "dialogue": "hello world",
@@ -704,6 +704,7 @@
         {
             "id": 23,
             "name": "Large Rat",
+            "imagePath": "/assets/images/actors/enemy4.png",
             "level": 1,
             "loot": [],
             "stats": {
@@ -723,7 +724,7 @@
             "level": 3,
             "loot": [],
             "shop": [
-                14, 9
+                6, 14, 9
             ],
             "dialogue": [
                 "[sounds uninterested] New face, uh?",
@@ -751,11 +752,11 @@
             "stats": {
                 "charisma": 1,
                 "strength": 1,
-                "constitution": 19,
+                "constitution": 13,
                 "dexterity": 6,
                 "wisdom": 2,
                 "intelligence": 7,
-                "healthPoints": 19
+                "healthPoints": 13
             },
             "skills": [],
             "equipment": [
@@ -804,7 +805,7 @@
             "name": "The Mayor",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
-            "loot": [],
+            "loot": [ 1 ],
             "dialogue": [
                 "This city is truly doomed... The assessor went crazy too...",
                 "Please help him!"

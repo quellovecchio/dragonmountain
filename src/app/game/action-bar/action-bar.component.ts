@@ -11,6 +11,7 @@ import { Item } from '../../model/items/Item';
 import { Character } from '../../model/Actors/Character';
 import { RunService } from '../../services/run.service';
 import { Skill } from '../../model/Skill';
+import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 
 @Component({
   selector: 'app-action-bar',
@@ -42,7 +43,7 @@ import { Skill } from '../../model/Skill';
 })
 export class ActionBarComponent implements OnInit {
 
-  @Input() run: Run = new Run();
+  @Input() run: Run = new Run(new PlayingCharacter(STARTING_STATS));
   @Output() onItemSelect = new EventEmitter<any>();
   @Output() refreshLocationsSignal = new EventEmitter<any>();
   @Output() moveToBossfightSignal = new EventEmitter<any>();
@@ -51,7 +52,7 @@ export class ActionBarComponent implements OnInit {
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
   public actorMenuOpened: boolean = false;
-  public displayedActorMenu: PlayingCharacter = new PlayingCharacter();
+  public displayedActorMenu: PlayingCharacter = new PlayingCharacter(STARTING_STATS);
   public selectedItem?: Item = undefined;
 
   constructor(public itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }

@@ -10,6 +10,20 @@ import { SkillsEditorComponent } from '../skills-editor/skills-editor.component'
 import { LocationsEditorComponent } from '../locations-editor/locations-editor.component';
 import { ClassesEditorComponent } from '../classes-editor/classes-editor.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
+import { Stats } from 'src/app/model/Stats';
+
+// TODO sort of a fast way to do it must be loaded from chosen character
+export const STARTING_STATS: Stats = {
+  strength: 5,
+  dexterity: 5,
+  constitution: 20,
+  intelligence: 10,
+  wisdom: 5,
+  charisma: 5,
+  healthPoints: 20,
+  skillPoints: 10
+}
 
 @Component({
   selector: 'app-diy',
@@ -24,7 +38,7 @@ export class DiyComponent implements OnInit {
   @ViewChild('skillsEditor') skillsEditor!: SkillsEditorComponent;
   @ViewChild('classesEditor') classesEditor!: ClassesEditorComponent;
   @ViewChild('locationEditor') locationsEditor!: LocationsEditorComponent;
-  loadedRun = new Run();
+  loadedRun = new Run(new PlayingCharacter(STARTING_STATS));
 
   constructor(
     private dialog: MatDialog,

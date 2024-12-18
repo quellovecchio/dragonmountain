@@ -10,13 +10,13 @@ export class Stats {
     skillPoints: number;
 
     constructor() {
-        this.strength = 5;
-        this.dexterity = 5;
-        this.constitution = 20;
-        this.intelligence = 10;
-        this.wisdom = 5;
-        this.charisma = 5;
-        this.healthPoints = 20;
-        this.skillPoints = 10;
+        this.strength = 0;
+        this.dexterity = 0;
+        this.constitution = 0;
+        this.intelligence = 0;
+        this.wisdom = 0;
+        this.charisma = 0;
+        this.healthPoints = 0;
+        this.skillPoints = 0;
     }
 }
