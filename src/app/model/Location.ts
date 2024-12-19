@@ -1,17 +1,22 @@
 import { Actor } from "./Actors/Actor";
 import { Character } from "./Actors/Character";
-import { TestEnemy } from "./Actors/Test/TestEnemy";
 import { Item } from "./items/Item";
 
+var idCounter = 0;
+
 export class Location {
-    name: string = "test_location";
+
+    id: number = 0;
+    name: string = "location";
     backgroundPath: string = "";
-    fight: Character[] = [ new TestEnemy ];
-    loot: Item[] = [ new Item ];
-    actors?: Actor[] = [ new Actor ];
+    fight: Character[] = [];
+    loot: Item[] = [];
+    actors: Actor[] = [];
     bindedLocation?: Location[];
+    storylineCounter: number = 0.5; //default value
 
     constructor() {
+        this.id = idCounter++;
     }
     
     hasActors() {

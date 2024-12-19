@@ -1,0 +1,10 @@
+.autocomplete {
+    position: absolute;
+    background-color: gray;
+    border: 1px solid #ccc;
+    height: 100px;
+    width: 500px;
+    overflow-y: auto;
+    margin-top: 50px;
+    z-index: 99;
+  }

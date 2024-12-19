@@ -9,20 +9,41 @@ import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InfoBoxComponent } from './info-box/info-box.component';
-import { LocationPreviewComponent } from './location-preview/location-preview.component';
-import { SceneComponent } from './scene/scene.component';
-import { TextAreaComponent } from './text-area/text-area.component';
-import { ViewportComponent } from './viewport/viewport.component';
-import { LocationComponent } from './location/location.component';
-import { FightComponent } from './fight/fight.component';
+import { InfoBoxComponent } from './game/info-box/info-box.component';
+import { LocationPreviewComponent } from './game/location-preview/location-preview.component';
+import { SceneComponent } from './game/scene/scene.component';
+import { TextAreaComponent } from './game/text-area/text-area.component';
+import { ViewportComponent } from './game/viewport/viewport.component';
+import { LocationComponent } from './game/location/location.component';
+import { FightComponent } from './game/fight/fight.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ActionBarComponent } from './action-bar/action-bar.component';
-import { ContextMenuComponent } from './context-menu/context-menu.component';
-import { DataBarComponent } from './data-bar/data-bar.component';
+import { ActionBarComponent } from './game/action-bar/action-bar.component';
+import { ContextMenuComponent } from './game/context-menu/context-menu.component';
+import { DataBarComponent } from './game/data-bar/data-bar.component';
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
-
+import { DiyComponent } from './editor/diy/diy.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { GameComponent } from './game/game.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { SkillsEditorComponent } from './editor/skills-editor/skills-editor.component';
+import { ClassesEditorComponent } from './editor/classes-editor/classes-editor.component';
+import { NpcsEditorComponent } from './editor/npcs-editor/npcs-editor.component';
+import { LocationsEditorComponent } from './editor/locations-editor/locations-editor.component';
+import { StagesEditorComponent } from './editor/stages-editor/stages-editor.component';
+import { DialogItemEditorComponent } from './editor/item-editor/dialog-item-editor/dialog-item-editor.component';
+import { ItemEditorComponent } from './editor/item-editor/item-editor.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { DialogSkillEditorComponent } from './editor/skills-editor/dialog-skill-editor/dialog-skill-editor.component';
+import { DialogClassEditorComponent } from './editor/classes-editor/dialog-class-editor/dialog-class-editor.component';
+import { DialogNpcEditorComponent } from './editor/npcs-editor/dialog-npc-editor/dialog-npc-editor.component';
+import { DialogLocationEditorComponent } from './editor/locations-editor/dialog-location-editor/dialog-location-editor.component';
+import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-editor/dialog-stage-editor.component';
+import { DiyBinderComponent } from './diy-binder/diy-binder.component';
+import { LoadDialogComponent } from './editor/diy/load-dialog/load-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,7 +57,24 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
     FightComponent,
     ActionBarComponent,
     ContextMenuComponent,
-    DataBarComponent
+    DataBarComponent,
+    DiyComponent,
+    NotFoundComponent,
+    GameComponent,
+    SkillsEditorComponent,
+    ClassesEditorComponent,
+    NpcsEditorComponent,
+    LocationsEditorComponent,
+    StagesEditorComponent,
+    DialogItemEditorComponent,
+    ItemEditorComponent,
+    DialogSkillEditorComponent,
+    DialogClassEditorComponent,
+    DialogNpcEditorComponent,
+    DialogLocationEditorComponent,
+    DialogStageEditorComponent,
+    DiyBinderComponent,
+    LoadDialogComponent,
   ],
   imports: [
     HttpClientModule,
@@ -51,13 +89,18 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
     NgTiltModule,
     MatSliderModule,
     MatIconModule,
-    FormsModule
+    MatTabsModule,
+    FormsModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    LocationPreviewComponent
+    LocationPreviewComponent,
   ],
   providers: [
     ViewportComponent,

@@ -1,0 +1,52 @@
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Item } from 'src/app/model/items/Item';
+import { DialogItemEditorComponent } from './dialog-item-editor/dialog-item-editor.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EditorService } from 'src/app/services/editor.service';
+
+@Component({
+  selector: 'app-item-editor',
+  templateUrl: './item-editor.component.html',
+  styleUrls: ['./item-editor.component.scss']
+})
+export class ItemEditorComponent implements OnInit, AfterViewChecked {
+
+  savedItems: Item[] = [];
+
+  constructor(private dialog: MatDialog, private editorService: EditorService, private changeDetectorRef: ChangeDetectorRef) { }
+
+  ngOnInit(): void {
+  }
+
+  ngAfterViewChecked(): void {
+    if(this.editorService.getCurrentItems() !== this.savedItems) {
+      this.savedItems = this.editorService.getCurrentItems();
+      this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  save(): void {
+    this.editorService.saveCurrentItems(this.savedItems);
+  }
+
+  addNewItem() { 
+    this.savedItems.push(new Item());
+  }
+
+  remove(index: number) {
+    this.savedItems.splice(index, 1);
+    this.changeDetectorRef.detectChanges();
+  }
+
+  openItemEditorDialog(item: Item) {
+    this.dialog.open(DialogItemEditorComponent, {
+      height: '700px',
+      width: '600px',
+      data: item,
+      panelClass: ['gothic-dialog', 'pixelated-border'],
+      enterAnimationDuration: '0ms',
+      exitAnimationDuration: '0ms'
+    })
+  }
+
+}

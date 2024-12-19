@@ -1,0 +1,44 @@
+.container-space {
+    height: 80%;
+}
+
+.space {
+    height: 80%;
+    transition: transform .2s;
+}
+
+.space:hover {
+    transform: scale(1.02);
+    filter: none;
+    -webkit-filter: none;
+}
+
+.actor {
+    height: 50%;
+    width: 22%;
+}
+
+.actor-row {
+    display: flex !important;
+    height: 100% !important;
+    justify-content: space-evenly !important;
+}
+
+.actor-card {
+    display: flex !important;
+    flex-direction: column;
+    height: 100% !important;
+    justify-content: space-evenly !important;
+}
+
+.back-button {
+    margin-top: 0;
+    height: 30px;
+    text-align: center;
+}
+
+.image-bg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

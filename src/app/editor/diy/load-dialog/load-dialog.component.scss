@@ -1,0 +1,19 @@
+.file-input-label {
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.file-input-label input {
+    display: none;
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+}
+
+.stepper-label {
+    font-size: 30px !important;
+}

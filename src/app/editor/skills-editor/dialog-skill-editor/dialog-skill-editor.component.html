@@ -1,0 +1,19 @@
+<button mat-icon-button class="close-button" mat-dialog-close>
+    <mat-icon color="warn">X</mat-icon>
+</button>
+<h1 mat-dialog-title> Edit skill {{skill.id}} </h1>
+<div style="overflow-y: hidden;">
+    <h2>Name</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="skill.name" maxlength="25">
+    <h2>Cost</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="skill.cost" maxlength="2">
+    <h2>AOE</h2>
+    TODO
+    <h2>Power</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="skill.power" maxlength="2">
+    <h2 style="position: relative; top: -10px;">Effect</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="skill.effect">
+        <option [value]="undefined"> No Effect </option>
+        <option *ngFor="let effectType of effectTypes" [value]="effectType"> {{effectType}} </option>
+    </select>
+</div>

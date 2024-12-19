@@ -1,18 +1,25 @@
-import { Location } from "./Location";
+import { Location } from './Location';
+import { QuestlineTree, TreeNode } from './QuestlineTree';
+
+var idCounter = 0;
 
 export class Stage {
+    id: number = 0;
     name: string;
     locations: Location[];
-    currentLocations: Location[];
+    questlines: QuestlineTree[];
+    currentLocations: any[];
     backgroundPath: string;
     bossLocation: Location;
     bossfightLocked: boolean = true;
 
     constructor () {
-            this.name = "Damned Citadel";
+            this.id = idCounter++;
+            this.name = "stage";
             this.locations =  [];
             this.currentLocations =  [];
             this.backgroundPath = "/assets/images/stage1-bg.png";
             this.bossLocation = new Location();
+            this.questlines = [];
         }
 }

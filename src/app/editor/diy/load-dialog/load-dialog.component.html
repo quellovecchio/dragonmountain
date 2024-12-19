@@ -1,0 +1,38 @@
+<button mat-icon-button class="close-button" mat-dialog-close>
+    <mat-icon color="warn">X</mat-icon>
+</button>
+<h1 mat-dialog-title> Load database </h1>
+<mat-stepper [disableRipple]="true" orientation="vertical" #stepper style="background-color: black;">
+    <mat-step [completed]="false">
+            <ng-template matStepLabel>
+                <label class="stepper-label"> Browse File
+                </label>
+            </ng-template>
+            <label class="file-input-label" matTooltip="Upload File" style="height: 100px;">
+                <input type="file" nv-file-select="" accept=".json" (change)="onFileChange($event)"/>
+                <span style="font-size: 30px !important; padding: 15px; background: round; color: white; background-color: rgb(89, 158, 89);" class="pixelated-border edit-button">CHOOSE
+                    FILE</span>
+            </label>
+    </mat-step>
+    <mat-step [completed]="false">
+        <ng-template matStepLabel> <label class="stepper-label"> Confirm
+            </label></ng-template>
+
+        <div>
+        </div>
+        <div *ngIf="!isDataValid">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="isDataValid">
+            <div style="display: flex; flex-direction: row; font-size: 25px; color: #fea900; margin: 0.25rem;">
+                Data is ready. <br>
+                Do you want to load it? <br>
+                Loading it will cause your data to be lost if not saved. <br>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <button mat-button matStepperPrevious>Back</button>
+                <button style="background-color: rgb(89, 158, 89);" mat-button (click)="onSubmit()">OK</button>
+            </div>
+        </div>
+    </mat-step>
+</mat-stepper>

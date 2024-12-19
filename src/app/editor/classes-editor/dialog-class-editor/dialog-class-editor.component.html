@@ -1,0 +1,48 @@
+<button mat-icon-button class="close-button" mat-dialog-close>
+    <mat-icon color="warn">X</mat-icon>
+</button>
+<h1 mat-dialog-title> Edit class {{classParam.id}} </h1>
+<div style="overflow-y: hidden;">
+    <h2>Name</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="text" [(ngModel)]="classParam.name" maxlength="25">
+    <h2>Skills</h2>
+    <app-diy-binder style="width: 75%;" [list]="currentSkills" [(selection)]="selectedSkill"></app-diy-binder>
+    <input class="text-box" type="number" [(ngModel)]="skillEntry.unlockLevel" maxlength="2" placeholder="unlock level">
+    <select style="width: 89.5%;" class="text-box" [(ngModel)]="skillEntry.unlockStat">
+        <option [value]="undefined"> -- select unlock stat -- </option>
+        <option *ngFor="let stat of stats" [value]="stat"> {{stat}} </option>
+    </select>
+    <button [disabled]="!selectedSkill || !skillEntry.unlockLevel || !skillEntry.unlockStat" style="top: -39px;position: relative;" mat-icon-button class="close-button" (click)="addSkillEntry()">
+        <mat-icon color="green">+</mat-icon>
+    </button>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; padding-top: 25px; margin-left: 15px; margin-right: 15px;">
+        <div *ngFor="let skillEntry of classParam.skillTree; let i=index">
+            <button class="pixelated-border edit-button"
+                style="margin: 1rem; height: 100px; width: 100px; background-color: transparent; background: round;"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="removeSkillEntry(i)">
+                <div style="color: white; width: 50%;">
+                    <div ngTiltParallax [distance]="10" style="width: 100px;">
+                        {{ getSkillNameById(skillEntry.skillId) }}
+                        {{ skillEntry.unlockLevel }}
+                        {{ skillEntry.unlockStat }}
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <!--<h2>Money value</h2>
+    <input style="position: relative; top: -20px;" class="text-box" type="number" [(ngModel)]="item.moneyValue" maxlength="5">
+    <div style="display: flex; flex-direction: row;">
+        <h2>Is equip?</h2>
+        <input type="checkbox" class="text-box" style="height: 35px; width: 35px; position: relative; top: 20px; left: 300px" [(ngModel)]="isEquip"/>
+    </div>
+    <div *ngIf="isEquip">
+        equip things TODO
+    </div>
+    <h2 style="position: relative; top: -10px;">Effect</h2>
+    <select class="text-box" style="position: relative; top: -30px; width: 90%;" [(ngModel)]="item.effect">
+        <option [value]="undefined"> No Effect </option>
+        <option *ngFor="let effectType of effectTypes" [value]="effectType"> {{effectType}} </option>
+    </select>-->
+</div>

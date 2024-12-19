@@ -2,11 +2,12 @@ import { Character } from "./Actors/Character";
 import { PlayingCharacter } from "./Actors/PlayingCharacter";
 import { Item } from "./items/Item";
 import { Location } from "./Location";
+import { QuestlineTree, TreeNode } from "./QuestlineTree";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
 export class Run {
-    party: PlayingCharacter[] = [ new PlayingCharacter ];
+    party: PlayingCharacter[] = [];
     inventory: { items: Item[], money: number } = { items: [], money: 1500 };
     level: number = 1;
     stage: Stage = new Stage();
@@ -14,10 +15,18 @@ export class Run {
     state: RunState = RunState.Neutral;
     currentLocation?: Location;
     currentFight?: Character[];
-    experience: number = 1;
+    experience: number = 5;
     showBossfightLocation: boolean = false;
 
-    constructor() {
+    // questline data
+    showNextQuestlinePhase: boolean = true;
+    currentQuestline?: QuestlineTree;
+    currentQuestlinePhase?: TreeNode;
+    questlineCounter: number = 0;
+
+
+    constructor(hero: PlayingCharacter) {
+      this.party.push(hero);
     }
 
   }

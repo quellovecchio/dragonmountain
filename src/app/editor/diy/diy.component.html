@@ -1,0 +1,64 @@
+<div class="centered pixelated-border" style="height: 900px; width: 1600px; background-color: #F4E0B9;">
+    <div style="padding: 0.5rem; display: flex; flex-direction: row; flex-wrap: wrap;">
+        <h1>DragonMountain Editor</h1>
+    </div>
+    <div
+        style="display: flex; flex-direction: row; flex-wrap: wrap; margin-left: 15px; margin-right: 15px; margin-top: -40px; justify-content: space-between;">
+        <h2>
+            Run's name: FILE NAME
+        </h2>
+        <div style="margin-top: -70px;">
+            <button class="pixelated-border edit-button"
+                style="font-size: 40px !important; margin: 1rem; height: 125px; width: 300px; background-color: transparent; background: round; color: white; background-color: rgb(89, 158, 89);"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="loadClicked()">
+                LOAD FILE
+            </button>
+            <button class="pixelated-border edit-button"
+                style="font-size: 40px !important; margin: 1rem; height: 125px; width: 300px; background-color: transparent; background: round; color: white; background-color: #fe6a00"
+                ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300"
+                (click)="exportClicked()">
+                EXPORT FILE
+            </button>
+        </div>
+    </div>
+    <mat-tab-group disableRipple [@.disabled]="true" class="pixelated-border" style="width: 1520px; margin-left: 25px;"
+        (selectedTabChange)="onTabChanged();">
+        <mat-tab label="items">
+            <ng-template matTabContent>
+                <app-item-editor #itemEditor>
+                </app-item-editor>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="skills">
+            <ng-template matTabContent>
+                <app-skills-editor #skillsEditor>
+                </app-skills-editor>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="classes">
+            <ng-template matTabContent>
+                <app-classes-editor #classesEditor>
+                </app-classes-editor>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="npcs">
+            <ng-template matTabContent>
+                <app-npcs-editor #npcEditor>
+                </app-npcs-editor>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="locations">
+            <ng-template matTabContent #locationsEditor>
+                <app-locations-editor>
+                </app-locations-editor>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="stages">
+            <ng-template matTabContent>
+                <app-stages-editor>
+                </app-stages-editor>
+            </ng-template>
+        </mat-tab>
+    </mat-tab-group>
+</div>

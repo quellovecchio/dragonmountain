@@ -1,0 +1,47 @@
+.battlefield {
+    position: relative;
+    top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 78%;
+    height: 75%;
+}
+
+.space {
+    height: 80%;
+    transition: transform .2s;
+}
+
+.space:hover {
+    transform: scale(1.03);
+}
+
+.pawn {
+    height: 125px;
+    width: 125px;
+}
+
+.image-bg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.hp-bar {
+    position: relative;
+    top: 75px;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+.damaged {
+    animation: blinking 0.1s infinite;
+}
+
+@keyframes blinking{
+    0%		{ opacity: 0; }
+    50%		{ opacity: 1; }
+}

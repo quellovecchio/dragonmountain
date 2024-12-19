@@ -8,6 +8,9 @@ export enum EffectType {
     resurrect = 7,
     explore = 8,
     flee = 9,
+    magicDamage = 10,
+    steal = 11,
+    taunt = 12,
     // TODO add interactions
 }
 

@@ -1,0 +1,5 @@
+<div class="spacing container">
+    <ngx-typed-js [strings]="currentText" (preStringTyped)="cleanBuffer()" (completed)="enableViewport(); complete = true;" [shuffle]="false" [fadeOut]="true" [backDelay]="2000 / textSpeed" [fadeOutDelay]="600 / textSpeed" [startDelay]="1000 / textSpeed" [typeSpeed]="40 / textSpeed">
+        <span class="typing typewriter"></span>
+    </ngx-typed-js>
+</div>
