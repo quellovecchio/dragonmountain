@@ -12,6 +12,7 @@ import { ViewportService } from './viewport.service';
 import { Character } from '../../model/Actors/Character';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
+import { RunState } from 'src/app/model/RunState';
 
 @Component({
   selector: 'app-viewport',
@@ -143,6 +144,14 @@ export class ViewportComponent implements OnInit {
   interact(interactionData: any) {
     this.selectedItem = undefined;
     this.scene.interact({character: interactionData.actor, action: interactionData.action})
+  }
+
+  getBackgroundImage() {
+    if (this.run.state == RunState.Exploration)
+      return this.run.stage.backgroundPath;
+    if (this.run.state == RunState.Fight || this.run.state == RunState.Location)
+      return this.run.currentLocation?.backgroundPath;
+    return "/assets/images/splash_art.png";
   }
 
 }

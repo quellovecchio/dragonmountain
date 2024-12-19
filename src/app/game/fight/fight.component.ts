@@ -17,6 +17,8 @@ class FightAnimation {
   rotationAngle: number = 0;
 }
 
+const RAND_SEED = 50;
+
 @Component({
   selector: 'app-fight',
   templateUrl: './fight.component.html',
@@ -49,6 +51,9 @@ export class FightComponent implements OnInit {
   @ViewChildren('enemyCharacter') enemyCharacters!: QueryList<ElementRef>;
   animations: FightAnimation[] = [];
 
+  @ViewChild('battlefield') battlefield!: ElementRef;
+  battlefieldWidth = 0;
+  battlefieldHeight = 0;
 
   @Output() attackSignal = new EventEmitter<any>();
   @Output() useSkillSignal = new EventEmitter<{ skill: Skill, enemyIndex: number, enemy: Actor }>();
@@ -66,21 +71,26 @@ export class FightComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    this.battlefieldWidth = this.battlefield.nativeElement.offsetWidth;
+    this.battlefieldHeight = this.battlefield.nativeElement.offsetHeight;
     this.calculateActorsStartingPositions();
     this.startFightScene();
   }
 
+  getRandomicity() {
+    return Math.floor(Math.random() * (RAND_SEED - (RAND_SEED * -1) + 1)) + (RAND_SEED * -1)
+  }
+
   calculateActorsStartingPositions() {
-    // i'm not really sure if the order is right
     for (var i = 0; i < this.partyCharacters.length; i++) {
-      this.partyData[i].fightPositionX = 20;
-      this.partyData[i].fightPositionY = - 50 * (i - 1);
+      this.partyData[i].fightPositionX = (this.battlefieldWidth * 0.2) + this.getRandomicity();
+      this.partyData[i].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * i) + this.getRandomicity();
       console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
     }
-    for (i = this.enemyCharacters.length; i > 0; i--) {
-      this.fightData![i - 1].fightPositionX = 300;
-      this.fightData![i - 1].fightPositionY = - 50 * (i - 1);
-      console.log('name : ' + this.fightData![i - 1].name + ' fightPositionX : ' + this.fightData![i - 1].fightPositionX + ' fightPositionY : ' + this.fightData![i - 1].fightPositionY + ' bottom: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(i - 1)!.nativeElement.getBoundingClientRect().right);
+    for (var j = 0; j < this.enemyCharacters.length; j++) {
+      this.fightData![j].fightPositionX = (this.battlefieldWidth * 0.8) + this.getRandomicity();
+      this.fightData![j].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * j) + this.getRandomicity();
+      console.log('name : ' + this.fightData![j].name + ' fightPositionX : ' + this.fightData![j].fightPositionX + ' fightPositionY : ' + this.fightData![j].fightPositionY + ' bottom: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().right);
     }
   }
 
@@ -179,7 +189,7 @@ export class FightComponent implements OnInit {
       const distanceY = +(Math.sin(angle) * speed).toFixed(3);
       console.log(actor.name + ' - distance to cover x ' + distanceX + ' -  distance to cover y ' + distanceY);
       console.log('current X position: ' + actor.fightPositionX + ' - current Y position:  ' + actor.fightPositionY);
-      if (actor.fightPositionX + distanceX < 400 && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < 200 && actor.fightPositionY + distanceY > -200) {
+      //if (actor.fightPositionX + distanceX < this.battlefieldWidth && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < (this.battlefieldHeight/2) && actor.fightPositionY + distanceY > (this.battlefieldHeight/2*-1)) {
         // Update the position of the actor
         actor.fightPositionX += distanceX;
         actor.fightPositionY += distanceY; // Adjust the timeout value as needed
@@ -188,9 +198,9 @@ export class FightComponent implements OnInit {
           this.partyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${actor.fightPositionX + distanceX}px, ${actor.fightPositionY + distanceY}px)`;
         else
           this.enemyCharacters.get(actorIndex)!.nativeElement.style.transform = `translate(${(actor.fightPositionX + distanceX)}px, ${actor.fightPositionY + distanceY}px)`;
-      } else {
-        console.log('position not updated: trying to reach out of bounds area');
-      }
+      //} else {
+      //  console.log('position not updated: trying to reach out of bounds area');
+      //}
     }
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }

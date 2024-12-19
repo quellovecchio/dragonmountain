@@ -1,7 +1,7 @@
-<div class="view pixelated-border" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
+<div class="view">
     <div class="map" *ngIf="run.state == 'exploration' && !run.showBossfightLocation && ready">
-        <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;" class="locations-row">
-            <div class="location" *ngFor="let location of run.stage.currentLocations">
+        <div class="locations-row">
+            <div class="location-preview" *ngFor="let location of run.stage.currentLocations">
                 <app-location-preview [location]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
             </div>
         </div>
@@ -11,7 +11,7 @@
             <app-location-preview [locationData]="run.stage.bossLocation" (exploreSignal)="moveTo(run.stage.bossLocation)"></app-location-preview>
         </div>
     </div>
-    <div class="location-map" *ngIf="run.state == 'location'">
+    <div class="location" *ngIf="run.state == 'location'">
         <app-location [locationData]="run.currentLocation" [selectedItem]="selectedItem"
             (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
             (openShopSignal)="toggleShop($event)" (fightSignal)="engageFightWith($event)" (restSignal)="rest()"></app-location>
@@ -21,9 +21,9 @@
             (fleeSignal)="flee()"></app-fight>
     </div>
     <div class="intro" *ngIf="run.state == 'intro'">
-        <video controls loop>
+        <!--<video controls loop>
             <source src="../assets/animation.mp4" type="video/mp4">
-        </video>
+        </video>-->
     </div>
     <!-- shop -->
     <div [@inOutAnimation] *ngIf="shopOpened" class="shop pixelated-border"

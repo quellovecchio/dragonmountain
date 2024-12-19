@@ -1,11 +1,48 @@
 .viewport {
-  width: 600px;
-  height: 900px;
+  width: 100%;
+  height: 100%;
   padding: 15px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-transition: background-image 0.2s ease-in-out;
+  transition: background-image 0.2s ease-in-out;
+  background-position-y: center;
+  background-size: contain;
+}
+
+.info-box {
+  position: relative;
+  top: 2%;
   display: block;
-  border: 3px solid black;
-  background-color: black;
+  width: 40%;
+  height: 10px;
+}
+
+.action-bar {
+  position: relative;
+  top: 80%;
+  display: block;
+  width: 40%;
+  height: 10px;
+}
+
+.text-area {
+  position: relative;
+  top: 65%;
+  display: block;
+  height: 10px;
+}
+
+.app-scene {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
 }
 
 .item-use-container {

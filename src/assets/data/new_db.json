@@ -655,7 +655,7 @@
         },
         {
             "id": 21,
-            "name": "Locked Trap Door",
+            "name": "Shining Chest",
             "level": 1,
             "loot": [],
             "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
@@ -978,7 +978,7 @@
         {
             "id": 12,
             "name": "Dark Sewers",
-            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location5-bg.png",
             "loot": [],
             "fight": [
                 23, 23

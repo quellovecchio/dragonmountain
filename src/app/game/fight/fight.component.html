@@ -1,7 +1,7 @@
-<div class="battlefield">
+<div #battlefield class="battlefield">
     <div class="characters" style="position:absolute; top: 300px;">
         <!-- Template for spawning characters -->
-        <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index" style="width: 100px; height: 100px; float: left;" [class.damaged]="actor.damaged"> 
+        <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index" [class.damaged]="actor.damaged"> 
             <div *ngIf="actor" class="party-member pixelated-border space" style="background-position-x: center; background-position-y: top; background-size: 200%;"
                 [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
                 <app-data-bar [minimized]="true" class="hp-bar"
@@ -15,7 +15,7 @@
     </div>
     <div class="enemies" style="position:absolute; top: 300px;">
         <!-- Template for spawning enemies -->
-        <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index" style="width: 100px; height: 100px; float: right;" [class.damaged]="actor.damaged"> 
+        <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index" [class.damaged]="actor.damaged"> 
             <div *ngIf="actor" class="party-member pixelated-border space" style="background-position-x: center; background-position-y: top; background-size: 200%;"
                 [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
                 <app-data-bar [minimized]="true" class="hp-bar"

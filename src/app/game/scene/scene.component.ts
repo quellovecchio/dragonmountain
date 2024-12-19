@@ -386,14 +386,6 @@ export class SceneComponent implements OnInit {
     this.startFight([a as Character]);
   }
 
-  getBackgroundImage() {
-    if (this.run.state == RunState.Exploration)
-      return this.run.stage.backgroundPath;
-    if (this.run.state == RunState.Fight || this.run.state == RunState.Location)
-      return this.run.currentLocation?.backgroundPath;
-    return "/assets/images/splash_art.png";
-  }
-
   refreshLocations(fromQuestlineFlag: boolean) {
     if(!fromQuestlineFlag)
       this.run.stage.currentLocations = this.runService.getRefreshedLocations();

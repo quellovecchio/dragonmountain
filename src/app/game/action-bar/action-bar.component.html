@@ -77,6 +77,9 @@
                 </app-data-bar>
             </div>
         </div>
+        <button class="inventory-button pixelated-border space dont-disable" [disabled]="inventoryDisabled" (click)="toggleInventory()">
+            <img src="assets/images/bag-icon.png" />
+        </button>
     </div>
     <!--<button [disabled]="!isMoveToBossfightEnabled()" class="inventory-button space" (click)="moveToBossfightLocation()">
         <img style="width: 80px; padding: 5px" src="assets/images/boss-room-icon.png" />
@@ -84,7 +87,4 @@
     <button [disabled]="!isExploreEnabled()" class="inventory-button space" (click)="refreshLocations()">
         <img style="width: 80px; padding: 5px" src="assets/images/treasure-map.png" />
     </button>-->
-    <button class="inventory-button space dont-disable" [disabled]="inventoryDisabled" (click)="toggleInventory()">
-        <img style="width: 80px; padding: 5px" src="assets/images/bag-icon.png" />
-    </button>
 </div>

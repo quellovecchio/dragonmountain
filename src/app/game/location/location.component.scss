@@ -14,8 +14,21 @@
 }
 
 .actor {
-    height: 100%;
-    display: inline-flex;
+    height: 50%;
+    width: 22%;
+}
+
+.actor-row {
+    display: flex !important;
+    height: 100% !important;
+    justify-content: space-evenly !important;
+}
+
+.actor-card {
+    display: flex !important;
+    flex-direction: column;
+    height: 100% !important;
+    justify-content: space-evenly !important;
 }
 
 .back-button {
