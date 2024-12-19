@@ -4,6 +4,6 @@
     <app-action-bar class="action-bar" (interactOnPartyActorSignal)="interact($any($event))" (onItemSelect)="selectItem($event)" (moveToBossfightSignal)="moveToBossfight()" (refreshLocationsSignal)="refreshLocations()" (equipItemSignal)="equipItem($event)" [run]="run"></app-action-bar>
     <app-text-area class="text-area" [textSpeed]="settings.textSpeed" ></app-text-area>
 </div>
-<div class="item-use-container" *ngIf="selectedItem" style="">
+<div class="item-use-container" *ngIf="selectedItem" style="height: 100px;">
     <img src="{{selectedItem ? selectedItem.thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
 </div>

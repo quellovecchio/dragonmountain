@@ -122,7 +122,7 @@ export class ViewportComponent implements OnInit {
       let newEquip = (this.selectedItem as Equip);
       if (newEquip.attack || newEquip.defense || newEquip.buffs.length > 0) {
         // update character in the party
-        var characterIndex = this.run.party.findIndex(el => { return el == equipData.actor });
+        var characterIndex = this.run.party.findIndex(el => { return el.id == equipData.actor.id });
         if (this.run.party[characterIndex].equipment.length < 3) {
           this.run.party[characterIndex].equipment.push(newEquip);
           this.textArea.pushText(newEquip.name + " is equipped by " + equipData.actor.name);

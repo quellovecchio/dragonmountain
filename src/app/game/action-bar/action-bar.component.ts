@@ -61,8 +61,12 @@ export class ActionBarComponent implements OnInit {
   constructor(public itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
 
   ngOnInit(): void {
-    this.toggleInventory();
-    this.toggleActorInfo(this.run.party[0]);
+    setTimeout(() => {
+      this.toggleInventory();
+    }, 1500);
+    setTimeout(() => {
+      this.toggleActorInfo(this.run.party[0]);
+    }, 2000);
     setInterval(() => {
       this.inventoryDataSource.data = this.run.inventory.items;
     }, 100);
@@ -128,6 +132,8 @@ export class ActionBarComponent implements OnInit {
 
   equipItem(slot: number) {
     this.equipItemSignal.emit({equipSlot:slot, actor:this.displayedActorMenu});
+    this.runService.removeItemFromInventory(this.selectedItem!);
+    this.selectedItem = undefined;
   }
 
   isExploreEnabled() {
