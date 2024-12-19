@@ -84,8 +84,13 @@ export class ActionBarComponent implements OnInit {
   toggleActorInfo(actor: PlayingCharacter) {
     if(this.run.state != RunState.Fight) {
       if(!this.selectedItem) {
-        this.actorMenuOpened = !this.actorMenuOpened;
         this.displayedActorMenu = actor;
+        if(this.actorMenuOpened) {
+          this.actorMenuOpened = !this.actorMenuOpened;
+        }
+        setTimeout(() => {
+          this.actorMenuOpened = !this.actorMenuOpened;
+        }, 200);
         //this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
       } else {
         this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
@@ -95,7 +100,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   selectItem(item: any) {
-    this.inventoryOpened = !this.inventoryOpened;
+    //this.inventoryOpened = !this.inventoryOpened;
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
     console.log(item.name + " selected")
     this.viewportService.pushText(item.name + " selected");

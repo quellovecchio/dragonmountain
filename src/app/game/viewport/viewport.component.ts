@@ -13,6 +13,8 @@ import { Character } from '../../model/Actors/Character';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { RunState } from 'src/app/model/RunState';
+import { ItemService } from 'src/app/services/item.service';
+import { RunService } from 'src/app/services/run.service';
 
 @Component({
   selector: 'app-viewport',
@@ -64,7 +66,9 @@ export class ViewportComponent implements OnInit {
     scene: SceneComponent,
     textArea: TextAreaComponent,
     actionBar: ActionBarComponent,
-    public viewportService: ViewportService) {
+    public viewportService: ViewportService,
+    public itemService: ItemService,
+    public runService: RunService) {
     this.infoBox = infoBox;
     this.scene = scene;
     this.textArea = textArea;
@@ -143,6 +147,8 @@ export class ViewportComponent implements OnInit {
 
   interact(interactionData: any) {
     this.selectedItem = undefined;
+    if(this.itemService.isItem(interactionData.action))
+      this.runService.removeItemFromInventory(interactionData.action);
     this.scene.interact({character: interactionData.actor, action: interactionData.action})
   }
 

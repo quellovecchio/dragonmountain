@@ -349,8 +349,8 @@ export class SceneComponent implements OnInit {
     })
     this.fightManager.endFight();
     this.run.state = RunState.Location;
-    var gainedExperience = this.run.experience + (1 * this.run.level);
-    this.run.experience = gainedExperience;
+    var gainedExperience = (1 * this.run.level);
+    this.run.experience = this.run.experience + gainedExperience;
     this.viewportService.pushText("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
     if (this.joinsParty) {
       this.joiningCharacters.forEach(actor => {

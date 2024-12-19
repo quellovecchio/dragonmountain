@@ -7,6 +7,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
 import { Requirement } from 'src/app/model/Reqirement';
 import { Stats } from 'src/app/model/Stats';
+import { RunService } from 'src/app/services/run.service';
 
 @Component({
   selector: 'app-location',
@@ -41,7 +42,7 @@ export class LocationComponent implements OnInit {
 
   selectedActor?: Actor = undefined;
 
-  constructor(private eRef: ElementRef) { }
+  constructor(private eRef: ElementRef, private runService: RunService) { }
 
   ngOnInit(): void {
   }
@@ -93,7 +94,8 @@ export class LocationComponent implements OnInit {
     return a.dialogue ? true : false;
   }
 
-  useItemOn(actor: Actor) {
+  useItemOn(item: Item ,actor: Actor) {
+    this.runService.removeItemFromInventory(item);
     console.log("used " + this.selectedItem?.name + " on " + actor.name);
     this.interact(actor as Character);
     this.selectedItem = undefined;

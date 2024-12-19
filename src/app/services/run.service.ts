@@ -137,7 +137,7 @@ export class RunService {
 
   getNextStorylineLocations(): TreeNode[] {
     var result: TreeNode[] = [];
-    if(this.run.currentQuestline?.root.children && this.run.currentQuestline?.root.children.length > 0)
+    if (this.run.currentQuestline?.root.children && this.run.currentQuestline?.root.children.length > 0)
       result = this.run.currentQuestline?.root.children;
     return result;
   }
@@ -315,10 +315,17 @@ export class RunService {
     console.log("------- updating stage locations -------")
     console.log("array before:")
     console.log(this.run.stage.locations);
-    var locationIndex = this.run.stage.locations.findIndex((l: Location) => {l.id == locationId});
+    var locationIndex = this.run.stage.locations.findIndex((l: Location) => { l.id == locationId });
     this.run.stage.locations.splice(locationIndex, 1);
     console.log("array after:")
     console.log(this.run.stage.locations);
     console.log("------- done updating stage locations -------")
+  }
+
+  removeItemFromInventory(item: Item) {
+    const index = this.run.inventory.items.indexOf(item, 0);
+    if (index > -1) {
+      this.run.inventory.items.splice(index, 1);
+    }
   }
 }

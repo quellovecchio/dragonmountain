@@ -39,6 +39,11 @@ export class ItemService {
     return ((e.attack && e.attack > 0) || (e.defense && e.defense > 0) || (e.buffs && e.buffs.length > 0));
   }
 
+  isItem(foo: any) {
+    let e = (foo as Item);
+    return ((e.id && e.id >= 0) && (e.name) && (e.moneyValue && e.moneyValue >= 0));
+  }
+
   getItemAsEquip(item: Item) {
     return (item as Equip);
   }
