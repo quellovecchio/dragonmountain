@@ -16,6 +16,7 @@ import { ViewportService } from '../viewport/viewport.service';
 import { Constants } from 'src/assets/constants';
 import { TreeNode } from 'src/app/model/QuestlineTree';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-scene',
@@ -28,17 +29,38 @@ import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
         transition(
           ':enter',
           [
-            style({ height: 0, width: 0, top: 0 }),
+            style({ height: 0, top: 0 }),
             animate('0.2s ease-out',
-              style({ height: 500, width: 500, top: -500 }))
+              style({ height: '70%', top: 100 }))
           ]
         ),
         transition(
           ':leave',
           [
-            style({ height: 500, width: 500, top: -500 }),
+            style({ height: '70%', top: 100 }),
             animate('0.2s ease-in',
-              style({ height: 0, width: 0, top: 0 }))
+              style({ height: 0, top: 0 }))
+          ]
+        )
+      ]
+    ),
+    trigger(
+      'inOutAnimationShop',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, top: 0 }),
+            animate('0.2s ease-out',
+              style({ height: '70%', top: '-37%' }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: '70%', top: '-37%' }),
+            animate('0.2s ease-in',
+              style({ height: 0, top: 0 }))
           ]
         )
       ]
@@ -62,6 +84,8 @@ export class SceneComponent implements OnInit {
   public shopOpened: boolean = false;
   public shopDisabled: boolean = false;
   public shopItems: Item[] = [];
+
+  shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
 
   joinsParty: boolean = false;
   joiningCharacters: PlayingCharacter[] = [];
@@ -185,11 +209,16 @@ export class SceneComponent implements OnInit {
 
   toggleShop(items?: Item[]) {
     this.shopDisabled = true;
-    if (items) this.shopItems = items;
+    if (items) {
+      this.shopItems = items;
+      this.shopDataSource.data = this.shopItems;
+    }
     this.shopOpened = !this.shopOpened;
     if (this.shopOpened)
+      // TODO customizable
       this.viewportService.pushText("[Merchant]: Take a good look!");
     else
+      // TODO customizable
       this.viewportService.pushText("[Merchant]: Thanks for your business.");
   }
 

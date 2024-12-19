@@ -58,6 +58,10 @@ export class LocationComponent implements OnInit {
     this.menuTrigger?.openMenu();
   }
 
+  clearSelectedActor() {
+    this.selectedActor = undefined;
+  }
+
   interact(character: Character) {
     this.interactSignal.emit({ character: character, action: this.selectedItem });
   }

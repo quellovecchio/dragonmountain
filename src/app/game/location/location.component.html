@@ -15,14 +15,14 @@
         </div>
     </div>
     <mat-card *ngIf="locked()" class="mat-elevation-z1 back-button space pixelated-border" (click)="goBackToScene()"
-        style="height: 60px" ngTilt [disableAxis]="'y'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.01"
+        style="height: 60px; width: 30%;" ngTilt [disableAxis]="'y'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.01"
         [speed]="300">
         <div ngTiltParallax [distance]="10" style="padding-top: 20px; text-align: center;">Back to Stage</div>
     </mat-card>
 </div>
 
-<div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
-<mat-menu #menu="matMenu" class="location-menu pixelated-border">
+<div #menuTrigger [matMenuTriggerFor]="selectedActor ? menu : ''" style="display: none;"></div>
+<mat-menu #menu="matMenu" class="location-menu pixelated-border" (closed)="clearSelectedActor()">
     <div *ngIf="!selectedItem && selectedActor">
         <!-- talk action -->
         <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> talk </button>

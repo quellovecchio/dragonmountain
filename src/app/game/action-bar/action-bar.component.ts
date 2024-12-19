@@ -12,6 +12,8 @@ import { Character } from '../../model/Actors/Character';
 import { RunService } from '../../services/run.service';
 import { Skill } from '../../model/Skill';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { run } from 'node:test';
 
 @Component({
   selector: 'app-action-bar',
@@ -24,17 +26,17 @@ import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
         transition(
           ':enter',
           [
-            style({ height: 0, width: 0, top: 0 }),
+            style({ height: 0, top: 0 }),
             animate('0.2s ease-out',
-              style({ height: 500, width: 200, top: 100 }))
+              style({ height: '70%', top: 100 }))
           ]
         ),
         transition(
           ':leave',
           [
-            style({ height: 500, width: 200, top: 100 }),
+            style({ height: '70%', top: 100 }),
             animate('0.2s ease-in',
-              style({ height: 0, width: 0, top: 0 }))
+              style({ height: 0, top: 0 }))
           ]
         )
       ]
@@ -54,10 +56,16 @@ export class ActionBarComponent implements OnInit {
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter(STARTING_STATS);
   public selectedItem?: Item = undefined;
+  inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource(this.run.inventory.items);
 
   constructor(public itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
 
   ngOnInit(): void {
+    this.toggleInventory();
+    this.toggleActorInfo(this.run.party[0]);
+    setInterval(() => {
+      this.inventoryDataSource.data = this.run.inventory.items;
+    }, 100);
   }
 
   update(updatedRun: Run) {
@@ -68,7 +76,8 @@ export class ActionBarComponent implements OnInit {
     this.onItemSelect.emit(undefined);
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
-    this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
+    //this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
+    this.inventoryDataSource.data = this.run.inventory.items;
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
@@ -77,7 +86,7 @@ export class ActionBarComponent implements OnInit {
       if(!this.selectedItem) {
         this.actorMenuOpened = !this.actorMenuOpened;
         this.displayedActorMenu = actor;
-        this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
+        //this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
       } else {
         this.interactOnPartyActorSignal.emit({action: this.selectedItem!, actor: (actor as Character)});
         this.selectedItem = undefined;

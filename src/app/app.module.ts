@@ -44,6 +44,7 @@ import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-
 import { DiyBinderComponent } from './diy-binder/diy-binder.component';
 import { LoadDialogComponent } from './editor/diy/load-dialog/load-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ItemsTableComponent } from './common/items-table/items-table.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DialogStageEditorComponent,
     DiyBinderComponent,
     LoadDialogComponent,
+    ItemsTableComponent,
   ],
   imports: [
     HttpClientModule,

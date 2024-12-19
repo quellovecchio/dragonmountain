@@ -1,6 +1,5 @@
 .space {
-    height: 80%;
-    transition: transform .2s;
+    height: 100%;
 }
 
 .space:hover {
@@ -26,11 +25,13 @@ img {
     height: 100% !important;
     justify-content: space-evenly !important;
     align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .location-preview {
     width: 30rem;
-    height: 25rem;
+    height: 20rem;
 }
 
 .location {
@@ -47,10 +48,38 @@ img {
 }
 
 .shop {
-    width: 500px;
-    height: 100%;
+    width: 50%;
+    height: 80%;
+    z-index: 10;
     background-color: black;
     position: relative;
-    top: -500px;
+    top: -37%;
+    margin: auto;
     transition: width 2s, height 4s;
+}
+
+.close-shop-button {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    color: red;
+    cursor: pointer;
+    background-color: #000;
+    z-index: 8;
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-top: 60px;
+    padding: 10px 20px 10px 20px;
+}
+
+.close-shop-button:active {
+    color: white;
+    background-color: red;
+    border-color: red !important;
+}
+
+.close-shop-button:hover {
+    transform: scale(1.03);
 }

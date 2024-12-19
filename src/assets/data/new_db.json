@@ -161,7 +161,7 @@
             "name": "Butterfly Knife",
             "description": "",
             "moneyValue": 300,
-            "thumbnailPath": "assets/images/items/item3.png",
+            "thumbnailPath": "assets/images/items/item5.png",
             "attack": 1,
             "defense": 0,
             "buffs": []
@@ -205,7 +205,7 @@
             "name": "Wax Key",
             "description": "",
             "moneyValue": 100,
-            "thumbnailPath": "assets/images/items/item1.png"
+            "thumbnailPath": "assets/images/items/item4.png"
         },
         {
             "id": 15,
@@ -743,7 +743,8 @@
         },
         {
             "id": 25,
-            "name": "Jhonny B. Goode",
+            "name": "Clara B. Baade",
+            "imagePath": "/assets/images/actors/actor5.png",
             "classId": 1,
             "level": 3,
             "loot": [],
