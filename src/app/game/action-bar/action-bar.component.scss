@@ -58,7 +58,6 @@
 
 .space:hover {
     transform: scale(1.15);
-    z-index: 60 !important;
     filter: none;
     -webkit-filter: none;
 }
@@ -71,7 +70,7 @@
     position: relative;
     top: 100px;
     transition: width 2s, height 4s;
-    z-index: 10;
+    
 }
 
 .actor-menu {
@@ -82,7 +81,7 @@
     position: relative;
     top: 100px;
     transition: width 2s, height 4s;
-    z-index: 10;
+    
 }
 
 .hp-bar {

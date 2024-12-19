@@ -1,9 +1,9 @@
 .spacing {
-    font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
-    font-size: 60px;
-    margin-top: 10px;
-    //letter-spacing: 2.4px !important;
- }
+  font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
+  font-size: 60px;
+  margin-top: 10px;
+  //letter-spacing: 2.4px !important;
+}
 
 /*textarea {
     resize: none;
@@ -25,19 +25,17 @@
 }*/
 
 .typewriter {
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    //border-right: .15em solid orange; /* The typwriter cursor */
-    //white-space: nowrap; /* Keeps the content on a single line */
-    //margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    color: white;
-    font-size: 50px;
-    //animation:
-    //  blink-caret 1s step-end infinite;
-  }
-  
-  /* The typewriter cursor effect */
-  // TODO use this during damage
-  /*@keyframes blink-caret {
+  overflow: hidden;
+  color: white;
+  text-shadow: 2px 2px 2px #000000;
+  font-size: 50px;
+  padding: 3rem;
+  display: block;
+}
+
+/* The typewriter cursor effect */
+// TODO use this during damage
+/*@keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: white; }
   }*/

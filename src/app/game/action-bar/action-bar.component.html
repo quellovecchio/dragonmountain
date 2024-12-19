@@ -2,7 +2,7 @@
     style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center;">
     <div style="padding: 15px; width: 100%; font-size:32px; color: white">INVENTORY
         <div
-            style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: green; background-color: #000; z-index: 8;">
+            style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: green; background-color: #000; ">
             {{run.inventory.money}} $</div>
         <app-items-table [dataSource]="inventoryDataSource" [compact]="true" (clickEvent)="selectItem($event)">
         </app-items-table>
@@ -12,10 +12,10 @@
     style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; text-align-last: justify;">
     <div style="padding: 15px; display: flex; flex-direction: column; justify-content: space-evenly;">
         <div
-            style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; z-index: 8;">
+            style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; ">
             {{displayedActorMenu.name}}</div>
         <div
-            style="position: -webkit-sticky; position: sticky; top: 0;height:25px; font-size:25px; color: white; background-color: #000; z-index: 8;">
+            style="position: -webkit-sticky; position: sticky; top: 0;height:25px; font-size:25px; color: white; background-color: #000; ">
             {{displayedActorMenu.class?.name}}</div>
         <img style="width: 200px; height: 200px;" src="{{displayedActorMenu.imagePath}}">
         <div style="display: flex; margin-top: 5px; margin-bottom: 5px;">
