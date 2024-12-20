@@ -260,13 +260,16 @@ export class SceneComponent implements OnInit {
     let usedCharactersIds: number[] = [];
     for (let i = 0; i < fight.length; i++) {
       let character = fight[i];
-      let newCharacter = character;
-      if(usedCharactersIds.includes(newCharacter.id)) {
-        newCharacter.name = newCharacter.name + ' ' + i;
+      let newCharacter = new Character();
+      newCharacter.name = character.name;
+      newCharacter.stats = character.stats;
+      newCharacter.skills = character.skills;
+      newCharacter.imagePath = character.imagePath;
+      if(usedCharactersIds.includes(character.id)) {
+        newCharacter.name = character.name + ' ' + i;
       } else {
-        usedCharactersIds.push(newCharacter.id);
+        usedCharactersIds.push(character.id);
       }
-      newCharacter.id = i;
       newFight.push(newCharacter);
     }
     return newFight;

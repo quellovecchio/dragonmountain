@@ -114,7 +114,11 @@ export class FightComponent implements OnInit {
     if(enemies.length === 0) 
       return;
     // Calculate the distance between the actor and each enemy
-    const distances = enemies.map(enemy => this.calculateDistance(actor, enemy));
+    const distances = enemies.map(enemy => {
+      if(!enemy.dead) 
+        return this.calculateDistance(actor, enemy)
+      return 9999;
+    });
 
     // Find the index of the closest enemy
     const closestEnemyIndex = distances.indexOf(Math.min(...distances));

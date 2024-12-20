@@ -73,6 +73,12 @@
                     "unlockStat": "constitution"
                 }
             ]
+        },
+        {
+            "id": 3,
+            "name": "Beast",
+            "skillTree": [
+            ]
         }
     ],
     "items": [
@@ -704,6 +710,7 @@
         {
             "id": 23,
             "name": "Large Rat",
+            "classId": "3",
             "imagePath": "/assets/images/actors/enemy4.png",
             "level": 1,
             "loot": [],
@@ -982,7 +989,7 @@
             "backgroundPath": "/assets/images/locations/location5-bg.png",
             "loot": [],
             "fight": [
-                23, 23
+                23, 20
             ],
             "actors": [
                 24, 25
