@@ -25,7 +25,7 @@
 <mat-menu #menu="matMenu" class="location-menu pixelated-border" (closed)="clearSelectedActor()">
     <div *ngIf="!selectedItem && selectedActor">
         <!-- talk action -->
-        <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> talk </button>
+        <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> interact </button>
         <!-- fight action (if is fightable -> has stats)-->
         <button mat-menu-item *ngIf="isFightable(selectedActor!)" (click)="engageCombat(selectedActor!)"> fight
         </button>

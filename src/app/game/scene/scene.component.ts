@@ -108,8 +108,10 @@ export class SceneComponent implements OnInit {
 
   moveTo(location: any) {
     var locationValue = undefined;
-    if(location.children)
+    if(location.children) {
+      this.runService.setnextQuestlinePhase(location as TreeNode);
       locationValue = location.location;
+    }
     else
       locationValue = location;
     this.run.currentLocation = locationValue;
@@ -125,7 +127,6 @@ export class SceneComponent implements OnInit {
 
   private explore(location: any) {
     if(location.children) {
-      this.run.currentQuestlinePhase = location as TreeNode;
       this.loot((location as TreeNode).location);
       if ((location as TreeNode).location.actors && (location as TreeNode).location.actors?.length > 0) {
         this.run.state = RunState.Location;
@@ -192,6 +193,12 @@ export class SceneComponent implements OnInit {
           this.viewportService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
+          if(data.character.interactions.filter((req) => {return req.reactTo == "heal"}).length > 0) {
+            if (data.action.final)
+              data.character.interactions = [];
+            else 
+              data.character.interactions = data.character.interactions.filter((req) => {return req.reactTo == "heal"});
+          }  
           break;
         default:
           console.log("no data found for effect")
@@ -383,10 +390,6 @@ export class SceneComponent implements OnInit {
     }
   }
 
-  flee() {
-    // TODO
-  }
-
   loot(item: Location | Actor) {
     if (item.loot && item.loot.length > 0) {
       // add loot to party inventory
@@ -422,7 +425,7 @@ export class SceneComponent implements OnInit {
     if(!fromQuestlineFlag)
       this.run.stage.currentLocations = this.runService.getRefreshedLocations();
     else 
-      this.run.stage.currentLocations = this.runService.getNextStorylineLocations();
+      this.run.stage.currentLocations = this.runService.getNextQuestlineLocations();
   }
 
   getRandomNumber(min: number, max: number) {

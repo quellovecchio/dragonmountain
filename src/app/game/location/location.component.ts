@@ -5,9 +5,10 @@ import { Actor } from '../../model/Actors/Actor';
 import { Item } from '../../model/items/Item';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
-import { Requirement } from 'src/app/model/Reqirement';
+import { Requirement } from 'src/app/model/Requirement';
 import { Stats } from 'src/app/model/Stats';
 import { RunService } from 'src/app/services/run.service';
+import { Interaction } from 'src/app/model/Interaction';
 
 @Component({
   selector: 'app-location',
@@ -73,12 +74,16 @@ export class LocationComponent implements OnInit {
 
   talk(a: Actor) {
     this.talkSignal.emit(a);
-    // BUG: clearanceRequirements and clearanceDialog always empty
 
-    var talkRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type == 'talk');
-    if(talkRequirements.length > 0) {
-      var newRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type != 'talk');
-      a.clearanceRequirements = newRequirements;
+    var talkInteraction = a.interactions.filter((interaction: Interaction) => interaction.reactTo == 'talk');
+    if(talkInteraction.length > 0) {
+      if(talkInteraction[0].final) {
+        // if final removes other interactions from the list
+        a.interactions = [];
+        return;
+      }
+      var newRequirements = a.interactions.filter((interaction: Interaction) => interaction.reactTo != 'talk');
+      a.interactions = newRequirements;
     }
   }
 
@@ -123,7 +128,7 @@ export class LocationComponent implements OnInit {
   }
 
   locked() {
-    var clearanceArray = this.locationData!.actors.map((el: Actor) => el.clearanceRequirements);
+    var clearanceArray = this.locationData!.actors.map((el: Actor) => el.interactions);
     var cleared = clearanceArray.every(innerArr => Array.isArray(innerArr) && innerArr.length === 0);
     //console.log(clearanceArray + ' ' + cleared);
     return cleared;

@@ -21,6 +21,8 @@ export class Interaction {
     effect: EffectType = EffectType.giveItem;
     effectTarget: any;
     vanishes: boolean = false;
+    // unlocks the door back
+    final: boolean = false;
 
     constructor() {
     } 

@@ -2,7 +2,7 @@
 import { Interaction } from "../Interaction";
 import { Equip } from "../items/Equip";
 import { Item } from "../items/Item";
-import { Requirement } from "../Reqirement";
+import { Requirement } from "../Requirement";
 
 var idCounter = 0;
 
@@ -33,7 +33,8 @@ export class Actor {
     active: boolean = false;
     // placeholder or TODO: define attack range for
     attackRange: number = 100;
-    clearanceRequirements: Requirement[] = [];
+    // deprecated
+    //clearanceRequirements: Requirement[] = [];
 
     constructor() {
         this.id = idCounter++;

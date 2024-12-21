@@ -15,7 +15,7 @@ import { StageDto } from '../model/StageDto';
 import { Stage } from '../model/Stage';
 import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
 import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
-import { Requirement } from '../model/Reqirement';
+import { Requirement } from '../model/Requirement';
 import { STARTING_STATS } from '../editor/diy/diy.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 
@@ -116,6 +116,7 @@ export class RunService {
   }
 
   getRefreshedLocations() {
+    console.log('getting new locations from the pool.')
     var count = Constants.MAX_STAGE_ELEMENTS;
     if (count >= this.run.stage.locations.length) {
       // If count is greater than or equal to the list length, return the entire list
@@ -135,10 +136,11 @@ export class RunService {
     return result;
   }
 
-  getNextStorylineLocations(): TreeNode[] {
+  getNextQuestlineLocations(): TreeNode[] {
+    console.log('getting new locations from the next quesline phase.')
     var result: TreeNode[] = [];
-    if (this.run.currentQuestline?.root.children && this.run.currentQuestline?.root.children.length > 0)
-      result = this.run.currentQuestline?.root.children;
+    if (this.run.nextQuestlinePhase?.children)
+      result = this.run.nextQuestlinePhase?.children;
     return result;
   }
 
@@ -184,9 +186,10 @@ export class RunService {
     if (actorData.clearanceDialogue) {
       r.clearanceDialogue = actorData.clearanceDialogue;
     }
-    if (actorData.clearanceRequirements) {
+    // deprecated
+    /*if (actorData.clearanceRequirements) {
       r.clearanceRequirements = actorData.clearanceRequirements;
-    }
+    }*/
     return r;
   }
 
@@ -242,12 +245,13 @@ export class RunService {
     if (actorData.clearanceDialogue) {
       r.clearanceDialogue = actorData.clearanceDialogue;
     }
-    if (actorData.clearanceRequirements) {
+    // deprecated
+    /*if (actorData.clearanceRequirements) {
       // TODO update with additional requirement info
       actorData.clearanceRequirements.forEach(req => {
         r.clearanceRequirements.push(new Requirement(req, ''));
       })
-    }
+    }*/
     return r;
   }
 
@@ -327,5 +331,9 @@ export class RunService {
     if (index > -1) {
       this.run.inventory.items.splice(index, 1);
     }
+  }
+
+  setnextQuestlinePhase(location: TreeNode) {
+    this.run.nextQuestlinePhase = location;
   }
 }
