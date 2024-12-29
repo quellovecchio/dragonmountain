@@ -95,6 +95,12 @@ export class FightComponent implements OnInit {
     }
   }
 
+  fightSpeedCurve(x: number): number {
+    const m = -0.941;
+    const b = 95.1;
+    return m * x + b;
+  }
+
   startFightScene() {
     const intervalId = setInterval(() => {
       if (this.fightManager.isBattleOver()) {
@@ -108,7 +114,7 @@ export class FightComponent implements OnInit {
         if(!this.fightData![i].dead)
           this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, this.fightSpeed);
+    }, this.fightSpeedCurve(this.fightSpeed));
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {

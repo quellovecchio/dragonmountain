@@ -8,8 +8,8 @@ export class Constants {
   static TURN_LOGGING = false;
   static DAMAGE_LOGGING = true;
   //static TEXT_SPEED = 10;
-  static TEXT_SPEED = 3;
-  static FIGHT_CLOCK_SPEED = 20;
+  static TEXT_SPEED = 10;
+  static FIGHT_CLOCK_SPEED = 90;
   // max number of actors or locations to display
   static MAX_STAGE_ELEMENTS = 3;
   static TECH_DEMO_INTRO: string = "Welcome to Dragon Mountain Private Tech Demo!\n\nDragon Mountain is an upcoming text-based rpg rocking a powerful data customizing tool and an intriguing roguelike styled gameplay.\n\nYou can try a little demo to value its fast game loop.\n\nIf you need any hints..."

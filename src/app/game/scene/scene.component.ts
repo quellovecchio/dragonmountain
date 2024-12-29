@@ -52,17 +52,6 @@ export class SceneComponent implements OnInit {
     this.runService.refreshLocations(questlineCounterCrossed);
   }
 
-  buy(item: any) {
-    // TODO: check money, if not enough error message
-    if (this.runService.getRun().inventory.money < item.moneyValue) {
-      this.uiService.pushText("[Merchant]: Sorry pal, that's too much money for you!");
-    } else {
-      this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - item.moneyValue;
-      this.uiService.pushText("That's a great deal! It's yours.");
-      this.runService.getRun().inventory.items.push(item);
-    }
-  }
-
   animateAttackOn(actor: Actor) {
     actor.attacked = true;
     setTimeout(() => {

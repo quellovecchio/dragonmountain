@@ -11,6 +11,7 @@ import { ItemService } from 'src/app/services/item.service';
 import { Stats } from 'src/app/model/Stats';
 import { DataService } from 'src/app/data.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ui-layer',
@@ -46,13 +47,13 @@ import { MatTableDataSource } from '@angular/material/table';
           [
             style({ height: 0, top: 0 }),
             animate('0.2s ease-out',
-              style({ height: '80%', top: '5%' }))
+              style({ height: '65%', top: '12%' }))
           ]
         ),
         transition(
           ':leave',
           [
-            style({ height: '65%', top: '5%' }),
+            style({ height: '65%', top: '12%' }),
             animate('0.2s ease-in',
               style({ height: 0, top: 0 }))
           ]
@@ -66,6 +67,9 @@ export class UiLayerComponent implements OnInit {
   public version: string = packageJson.version;
 
   selectedItem?: Item = undefined;
+
+  private inventorySubscription!: Subscription;
+  private shopSubscription!: Subscription;
 
   inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource();
   shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
@@ -96,12 +100,12 @@ export class UiLayerComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedItem = this.uiService.getSelectedItem();
-    setInterval(() => {
-      this.inventoryDataSource.data = this.runService.getRun().inventory.items;
-    }, 500);
-    setInterval(() => {
-      this.shopDataSource.data = this.uiService.shopItems;
-    }, 501);
+    this.inventorySubscription = this.uiService.inventory$.subscribe(items => {
+      this.inventoryDataSource.data = items;
+    });
+    this.shopSubscription = this.uiService.shopItems$.subscribe(items => {
+      this.shopDataSource.data = items;
+    });
     setTimeout(() => {
       this.uiService.toggleInventory();
     }, 1500);
@@ -110,11 +114,20 @@ export class UiLayerComponent implements OnInit {
     }, 2000);
   }
 
+  ngOnDestroy() {
+    if (this.inventorySubscription) {
+      this.inventorySubscription.unsubscribe();
+    }
+    if (this.shopSubscription) {
+      this.shopSubscription.unsubscribe();
+    }
+  }
+
   interact(interactionData: any) {
     this.selectedItem = undefined;
-    if(this.itemService.isItem(interactionData.action))
+    if (this.itemService.isItem(interactionData.action))
       this.runService.removeItemFromInventory(interactionData.action);
-    this.runService.interact({character: interactionData.actor, action: interactionData.action})
+    this.runService.interact({ character: interactionData.actor, action: interactionData.action })
   }
 
   selectItem(item: Item) {
@@ -185,6 +198,18 @@ export class UiLayerComponent implements OnInit {
 
   getCurrentPlayerSkills(): { "skills": Skill[] } {
     return { "skills": this.uiService.displayedActorMenu.skills };
+  }
+
+  buy(item: any) {
+    // TODO: check money, if not enough error message
+    if (this.runService.getRun().inventory.money < item.moneyValue) {
+      this.uiService.pushText("[Merchant]: Sorry pal, that's too much money for you!");
+    } else {
+      this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - item.moneyValue;
+      this.uiService.pushText("That's a great deal! It's yours.");
+      this.runService.getRun().inventory.items.push(item);
+      this.uiService.updateInventory(this.runService.getRun().inventory.items);
+    }
   }
 
 }

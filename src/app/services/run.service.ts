@@ -14,6 +14,7 @@ import { RunState } from '../model/RunState';
 import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
 import { UiService } from '../game/layers/ui-layer/ui.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,6 @@ import { UiService } from '../game/layers/ui-layer/ui.service';
 export class RunService {
 
   run: Run = new Run(new PlayingCharacter(STARTING_STATS));
-
   charactersJoiningAfterBattle: PlayingCharacter[] = [];
 
   constructor(private uiService: UiService, private fightService: FightManagerService, private dataService: DataService) { }

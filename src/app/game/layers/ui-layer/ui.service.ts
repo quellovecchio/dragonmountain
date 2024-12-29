@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { Item } from 'src/app/model/items/Item';
@@ -10,13 +11,16 @@ export class UiService {
 
   public inventoryOpened: boolean = false;
   public inventoryDisabled: boolean = false;
+  private inventorySubject = new BehaviorSubject<Item[]>([]);
+  public inventory$ = this.inventorySubject.asObservable();
 
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter(STARTING_STATS);
 
   public shopOpened: boolean = false;
   public shopDisabled: boolean = false;
-  public shopItems: Item[] = [];
+  private shopItemsSubject = new BehaviorSubject<Item[]>([]);
+  public shopItems$ = this.shopItemsSubject.asObservable();
 
   private selectedItem?: Item = undefined;
 
@@ -25,6 +29,14 @@ export class UiService {
   textBuffer: string[] = [];
 
   constructor() {
+  }
+
+  public updateInventory(items: Item[]) {
+    this.inventorySubject.next(items);
+  }
+
+  updateShopItems(items: Item[]) {
+    this.shopItemsSubject.next(items);
   }
 
   public getSelectedItem() {
@@ -92,7 +104,7 @@ export class UiService {
   toggleShop(items?: Item[]) {
     this.shopDisabled = true;
     if (items) {
-      this.shopItems = items;
+      this.updateShopItems(items);
     }
     this.shopOpened = !this.shopOpened;
     if (this.shopOpened)
@@ -101,5 +113,11 @@ export class UiService {
     else
       // TODO customizable
       this.pushText("[Merchant]: Thanks for your business.");
+  }
+
+  closeShop() {
+    this.shopOpened = false;
+    this.pushText("[Merchant]: Thanks for your business.");
+    this.updateShopItems([]);
   }
 }
