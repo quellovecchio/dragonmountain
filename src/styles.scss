@@ -113,6 +113,15 @@ h6 {
     @include other(2px, var(--color-primary), black);
 }
 
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+.dont-disable {
+    pointer-events: auto !important;
+}
+
 button {
     font-size: 30px !important;
 }

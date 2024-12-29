@@ -7,6 +7,7 @@ import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill } from '../../model/Skill';
 import { Constants } from 'src/assets/constants';
+import { DataService } from 'src/app/data.service';
 
 class FightAnimation {
   source: string = '';
@@ -44,7 +45,7 @@ export class FightComponent implements OnInit {
 
   @Input() fightData?: Character[] = [];
   @Input() partyData: PlayingCharacter[] = [];
-  @Input() fightSpeed!: number;
+  fightSpeed: number = this.dataService.getSettings().fightSpeed;
 
 
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
@@ -62,7 +63,7 @@ export class FightComponent implements OnInit {
   selectedEnemy?: Actor;
   public currentAttackAnimation: string = '/assets/animations/slash.gif';
 
-  constructor(fightManager: FightManagerService, private eRef: ElementRef, private changeDetector: ChangeDetectorRef) {
+  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService) {
     this.fightManager = fightManager;
   }
 

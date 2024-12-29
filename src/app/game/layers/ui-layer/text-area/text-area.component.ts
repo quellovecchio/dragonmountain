@@ -1,6 +1,6 @@
 import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
-import { ViewportService } from '../viewport/viewport.service';
 import { interval, isEmpty, startWith, switchMap, takeWhile } from 'rxjs';
+import { UiService } from 'src/app/game/layers/ui-layer/ui.service';
 
 @Component({
   selector: 'app-text-area',
@@ -17,19 +17,19 @@ export class TextAreaComponent implements OnInit {
 
   complete: boolean = false;
 
-  constructor(private viewportService: ViewportService) { }
+  constructor(private uiService: UiService) { }
 
   ngOnInit(): void {
     interval(500)
     .pipe(takeWhile(() => true))
     .subscribe(() => {
-      var buffer = this.viewportService.getTextBuffer();
+      var buffer = this.uiService.getTextBuffer();
       if(buffer.length > 0 && this.complete) {
         //this.currentText = [...this.currentText, ...buffer];
         buffer.forEach(element => {
           this.pushText(element);
         });
-        this.viewportService.cleanTextBuffer();
+        this.uiService.cleanTextBuffer();
       }
     });
   }
@@ -40,7 +40,7 @@ export class TextAreaComponent implements OnInit {
       this.currentText = [];
       this.needsCleanup = false;
     }
-    this.viewportService.setViewportEnabling(false);
+    this.uiService.setViewportEnabling(false);
     this.currentText = [...this.currentText, text];
   }
 
@@ -49,7 +49,7 @@ export class TextAreaComponent implements OnInit {
   }
 
   enableViewport() {
-    this.viewportService.setViewportEnabling(true);
+    this.uiService.setViewportEnabling(true);
   }
 
 }

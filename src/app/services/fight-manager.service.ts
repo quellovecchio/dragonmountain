@@ -3,10 +3,10 @@ import { Character } from '../model/Actors/Character';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
-import { ViewportService } from '../game/viewport/viewport.service';
+import { UiService } from '../game/layers/ui-layer/ui.service';
 import { RunService } from './run.service';
 import { Skill } from '../model/Skill';
-import { FightComponent } from '../game/fight/fight.component';
+import { DataService } from '../data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class FightManagerService {
   party: PlayingCharacter[] = [];
   fighting: boolean = false;
 
-  constructor(private itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
+  constructor(private itemService: ItemService, private dataService: DataService) { }
 
   startFight(enemies: Character[], party: PlayingCharacter[]) {
     this.fighting = true;
-    enemies.forEach(enemy => enemy.class = this.runService.getClassById(enemy.classId));
+    enemies.forEach(enemy => enemy.class = this.dataService.getClassById(enemy.classId));
     this.enemies = enemies;
     this.party = party;
     // Map enemies and party into turnRotation

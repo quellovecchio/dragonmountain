@@ -32,11 +32,6 @@
     top: 175px;
 }
 
-.disabled {
-    pointer-events: none;
-    filter: grayscale(1);
-}
-
 .damaged {
     animation: blinking 0.1s infinite;
 }

@@ -1,0 +1,47 @@
+.action-bar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    height: 120px;
+    background-image: url(/assets/images/0_0.png);
+    top: 2px;
+}
+
+.party-members {
+    display: flex;
+}
+
+.party-member {
+    height: 95px;
+    width: 95px;
+    background-size: contain;
+    background-position: 25% 75%;
+    margin-left: 0.5rem;
+}
+
+.refresh-button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 100px;
+    transform: scale(0.6);
+    cursor: pointer;
+}
+
+.space {
+    transition: transform .2s;
+    cursor: pointer;
+}
+
+.space:hover {
+    transform: scale(1.15);
+    filter: none;
+    -webkit-filter: none;
+}
+
+.hp-bar {
+    position: relative;
+    top: 75px;
+}

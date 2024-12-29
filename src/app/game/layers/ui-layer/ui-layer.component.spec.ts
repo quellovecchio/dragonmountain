@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewportComponent } from './viewport.component';
+import { UiLayerComponent } from './ui-layer.component';
 
-describe('ViewportComponent', () => {
-  let component: ViewportComponent;
-  let fixture: ComponentFixture<ViewportComponent>;
+describe('UiLayerComponent', () => {
+  let component: UiLayerComponent;
+  let fixture: ComponentFixture<UiLayerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewportComponent ]
+      declarations: [ UiLayerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewportComponent);
+    fixture = TestBed.createComponent(UiLayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

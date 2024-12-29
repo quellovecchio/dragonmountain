@@ -1,0 +1,104 @@
+.ui-layer {
+    width: 100%;
+    height: 102vh;
+    padding: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-transition: background-image 0.2s ease-in-out;
+    transition: background-image 0.2s ease-in-out;
+    background-position-y: center;
+    background-size: contain;
+}
+
+.inventory {
+    width: 15%;
+    height: 70%;
+    left: 82%;
+    background-color: black;
+    position: relative;
+    top: 100px;
+    transition: width 2s, height 4s;
+
+}
+
+.inventory-button {
+    height: 95px;
+    width: 95px;
+    background: var(--color-primary);
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.5rem;
+}
+
+.inventory-button:last-of-type {
+    margin-left: auto;
+}
+
+.actor-menu {
+    width: 15%;
+    height: 70%;
+    left: 4%;
+    background-color: black;
+    position: relative;
+    top: 100px;
+    transition: width 2s, height 4s;
+
+}
+
+.equip-slot {
+    background-color: black;
+    margin: 4px;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.item-use-container {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.follow-cursor-img {
+    z-index: 9999;
+    position: absolute;
+    transition: transform 0.1s linear;
+}
+
+.info-box {
+    position: relative;
+    top: 2%;
+    display: block;
+    width: 40%;
+    height: 10px;
+}
+
+.action-bar {
+    position: relative;
+    top: 80%;
+    display: block;
+    width: 40%;
+    height: 10px;
+}
+
+.text-area {
+    position: relative;
+    top: 62%;
+    display: block;
+    border-radius: 150px;
+    max-width: 57%;
+}
+
+.settings-menu {
+    background-color: var(--color-primary);
+}

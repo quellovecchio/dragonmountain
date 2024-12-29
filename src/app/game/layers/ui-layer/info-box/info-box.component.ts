@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
+import { PlayingCharacter } from '../../../../model/Actors/PlayingCharacter';
 import { RunService } from 'src/app/services/run.service';
 
 @Component({

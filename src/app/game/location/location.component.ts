@@ -94,13 +94,6 @@ export class LocationComponent implements OnInit {
     return a.dialogue ? true : false;
   }
 
-  useItemOn(item: Item ,actor: Actor) {
-    this.runService.removeItemFromInventory(item);
-    console.log("used " + this.selectedItem?.name + " on " + actor.name);
-    this.interact(actor as Character);
-    this.selectedItem = undefined;
-  }
-
   toggleShop(actor: Actor) {
     this.openShopSignal.emit(actor.shop!);
   }
