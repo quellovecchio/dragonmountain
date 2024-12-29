@@ -5,76 +5,21 @@ import { Character } from '../../model/Actors/Character';
 import { FightManagerService } from '../../services/fight-manager.service';
 import { Actor } from '../../model/Actors/Actor';
 import { Item } from '../../model/items/Item';
-import { animate, style, transition, trigger } from '@angular/animations';
 import { RunService } from '../../services/run.service';
 import { ItemService } from '../../services/item.service';
-import { UiService } from '../layers/ui-layer/ui.service';
 import { Constants } from 'src/assets/constants';
-import { TreeNode } from 'src/app/model/QuestlineTree';
-import { MatTableDataSource } from '@angular/material/table';
+import { UiService } from '../layers/ui-layer/ui.service';
 
 @Component({
   selector: 'app-scene',
   templateUrl: './scene.component.html',
-  styleUrls: ['./scene.component.scss'],
-  animations: [
-    trigger(
-      'inOutAnimation',
-      [
-        transition(
-          ':enter',
-          [
-            style({ height: 0, top: 0 }),
-            animate('0.2s ease-out',
-              style({ height: '70%', top: 100 }))
-          ]
-        ),
-        transition(
-          ':leave',
-          [
-            style({ height: '70%', top: 100 }),
-            animate('0.2s ease-in',
-              style({ height: 0, top: 0 }))
-          ]
-        )
-      ]
-    ),
-    trigger(
-      'inOutAnimationShop',
-      [
-        transition(
-          ':enter',
-          [
-            style({ height: 0, top: 0 }),
-            animate('0.2s ease-out',
-              style({ height: '70%', top: '-37%' }))
-          ]
-        ),
-        transition(
-          ':leave',
-          [
-            style({ height: '70%', top: '-37%' }),
-            animate('0.2s ease-in',
-              style({ height: 0, top: 0 }))
-          ]
-        )
-      ]
-    )
-  ]
+  styleUrls: ['./scene.component.scss']
 })
 export class SceneComponent implements OnInit {
-
-  @Input() selectedItem?: Item = undefined;
+  
   @Output() itemBoughtSignal = new EventEmitter<Item>();
-  ready: boolean = false;
 
   fightManager: FightManagerService;
-
-  public shopOpened: boolean = false;
-  public shopDisabled: boolean = false;
-  public shopItems: Item[] = [];
-
-  shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
 
   constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService) {
     this.fightManager = fightManager;
@@ -105,21 +50,6 @@ export class SceneComponent implements OnInit {
     // if storyline counter crosses the limit go to next questline stage
     // if not, call locations from pool
     this.runService.refreshLocations(questlineCounterCrossed);
-  }
-
-  toggleShop(items?: Item[]) {
-    this.shopDisabled = true;
-    if (items) {
-      this.shopItems = items;
-      this.shopDataSource.data = this.shopItems;
-    }
-    this.shopOpened = !this.shopOpened;
-    if (this.shopOpened)
-      // TODO customizable
-      this.uiService.pushText("[Merchant]: Take a good look!");
-    else
-      // TODO customizable
-      this.uiService.pushText("[Merchant]: Thanks for your business.");
   }
 
   buy(item: any) {

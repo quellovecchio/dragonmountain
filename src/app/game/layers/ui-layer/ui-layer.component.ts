@@ -1,19 +1,16 @@
 import packageJson from '../../../../../package.json';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
-import { Character } from 'src/app/model/Actors/Character';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { Equip } from 'src/app/model/items/Equip';
 import { Item } from 'src/app/model/items/Item';
-import { RunState } from 'src/app/model/RunState';
 import { Skill } from 'src/app/model/Skill';
 import { RunService } from 'src/app/services/run.service';
 import { UiService } from './ui.service';
 import { ItemService } from 'src/app/services/item.service';
 import { Stats } from 'src/app/model/Stats';
 import { DataService } from 'src/app/data.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-ui-layer',
@@ -40,6 +37,27 @@ import { DataService } from 'src/app/data.service';
           ]
         )
       ]
+    ),
+    trigger(
+      'inOutAnimationShop',
+      [
+        transition(
+          ':enter',
+          [
+            style({ height: 0, top: 0 }),
+            animate('0.2s ease-out',
+              style({ height: '80%', top: '5%' }))
+          ]
+        ),
+        transition(
+          ':leave',
+          [
+            style({ height: '65%', top: '5%' }),
+            animate('0.2s ease-in',
+              style({ height: 0, top: 0 }))
+          ]
+        )
+      ]
     )
   ]
 })
@@ -48,6 +66,9 @@ export class UiLayerComponent implements OnInit {
   public version: string = packageJson.version;
 
   selectedItem?: Item = undefined;
+
+  inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource();
+  shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
 
   // image following cursor when an item is selected
   @ViewChild('followCursorImg', { static: false }) followCursorImg!: ElementRef;
@@ -71,42 +92,22 @@ export class UiLayerComponent implements OnInit {
     }
   }
 
-  public inventoryOpened: boolean = false;
-  public inventoryDisabled: boolean = false;
-  inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource();
-
-  public actorMenuOpened: boolean = false;
-  public displayedActorMenu: PlayingCharacter = new PlayingCharacter(STARTING_STATS);
-
   constructor(public runService: RunService, public uiService: UiService, private itemService: ItemService, public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.inventoryDataSource.data = this.runService.getRun().inventory.items;
     this.selectedItem = this.uiService.getSelectedItem();
+    setInterval(() => {
+      this.inventoryDataSource.data = this.runService.getRun().inventory.items;
+    }, 500);
+    setInterval(() => {
+      this.shopDataSource.data = this.uiService.shopItems;
+    }, 501);
     setTimeout(() => {
-      this.toggleInventory();
+      this.uiService.toggleInventory();
     }, 1500);
     setTimeout(() => {
-      this.toggleActorInfo(this.runService.getRun().party[0]);
+      this.uiService.toggleActorInfo(this.runService.getRun().party[0]);
     }, 2000);
-  }
-
-  toggleActorInfo(actor: PlayingCharacter) {
-    if (this.runService.getRun().state != RunState.Fight) {
-      if (!this.selectedItem) {
-        this.displayedActorMenu = actor;
-        if (this.actorMenuOpened) {
-          this.actorMenuOpened = !this.actorMenuOpened;
-        }
-        setTimeout(() => {
-          this.actorMenuOpened = !this.actorMenuOpened;
-        }, 200);
-        //this.uiService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
-      } else {
-        this.interact({ action: this.selectedItem!, actor: (actor as Character) });
-        this.selectedItem = undefined;
-      }
-    }
   }
 
   interact(interactionData: any) {
@@ -114,14 +115,6 @@ export class UiLayerComponent implements OnInit {
     if(this.itemService.isItem(interactionData.action))
       this.runService.removeItemFromInventory(interactionData.action);
     this.runService.interact({character: interactionData.actor, action: interactionData.action})
-  }
-
-  toggleInventory() {
-    this.inventoryDisabled = true;
-    this.inventoryOpened = !this.inventoryOpened;
-    //this.uiService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
-    this.inventoryDataSource.data = this.runService.getRun().inventory.items;
-    setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
   selectItem(item: Item) {
@@ -162,16 +155,16 @@ export class UiLayerComponent implements OnInit {
       let newEquip = (this.selectedItem as Equip);
       if (newEquip.attack || newEquip.defense || newEquip.buffs.length > 0) {
         // update character in the party
-        var characterIndex = this.runService.getRun().party.findIndex(el => { return el.name == this.displayedActorMenu.name });
+        var characterIndex = this.runService.getRun().party.findIndex(el => { return el.name == this.uiService.displayedActorMenu.name });
         if (!this.runService.getRun().party[characterIndex].equipment[slot]) {
           this.runService.getRun().party[characterIndex].equipment[slot] = newEquip;
-          this.uiService.pushText(newEquip.name + " is equipped by " + this.displayedActorMenu.name);
+          this.uiService.pushText(newEquip.name + " is equipped by " + this.uiService.displayedActorMenu.name);
           this.selectedItem = undefined;
         } else {
           let oldEquip = this.runService.getRun().party[characterIndex].equipment[slot];
           this.runService.getRun().party[characterIndex].equipment[slot] = newEquip;
           this.runService.getRun().inventory.items.push(oldEquip);
-          this.uiService.pushText(newEquip.name + " is equipped by " + this.displayedActorMenu.name);
+          this.uiService.pushText(newEquip.name + " is equipped by " + this.uiService.displayedActorMenu.name);
           this.selectedItem = undefined;
         }
       } else {
@@ -191,7 +184,7 @@ export class UiLayerComponent implements OnInit {
   }
 
   getCurrentPlayerSkills(): { "skills": Skill[] } {
-    return { "skills": this.displayedActorMenu.skills };
+    return { "skills": this.uiService.displayedActorMenu.skills };
   }
 
 }

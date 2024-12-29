@@ -15,3 +15,10 @@
   height: 80%;
   width: 60%;
 }
+
+.viewport {
+  -webkit-transition: background-image 0.2s ease-in-out;
+  transition: background-image 0.2s ease-in-out;
+  background-position-y: center;
+  background-size: contain;
+}

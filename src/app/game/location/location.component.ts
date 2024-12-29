@@ -9,6 +9,7 @@ import { Requirement } from 'src/app/model/Requirement';
 import { Stats } from 'src/app/model/Stats';
 import { RunService } from 'src/app/services/run.service';
 import { Interaction } from 'src/app/model/Interaction';
+import { UiService } from '../layers/ui-layer/ui.service';
 
 @Component({
   selector: 'app-location',
@@ -43,7 +44,7 @@ export class LocationComponent implements OnInit {
 
   selectedActor?: Actor = undefined;
 
-  constructor(private eRef: ElementRef, private runService: RunService) { }
+  constructor(private eRef: ElementRef, private uiService: UiService) { }
 
   ngOnInit(): void {
   }
@@ -95,7 +96,7 @@ export class LocationComponent implements OnInit {
   }
 
   toggleShop(actor: Actor) {
-    this.openShopSignal.emit(actor.shop!);
+    this.uiService.toggleShop(actor.shop);
   }
 
   hasShop(actor: Actor) {

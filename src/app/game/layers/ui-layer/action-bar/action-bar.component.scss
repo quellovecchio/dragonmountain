@@ -45,3 +45,20 @@
     position: relative;
     top: 75px;
 }
+
+.inventory-button {
+    height: 95px;
+    width: 95px;
+    background: var(--color-primary);
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0.5rem;
+}
+
+.inventory-button:last-of-type {
+    margin-left: auto;
+}

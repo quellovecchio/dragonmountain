@@ -1,15 +1,11 @@
 .ui-layer {
     width: 100%;
-    height: 102vh;
+    height: 100vh;
     padding: 15px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    -webkit-transition: background-image 0.2s ease-in-out;
-    transition: background-image 0.2s ease-in-out;
-    background-position-y: center;
-    background-size: contain;
 }
 
 .inventory {
@@ -21,23 +17,6 @@
     top: 100px;
     transition: width 2s, height 4s;
 
-}
-
-.inventory-button {
-    height: 95px;
-    width: 95px;
-    background: var(--color-primary);
-    border: none;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 0.5rem;
-}
-
-.inventory-button:last-of-type {
-    margin-left: auto;
 }
 
 .actor-menu {
@@ -67,6 +46,45 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.shop {
+    z-index: 100;
+    width: 30%;
+    height: 65%;
+    background-color: black;
+    position: absolute;
+    top: 12%;
+    left: 35%;
+    margin: auto;
+    transition: width 2s, height 4s;
+}
+
+.close-shop-button {
+    z-index: 1;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    color: red;
+    cursor: pointer;
+    background-color: #000;
+    
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-top: 60px;
+    padding: 10px 20px 10px 20px;
+}
+
+.close-shop-button:active {
+    color: white;
+    background-color: red;
+    border-color: red !important;
+}
+
+.close-shop-button:hover {
+    transform: scale(1.03);
 }
 
 .follow-cursor-img {

@@ -1,21 +1,19 @@
 <div class="view">
-    <div class="map" *ngIf="runService.getRun().state == 'exploration' && !runService.getRun().showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && !runService.getRun().showBossfightLocation">
         <div class="locations-row">
             <div class="location-preview" *ngFor="let location of runService.getRun().stage.currentLocations">
-                <app-location-preview [location]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
+                <app-location-preview [location]="location"></app-location-preview>
             </div>
         </div>
     </div>
-    <div class="map" *ngIf="runService.getRun().state == 'exploration' && runService.getRun().showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && runService.getRun().showBossfightLocation">
         <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;">
-            <app-location-preview [locationData]="runService.getRun().stage.bossLocation"
-                (exploreSignal)="moveTo(runService.getRun().stage.bossLocation)"></app-location-preview>
+            <app-location-preview [locationData]="runService.getRun().stage.bossLocation"></app-location-preview>
         </div>
     </div>
     <div class="location" *ngIf="runService.getRun().state == 'location'">
         <app-location [locationData]="runService.getRun().currentLocation" [selectedItem]="selectedItem"
-            (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
-            (openShopSignal)="toggleShop($event)" (fightSignal)="engageFightWith($event)"
+            (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)" (fightSignal)="engageFightWith($event)"
             (restSignal)="rest()"></app-location>
     </div>
     <div class="fight" *ngIf="runService.getRun().state == 'fight'">
@@ -26,12 +24,5 @@
         <!--<video controls loop>
             <source src="../assets/animation.mp4" type="video/mp4">
         </video>-->
-    </div>
-    <!-- shop -->
-    <div [@inOutAnimationShop] *ngIf="shopOpened" class="shop pixelated-border"
-        style="overflow-y: auto; overflow-x: hidden;">
-        <div class="close-shop-button pixelated-border" (click)="toggleShop()">CLOSE</div>
-        <app-items-table [dataSource]="shopDataSource" [compact]="false" (clickEvent)="buy($event)">
-        </app-items-table>
     </div>
 </div>

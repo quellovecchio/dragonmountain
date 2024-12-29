@@ -1,6 +1,7 @@
-import { OnInit, Component, ElementRef, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
-import { interval, isEmpty, startWith, switchMap, takeWhile } from 'rxjs';
-import { UiService } from 'src/app/game/layers/ui-layer/ui.service';
+import { OnInit, Component } from '@angular/core';
+import { interval, takeWhile } from 'rxjs';
+import { UiService } from '../ui.service';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-text-area',
@@ -9,15 +10,13 @@ import { UiService } from 'src/app/game/layers/ui-layer/ui.service';
 })
 export class TextAreaComponent implements OnInit {
 
-  @Input() textSpeed!: number;
-
   currentText: string[] = [];
-  textBuffer: string[] = [];
+  textBuffer: string[] = this.uiService.getTextBuffer();
   needsCleanup: boolean = false;
 
-  complete: boolean = false;
+  complete: boolean = true;
 
-  constructor(private uiService: UiService) { }
+  constructor(private uiService: UiService, public dataService: DataService) { }
 
   ngOnInit(): void {
     interval(500)

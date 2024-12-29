@@ -3,8 +3,6 @@ import { Character } from '../model/Actors/Character';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { ItemService } from './item.service';
 import { Constants } from 'src/assets/constants';
-import { UiService } from '../game/layers/ui-layer/ui.service';
-import { RunService } from './run.service';
 import { Skill } from '../model/Skill';
 import { DataService } from '../data.service';
 

@@ -1,19 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Run } from '../../../../model/Run';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { RunState } from '../../../../model/RunState';
-import { Actor } from '../../../../model/Actors/Actor';
-import { PlayingCharacter } from '../../../../model/Actors/PlayingCharacter';
-import { Stats } from '../../../../model/Stats';
-import { ItemService } from '../../../../services/item.service';
+import { Actor } from 'src/app/model/Actors/Actor';
+import { Character } from 'src/app/model/Actors/Character';
+import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
+import { Item } from 'src/app/model/items/Item';
+import { ItemService } from 'src/app/services/item.service';
+import { RunService } from 'src/app/services/run.service';
 import { UiService } from '../ui.service';
-import { Item } from '../../../../model/items/Item';
-import { Character } from '../../../../model/Actors/Character';
-import { RunService } from '../../../../services/run.service';
-import { Skill } from '../../../../model/Skill';
-import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { run } from 'node:test';
 
 @Component({
   selector: 'app-action-bar',
@@ -21,11 +13,20 @@ import { run } from 'node:test';
   styleUrls: ['./action-bar.component.scss']
 })
 export class ActionBarComponent implements OnInit {
-  @Output() interactOnPartyActorSignal = new EventEmitter<{action: Item, actor: Actor}>();
+  @Output() interactOnPartyActorSignal = new EventEmitter<{ action: Item, actor: Actor }>();
 
   constructor(public itemService: ItemService, private uiService: UiService, public runService: RunService) { }
 
   ngOnInit(): void {
+  }
+
+  partyMemberClicked(actor: Actor) {
+    this.uiService.getSelectedItem() ? this.Interact(actor) : this.uiService.toggleActorInfo(actor as PlayingCharacter)
+  }
+
+  Interact(actor: Actor) {
+    this.runService.interact({ action: this.uiService.getSelectedItem()!, character: (actor as Character) });
+    this.uiService.setSelectedItem(undefined);
   }
 
 }

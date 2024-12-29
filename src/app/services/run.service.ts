@@ -9,11 +9,11 @@ import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
 import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
 import { STARTING_STATS } from '../editor/diy/diy.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
-import { UiService } from '../game/layers/ui-layer/ui.service';
 import { Interaction, EffectType } from '../model/Interaction';
 import { RunState } from '../model/RunState';
 import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
+import { UiService } from '../game/layers/ui-layer/ui.service';
 
 @Injectable({
   providedIn: 'root'

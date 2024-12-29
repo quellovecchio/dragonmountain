@@ -1,5 +1,5 @@
-<div class="ui-layer" [class.disabled]="!uiService.isViewportEnabled()">
-    <div [@inOutAnimation] *ngIf="inventoryOpened" class="inventory pixelated-border dont-disable"
+<div class="ui-layer" [class.disabled]="!uiService.isUiEnabled()">
+    <div [@inOutAnimation] *ngIf="uiService.inventoryOpened" class="inventory pixelated-border dont-disable"
         style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center;">
         <div style="padding: 15px; width: 100%; font-size:32px; color: white">INVENTORY
             <div
@@ -9,38 +9,38 @@
             </app-items-table>
         </div>
     </div>
-    <div [@inOutAnimation] *ngIf="actorMenuOpened" class="actor-menu pixelated-border dont-disable"
+    <div [@inOutAnimation] *ngIf="uiService.actorMenuOpened" class="actor-menu pixelated-border dont-disable"
         style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; text-align-last: justify;">
         <div style="padding: 15px; display: flex; flex-direction: column; justify-content: space-evenly;">
             <div
                 style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; ">
-                {{displayedActorMenu.name}}</div>
+                {{uiService.displayedActorMenu.name}}</div>
             <div
                 style="position: -webkit-sticky; position: sticky; top: 0;height:25px; font-size:25px; color: white; background-color: #000; ">
-                {{displayedActorMenu.class?.name}}</div>
-            <img style="width: 200px; height: 200px;" src="{{displayedActorMenu.imagePath}}">
+                {{uiService.displayedActorMenu.class?.name}}</div>
+            <img style="width: 200px; height: 200px;" src="{{uiService.displayedActorMenu.imagePath}}">
             <div style="display: flex; margin-top: 5px; margin-bottom: 5px;">
                 <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(0);">
                     <img style="margin: 1px;height: 50px; width: 50px;"
-                        *ngIf="displayedActorMenu.equipment && displayedActorMenu.equipment[0]"
-                        src="{{displayedActorMenu.equipment[0].thumbnailPath}}">
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[0]"
+                        src="{{uiService.displayedActorMenu.equipment[0].thumbnailPath}}">
                 </div>
                 <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(1);">
                     <img style="margin: 1px;height: 50px; width: 50px;"
-                        *ngIf="displayedActorMenu.equipment && displayedActorMenu.equipment[1]"
-                        src="{{displayedActorMenu.equipment[1].thumbnailPath}}">
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[1]"
+                        src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
                 </div>
                 <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(2);">
                     <img style="margin: 1px;height: 50px; width: 50px;"
-                        *ngIf="displayedActorMenu.equipment && displayedActorMenu.equipment[2]"
-                        src="{{displayedActorMenu.equipment[1].thumbnailPath}}">
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[2]"
+                        src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
                 </div>
             </div>
             <button [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
-            <div *ngFor="let stat of getStatsToDisplay(displayedActorMenu.stats)">
+            <div *ngFor="let stat of getStatsToDisplay(uiService.displayedActorMenu.stats)">
                 <div style="color: white; font-size:23px;">
                     {{stat.name}}: {{stat.value}} <a *ngIf="runService.getRun().experience >= 1"
-                        (click)="boostStat(displayedActorMenu, stat.name)">+</a>
+                        (click)="boostStat(uiService.displayedActorMenu, stat.name)">+</a>
                 </div>
             </div>
         </div>
@@ -53,6 +53,13 @@
     <div class="item-use-container" *ngIf="selectedItem" style="height: 100px;">
         <img src="{{selectedItem ? selectedItem.thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
     </div>
+    <!-- shop -->
+    <div [@inOutAnimationShop] *ngIf="uiService.shopOpened" class="shop pixelated-border"
+        style="overflow-y: auto; overflow-x: hidden;">
+        <div class="close-shop-button pixelated-border" (click)="uiService.toogleShop()">CLOSE</div>
+        <app-items-table [dataSource]="shopDataSource" [compact]="false" (clickEvent)="buy($event)">
+        </app-items-table>
+    </div>
 
     <app-info-box class="info-box"></app-info-box>
     <app-action-bar class="action-bar"></app-action-bar>
@@ -62,22 +69,21 @@
         {{version}}
     </div>
     <div class="settings" style="position:absolute; top: 88%; left:5%; color: white; font-size: 50px;">
-        <button style="background-color: transparent; border: 0px;" [hidden]="uiService.isViewportEnabled() == true"
-            [matMenuTriggerFor]="settingsMenu">
+        <button style="background-color: transparent; border: 0px;" [matMenuTriggerFor]="settingsMenu">
             <img style="width: 80px; padding: 5px" src="/assets/images/settings-icon.png" />
         </button>
     </div>
     <mat-menu #settingsMenu="matMenu" yPosition="above" xPosition="after">
         <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
             TEXT SPEED:
-            <mat-slider style="width: 190px;" min="1" max="10" step="1" [(ngModel)]="dataService.getSettings().textSpeed"
-                (click)="$event.stopPropagation()">
+            <mat-slider style="width: 190px;" min="1" max="10" step="1"
+                [(ngModel)]="dataService.getSettings().textSpeed" (click)="$event.stopPropagation()">
                 <input matSliderThumb>
             </mat-slider>
         </div>
         <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
             FIGHT SPEED:
-            <mat-slider style="transform: rotateX('180'); width: 190px;" min="10" max="100" step="10"
+            <mat-slider style="width: 190px;" min="0.01" max="50" step="0.01"
                 [(ngModel)]="dataService.getSettings().fightSpeed" (click)="$event.stopPropagation()">
                 <input matSliderThumb>
             </mat-slider>
