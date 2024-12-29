@@ -34,6 +34,10 @@ export class RunService {
 
   constructor() { }
 
+  getRun() {
+    return this.run;
+  }
+
   setRun(run: Run) {
     this.run = run;
   }

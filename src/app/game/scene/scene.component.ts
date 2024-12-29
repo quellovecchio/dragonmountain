@@ -69,7 +69,6 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SceneComponent implements OnInit {
 
-  @Input() run: Run;
   @Input() fightSpeed!: number;
   @Input() selectedItem?: Item = undefined;
   @Output() pushTextEvent = new EventEmitter<string>();
@@ -79,7 +78,6 @@ export class SceneComponent implements OnInit {
   ready: boolean = false;
 
   fightManager: FightManagerService;
-  runService: RunService;
 
   public shopOpened: boolean = false;
   public shopDisabled: boolean = false;
@@ -91,17 +89,11 @@ export class SceneComponent implements OnInit {
   joiningCharacters: PlayingCharacter[] = [];
   toDeleteIndexes: number[] = [];
 
-  constructor(fightManager: FightManagerService, runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
-    this.run = new Run(new PlayingCharacter(STARTING_STATS));
+  constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private viewportService: ViewportService) {
     this.fightManager = fightManager;
-    this.runService = runService;
   }
 
   ngOnInit(): void {
-  }
-
-  update(updatedRun: Run) {
-    this.run = updatedRun;
   }
 
   // Location actions
@@ -114,7 +106,7 @@ export class SceneComponent implements OnInit {
     }
     else
       locationValue = location;
-    this.run.currentLocation = locationValue;
+    this.runService.getRun().currentLocation = locationValue;
     this.viewportService.pushText("The party has moved to " + locationValue.name + ".");
     if (locationValue.fight && locationValue.fight.length > 0) {
       // start fight
@@ -129,31 +121,31 @@ export class SceneComponent implements OnInit {
     if(location.children) {
       this.loot((location as TreeNode).location);
       if ((location as TreeNode).location.actors && (location as TreeNode).location.actors?.length > 0) {
-        this.run.state = RunState.Location;
+        this.runService.getRun().state = RunState.Location;
       }
     } else {
       this.loot(location);
       if (location.actors && location.actors?.length > 0) {
-        this.run.state = RunState.Location;
+        this.runService.getRun().state = RunState.Location;
       }
     }
   }
 
   returnToMap(location: Location) {
-    this.run.state = RunState.Exploration;
-    this.run.currentLocation = undefined;
+    this.runService.getRun().state = RunState.Exploration;
+    this.runService.getRun().currentLocation = undefined;
     if (location) {
       this.viewportService.pushText("The party is back from " + location.name + ".");
       this.viewportService.pushText("What's our next move?");
     }
     console.log("----- updating questline counter -------");
-    console.log("older counter value: " + this.run.questlineCounter);
-    this.run.questlineCounter = this.run.questlineCounter + location.storylineCounter;
-    console.log("updated counter value: " + this.run.questlineCounter);
+    console.log("older counter value: " + this.runService.getRun().questlineCounter);
+    this.runService.getRun().questlineCounter = this.runService.getRun().questlineCounter + location.storylineCounter;
+    console.log("updated counter value: " + this.runService.getRun().questlineCounter);
     console.log("----- done updating questline counter -------");
     this.runService.removeLocationFromPool(location.id);
     var questlineCounterCrossed = false;
-    if(this.run.questlineCounter >= (1.5 + ((this.run.level - 1) * 0.2)))
+    if(this.runService.getRun().questlineCounter >= (1.5 + ((this.runService.getRun().level - 1) * 0.2)))
       questlineCounterCrossed = true;
 
     // if storyline counter crosses the limit go to next questline stage
@@ -172,15 +164,15 @@ export class SceneComponent implements OnInit {
       if (interaction.effect == EffectType.giveItem) {
         this.viewportService.pushText(interaction.text)
         interaction.effectTarget.forEach((el: Item) => {
-          this.run.inventory.items.push(el);
+          this.runService.getRun().inventory.items.push(el);
           this.viewportService.pushText(data.character.name + " gave you a " + el.name + "!")
           this.viewportService.pushText("The item was placed into the inventory");
         });
       }
       if (interaction.vanishes) {
-        let characterIndex = this.run.currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
-        delete this.run.currentLocation!.actors![characterIndex!];
-        this.run.currentLocation!.actors = this.run.currentLocation!.actors!.filter(item => item);
+        let characterIndex = this.runService.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
+        delete this.runService.getRun().currentLocation!.actors![characterIndex!];
+        this.runService.getRun().currentLocation!.actors = this.runService.getRun().currentLocation!.actors!.filter(item => item);
       }
       this.questCompletedSignal.emit();
       this.viewportService.pushText("You gained 1 EXP!");
@@ -229,29 +221,29 @@ export class SceneComponent implements OnInit {
 
   buy(item: any) {
     // TODO: check money, if not enough error message
-    if (this.run.inventory.money < item.moneyValue) {
+    if (this.runService.getRun().inventory.money < item.moneyValue) {
       this.viewportService.pushText("[Merchant]: Sorry pal, that's too much money for you!");
     } else {
-      this.run.inventory.money = this.run.inventory.money - item.moneyValue;
+      this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - item.moneyValue;
       this.viewportService.pushText("That's a great deal! It's yours.");
-      this.run.inventory.items.push(item);
+      this.runService.getRun().inventory.items.push(item);
     }
   }
 
   private startFight(fight: Character[]) {
-    this.run.state = RunState.Fight;
-    this.run.currentFight = this.createFightToDisplay(fight);
+    this.runService.getRun().state = RunState.Fight;
+    this.runService.getRun().currentFight = this.createFightToDisplay(fight);
     fight.forEach(actor => {
       if ((actor as Character).joinsParty) {
         this.joinsParty = true;
         this.joiningCharacters.push(actor as PlayingCharacter);
       }
-      this.run.currentLocation!.actors!.forEach((roomActor, i) => {
+      this.runService.getRun().currentLocation!.actors!.forEach((roomActor, i) => {
         if (roomActor.name === actor.name)
           this.toDeleteIndexes.push(i);
       });
     });
-    this.fightManager.startFight(this.run.currentFight, this.run.party);
+    this.fightManager.startFight(this.runService.getRun().currentFight!, this.runService.getRun().party);
     const intervalId = setInterval(() => {
       if (this.fightManager.isBattleOver()) {
         this.endFight();
@@ -336,7 +328,7 @@ export class SceneComponent implements OnInit {
           let enemy = this.fightManager.enemies[data.enemyIndex];
           let enemyInventory = [...enemy.loot, ...enemy.equipment];
           let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
-          this.run.inventory.items.push(stolenItem);
+          this.runService.getRun().inventory.items.push(stolenItem);
           this.viewportService.pushText("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
         } else
           this.viewportService.pushText("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
@@ -349,41 +341,41 @@ export class SceneComponent implements OnInit {
   } */
 
   private endFight() {
-    this.run.currentFight!.forEach(actor => {
+    this.runService.getRun().currentFight!.forEach(actor => {
       this.loot(actor);
     });
     this.toDeleteIndexes.forEach(index => {
-      this.run.currentLocation!.actors!.splice(index, 1);
+      this.runService.getRun().currentLocation!.actors!.splice(index, 1);
     })
     this.fightManager.endFight();
-    this.run.state = RunState.Location;
-    var gainedExperience = (1 * this.run.level);
-    this.run.experience = this.run.experience + gainedExperience;
+    this.runService.getRun().state = RunState.Location;
+    var gainedExperience = (1 * this.runService.getRun().level);
+    this.runService.getRun().experience = this.runService.getRun().experience + gainedExperience;
     this.viewportService.pushText("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
     if (this.joinsParty) {
       this.joiningCharacters.forEach(actor => {
         actor.stats.healthPoints = actor.stats.constitution;
         actor.dead = false;
-        this.run.party.push(actor);
+        this.runService.getRun().party.push(actor);
         this.viewportService.pushText(actor.name + " decided to join your party!");
-        if (this.run.currentLocation)
-          this.explore(this.run.currentLocation);
+        if (this.runService.getRun().currentLocation)
+          this.explore(this.runService.getRun().currentLocation);
       });
       this.joiningCharacters = [];
       this.joinsParty = false;
     }
-    if (this.run.currentLocation) {
-      this.run.currentLocation.fight = [];
-      this.explore(this.run.currentLocation);
+    if (this.runService.getRun().currentLocation) {
+      this.runService.getRun().currentLocation!.fight = [];
+      this.explore(this.runService.getRun().currentLocation);
     }
   }
 
   rest() {
-    if (this.run.inventory.money < 200) {
+    if (this.runService.getRun().inventory.money < 200) {
       this.viewportService.pushText("I can make you rest here for 200$, but i don't think you have that much money");
     } else {
-      this.run.inventory.money = this.run.inventory.money - 200;
-      this.run.party.forEach(el => el.stats.healthPoints = el.stats.constitution);
+      this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - 200;
+      this.runService.getRun().party.forEach(el => el.stats.healthPoints = el.stats.constitution);
       this.viewportService.pushText("You and your party wake up well rested after a full night of sleep.");
     }
   }
@@ -393,11 +385,11 @@ export class SceneComponent implements OnInit {
       // add loot to party inventory
       item.loot.forEach(el => {
         if (el.name.includes('money')) {
-          this.run.inventory.money = this.run.inventory.money + +el.name.replace(/[^0-9]/g, "");
+          this.runService.getRun().inventory.money = this.runService.getRun().inventory.money + +el.name.replace(/[^0-9]/g, "");
           this.viewportService.pushText("You found " + el.name + "!");
           this.viewportService.pushText("That was placed into the inventory");
         } else {
-          this.run.inventory.items.push(el);
+          this.runService.getRun().inventory.items.push(el);
           this.viewportService.pushText("You found a " + el.name + "!");
           this.viewportService.pushText("The item was placed into the inventory");
         }
@@ -413,16 +405,16 @@ export class SceneComponent implements OnInit {
   }
 
   engageFightWith(a: Actor) {
-    console.log(this.run.currentLocation?.actors)
+    console.log(this.runService.getRun().currentLocation?.actors)
     this.viewportService.pushText("You engaged combat with " + a.name + ".");
     this.startFight([a as Character]);
   }
 
   refreshLocations(fromQuestlineFlag: boolean) {
     if(!fromQuestlineFlag)
-      this.run.stage.currentLocations = this.runService.getRefreshedLocations();
+      this.runService.getRun().stage.currentLocations = this.runService.getRefreshedLocations();
     else 
-      this.run.stage.currentLocations = this.runService.getNextQuestlineLocations();
+      this.runService.getRun().stage.currentLocations = this.runService.getNextQuestlineLocations();
   }
 
   getRandomNumber(min: number, max: number) {

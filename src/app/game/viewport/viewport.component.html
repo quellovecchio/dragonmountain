@@ -1,7 +1,7 @@
 <div class="viewport" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }" [class.disabled]="!viewportService.isViewportEnabled()">
-    <app-info-box class="info-box" [run]="run" ></app-info-box>
-    <app-scene class="app-scene" [fightSpeed]="settings.fightSpeed" [run]="run" [selectedItem]="selectedItem" (questCompletedSignal)="addExp()" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()"></app-scene>
-    <app-action-bar class="action-bar" (interactOnPartyActorSignal)="interact($any($event))" (onItemSelect)="selectItem($event)" (moveToBossfightSignal)="moveToBossfight()" (refreshLocationsSignal)="refreshLocations()" (equipItemSignal)="equipItem($event)" [run]="run"></app-action-bar>
+    <app-info-box class="info-box"  ></app-info-box>
+    <app-scene class="app-scene" [fightSpeed]="settings.fightSpeed"  [selectedItem]="selectedItem" (questCompletedSignal)="addExp()" (pushTextEvent)="pushText($event)" (interactionEndSignal)="interactionEnd()"></app-scene>
+    <app-action-bar class="action-bar" (interactOnPartyActorSignal)="interact($any($event))" (onItemSelect)="selectItem($event)" (moveToBossfightSignal)="moveToBossfight()" (refreshLocationsSignal)="refreshLocations()" (equipItemSignal)="equipItem($event)" ></app-action-bar>
     <app-text-area class="text-area" [textSpeed]="settings.textSpeed" ></app-text-area>
 </div>
 <div class="item-use-container" *ngIf="selectedItem" style="height: 100px;">

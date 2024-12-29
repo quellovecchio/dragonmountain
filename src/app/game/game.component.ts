@@ -94,7 +94,7 @@ export class GameComponent implements OnInit {
 
   greetPlayer() {
     var that = this;
-    this.run.state = RunState.Intro;
+    this.runService.getRun().state = RunState.Intro;
     setTimeout(() => {
       that.run.state = RunState.Exploration;
     }, 7000 / Constants.TEXT_SPEED);

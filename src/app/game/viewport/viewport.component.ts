@@ -95,26 +95,26 @@ export class ViewportComponent implements OnInit {
   }
 
   refreshLocations() {
-    this.run.experience = this.run.experience - 1;
+    this.runService.getRun().experience = this.runService.getRun().experience - 1;
     this.scene.refreshLocations(false);
     this.viewportService.pushText("The party goes in exploration...");
     this.viewportService.pushText("And they found three new areas!");
   }
 
   addExp() {
-    this.run.experience++;
+    this.runService.getRun().experience++;
   }
 
   moveToBossfight() {
-    if (this.run.stage.bossfightLocked) {
+    if (this.runService.getRun().stage.bossfightLocked) {
       console.log("first time unlocking bossfight");
-      this.run.stage.bossfightLocked = false;
-      this.run.experience = this.run.experience - 4 * this.run.level;
+      this.runService.getRun().stage.bossfightLocked = false;
+      this.runService.getRun().experience = this.runService.getRun().experience - 4 * this.runService.getRun().level;
     }
-    this.run.showBossfightLocation = !this.run.showBossfightLocation;
-    console.log(this.run.showBossfightLocation);
+    this.runService.getRun().showBossfightLocation = !this.runService.getRun().showBossfightLocation;
+    console.log(this.runService.getRun().showBossfightLocation);
     this.viewportService.pushText("I'm impressed you feel ready for the bossfight, but be careful!");
-    this.viewportService.pushText("The party moved to the boss fight location, " + this.run.stage.bossLocation.name + "!");
+    this.viewportService.pushText("The party moved to the boss fight location, " + this.runService.getRun().stage.bossLocation.name + "!");
   }
 
   equipItem(equipData: { equipSlot: number, actor: Actor }) {
@@ -122,15 +122,15 @@ export class ViewportComponent implements OnInit {
       let newEquip = (this.selectedItem as Equip);
       if (newEquip.attack || newEquip.defense || newEquip.buffs.length > 0) {
         // update character in the party
-        var characterIndex = this.run.party.findIndex(el => { return el.name == equipData.actor.name });
-        if (this.run.party[characterIndex].equipment.length < 3) {
-          this.run.party[characterIndex].equipment.push(newEquip);
+        var characterIndex = this.runService.getRun().party.findIndex(el => { return el.name == equipData.actor.name });
+        if (this.runService.getRun().party[characterIndex].equipment.length < 3) {
+          this.runService.getRun().party[characterIndex].equipment.push(newEquip);
           this.textArea.pushText(newEquip.name + " is equipped by " + equipData.actor.name);
           this.selectedItem = undefined;
         } else {
-          let oldEquip = this.run.party[characterIndex].equipment[equipData.equipSlot];
-          this.run.party[characterIndex].equipment[equipData.equipSlot] = newEquip;
-          this.run.inventory.items.push(oldEquip);
+          let oldEquip = this.runService.getRun().party[characterIndex].equipment[equipData.equipSlot];
+          this.runService.getRun().party[characterIndex].equipment[equipData.equipSlot] = newEquip;
+          this.runService.getRun().inventory.items.push(oldEquip);
           this.textArea.pushText(newEquip.name + " is equipped by " + equipData.actor.name);
           this.selectedItem = undefined;
         }
@@ -153,10 +153,10 @@ export class ViewportComponent implements OnInit {
   }
 
   getBackgroundImage() {
-    if (this.run.state == RunState.Exploration)
-      return this.run.stage.backgroundPath;
-    if (this.run.state == RunState.Fight || this.run.state == RunState.Location)
-      return this.run.currentLocation?.backgroundPath;
+    if (this.runService.getRun().state == RunState.Exploration)
+      return this.runService.getRun().stage.backgroundPath;
+    if (this.runService.getRun().state == RunState.Fight || this.runService.getRun().state == RunState.Location)
+      return this.runService.getRun().currentLocation?.backgroundPath;
     return "/assets/images/splash_art.png";
   }
 

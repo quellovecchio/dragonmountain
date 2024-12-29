@@ -1,28 +1,28 @@
 <div class="view">
-    <div class="map" *ngIf="run.state == 'exploration' && !run.showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && !runService.getRun().showBossfightLocation && ready">
         <div class="locations-row">
-            <div class="location-preview" *ngFor="let location of run.stage.currentLocations">
+            <div class="location-preview" *ngFor="let location of runService.getRun().stage.currentLocations">
                 <app-location-preview [location]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
             </div>
         </div>
     </div>
-    <div class="map" *ngIf="run.state == 'exploration' && run.showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && runService.getRun().showBossfightLocation && ready">
         <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;">
-            <app-location-preview [locationData]="run.stage.bossLocation"
-                (exploreSignal)="moveTo(run.stage.bossLocation)"></app-location-preview>
+            <app-location-preview [locationData]="runService.getRun().stage.bossLocation"
+                (exploreSignal)="moveTo(runService.getRun().stage.bossLocation)"></app-location-preview>
         </div>
     </div>
-    <div class="location" *ngIf="run.state == 'location'">
-        <app-location [locationData]="run.currentLocation" [selectedItem]="selectedItem"
+    <div class="location" *ngIf="runService.getRun().state == 'location'">
+        <app-location [locationData]="runService.getRun().currentLocation" [selectedItem]="selectedItem"
             (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
             (openShopSignal)="toggleShop($event)" (fightSignal)="engageFightWith($event)"
             (restSignal)="rest()"></app-location>
     </div>
-    <div class="fight" *ngIf="run.state == 'fight'">
-        <app-fight [fightSpeed]="fightSpeed" [fightData]="run.currentFight" [partyData]="run.party"
+    <div class="fight" *ngIf="runService.getRun().state == 'fight'">
+        <app-fight [fightSpeed]="fightSpeed" [fightData]="runService.getRun().currentFight" [partyData]="runService.getRun().party"
             (attackSignal)="attack($event)" (useSkillSignal)="useSkillOn($event)" (fleeSignal)="flee()"></app-fight>
     </div>
-    <div class="intro" *ngIf="run.state == 'intro'">
+    <div class="intro" *ngIf="runService.getRun().state == 'intro'">
         <!--<video controls loop>
             <source src="../assets/animation.mp4" type="video/mp4">
         </video>-->

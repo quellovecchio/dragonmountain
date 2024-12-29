@@ -45,7 +45,6 @@ import { run } from 'node:test';
 })
 export class ActionBarComponent implements OnInit {
 
-  @Input() run: Run = new Run(new PlayingCharacter(STARTING_STATS));
   @Output() onItemSelect = new EventEmitter<any>();
   @Output() refreshLocationsSignal = new EventEmitter<any>();
   @Output() moveToBossfightSignal = new EventEmitter<any>();
@@ -56,24 +55,20 @@ export class ActionBarComponent implements OnInit {
   public actorMenuOpened: boolean = false;
   public displayedActorMenu: PlayingCharacter = new PlayingCharacter(STARTING_STATS);
   public selectedItem?: Item = undefined;
-  inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource(this.run.inventory.items);
+  inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource(this.runService.getRun().inventory.items);
 
-  constructor(public itemService: ItemService, private viewportService: ViewportService, private runService: RunService) { }
+  constructor(public itemService: ItemService, private viewportService: ViewportService, public runService: RunService) { }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.toggleInventory();
     }, 1500);
     setTimeout(() => {
-      this.toggleActorInfo(this.run.party[0]);
+      this.toggleActorInfo(this.runService.getRun().party[0]);
     }, 2000);
     setInterval(() => {
-      this.inventoryDataSource.data = this.run.inventory.items;
+      this.inventoryDataSource.data = this.runService.getRun().inventory.items;
     }, 100);
-  }
-
-  update(updatedRun: Run) {
-    this.run = updatedRun;
   }
 
   toggleInventory() {
@@ -81,12 +76,12 @@ export class ActionBarComponent implements OnInit {
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
     //this.viewportService.setViewportEnabling(!(this.actorMenuOpened || this.inventoryOpened));
-    this.inventoryDataSource.data = this.run.inventory.items;
+    this.inventoryDataSource.data = this.runService.getRun().inventory.items;
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
   toggleActorInfo(actor: PlayingCharacter) {
-    if(this.run.state != RunState.Fight) {
+    if(this.runService.getRun().state != RunState.Fight) {
       if(!this.selectedItem) {
         this.displayedActorMenu = actor;
         if(this.actorMenuOpened) {
@@ -137,11 +132,11 @@ export class ActionBarComponent implements OnInit {
   }
 
   isExploreEnabled() {
-    return (this.run.state == RunState.Exploration && this.run.experience > 0);
+    return (this.runService.getRun().state == RunState.Exploration && this.runService.getRun().experience > 0);
   }
 
   isMoveToBossfightEnabled() {
-    return (this.run.state == RunState.Exploration && (this.run.experience >= (4 * this.run.level) || !this.run.stage.bossfightLocked));
+    return (this.runService.getRun().state == RunState.Exploration && (this.runService.getRun().experience >= (4 * this.runService.getRun().level) || !this.runService.getRun().stage.bossfightLocked));
   }
 
   getStatsToDisplay(stats: Stats) {
@@ -156,7 +151,7 @@ export class ActionBarComponent implements OnInit {
   }
 
   boostStat(actor: PlayingCharacter, statName: string) {
-    this.run.experience = this.run.experience - 1;
+    this.runService.getRun().experience = this.runService.getRun().experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
     var newSkillData = actor.class?.skillTree.find((el: { skillId: number; unlockLevel: number; unlockStat: string; }) => {return (el.unlockLevel == (actor.stats as any)[statName] && el.unlockStat == statName)});
     if(newSkillData) {

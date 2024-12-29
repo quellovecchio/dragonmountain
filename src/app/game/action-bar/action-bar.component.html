@@ -3,7 +3,7 @@
     <div style="padding: 15px; width: 100%; font-size:32px; color: white">INVENTORY
         <div
             style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: green; background-color: #000; ">
-            {{run.inventory.money}} $</div>
+            {{runService.getRun().inventory.money}} $</div>
         <app-items-table [dataSource]="inventoryDataSource" [compact]="true" (clickEvent)="selectItem($event)">
         </app-items-table>
     </div>
@@ -38,7 +38,7 @@
         <button [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
         <div *ngFor="let stat of getStatsToDisplay(displayedActorMenu.stats)">
             <div style="color: white; font-size:23px;">
-                {{stat.name}}: {{stat.value}} <a *ngIf="run.experience >= 1"
+                {{stat.name}}: {{stat.value}} <a *ngIf="runService.getRun().experience >= 1"
                     (click)="boostStat(displayedActorMenu, stat.name)">+</a>
             </div>
         </div>
@@ -50,8 +50,8 @@
     </mat-menu>
 </div>
 <div class="action-bar pixelated-border" style="background-color: black;">
-    <div *ngIf="run.party && run.party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
-        <div *ngFor="let actor of run.party; let i = index">
+    <div *ngIf="runService.getRun().party && runService.getRun().party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
+        <div *ngFor="let actor of runService.getRun().party; let i = index">
             <div *ngIf="actor" [ngClass]="actor.active && viewportService.isViewportEnabled() ? 'glow' : ''"
                 class="party-member pixelated-border space dont-disable" (click)="toggleActorInfo(actor)"
                 style="background-position-x: center; background-position-y: top; background-size: 200%;"
