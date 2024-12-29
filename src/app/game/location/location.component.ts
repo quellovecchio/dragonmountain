@@ -77,11 +77,6 @@ export class LocationComponent implements OnInit {
 
     var talkInteraction = a.interactions.filter((interaction: Interaction) => interaction.reactTo == 'talk');
     if(talkInteraction.length > 0) {
-      if(talkInteraction[0].final) {
-        // if final removes other interactions from the list
-        a.interactions = [];
-        return;
-      }
       var newRequirements = a.interactions.filter((interaction: Interaction) => interaction.reactTo != 'talk');
       a.interactions = newRequirements;
     }
@@ -128,10 +123,14 @@ export class LocationComponent implements OnInit {
   }
 
   locked() {
-    var clearanceArray = this.locationData!.actors.map((el: Actor) => el.interactions);
-    var cleared = clearanceArray.every(innerArr => Array.isArray(innerArr) && innerArr.length === 0);
-    //console.log(clearanceArray + ' ' + cleared);
-    return cleared;
+    var clearanceArray: Interaction[] = [];
+    this.locationData!.actors.forEach((c: Actor) => {
+      c.interactions.forEach((i: Interaction) => {
+        if(i.locksDoor)
+          clearanceArray.push(i);
+      })
+    });
+    return clearanceArray.length > 0;
   }
 
 }

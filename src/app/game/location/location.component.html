@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <mat-card *ngIf="locked()" class="mat-elevation-z1 back-button space pixelated-border" (click)="goBackToScene()"
+    <mat-card *ngIf="!locked()" class="mat-elevation-z1 back-button space pixelated-border" (click)="goBackToScene()"
         style="height: 60px; width: 30%;" ngTilt [disableAxis]="'y'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.01"
         [speed]="300">
         <div ngTiltParallax [distance]="10" style="padding-top: 20px; text-align: center;">Back to Stage</div>

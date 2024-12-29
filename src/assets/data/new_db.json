@@ -503,8 +503,7 @@
                     "effectTarget": [
                         4
                     ],
-                    "vanishes": "false",
-                    "final": "true"
+                    "vanishes": "false"
                 },
                 {
                     "reactTo": "heal",
@@ -517,8 +516,7 @@
                     "effectTarget": [
                         4
                     ],
-                    "vanishes": "false",
-                    "final": "true"
+                    "vanishes": "false"
                 }
             ]
         },
@@ -766,6 +764,7 @@
             "interactions": [
                 {
                     "reactTo": "talk",
+                    "locksDoor": "true",
                     "text": [
                         "Be ready to hear from us, you'll receive some quests soon.",
                         "You can shop here, by the way!",
@@ -775,8 +774,7 @@
                     "effectTarget": [
                         14
                     ],
-                    "vanishes": "false",
-                    "final": "true"
+                    "vanishes": "false"
                 }
             ]
         },

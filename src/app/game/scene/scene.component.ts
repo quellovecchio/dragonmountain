@@ -190,14 +190,12 @@ export class SceneComponent implements OnInit {
       console.log("reacted with standard interaction");
       switch (data.action.effect.type) {
         case EffectType.heal:
+          // TODO proc heal interaction
           this.viewportService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
           if(data.character.interactions.filter((req) => {return req.reactTo == "heal"}).length > 0) {
-            if (data.action.final)
-              data.character.interactions = [];
-            else 
-              data.character.interactions = data.character.interactions.filter((req) => {return req.reactTo == "heal"});
+            data.character.interactions = data.character.interactions.filter((req) => {return req.reactTo == "heal"});
           }  
           break;
         default:
@@ -412,7 +410,6 @@ export class SceneComponent implements OnInit {
   
   talkToActor(a: Actor) {
     this.viewportService.talkToNpcPushText(a.name, a.dialogue);
-    this.loot(a);
   }
 
   engageFightWith(a: Actor) {
