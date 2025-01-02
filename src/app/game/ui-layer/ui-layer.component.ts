@@ -1,4 +1,4 @@
-import packageJson from '../../../../../package.json';
+import packageJson from '../../../../package.json';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';

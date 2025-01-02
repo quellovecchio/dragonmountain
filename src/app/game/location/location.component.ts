@@ -9,7 +9,7 @@ import { Requirement } from 'src/app/model/Requirement';
 import { Stats } from 'src/app/model/Stats';
 import { RunService } from 'src/app/services/run.service';
 import { Interaction } from 'src/app/model/Interaction';
-import { UiService } from '../layers/ui-layer/ui.service';
+import { UiService } from '../ui-layer/ui.service';
 
 @Component({
   selector: 'app-location',

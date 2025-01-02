@@ -13,7 +13,7 @@ import { Interaction, EffectType } from '../model/Interaction';
 import { RunState } from '../model/RunState';
 import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
-import { UiService } from '../game/layers/ui-layer/ui.service';
+import { UiService } from '../game/ui-layer/ui.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

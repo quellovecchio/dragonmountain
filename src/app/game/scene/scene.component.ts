@@ -8,7 +8,7 @@ import { Item } from '../../model/items/Item';
 import { RunService } from '../../services/run.service';
 import { ItemService } from '../../services/item.service';
 import { Constants } from 'src/assets/constants';
-import { UiService } from '../layers/ui-layer/ui.service';
+import { UiService } from '../ui-layer/ui.service';
 
 @Component({
   selector: 'app-scene',

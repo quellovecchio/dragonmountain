@@ -13,7 +13,7 @@ import { LocationDto } from '../model/LocationDto';
 import { STARTING_STATS } from '../editor/diy/diy.component'
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { DataService } from '../data.service';
-import { UiService } from './layers/ui-layer/ui.service';
+import { UiService } from './ui-layer/ui.service';
 
 @Component({
   selector: 'app-game',
