@@ -39,15 +39,6 @@
     margin-left: 10px;
 }
 
-.item-use-container {
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
 .shop {
     z-index: 100;
     width: 30%;
@@ -85,12 +76,6 @@
 
 .close-shop-button:hover {
     transform: scale(1.03);
-}
-
-.follow-cursor-img {
-    z-index: 9999;
-    position: absolute;
-    transition: transform 0.1s linear;
 }
 
 .info-box {

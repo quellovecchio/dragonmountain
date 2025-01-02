@@ -23,6 +23,8 @@ export class UiService {
   public shopItems$ = this.shopItemsSubject.asObservable();
 
   private selectedItem?: Item = undefined;
+  private selectedItemSubject = new BehaviorSubject<Item[]>([]);
+  public selectedItem$ = this.selectedItemSubject.asObservable();
 
   enableUi: boolean = false;
 

@@ -44,7 +44,7 @@ export class LocationComponent implements OnInit {
 
   selectedActor?: Actor = undefined;
 
-  constructor(private eRef: ElementRef, private uiService: UiService) { }
+  constructor(private eRef: ElementRef, public uiService: UiService, public runService: RunService) { }
 
   ngOnInit(): void {
   }

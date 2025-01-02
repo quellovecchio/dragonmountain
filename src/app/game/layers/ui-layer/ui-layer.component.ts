@@ -66,40 +66,15 @@ export class UiLayerComponent implements OnInit {
 
   public version: string = packageJson.version;
 
-  selectedItem?: Item = undefined;
-
   private inventorySubscription!: Subscription;
   private shopSubscription!: Subscription;
 
   inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource();
   shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
 
-  // image following cursor when an item is selected
-  @ViewChild('followCursorImg', { static: false }) followCursorImg!: ElementRef;
-
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(event: MouseEvent): void {
-    if (this.selectedItem) {
-      if (this.followCursorImg) {
-        const imgElement = this.followCursorImg.nativeElement;
-
-        const containerRect = imgElement.parentElement.getBoundingClientRect();
-
-        const mouseX = event.clientX - containerRect.left;
-        const mouseY = event.clientY - containerRect.top;
-
-        const offsetX = mouseX + 50; // TODO remove addition?
-        const offsetY = mouseY + 50; // TODO remove addition?
-
-        imgElement.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      }
-    }
-  }
-
   constructor(public runService: RunService, public uiService: UiService, private itemService: ItemService, public dataService: DataService) { }
 
   ngOnInit(): void {
-    this.selectedItem = this.uiService.getSelectedItem();
     this.inventorySubscription = this.uiService.inventory$.subscribe(items => {
       this.inventoryDataSource.data = items;
     });
@@ -124,14 +99,14 @@ export class UiLayerComponent implements OnInit {
   }
 
   interact(interactionData: any) {
-    this.selectedItem = undefined;
+    this.uiService.setSelectedItem(undefined);
     if (this.itemService.isItem(interactionData.action))
       this.runService.removeItemFromInventory(interactionData.action);
     this.runService.interact({ character: interactionData.actor, action: interactionData.action })
   }
 
   selectItem(item: Item) {
-    this.selectedItem = item;
+    this.uiService.setSelectedItem(item);
   }
 
   getStatsToDisplay(stats: Stats) {
@@ -163,37 +138,38 @@ export class UiLayerComponent implements OnInit {
   }
 
   equipItem(slot: number) {
-    this.runService.removeItemFromInventory(this.selectedItem!);
-    if (this.selectedItem) {
-      let newEquip = (this.selectedItem as Equip);
+    this.runService.removeItemFromInventory(this.uiService.getSelectedItem()!);
+    if (this.uiService.getSelectedItem()) {
+      let newEquip = (this.uiService.getSelectedItem() as Equip);
       if (newEquip.attack || newEquip.defense || newEquip.buffs.length > 0) {
         // update character in the party
         var characterIndex = this.runService.getRun().party.findIndex(el => { return el.name == this.uiService.displayedActorMenu.name });
         if (!this.runService.getRun().party[characterIndex].equipment[slot]) {
           this.runService.getRun().party[characterIndex].equipment[slot] = newEquip;
           this.uiService.pushText(newEquip.name + " is equipped by " + this.uiService.displayedActorMenu.name);
-          this.selectedItem = undefined;
+          this.uiService.setSelectedItem(undefined);
         } else {
           let oldEquip = this.runService.getRun().party[characterIndex].equipment[slot];
           this.runService.getRun().party[characterIndex].equipment[slot] = newEquip;
           this.runService.getRun().inventory.items.push(oldEquip);
           this.uiService.pushText(newEquip.name + " is equipped by " + this.uiService.displayedActorMenu.name);
-          this.selectedItem = undefined;
+          this.uiService.setSelectedItem(undefined);
         }
       } else {
         this.uiService.pushText("The selected item is not an equipment");
-        this.selectedItem = undefined;
+        this.uiService.setSelectedItem(undefined);
       }
 
     } else {
       this.uiService.pushText("You have to select an item from inventory to equip it.");
-      this.selectedItem = undefined;
+      this.uiService.setSelectedItem(undefined);
     }
-    this.selectedItem = undefined;
+    this.uiService.setSelectedItem(undefined);
+
   }
 
   equipable() {
-    return (this.selectedItem && this.itemService.isEquip(this.selectedItem))
+    return (this.uiService.getSelectedItem() && this.itemService.isEquip(this.uiService.getSelectedItem()!))
   }
 
   getCurrentPlayerSkills(): { "skills": Skill[] } {

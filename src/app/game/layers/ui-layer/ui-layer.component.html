@@ -50,9 +50,6 @@
             </ng-template>
         </mat-menu>
     </div>
-    <div class="item-use-container" *ngIf="selectedItem" style="height: 100px;">
-        <img src="{{selectedItem ? selectedItem.thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
-    </div>
     <!-- shop -->
     <div [@inOutAnimationShop] *ngIf="uiService.shopOpened" class="shop pixelated-border"
         style="overflow-y: auto; overflow-x: hidden;">

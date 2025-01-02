@@ -113,6 +113,7 @@ export class RunService {
     if (index > -1) {
       this.run.inventory.items.splice(index, 1);
     }
+    this.uiService.updateInventory(this.run.inventory.items);
   }
 
   setnextQuestlinePhase(location: TreeNode) {
@@ -128,25 +129,27 @@ export class RunService {
 
   interact(data: { character: Character; action: any }) {
     // If the character reacts to the interaction, activate the specified effect
-    if (data.character.interactions ? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name).length > 0 : false) {
-      let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.name)[0];
+    if (data.character.interactions ? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.id).length > 0 : false) {
+      let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.id)[0];
       if (interaction.effect == EffectType.fight) {
         this.uiService.pushText(interaction.text);
         this.startFight(interaction.effectTarget);
       }
       if (interaction.effect == EffectType.giveItem) {
         this.uiService.pushText(interaction.text)
-        interaction.effectTarget.forEach((el: Item) => {
-          this.getRun().inventory.items.push(el);
-          this.uiService.pushText(data.character.name + " gave you a " + el.name + "!")
+        interaction.effectTarget.forEach((el: number) => {
+          let newItem = this.dataService.getItemById(el);
+          this.getRun().inventory.items.push(newItem);
+          this.uiService.pushText(data.character.name + " gave you a " + newItem.name + "!")
           this.uiService.pushText("The item was placed into the inventory");
+          this.uiService.updateInventory(this.getRun().inventory.items);
         });
       }
-      if (interaction.vanishes) {
+      /*if (interaction.vanishes) {
         let characterIndex = this.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
         delete this.getRun().currentLocation!.actors![characterIndex!];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
-      }
+      }*/
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
@@ -170,8 +173,14 @@ export class RunService {
     else {
       this.uiService.pushText("Using " + data.action.name + " on " + data.character.name + " had no effect...");
     }
-    this.getRun().inventory.items = this.getRun().inventory.items.filter((item) => item.id == this.uiService.getSelectedItem()!.id);
-    this.uiService.setSelectedItem(undefined);
+  }
+
+  removeOneItemFromInventoryById(items: Item[], idToRemove: number): Item[] {
+    const index = items.findIndex(item => item.id === idToRemove);
+    if (index !== -1) {
+      items.splice(index, 1);
+    }
+    return items;
   }
 
   public startFight(fight: Character[]) {

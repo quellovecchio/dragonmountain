@@ -5,4 +5,7 @@
       <app-scene class="app-scene"></app-scene>
     </div>
   </div>
+  <div class="item-use-container" *ngIf="uiService.getSelectedItem() != undefined" style="height: 100px;">
+    <img src="{{uiService.getSelectedItem() ? uiService.getSelectedItem().thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
+  </div>
 </div>

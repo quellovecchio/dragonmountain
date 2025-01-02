@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Constants } from 'src/assets/constants';
 import { Class } from '../model/Actors/Class';
 import { Run } from '../model/Run';
@@ -24,10 +24,35 @@ export class GameComponent implements OnInit {
 
   public innerWidth: any;
 
+  selectedItem?: Item = undefined;
+
   loadedSavedData: boolean = false;
   run: Run = new Run(new PlayingCharacter(STARTING_STATS));
 
-  constructor(private http: HttpClient, private runService: RunService, private dataService: DataService, private uiService: UiService) {
+  // image following cursor when an item is selected
+  @ViewChild('followCursorImg', { static: false }) followCursorImg!: ElementRef;
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent): void {
+    if (this.uiService.getSelectedItem()) {
+      this.selectedItem = this.uiService.getSelectedItem();
+      if (this.followCursorImg) {
+        const imgElement = this.followCursorImg.nativeElement;
+
+        const containerRect = imgElement.parentElement.getBoundingClientRect();
+
+        const mouseX = event.clientX - containerRect.left - 100;
+        const mouseY = event.clientY - containerRect.top - 100;
+
+        const offsetX = mouseX;
+        const offsetY = mouseY;
+
+        imgElement.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      }
+    }
+  }
+
+  constructor(private http: HttpClient, private runService: RunService, private dataService: DataService, public uiService: UiService) {
     this.generateRun().then((newRun) => {
       console.log(newRun);
       this.run = newRun;
@@ -40,6 +65,7 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedItem = this.uiService.getSelectedItem();
     //alert(Constants.TECH_DEMO_INTRO);
     //alert(Constants.TECH_DEMO_HINT);
   }
@@ -47,7 +73,7 @@ export class GameComponent implements OnInit {
   generateRun(): Promise<Run> {
     console.log("generateRun() - start");
     return new Promise((resolve, reject) => {
-      this.http.get<{actors: ActorDto[], items: Item[], classes: Class[], skills: Skill[], locations: LocationDto[], lastStage: StageDto, stages: StageDto[]}>('./assets/data/new_db.json').subscribe({
+      this.http.get<{ actors: ActorDto[], items: Item[], classes: Class[], skills: Skill[], locations: LocationDto[], lastStage: StageDto, stages: StageDto[] }>('./assets/data/new_db.json').subscribe({
         next: (data) => {
           let newRun = new Run(new PlayingCharacter(STARTING_STATS));
           this.dataService.setItems(data.items);
@@ -61,7 +87,7 @@ export class GameComponent implements OnInit {
           newRun.party[0].class = this.dataService.classes[0];
           this.runService.setRun(newRun);
           newRun.stage.questlines.forEach((questline) => {
-            if(questline)
+            if (questline)
               newRun.stage.currentLocations.push(questline.root);
           });
           console.log("generateRun() - extracted locations:");

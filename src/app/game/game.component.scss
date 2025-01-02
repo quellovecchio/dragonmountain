@@ -22,3 +22,18 @@
   background-position-y: center;
   background-size: contain;
 }
+
+.item-use-container {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.follow-cursor-img {
+  z-index: 9999;
+  position: absolute;
+  transition: transform 0.1s linear;
+}
