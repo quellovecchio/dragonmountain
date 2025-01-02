@@ -145,11 +145,12 @@ export class RunService {
           this.uiService.updateInventory(this.getRun().inventory.items);
         });
       }
-      /*if (interaction.vanishes) {
+      if (interaction.effect == EffectType.vanishes) {
+        this.uiService.pushText(interaction.text);
         let characterIndex = this.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
         delete this.getRun().currentLocation!.actors![characterIndex!];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
-      }*/
+      }
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {

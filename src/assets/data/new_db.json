@@ -246,6 +246,13 @@
             "description": "Heals 30 hp",
             "moneyValue": 350,
             "thumbnailPath": "assets/images/items/item2.png"
+        },
+        {
+            "id": 19,
+            "name": "Prison key",
+            "description": "Opens the prison door",
+            "moneyValue": 0,
+            "thumbnailPath": "assets/images/items/item4.png"
         }
     ],
     "actors": [
@@ -887,6 +894,51 @@
             "loot": [],
             "dialogue": "I should have bet on you!",
             "skills": []
+        },
+        {
+            "id": 32,
+            "name": "Sharp dressed prisoner",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": [
+                "Hey you, i am a thieves guild member like you!",
+                "Help me get out of here, i need a wax key or something like that..."
+            ],
+            "interactions": [
+                {
+                    "reactTo": 14,
+                    "text": "Thanks man, i owe you one!",
+                    "effect": 13,
+                    "locksDoor": "true"
+                },
+                {
+                    "reactTo": 19,
+                    "text": "Thanks man, i owe you one!",
+                    "effect": 13,
+                    "locksDoor": "true"
+                }
+            ],
+            "skills": []
+        },
+        {
+            "id": 33,
+            "name": "Imperial guard",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [
+                19
+            ],
+            "dialogue": "What are you looking at, scum?",
+            "stats": {
+                "charisma": 1,
+                "strength": 4,
+                "constitution": 12,
+                "dexterity": 3,
+                "intelligence": 2,
+                "healthPoints": 12
+            },
+            "skills": []
         }
     ],
     "locations": [
@@ -1052,6 +1104,16 @@
                 30,
                 31
             ]
+        },
+        {
+            "id": 15,
+            "name": "Imperial Prison",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                32,
+                33
+            ]
         }
     ],
     "lastStage": {},
@@ -1065,7 +1127,7 @@
                     "root": {
                         "location": 12,
                         "children": [
-                            2
+                            15, 9
                         ]
                     }
                 },
@@ -1079,9 +1141,7 @@
                 }
             ],
             "locations": [
-                4,
-                4,
-                4
+                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14
             ]
         }
     ]
