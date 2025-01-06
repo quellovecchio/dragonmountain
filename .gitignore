@@ -108,3 +108,6 @@ dist
 
 # Firebase cache
 .firebase
+
+# Android 
+android/
