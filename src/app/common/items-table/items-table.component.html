@@ -10,7 +10,8 @@
         </ng-container>
 
         <ng-container matColumnDef="details">
-            <mat-cell *matCellDef="let element" class="table-item" (click)="clickAction(element)" [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
+            <mat-cell *matCellDef="let element" class="table-item" (click)="clickAction(element)"
+                [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
                 <div class="table-item-name">
                     {{element.name}}
                 </div>
@@ -31,8 +32,8 @@
             </mat-cell>
         </ng-container>
 
-        <mat-row *matRowDef="let row; columns: displayedColumns;" class="pixelated-border card card__shine"
-            ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02"
-            [speed]="300"></mat-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="card card__shine pixelated-border" ngTilt [disableAxis]="'x'"
+            [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
+        </mat-row>
     </mat-table>
 </div>

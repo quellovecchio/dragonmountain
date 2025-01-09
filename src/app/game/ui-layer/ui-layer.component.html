@@ -5,13 +5,13 @@
             <div
                 style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: green; background-color: #000; ">
                 {{runService.getRun().inventory.money}} $</div>
-            <app-items-table [dataSource]="inventoryDataSource" [compact]="true" (clickEvent)="selectItem($event)">
+            <app-items-table [dataSource]="inventoryDataSource" [inventory]="true" [compact]="true" (clickEvent)="selectItem($event)">
             </app-items-table>
         </div>
     </div>
     <div [@inOutAnimation] *ngIf="uiService.actorMenuOpened" class="actor-menu pixelated-border dont-disable"
         style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; text-align-last: justify;">
-        <div style="padding: 15px; display: flex; flex-direction: column; justify-content: space-evenly;">
+        <div class="actor-menu-content" style="padding: 15px; display: flex; flex-direction: column; justify-content: space-evenly;">
             <div
                 style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; ">
                 {{uiService.displayedActorMenu.name}}</div>
