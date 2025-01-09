@@ -286,28 +286,46 @@ Milestones:
 
 ----------------------------------	THIS ONE COULD TAKE FOREVER BUT COME ONNNN	--------
 
-0.4/0.5
+0.4
+
+		-	codebase refactoring
+			-	split code into layers: data layer, ui layer, presentation layer
+			-	the goal of the refactoring will be to let every component manipulate run data through service eliminating signals
 
 		-	gameplay update
-			-	fix every people killable
+			V	fix every people killable		
 			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
 				-	change refresh dynamics: you can't leave some rooms if not resolved
-					-	implement refresh counter and quests logic
-					-	make sure every iteration cann fill the quest counter
+					V	implement refresh counter and quests logic
 				-	insert places to rest in questlines to balance the game, remove them from the pool
 				-	little choises: example touch or dont touch the relic and what happen if you do or dont
 				-	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
-			- 	fix mobile game (leo says it's faster)
 
-			
+		V	ui update
+		
+		V	various fixes
+
+0.5
+
 		-	spells update
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
 			-	revive state, revive spell, revive option from actors
 
+		-	fight update
+			-	implement ranged attacks and missiles logic
+			-	implement collisions between players
+			V	fight bugfixes
+			-	refinement to animations
+			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
+
+
+----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
+
+0.6
 
 		-	content update
 			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
@@ -316,16 +334,6 @@ Milestones:
 			-	implementation of content
 			-	make actors in party swappable
 
-----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
-
-0.6
-
-		-	fight update
-			-	implement ranged attacks and missiles logic
-			-	implement collisions between players
-			-	fight bugfixes
-			-	refinement to animations
-			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
 		-	gameplay update 2
 			-	make sure storyline counter scales with stage number

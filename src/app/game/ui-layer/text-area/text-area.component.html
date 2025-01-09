@@ -1,0 +1,5 @@
+<div [@enterAnimation] *ngIf="visible==true" [ngClass]="visible==false ? text-area-disabled : ''" class="spacing container">
+    <ngx-typed-js [strings]="currentText" [showCursor]="false" (preStringTyped)="cleanBuffer()" (completed)="cleanBuffer(); enableViewport(); complete = true;" [shuffle]="false" [fadeOut]="true" [backDelay]="2000 / dataService.getSettings().textSpeed" [fadeOutDelay]="600 / dataService.getSettings().textSpeed" [startDelay]="1000 / dataService.getSettings().textSpeed" [typeSpeed]="40 / dataService.getSettings().textSpeed">
+        <span class="typing typewriter"></span>
+    </ngx-typed-js>
+</div>

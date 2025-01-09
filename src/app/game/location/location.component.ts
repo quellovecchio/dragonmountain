@@ -5,8 +5,11 @@ import { Actor } from '../../model/Actors/Actor';
 import { Item } from '../../model/items/Item';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { take } from 'rxjs';
-import { Requirement } from 'src/app/model/Reqirement';
+import { Requirement } from 'src/app/model/Requirement';
 import { Stats } from 'src/app/model/Stats';
+import { RunService } from 'src/app/services/run.service';
+import { Interaction } from 'src/app/model/Interaction';
+import { UiService } from '../ui-layer/ui.service';
 
 @Component({
   selector: 'app-location',
@@ -41,7 +44,7 @@ export class LocationComponent implements OnInit {
 
   selectedActor?: Actor = undefined;
 
-  constructor(private eRef: ElementRef) { }
+  constructor(private eRef: ElementRef, public uiService: UiService, public runService: RunService) { }
 
   ngOnInit(): void {
   }
@@ -58,6 +61,10 @@ export class LocationComponent implements OnInit {
     this.menuTrigger?.openMenu();
   }
 
+  clearSelectedActor() {
+    this.selectedActor = undefined;
+  }
+
   interact(character: Character) {
     this.interactSignal.emit({ character: character, action: this.selectedItem });
   }
@@ -68,12 +75,11 @@ export class LocationComponent implements OnInit {
 
   talk(a: Actor) {
     this.talkSignal.emit(a);
-    // BUG: clearanceRequirements and clearanceDialog always empty
 
-    var talkRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type == 'talk');
-    if(talkRequirements.length > 0) {
-      var newRequirements = a.clearanceRequirements.filter((requirement: Requirement) => requirement.type != 'talk');
-      a.clearanceRequirements = newRequirements;
+    var talkInteraction = a.interactions.filter((interaction: Interaction) => interaction.reactTo == 'talk');
+    if(talkInteraction.length > 0) {
+      var newRequirements = a.interactions.filter((interaction: Interaction) => interaction.reactTo != 'talk');
+      a.interactions = newRequirements;
     }
   }
 
@@ -89,14 +95,8 @@ export class LocationComponent implements OnInit {
     return a.dialogue ? true : false;
   }
 
-  useItemOn(actor: Actor) {
-    console.log("used " + this.selectedItem?.name + " on " + actor.name);
-    this.interact(actor as Character);
-    this.selectedItem = undefined;
-  }
-
   toggleShop(actor: Actor) {
-    this.openShopSignal.emit(actor.shop!);
+    this.uiService.toggleShop(actor.shop);
   }
 
   hasShop(actor: Actor) {
@@ -117,10 +117,14 @@ export class LocationComponent implements OnInit {
   }
 
   locked() {
-    var clearanceArray = this.locationData!.actors.map((el: Actor) => el.clearanceRequirements);
-    var cleared = clearanceArray.every(innerArr => Array.isArray(innerArr) && innerArr.length === 0);
-    //console.log(clearanceArray + ' ' + cleared);
-    return cleared;
+    var clearanceArray: Interaction[] = [];
+    this.locationData!.actors.forEach((c: Actor) => {
+      c.interactions.forEach((i: Interaction) => {
+        if(i.locksDoor)
+          clearanceArray.push(i);
+      })
+    });
+    return clearanceArray.length > 0;
   }
 
 }

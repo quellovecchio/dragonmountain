@@ -21,7 +21,7 @@ export class Run {
     // questline data
     showNextQuestlinePhase: boolean = true;
     currentQuestline?: QuestlineTree;
-    currentQuestlinePhase?: TreeNode;
+    nextQuestlinePhase?: TreeNode;
     questlineCounter: number = 0;
 
 

@@ -1,0 +1,62 @@
+.spacing {
+  font-size: 60px;
+  background-image: url('../../../../assets/images/mist.png'); 
+  background-size: cover;
+  background-color: #000000;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 100px 100px rgb(0 0 0);
+  animation-name: mist;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  //letter-spacing: 2.4px !important;
+}
+
+@keyframes mist {
+  from {
+      background-position-x: 0;
+  }
+
+  to {
+      background-position-x: 500px;
+  }
+}
+
+/*textarea {
+    resize: none;
+    overflow: hidden;
+    width: 540px;
+    height: 200px;
+    position: absolute;
+    outline: none;
+    top: 89.2%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    font-size: 50px;
+    padding-left: 5%;
+    padding-right: 5%;
+    caret-color: transparent;
+}*/
+
+.typewriter {
+  overflow: hidden;
+  color: white;
+  text-shadow: 2px 2px 2px #000000;
+  font-size: 35px;
+  padding: 3rem;
+  display: block;
+  opacity: 1 !important;
+}
+
+/* The typewriter cursor effect */
+// TODO use this during damage
+/*@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: white; }
+  }*/

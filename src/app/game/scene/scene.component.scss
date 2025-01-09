@@ -1,6 +1,5 @@
 .space {
-    height: 80%;
-    transition: transform .2s;
+    height: 100%;
 }
 
 .space:hover {
@@ -24,18 +23,29 @@ img {
 .locations-row {
     display: flex !important;
     height: 100% !important;
-    justify-content: space-evenly !important;
+    justify-content: space-around !important;
+    align-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .location-preview {
     width: 30rem;
-    height: 25rem;
+    height: 20rem;
+}
+
+@media (max-width : 1000px) {
+    .location-preview {
+        width: 39vw;
+    }
 }
 
 .location {
     position: relative;
     top: 8%;
+    margin: -2rem;
+    height: 94%;
 }
 
 .fight {
@@ -44,13 +54,4 @@ img {
 
 .map {
     height: 100%;
-}
-
-.shop {
-    width: 500px;
-    height: 100%;
-    background-color: black;
-    position: relative;
-    top: -500px;
-    transition: width 2s, height 4s;
 }

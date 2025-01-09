@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContextMenuComponent } from './context-menu.component';
+import { UiLayerComponent } from './ui-layer.component';
 
-describe('ContextMenuComponent', () => {
-  let component: ContextMenuComponent;
-  let fixture: ComponentFixture<ContextMenuComponent>;
+describe('UiLayerComponent', () => {
+  let component: UiLayerComponent;
+  let fixture: ComponentFixture<UiLayerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContextMenuComponent ]
+      declarations: [ UiLayerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ContextMenuComponent);
+    fixture = TestBed.createComponent(UiLayerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

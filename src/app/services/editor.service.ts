@@ -10,6 +10,7 @@ import { StageDto } from '../model/StageDto';
 import { LocationDto } from '../model/LocationDto';
 import { ActorDto } from '../model/Actors/ActorDto';
 import { Character } from '../model/Actors/Character';
+import { DataService } from '../data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class EditorService {
   currentLocations: Location[] = [];
   currentStages: Stage[] = [];
 
-  constructor(private runService: RunService) { }
+  constructor(private runService: RunService, private dataService: DataService) { }
 
   reset() {
     this.currentActors = [];
@@ -39,13 +40,13 @@ export class EditorService {
     this.currentSkills = data.skills;
     this.currentClasses = data.classes;
     this.runService.setRun(data);
-    this.runService.setItems(data.items);
-    this.runService.setActors(data.actors);
-    this.runService.setSkills(data.skills);
-    this.runService.setClasses(data.classes);
-    this.currentActors = this.runService.populateActors(data.actors);
-    this.currentLocations = this.runService.populateLocations(data.locations);
-    this.currentStages = this.runService.populateStages(data.stages, data.locations);
+    this.dataService.setItems(data.items);
+    this.dataService.setActors(data.actors);
+    this.dataService.setSkills(data.skills);
+    this.dataService.setClasses(data.classes);
+    this.currentActors = this.dataService.populateActors(data.actors);
+    this.currentLocations = this.dataService.populateLocations(data.locations);
+    this.currentStages = this.dataService.populateStages(data.stages, data.locations);
   }
 
   getCurrentActors(): Actor[] {

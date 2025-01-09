@@ -6,6 +6,49 @@
   overflow: hidden;
 }
 
-.settings-menu {
-  background-color: var(--color-primary);
+.app-scene {
+  margin: 0;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 73%;
+  width: 60%;
+}
+
+@media (max-width : 1000px) {
+  .app-scene {
+    width: 92%;
+    top: 47%;
+    height: 65%;
+  }
+}
+
+.viewport {
+  -webkit-transition: background-image 0.2s ease-in-out;
+  transition: background-image 0.2s ease-in-out;
+  background-position-y: center;
+  background-size: contain;
+}
+
+@media (max-width : 1000px) {
+  .viewport {
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+}
+
+.item-use-container {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.follow-cursor-img {
+  z-index: 9999;
+  position: absolute;
+  transition: transform 0.1s linear;
 }

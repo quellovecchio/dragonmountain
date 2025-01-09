@@ -2,9 +2,8 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { Location } from "../../model/Location";
 import { animate, style, transition, trigger } from '@angular/animations';
-import { MatCard } from '@angular/material/card';
 import { take } from 'rxjs';
-import { TreeNode } from 'src/app/model/QuestlineTree';
+import { RunService } from 'src/app/services/run.service';
 
 @Component({
   selector: 'app-location-preview',
@@ -43,11 +42,10 @@ export class LocationPreviewComponent implements OnInit {
 
   locationData?: Location;
   @Input() location!: any;
-  @Output() exploreSignal = new EventEmitter<string>();
 
   animateLocation: boolean = false;
 
-  constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef) { }
+  constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef, private runService: RunService) { }
 
   ngOnInit(): void {
     if(this.location.children) {
@@ -71,8 +69,8 @@ export class LocationPreviewComponent implements OnInit {
     this.menuTrigger?.openMenu();
   }
 
-  explore() {
-    this.exploreSignal.emit("The party moved to " + this.locationData!.name + ".");
+  moveTo() {
+    this.runService.moveTo(this.location);
   }
 
   reloadLocations(){

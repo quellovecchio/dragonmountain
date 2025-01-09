@@ -1,0 +1,27 @@
+<div class="action-bar pixelated-border" style="background-color: black;">
+    <div *ngIf="runService.getRun().party && runService.getRun().party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
+        <div *ngFor="let actor of runService.getRun().party; let i = index">
+            <div *ngIf="actor" [ngClass]="actor.active && uiService.isUiEnabled() ? 'glow' : ''"
+                class="party-member pixelated-border space dont-disable" (click)="partyMemberClicked(actor)"
+                style="background-position-x: center; background-position-y: top; background-size: 200%;"
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
+                <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
+                    [maxValue]="actor.stats.constitution" [barType]="1">
+                </app-data-bar>
+                <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.skillPoints"
+                    [maxValue]="actor.stats.intelligence" [barType]="2">
+                </app-data-bar>
+            </div>
+        </div>
+        <button class="inventory-button pixelated-border space dont-disable" [disabled]="inventoryDisabled"
+            (click)="uiService.toggleInventory()">
+            <img src="assets/images/bag-icon.png" />
+        </button>
+    </div>
+    <!--<button [disabled]="!isMoveToBossfightEnabled()" class="inventory-button space" (click)="moveToBossfightLocation()">
+        <img style="width: 80px; padding: 5px" src="assets/images/boss-room-icon.png" />
+    </button>
+    <button [disabled]="!isExploreEnabled()" class="inventory-button space" (click)="refreshLocations()">
+        <img style="width: 80px; padding: 5px" src="assets/images/treasure-map.png" />
+    </button>-->
+</div>

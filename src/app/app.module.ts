@@ -9,16 +9,11 @@ import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InfoBoxComponent } from './game/info-box/info-box.component';
 import { LocationPreviewComponent } from './game/location-preview/location-preview.component';
 import { SceneComponent } from './game/scene/scene.component';
-import { TextAreaComponent } from './game/text-area/text-area.component';
-import { ViewportComponent } from './game/viewport/viewport.component';
 import { LocationComponent } from './game/location/location.component';
 import { FightComponent } from './game/fight/fight.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ActionBarComponent } from './game/action-bar/action-bar.component';
-import { ContextMenuComponent } from './game/context-menu/context-menu.component';
 import { DataBarComponent } from './game/data-bar/data-bar.component';
 import { NgxTypedJsModule } from 'ngx-typed-js';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
@@ -44,19 +39,21 @@ import { DialogStageEditorComponent } from './editor/stages-editor/dialog-stage-
 import { DiyBinderComponent } from './diy-binder/diy-binder.component';
 import { LoadDialogComponent } from './editor/diy/load-dialog/load-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { ItemsTableComponent } from './common/items-table/items-table.component';
+import { InfoBoxComponent } from './game/info-box/info-box.component';
+import { ActionBarComponent } from './game/ui-layer/action-bar/action-bar.component';
+import { TextAreaComponent } from './game/ui-layer/text-area/text-area.component';
+import { UiLayerComponent } from './game/ui-layer/ui-layer.component';
 @NgModule({
   declarations: [
     AppComponent,
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,
-    ViewportComponent,
     LocationPreviewComponent,
     LocationComponent,
     FightComponent,
     ActionBarComponent,
-    ContextMenuComponent,
     DataBarComponent,
     DiyComponent,
     NotFoundComponent,
@@ -75,6 +72,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DialogStageEditorComponent,
     DiyBinderComponent,
     LoadDialogComponent,
+    ItemsTableComponent,
+    UiLayerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -103,7 +102,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LocationPreviewComponent,
   ],
   providers: [
-    ViewportComponent,
     InfoBoxComponent,
     SceneComponent,
     TextAreaComponent,

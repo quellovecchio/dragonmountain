@@ -1,0 +1,168 @@
+.ui-layer {
+    width: 100%;
+    height: 100vh;
+    padding: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    color: white;
+    font-size: 30px;
+    width: 90%;
+}
+
+.version {
+    padding-top: 0.8rem;
+}
+
+.inventory {
+    width: 15%;
+    height: 70%;
+    left: 82%;
+    background-color: black;
+    position: relative;
+    top: 100px;
+    transition: width 2s, height 4s;
+}
+
+@media (max-width : 1000px) {
+    .inventory {
+        height: 60% !important;
+        width: 40% !important;
+        top: 18% !important;
+        z-index: 998;
+        left: 55% !important;
+    }
+}
+
+.actor-menu {
+    width: 15%;
+    height: 70%;
+    left: 4%;
+    background-color: black;
+    position: relative;
+    top: 100px;
+    transition: width 2s, height 4s;
+
+}
+
+@media (max-width : 1000px) {
+    .actor-menu {
+        height: 60% !important;
+        width: 40% !important;
+        top: 18% !important;
+        z-index: 998;
+        right: 55% !important;
+    }
+}
+
+.equip-slot {
+    background-color: black;
+    margin: 4px;
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.shop {
+    z-index: 100;
+    width: 30%;
+    height: 65%;
+    background-color: black;
+    position: absolute;
+    top: 12%;
+    left: 35%;
+    margin: auto;
+    transition: width 2s, height 4s;
+}
+
+@media (max-width : 1000px) {
+    .shop {
+        width: 70% !important;
+        left: 15% !important;
+    }
+}
+
+.close-shop-button {
+    z-index: 1;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    color: red;
+    cursor: pointer;
+    background-color: #000;
+
+    font-size: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    margin-top: 60px;
+    padding: 10px 20px 10px 20px;
+}
+
+.close-shop-button:active {
+    color: white;
+    background-color: red;
+    border-color: red !important;
+}
+
+.close-shop-button:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width : 1000px) {
+    .info-box {
+        width: 90% !important;
+        top: 5% !important;
+    }
+}
+
+.info-box {
+    position: relative;
+    top: 0%;
+    display: block;
+    width: 40%;
+    height: 10px;
+}
+
+.action-bar {
+    position: relative;
+    top: 80%;
+    display: block;
+    width: 40%;
+    height: 10px;
+}
+
+@media (max-width : 1000px) {
+    .action-bar {
+        width: 90%;
+    }
+}
+
+.text-area {
+    position: relative;
+    top: 62%;
+    height: 200px;
+    width: 120%;
+    z-index: 999;
+}
+
+@media (max-width : 1000px) {
+    .text-area {
+        top: 58%;
+        width: 105%;
+    }
+}
+
+
+.settings-menu {
+    background-color: var(--color-primary);
+}

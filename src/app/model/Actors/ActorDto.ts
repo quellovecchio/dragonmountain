@@ -14,7 +14,8 @@ export class ActorDto {
     equipment: number[] = [];
     interactions: Interaction[] = [];
     dialogue: string[] = [''];
-    clearanceRequirements: [] = [];
+    // deprecated
+    //clearanceRequirements: [] = [];
     clearanceDialogue: [] = [];
 
     constructor() {

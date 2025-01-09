@@ -11,6 +11,7 @@ export enum EffectType {
     magicDamage = 10,
     steal = 11,
     taunt = 12,
+    vanishes = 13,
     // TODO add interactions
 }
 
@@ -20,7 +21,8 @@ export class Interaction {
     text: string = "";
     effect: EffectType = EffectType.giveItem;
     effectTarget: any;
-    vanishes: boolean = false;
+    // you have to resolve this to go back
+    locksDoor: boolean = false;
 
     constructor() {
     } 

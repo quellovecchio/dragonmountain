@@ -14,8 +14,16 @@
 }
 
 .actor {
-    height: 50%;
+    height: 107%;
     width: 22%;
+}
+
+// force landscape mode on mobile devices
+@media (max-width : 1000px) {
+    .actor {
+        height: 50vh;
+        width: 42%;
+    }
 }
 
 .actor-row {
@@ -32,9 +40,21 @@
 }
 
 .back-button {
-    margin-top: 0;
+    margin-top: 3%;
     height: 30px;
     text-align: center;
+    background-color: #F4E0B9;
+    color: black;
+    animation: 0.5s ease-out 0s 1 fadeIn forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    filter: opacity(0);
+  }
+  100% {
+    filter: opacity(1);
+  }
 }
 
 .image-bg {

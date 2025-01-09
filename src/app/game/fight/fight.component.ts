@@ -7,6 +7,7 @@ import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill } from '../../model/Skill';
 import { Constants } from 'src/assets/constants';
+import { DataService } from 'src/app/data.service';
 
 class FightAnimation {
   source: string = '';
@@ -44,7 +45,7 @@ export class FightComponent implements OnInit {
 
   @Input() fightData?: Character[] = [];
   @Input() partyData: PlayingCharacter[] = [];
-  @Input() fightSpeed!: number;
+  fightSpeed: number = this.dataService.getSettings().fightSpeed;
 
 
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
@@ -62,7 +63,7 @@ export class FightComponent implements OnInit {
   selectedEnemy?: Actor;
   public currentAttackAnimation: string = '/assets/animations/slash.gif';
 
-  constructor(fightManager: FightManagerService, private eRef: ElementRef, private changeDetector: ChangeDetectorRef) {
+  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService) {
     this.fightManager = fightManager;
   }
 
@@ -84,14 +85,20 @@ export class FightComponent implements OnInit {
   calculateActorsStartingPositions() {
     for (var i = 0; i < this.partyCharacters.length; i++) {
       this.partyData[i].fightPositionX = (this.battlefieldWidth * 0.2) + this.getRandomicity();
-      this.partyData[i].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * i) + this.getRandomicity();
+      this.partyData[i].fightPositionY = 0 - (this.battlefieldHeight/1.7) + (50 * i) + this.getRandomicity();
       console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
     }
     for (var j = 0; j < this.enemyCharacters.length; j++) {
       this.fightData![j].fightPositionX = (this.battlefieldWidth * 0.8) + this.getRandomicity();
-      this.fightData![j].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * j) + this.getRandomicity();
+      this.fightData![j].fightPositionY = 0 - (this.battlefieldHeight/1.7) + (50 * j) + this.getRandomicity();
       console.log('name : ' + this.fightData![j].name + ' fightPositionX : ' + this.fightData![j].fightPositionX + ' fightPositionY : ' + this.fightData![j].fightPositionY + ' bottom: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().right);
     }
+  }
+
+  fightSpeedCurve(x: number): number {
+    const m = -0.941;
+    const b = 95.1;
+    return m * x + b;
   }
 
   startFightScene() {
@@ -107,14 +114,18 @@ export class FightComponent implements OnInit {
         if(!this.fightData![i].dead)
           this.aggroAndMove(this.fightData![i], i, false, this.partyData);
       }
-    }, this.fightSpeed);
+    }, this.fightSpeedCurve(this.fightSpeed));
   }
 
   aggroAndMove(actor: Character, actorIndex: number, friendly: boolean, enemies: Character[]) {
     if(enemies.length === 0) 
       return;
     // Calculate the distance between the actor and each enemy
-    const distances = enemies.map(enemy => this.calculateDistance(actor, enemy));
+    const distances = enemies.map(enemy => {
+      if(!enemy.dead) 
+        return this.calculateDistance(actor, enemy)
+      return 9999;
+    });
 
     // Find the index of the closest enemy
     const closestEnemyIndex = distances.indexOf(Math.min(...distances));

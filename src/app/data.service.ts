@@ -1,0 +1,256 @@
+import { Injectable } from '@angular/core';
+import { ActorDto } from './model/Actors/ActorDto';
+import { Class } from './model/Actors/Class';
+import { Item } from './model/items/Item';
+import { Location } from './model/Location';
+import { LocationDto } from './model/LocationDto';
+import { Skill } from './model/Skill';
+import { Actor } from './model/Actors/Actor';
+import { Character } from './model/Actors/Character';
+import { CharacterDto } from './model/Actors/CharacterDto';
+import { Equip } from './model/items/Equip';
+import { Stage } from './model/Stage';
+import { StageDto } from './model/StageDto';
+import { Settings } from './model/Settings';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+
+  public settings: Settings = new Settings();
+
+  skills: Skill[] = [];
+  items: Item[] = [];
+  actors: ActorDto[] = [];
+  classes: Class[] = [];
+  locations: Location[] = [];
+
+  constructor() { }
+
+  getSettings() {
+    return this.settings;
+  }
+
+  setSkills(skills: Skill[]): void {
+    this.skills = skills;
+  }
+
+  getSkillById(id: number): Skill {
+    var r = this.skills.find(s => s.id === id);
+    return r ? r : new Skill();
+  }
+
+  setItems(items: Item[]): void {
+    this.items = items;
+  }
+
+  getItemById(id: number): Item {
+    var r = this.items.find(i => i.id === id);
+    return r ? r : new Item();
+  }
+
+  setActors(actors: ActorDto[]): void {
+    this.actors = actors;
+  }
+
+  getActorById(id: number): ActorDto {
+    var r = this.actors.find(a => a.id === id);
+    return r ? r : new ActorDto();
+  }
+
+  setClasses(classes: Class[]): void {
+    this.classes = classes;
+  }
+
+  getClassById(id: number): Class | undefined {
+    return this.classes.find(c => c.id === id);
+  }
+
+  setLocations(dtos: LocationDto[]): void {
+    this.locations = this.populateLocations(dtos);
+  }
+
+  getLocationById(id: number): Location {
+    var r = this.locations.find(l => l.id === id);
+    return r ? r : new Location();
+  }
+
+  getLocations(ids: number[]): Location[] {
+    var r: Location[] = [];
+    ids.forEach(id => r.push(this.getLocationById(id)));
+    return r;
+  }
+
+  populateActors(dtos: ActorDto[]): Actor[] {
+    var r: Actor[] = [];
+    dtos.forEach(dto => {
+      r.push(this.populateActor(dto.id))
+    })
+    return r;
+  }
+
+  populateActor(id: number): Actor {
+    var r = new Actor();
+    var actorData = this.getActorById(id);
+    r.id = actorData.id;
+    r.name = actorData.name;
+    r.imagePath = actorData.imagePath;
+    if (actorData.loot) {
+      actorData.loot.forEach(id => {
+        r.loot.push(this.getItemById(id))
+      })
+    }
+    if (actorData.shop) {
+      r.shop = [];
+      actorData.shop.forEach(id => {
+        r.shop!.push(this.getItemById(id))
+      })
+    }
+    if (actorData.rest) {
+      r.rest = actorData.rest;
+    }
+    if (actorData.equipment) {
+      actorData.equipment.forEach(id => {
+        r.equipment.push(this.getItemById(id) as Equip)
+      })
+    }
+    if (actorData.interactions) {
+      r.interactions = actorData.interactions;
+    }
+    if (actorData.dialogue) {
+      r.dialogue = actorData.dialogue;
+    }
+    if (actorData.clearanceDialogue) {
+      r.clearanceDialogue = actorData.clearanceDialogue;
+    }
+    // deprecated
+    /*if (actorData.clearanceRequirements) {
+      r.clearanceRequirements = actorData.clearanceRequirements;
+    }*/
+    return r;
+  }
+
+  populateCharacter(id: number): Character {
+    var r = new Character();
+    var actorData = (this.getActorById(id) as CharacterDto);
+    r.id = actorData.id;
+    r.name = actorData.name;
+    r.imagePath = actorData.imagePath;
+    if (actorData.loot) {
+      actorData.loot.forEach(id => {
+        r.loot.push(this.getItemById(id))
+      })
+    }
+    if (actorData.shop) {
+      r.shop = [];
+      actorData.shop.forEach(id => {
+        r.shop!.push(this.getItemById(id))
+      })
+    }
+    if (actorData.rest) {
+      r.rest = actorData.rest;
+    }
+    if (actorData.equipment) {
+      actorData.equipment.forEach(id => {
+        r.equipment.push(this.getItemById(id) as Equip)
+      })
+    }
+    if (actorData.interactions) {
+      r.interactions = actorData.interactions;
+    }
+    if (actorData.dialogue) {
+      r.dialogue = actorData.dialogue;
+    }
+    if (actorData.stats) {
+      r.stats = actorData.stats;
+    }
+    if (actorData.joinsParty) {
+      r.joinsParty = actorData.joinsParty;
+    }
+    if (actorData.attackCooldown) {
+      r.attackCooldown = actorData.attackCooldown;
+    }
+    if (actorData.classId) {
+      r.class = this.getClassById(actorData.classId);
+    }
+    if (actorData.skills) {
+      r.skills = [];
+      actorData.skills.forEach(id => {
+        r.skills!.push(this.getSkillById(id))
+      })
+    }
+    if (actorData.clearanceDialogue) {
+      r.clearanceDialogue = actorData.clearanceDialogue;
+    }
+    // deprecated
+    /*if (actorData.clearanceRequirements) {
+      // TODO update with additional requirement info
+      actorData.clearanceRequirements.forEach(req => {
+        r.clearanceRequirements.push(new Requirement(req, ''));
+      })
+    }*/
+    return r;
+  }
+
+  populateLocation(dto: LocationDto): Location {
+    var r = new Location();
+    r.id = dto.id;
+    r.name = dto.name;
+    r.backgroundPath = dto.backgroundPath;
+    r.storylineCounter = dto.storylineCounter ? dto.storylineCounter : 0.5;
+    if (dto.fight) {
+      dto.fight.forEach(id => {
+        r.fight.push(this.populateCharacter(id))
+      })
+    }
+    if (dto.loot) {
+      dto.loot.forEach(id => {
+        r.loot.push(this.getItemById(id))
+      })
+    }
+    if (dto.actors) {
+      dto.actors.forEach(id => {
+        r.actors.push(this.populateCharacter(id))
+      })
+    }
+    return r;
+  }
+
+  populateLocations(dtos: LocationDto[]): Location[] {
+    var r: Location[] = [];
+    dtos.forEach(dto => {
+      r.push(this.populateLocation(dto))
+    })
+    return r;
+  }
+
+  populateStage(dto: StageDto, locations: Location[]): Stage {
+    var r = new Stage();
+    r.id = dto.id;
+    r.name = dto.name;
+    r.backgroundPath = dto.backgroundPath;
+    if (dto.locations) {
+      dto.locations.forEach(id => {
+        var data = locations.find(el => el.id === id);
+        r.locations.push(data!);
+      })
+    }
+    if (dto.bossLocation) {
+      var data = locations.find(el => el.id === dto.bossLocation);
+      r.bossLocation = data!;
+    }
+    return r;
+  }
+
+  populateStages(dtos: StageDto[], locations: Location[]): Stage[] {
+    var r: Stage[] = [];
+    dtos.forEach(dto => {
+      var s = new Stage();
+      s = this.populateStage(dto, locations);
+      r.push(s);
+    })
+    return r;
+  }
+
+}

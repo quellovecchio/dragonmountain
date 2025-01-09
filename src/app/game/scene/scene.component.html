@@ -1,58 +1,28 @@
 <div class="view">
-    <div class="map" *ngIf="run.state == 'exploration' && !run.showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && !runService.getRun().showBossfightLocation">
         <div class="locations-row">
-            <div class="location-preview" *ngFor="let location of run.stage.currentLocations">
-                <app-location-preview [location]="location" (exploreSignal)="moveTo(location)"></app-location-preview>
+            <div class="location-preview" *ngFor="let location of runService.getRun().stage.currentLocations">
+                <app-location-preview [location]="location"></app-location-preview>
             </div>
         </div>
     </div>
-    <div class="map" *ngIf="run.state == 'exploration' && run.showBossfightLocation && ready">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' && runService.getRun().showBossfightLocation">
         <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;">
-            <app-location-preview [locationData]="run.stage.bossLocation" (exploreSignal)="moveTo(run.stage.bossLocation)"></app-location-preview>
+            <app-location-preview [locationData]="runService.getRun().stage.bossLocation"></app-location-preview>
         </div>
     </div>
-    <div class="location" *ngIf="run.state == 'location'">
-        <app-location [locationData]="run.currentLocation" [selectedItem]="selectedItem"
-            (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)"
-            (openShopSignal)="toggleShop($event)" (fightSignal)="engageFightWith($event)" (restSignal)="rest()"></app-location>
+    <div class="location" *ngIf="runService.getRun().state == 'location'">
+        <app-location [locationData]="runService.getRun().currentLocation" [selectedItem]="selectedItem"
+            (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)" (fightSignal)="engageFightWith($event)"
+            (restSignal)="rest()"></app-location>
     </div>
-    <div class="fight" *ngIf="run.state == 'fight'">
-        <app-fight [fightSpeed]="fightSpeed" [fightData]="run.currentFight" [partyData]="run.party" (attackSignal)="attack($event)" (useSkillSignal)="useSkillOn($event)"
-            (fleeSignal)="flee()"></app-fight>
+    <div class="fight" *ngIf="runService.getRun().state == 'fight'">
+        <app-fight [fightData]="runService.getRun().currentFight" [partyData]="runService.getRun().party"
+            (attackSignal)="attack($event)" (useSkillSignal)="useSkillOn($event)" (fleeSignal)="flee()"></app-fight>
     </div>
-    <div class="intro" *ngIf="run.state == 'intro'">
+    <div class="intro" *ngIf="runService.getRun().state == 'intro'">
         <!--<video controls loop>
             <source src="../assets/animation.mp4" type="video/mp4">
         </video>-->
-    </div>
-    <!-- shop -->
-    <div [@inOutAnimation] *ngIf="shopOpened" class="shop pixelated-border"
-        style="overflow-y: auto; overflow-x: hidden;">
-        <div class="space" style="position: -webkit-sticky; position: sticky; top: 0;height:40px; color: red; cursor: pointer; background-color: #000; z-index: 8;" (click)="toggleShop()">CLOSE</div>
-        <div style="padding: 15px;">
-            <div *ngFor="let item of shopItems">
-                <div class="space" style="color: white;" (click)="buy(item)"
-                    ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
-                    <div style="height: 100px; width: 100px; background-size: contain;" class="shop-item"
-                        [ngStyle]="{ 'background-image': 'url(' + item.thumbnailPath + ')' }">
-                    </div>
-                    <div ngTiltParallax [distance]="10">
-                        {{ item.name }}
-                    </div>
-                    <div ngTiltParallax [distance]="10">
-                        {{ item.moneyValue }}
-                    </div>
-                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
-                        atk: {{ itemService.getItemAsEquip(item).attack }}
-                    </div>
-                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
-                        atk: {{ itemService.getItemAsEquip(item).defense }}
-                    </div>
-                    <div *ngIf="itemService.isEquip(item)" ngTiltParallax [distance]="10">
-                        buf: {{ itemService.getItemAsEquip(item).buffs? 'X' : 'V' }}
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

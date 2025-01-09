@@ -17,8 +17,15 @@
 }
 
 .pawn {
-    height: 125px;
+    height: 200px;
     width: 125px;
+}
+
+@media (max-width : 1000px) {
+    .pawn {
+        height: 125px !important;
+        width: 100px !important;
+    }
 }
 
 .image-bg {
@@ -29,19 +36,25 @@
 
 .hp-bar {
     position: relative;
-    top: 75px;
+    top: 175px;
 }
 
-.disabled {
-    pointer-events: none;
-    filter: grayscale(1);
+@media (max-width : 1000px) {
+    .hp-bar {
+        top: 100px;
+    }
 }
 
 .damaged {
     animation: blinking 0.1s infinite;
 }
 
-@keyframes blinking{
-    0%		{ opacity: 0; }
-    50%		{ opacity: 1; }
+@keyframes blinking {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }

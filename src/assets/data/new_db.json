@@ -73,6 +73,11 @@
                     "unlockStat": "constitution"
                 }
             ]
+        },
+        {
+            "id": 3,
+            "name": "Beast",
+            "skillTree": []
         }
     ],
     "items": [
@@ -161,7 +166,7 @@
             "name": "Butterfly Knife",
             "description": "",
             "moneyValue": 300,
-            "thumbnailPath": "assets/images/items/item3.png",
+            "thumbnailPath": "assets/images/items/item5.png",
             "attack": 1,
             "defense": 0,
             "buffs": []
@@ -205,7 +210,7 @@
             "name": "Wax Key",
             "description": "",
             "moneyValue": 100,
-            "thumbnailPath": "assets/images/items/item1.png"
+            "thumbnailPath": "assets/images/items/item4.png"
         },
         {
             "id": 15,
@@ -241,6 +246,13 @@
             "description": "Heals 30 hp",
             "moneyValue": 350,
             "thumbnailPath": "assets/images/items/item2.png"
+        },
+        {
+            "id": 19,
+            "name": "Prison key",
+            "description": "Opens the prison door",
+            "moneyValue": 0,
+            "thumbnailPath": "assets/images/items/item4.png"
         }
     ],
     "actors": [
@@ -291,8 +303,7 @@
                             ],
                             "skills": []
                         }
-                    ],
-                    "vanishes": "true"
+                    ]
                 }
             ]
         },
@@ -318,8 +329,7 @@
                     "effect": 1,
                     "effectTarget": [
                         3
-                    ],
-                    "vanishes": "true"
+                    ]
                 }
             ]
         },
@@ -370,8 +380,7 @@
                             },
                             "skills": []
                         }
-                    ],
-                    "vanishes": "true"
+                    ]
                 }
             ],
             "dialogue": "[the air is sick around here] ..."
@@ -417,8 +426,7 @@
                             },
                             "skills": []
                         }
-                    ],
-                    "vanishes": "true"
+                    ]
                 }
             ],
             "dialogue": "[why is this teaspoon floating?]"
@@ -436,7 +444,9 @@
             ],
             "skills": [],
             "shop": [
-                6, 1, 7
+                6,
+                1,
+                7
             ]
         },
         {
@@ -474,7 +484,7 @@
         },
         {
             "id": 10,
-            "name": "Skinny clochard",
+            "name": "Skinny beggar",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
             "loot": [],
@@ -483,7 +493,7 @@
                 "I'm ill... Could you give me a little potion?"
             ],
             "skills": [],
-            "rest": true,
+            "rest": false,
             "interactions": [
                 {
                     "reactTo": 6,
@@ -495,8 +505,19 @@
                     "effect": 1,
                     "effectTarget": [
                         4
+                    ]
+                },
+                {
+                    "reactTo": "heal",
+                    "text": [
+                        "[He seems to feel better]",
+                        "Thanks, man! I can only give you this. It will come handy, trust me.",
+                        "Give it to someone who really need it."
                     ],
-                    "vanishes": "false"
+                    "effect": 1,
+                    "effectTarget": [
+                        4
+                    ]
                 }
             ]
         },
@@ -590,7 +611,9 @@
             "level": 3,
             "loot": [],
             "shop": [
-                6, 1, 10
+                6,
+                1,
+                10
             ],
             "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
         },
@@ -600,7 +623,8 @@
             "level": 3,
             "loot": [],
             "shop": [
-                11, 12
+                11,
+                12
             ],
             "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
             "interactions": [
@@ -610,8 +634,7 @@
                     "effect": 1,
                     "effectTarget": [
                         0
-                    ],
-                    "vanishes": "false"
+                    ]
                 }
             ]
         },
@@ -656,6 +679,7 @@
         {
             "id": 21,
             "name": "Shining Chest",
+            "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
             "loot": [],
             "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
@@ -665,10 +689,7 @@
                     "reactTo": 14,
                     "text": "The trapdoor opened making a terrible noise...",
                     "effect": 1,
-                    "effectTarget": [
-
-                    ],
-                    "vanishes": "true"
+                    "effectTarget": [ 3 ]
                 }
             ]
         },
@@ -678,7 +699,8 @@
             "imagePath": "/assets/images/actors/actor3.png",
             "level": 3,
             "loot": [
-                0, 16
+                0,
+                16
             ],
             "dialogue": "Who are you? The Dragon? Good luck with that EHEHEHHE!",
             "joinsParty": false,
@@ -694,16 +716,18 @@
                 "intelligence": 10,
                 "healthPoints": 25
             },
-            "vanishes": true,
             "skills": [],
             "shop": [
-                17, 6, 18
+                17,
+                6,
+                18
             ],
             "attackCooldown": 1500
         },
         {
             "id": 23,
             "name": "Large Rat",
+            "classId": "3",
             "imagePath": "/assets/images/actors/enemy4.png",
             "level": 1,
             "loot": [],
@@ -724,7 +748,9 @@
             "level": 3,
             "loot": [],
             "shop": [
-                6, 14, 9
+                6,
+                14,
+                9
             ],
             "dialogue": [
                 "[sounds uninterested] New face, uh?",
@@ -734,16 +760,26 @@
                 "Getting here is the entrance test.",
                 "Be ready to hear from us, you'll receive some quests soon."
             ],
-            "clearanceDialogue": [
-                "Be ready to hear from us, you'll receive some quests soon.",
-                "You can shop here, by the way!",
-                "Feel free to serve yourself."
-            ],
-            "clearanceRequirements": ["talk"]
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "locksDoor": "true",
+                    "text": [
+                        "Be ready to hear from us, you'll receive some quests soon.",
+                        "You can shop here, by the way!",
+                        "Feel free to serve yourself."
+                    ],
+                    "effect": 1,
+                    "effectTarget": [
+                        14
+                    ]
+                }
+            ]
         },
         {
             "id": 25,
-            "name": "Jhonny B. Goode",
+            "name": "Clara B. Baade",
+            "imagePath": "/assets/images/actors/actor5.png",
             "classId": 1,
             "level": 3,
             "loot": [],
@@ -791,8 +827,7 @@
                             },
                             "skills": []
                         }
-                    ],
-                    "vanishes": "true"
+                    ]
                 }
             ],
             "dialogue": [
@@ -805,7 +840,9 @@
             "name": "The Mayor",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
-            "loot": [ 1 ],
+            "loot": [
+                1
+            ],
             "dialogue": [
                 "This city is truly doomed... The assessor went crazy too...",
                 "Please help him!"
@@ -858,6 +895,51 @@
             "loot": [],
             "dialogue": "I should have bet on you!",
             "skills": []
+        },
+        {
+            "id": 32,
+            "name": "Sharp dressed prisoner",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": [
+                "Hey you, i am a thieves guild member like you!",
+                "Help me get out of here, i need a wax key or something like that..."
+            ],
+            "interactions": [
+                {
+                    "reactTo": 14,
+                    "text": "Thanks man, i owe you one!",
+                    "effect": 13,
+                    "locksDoor": "true"
+                },
+                {
+                    "reactTo": 19,
+                    "text": "Thanks man, i owe you one!",
+                    "effect": 13,
+                    "locksDoor": "true"
+                }
+            ],
+            "skills": []
+        },
+        {
+            "id": 33,
+            "name": "Imperial guard",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [
+                19
+            ],
+            "dialogue": "What are you looking at, scum?",
+            "stats": {
+                "charisma": 1,
+                "strength": 4,
+                "constitution": 12,
+                "dexterity": 3,
+                "intelligence": 2,
+                "healthPoints": 12
+            },
+            "skills": []
         }
     ],
     "locations": [
@@ -865,25 +947,29 @@
             "id": 0,
             "name": "Necromancer's Tomb",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
-            "loot": [ 
+            "loot": [
                 1
             ],
             "actors": [
-                0, 1, 2
+                0,
+                1,
+                2
             ]
         },
         {
             "id": 1,
             "name": "Unholy Church",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
-            "fight": [ 
-                3, 3
+            "fight": [
+                3,
+                3
             ],
-            "loot": [ 
+            "loot": [
                 1
             ],
             "actors": [
-                4, 5
+                4,
+                5
             ]
         },
         {
@@ -891,7 +977,8 @@
             "name": "Haunted Shop",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "actors": [
-                6, 7
+                6,
+                7
             ]
         },
         {
@@ -899,7 +986,8 @@
             "name": "Mercenaries Tavern",
             "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
-                8, 9
+                8,
+                9
             ]
         },
         {
@@ -910,7 +998,8 @@
                 10
             ],
             "fight": [
-                11, 3
+                11,
+                3
             ]
         },
         {
@@ -918,7 +1007,8 @@
             "name": "Putrid Street",
             "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
-                12, 13
+                12,
+                13
             ]
         },
         {
@@ -926,7 +1016,8 @@
             "name": "The House Of The Rising Sun",
             "backgroundPath": "/assets/images/locations/location2-bg.png",
             "actors": [
-                14, 15
+                14,
+                15
             ]
         },
         {
@@ -952,15 +1043,18 @@
             "backgroundPath": "/assets/images/locations/location3-bg.png",
             "loot": [],
             "actors": [
-                18, 19
+                18,
+                19
             ]
         },
         {
             "id": 10,
             "name": "Open Backyard",
-            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
             "fight": [
-                20, 20, 20
+                20,
+                20,
+                20
             ],
             "loot": [],
             "actors": [
@@ -981,10 +1075,12 @@
             "backgroundPath": "/assets/images/locations/location5-bg.png",
             "loot": [],
             "fight": [
-                23, 23
+                23,
+                20
             ],
             "actors": [
-                24, 25
+                24,
+                25
             ]
         },
         {
@@ -992,7 +1088,9 @@
             "name": "City Hall",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "actors": [
-                26, 27, 28
+                26,
+                27,
+                28
             ]
         },
         {
@@ -1000,16 +1098,27 @@
             "name": "Battle Arena",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "fight": [
-                29, 29
+                29,
+                29
             ],
             "actors": [
-                30, 31
+                30,
+                31
+            ]
+        },
+        {
+            "id": 15,
+            "name": "Imperial Prison",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                32,
+                33
             ]
         }
     ],
-    "lastStage": {
-	},
-	"stages": [
+    "lastStage": {},
+    "stages": [
         {
             "id": 0,
             "name": "Damned Citadel",
@@ -1018,18 +1127,22 @@
                 {
                     "root": {
                         "location": 12,
-                        "children": [ 2 ]
+                        "children": [
+                            15, 9
+                        ]
                     }
                 },
                 {
                     "root": {
                         "location": 10,
-                        "children": [ 3 ]
+                        "children": [
+                            3
+                        ]
                     }
                 }
             ],
             "locations": [
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14
             ]
         }
     ]

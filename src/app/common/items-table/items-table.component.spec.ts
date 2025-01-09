@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewportComponent } from './viewport.component';
+import { ItemsTableComponent } from './items-table.component';
 
-describe('ViewportComponent', () => {
-  let component: ViewportComponent;
-  let fixture: ComponentFixture<ViewportComponent>;
+describe('ItemsTableComponent', () => {
+  let component: ItemsTableComponent;
+  let fixture: ComponentFixture<ItemsTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewportComponent ]
+      declarations: [ ItemsTableComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewportComponent);
+    fixture = TestBed.createComponent(ItemsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

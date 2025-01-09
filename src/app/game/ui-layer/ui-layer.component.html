@@ -1,0 +1,91 @@
+<div class="ui-layer" [class.disabled]="!uiService.isUiEnabled()">
+    <div [@inOutAnimation] *ngIf="uiService.inventoryOpened" class="inventory pixelated-border dont-disable"
+        style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center;">
+        <div style="padding: 15px; width: 100%; font-size:32px; color: white">INVENTORY
+            <div
+                style="position: -webkit-sticky; position: sticky; top: 0;height:40px; font-size:40px; color: green; background-color: #000; ">
+                {{runService.getRun().inventory.money}} $</div>
+            <app-items-table [dataSource]="inventoryDataSource" [compact]="true" (clickEvent)="selectItem($event)">
+            </app-items-table>
+        </div>
+    </div>
+    <div [@inOutAnimation] *ngIf="uiService.actorMenuOpened" class="actor-menu pixelated-border dont-disable"
+        style="position: fixed;overflow-y: auto; overflow-x: hidden; display: flex; justify-content: center; text-align-last: justify;">
+        <div style="padding: 15px; display: flex; flex-direction: column; justify-content: space-evenly;">
+            <div
+                style="position: -webkit-sticky; position: sticky; top: 0;height:30px; font-size:30px; color: white; background-color: #000; ">
+                {{uiService.displayedActorMenu.name}}</div>
+            <div
+                style="position: -webkit-sticky; position: sticky; top: 0;height:25px; font-size:25px; color: white; background-color: #000; ">
+                {{uiService.displayedActorMenu.class?.name}}</div>
+            <img style="width: 200px; height: 200px;" src="{{uiService.displayedActorMenu.imagePath}}">
+            <div style="display: flex; margin-top: 5px; margin-bottom: 5px;">
+                <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(0);">
+                    <img style="margin: 1px;height: 50px; width: 50px;"
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[0]"
+                        src="{{uiService.displayedActorMenu.equipment[0].thumbnailPath}}">
+                </div>
+                <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(1);">
+                    <img style="margin: 1px;height: 50px; width: 50px;"
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[1]"
+                        src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
+                </div>
+                <div class="equip-slot pixelated-border" [ngClass]="equipable()? 'glow' : ''" (click)="equipItem(2);">
+                    <img style="margin: 1px;height: 50px; width: 50px;"
+                        *ngIf="uiService.displayedActorMenu.equipment && uiService.displayedActorMenu.equipment[2]"
+                        src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
+                </div>
+            </div>
+            <button [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
+            <div *ngFor="let stat of getStatsToDisplay(uiService.displayedActorMenu.stats)">
+                <div style="color: white; font-size:23px;">
+                    {{stat.name}}: {{stat.value}} <a *ngIf="runService.getRun().experience >= 1"
+                        (click)="boostStat(uiService.displayedActorMenu, stat.name)">+</a>
+                </div>
+            </div>
+        </div>
+        <mat-menu #skills="matMenu" class="location-menu pixelated-border">
+            <ng-template matMenuContent let-skills="skills">
+                <button *ngFor="let skill of skills" mat-menu-item (click)="selectSkill(skill)">{{skill.name}}</button>
+            </ng-template>
+        </mat-menu>
+    </div>
+    <!-- shop -->
+    <div [@inOutAnimationShop] *ngIf="uiService.shopOpened" class="shop pixelated-border"
+        style="overflow-y: auto; overflow-x: hidden;">
+        <div class="close-shop-button pixelated-border" (click)="uiService.closeShop()">CLOSE</div>
+        <app-items-table [dataSource]="shopDataSource" [compact]="false" (clickEvent)="buy($event)">
+        </app-items-table>
+    </div>
+
+    <app-info-box class="info-box"></app-info-box>
+    <app-action-bar class="action-bar"></app-action-bar>
+    <app-text-area class="text-area" [ngClass]="!uiService.getTextAreaVisibility() ? 'text-area-disabled' : ''"></app-text-area>
+
+    <div class="overlay">
+        <div class="version">
+            {{version}}
+        </div>
+        <div class="settings">
+            <button style="background-color: transparent; border: 0px;" [matMenuTriggerFor]="settingsMenu">
+                <img style="width: 40px;" src="/assets/images/settings-icon.png" />
+            </button>
+        </div>
+    </div>
+    <mat-menu #settingsMenu="matMenu" yPosition="above" xPosition="after">
+        <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+            TEXT SPEED:
+            <mat-slider style="width: 190px;" min="1" max="10" step="1"
+                [(ngModel)]="dataService.getSettings().textSpeed" (click)="$event.stopPropagation()">
+                <input matSliderThumb>
+            </mat-slider>
+        </div>
+        <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+            FIGHT SPEED:
+            <mat-slider style="width: 190px;" min="1" max="100" step="10"
+                [(ngModel)]="dataService.getSettings().fightSpeed" (click)="$event.stopPropagation()">
+                <input matSliderThumb>
+            </mat-slider>
+        </div>
+    </mat-menu>
+</div>

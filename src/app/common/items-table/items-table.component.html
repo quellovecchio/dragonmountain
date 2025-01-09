@@ -1,0 +1,38 @@
+<div style="padding: 15px;">
+    <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="icon">
+            <mat-cell *matCellDef="let element" (click)="clickAction(element)">
+                <div style="background-size: contain;" class="table-item"
+                    [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+            <mat-cell *matCellDef="let element" class="table-item" (click)="clickAction(element)" [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
+                <div class="table-item-name">
+                    {{element.name}}
+                </div>
+                <div class="table-item-info">
+                    <div class="table-item-price"> {{element.moneyValue}} $ </div>
+                    <div class="table-item-details">
+                        <div *ngIf="element.attack">
+                            atk: {{ element.attack }}
+                        </div>
+                        <div *ngIf="element.defense">
+                            def: {{ element.defense }}
+                        </div>
+                        <div *ngIf="element.buffs">
+                            buf: {{ element.buffs? 'X' : 'V' }}
+                        </div>
+                    </div>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-row *matRowDef="let row; columns: displayedColumns;" class="pixelated-border card card__shine"
+            ngTilt [disableAxis]="'x'" [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02"
+            [speed]="300"></mat-row>
+    </mat-table>
+</div>
