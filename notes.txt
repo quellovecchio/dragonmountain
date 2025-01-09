@@ -288,16 +288,20 @@ Milestones:
 
 0.4
 
-		-	codebase refactoring
-			-	split code into layers: data layer, ui layer, presentation layer
-			-	the goal of the refactoring will be to let every component manipulate run data through service eliminating signals
+		V	codebase refactoring
+			V	split code into layers: data layer, ui layer, presentation layer
+			V	the goal of the refactoring will be to let every component manipulate run data through service eliminating signals
 
 		-	gameplay update
 			V	fix every people killable		
 			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
-				-	change refresh dynamics: you can't leave some rooms if not resolved
+				V	change refresh dynamics: you can't leave some rooms if not resolved
+					-	update database
 					V	implement refresh counter and quests logic
 				-	insert places to rest in questlines to balance the game, remove them from the pool
+				-	random encounters (random drops in locations)
+				-	spawn also people (not only locations) during exploration
+				-	example: spawn granny or wanderer seller instead of location
 				-	little choises: example touch or dont touch the relic and what happen if you do or dont
 				-	play questline from bottom to end
 				-	play stage from bottom to end
@@ -317,9 +321,10 @@ Milestones:
 
 		-	fight update
 			-	implement ranged attacks and missiles logic
-			-	implement collisions between players
+			-	implement collisions between pawns
 			V	fight bugfixes
 			-	refinement to animations
+				-	battle start animation
 			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
 
@@ -330,7 +335,6 @@ Milestones:
 		-	content update
 			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
 				-	go for choises over classic gdr stuff
-			- 	midjourney generation of the assets
 			-	implementation of content
 			-	make actors in party swappable
 
@@ -339,9 +343,6 @@ Milestones:
 			-	make sure storyline counter scales with stage number
 			-	questlog to track quests
 			-	interactive tutorial (explain stuff while happening via dialogs)
-			-	random encounters (random drops in locations)
-			-	spawn also people (not only locations) during exploration
-				-	example: spawn granny or wanderer seller instead of location
 
 
 ---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
@@ -353,6 +354,7 @@ Milestones:
 			-	evaluate splash art with background instead of no background full pic and card frame
 			- 	traslucency polish
 		-	ui update
+			- 	midjourney generation of the assets
 			-	evaluate removing static black backgrounds and using all space avaliable
 			-	evaluate using black fog as background for text area content
 			-	evaluate changes in ui weaknesses, contact my pugliese friend for ui consueling
@@ -367,7 +369,7 @@ Milestones:
 
 0.8
 
-		-	ai impl
+		-	temptative ai impl
 			-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
 			-	rest api to llm text impl
 			-	study how to apply sentiment, maybe good/despicable action system
@@ -395,9 +397,7 @@ SPELLS:
 ----------------------------------------------------
 BUG TRACKER
 ----------------------------------------------------
-- the scene isn't exploring if room is empty
-- attack is aoe by default wtf
-
+move damage animation inside of the chartacer in fight component
 
 	
 PLOT: 
@@ -408,8 +408,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 	Common enemies: thielf (has steal spell little elf thief), lesser demon (demons are weak twice to magic damage), ghost (attacks not generated from silver items gets /2, skill curse n fixed damage at turn start) , undead (vampires included, 2 * fire damage, lifestealing skills))
 
 
-	Questlines:	ADD TAVERNS! (ex, dark sewers should appear in every quest phace of theives guild)
-	
+	Questlines:	
 		- thieves guild questline
 	
 			phase 1 - 
