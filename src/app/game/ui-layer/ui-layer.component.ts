@@ -81,12 +81,14 @@ export class UiLayerComponent implements OnInit {
     this.shopSubscription = this.uiService.shopItems$.subscribe(items => {
       this.shopDataSource.data = items;
     });
-    setTimeout(() => {
-      this.uiService.toggleInventory();
-    }, 1500);
-    setTimeout(() => {
-      this.uiService.toggleActorInfo(this.runService.getRun().party[0]);
-    }, 2000);
+    if (!this.uiService.isScreenPortrait()) {
+      setTimeout(() => {
+        this.uiService.toggleInventory();
+      }, 1500);
+      setTimeout(() => {
+        this.uiService.toggleActorInfo(this.runService.getRun().party[0]);
+      }, 2000);
+    }
   }
 
   ngOnDestroy() {

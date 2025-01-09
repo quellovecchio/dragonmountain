@@ -1,8 +1,28 @@
 .spacing {
-  font-family: "Enchanted-Land", Arial, Helvetica, sans-serif;
   font-size: 60px;
-  margin-top: 10px;
+  background-image: url('../../../../assets/images/mist.png'); 
+  background-size: cover;
+  background-color: #000000;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 100px 100px rgb(0 0 0);
+  animation-name: mist;
+  animation-duration: 60s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   //letter-spacing: 2.4px !important;
+}
+
+@keyframes mist {
+  from {
+      background-position-x: 0;
+  }
+
+  to {
+      background-position-x: 500px;
+  }
 }
 
 /*textarea {
@@ -31,6 +51,7 @@
   font-size: 50px;
   padding: 3rem;
   display: block;
+  opacity: 1 !important;
 }
 
 /* The typewriter cursor effect */

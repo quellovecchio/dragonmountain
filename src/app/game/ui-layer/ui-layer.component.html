@@ -60,15 +60,17 @@
 
     <app-info-box class="info-box"></app-info-box>
     <app-action-bar class="action-bar"></app-action-bar>
-    <app-text-area class="text-area"></app-text-area>
+    <app-text-area class="text-area" [ngClass]="!uiService.getTextAreaVisibility() ? 'text-area-disabled' : ''"></app-text-area>
 
-    <div class="version" style="position:absolute; top: 90%; left:90%; color: white; font-size: 50px;">
-        {{version}}
-    </div>
-    <div class="settings" style="position:absolute; top: 88%; left:5%; color: white; font-size: 50px;">
-        <button style="background-color: transparent; border: 0px;" [matMenuTriggerFor]="settingsMenu">
-            <img style="width: 80px; padding: 5px" src="/assets/images/settings-icon.png" />
-        </button>
+    <div class="overlay">
+        <div class="version">
+            {{version}}
+        </div>
+        <div class="settings">
+            <button style="background-color: transparent; border: 0px;" [matMenuTriggerFor]="settingsMenu">
+                <img style="width: 40px;" src="/assets/images/settings-icon.png" />
+            </button>
+        </div>
     </div>
     <mat-menu #settingsMenu="matMenu" yPosition="above" xPosition="after">
         <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">

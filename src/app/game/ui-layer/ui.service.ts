@@ -29,8 +29,13 @@ export class UiService {
   enableUi: boolean = false;
 
   textBuffer: string[] = [];
+  textAreaVisibility: boolean = false;
 
   constructor() {
+  }
+
+  isScreenPortrait(): boolean {
+    return window.innerHeight > window.innerWidth;
   }
 
   public updateInventory(items: Item[]) {
@@ -77,6 +82,14 @@ export class UiService {
         this.textBuffer.push(text[i]);
       }
     }
+  }
+
+  setTextAreaVisibility(value: boolean): void {
+    this.textAreaVisibility = value;
+  }
+
+  getTextAreaVisibility(): boolean {
+    return this.textAreaVisibility;
   }
 
   cleanTextBuffer() {

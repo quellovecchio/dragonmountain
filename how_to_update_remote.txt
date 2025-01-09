@@ -1,2 +1,4 @@
+nvm use 16.16.0
 ng build --aot
->> firebase deploy
+nvm use 20.18.1
+firebase deploy

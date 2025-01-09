@@ -35,9 +35,17 @@ img {
     height: 20rem;
 }
 
+@media (max-width : 1000px) {
+    .location-preview {
+        width: 39vw;
+    }
+}
+
 .location {
     position: relative;
     top: 8%;
+    margin: -2rem;
+    height: 94%;
 }
 
 .fight {

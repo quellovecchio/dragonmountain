@@ -10,6 +10,7 @@ export class Actor {
 
     id = 0;
     imagePath: string = "/assets/images/actors/actor1.png";
+    rarity: number = 0;
     name: string = "Hero";
     level: number = 1;
     loot: Item[] = [];
