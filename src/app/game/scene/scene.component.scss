@@ -41,6 +41,12 @@ img {
     }
 }
 
+@media (max-width : 600px) {
+    .location-preview {
+        width: 25vw;
+    }
+}
+
 .location {
     position: relative;
     top: 8%;

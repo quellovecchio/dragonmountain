@@ -9,8 +9,20 @@
     background-repeat: no-repeat;
 }
 
+@media (max-width : 600px) {
+    .table-item {
+        height: 150px !important;
+    }
+}
+
 .table-item-name {
     font-size: 38px;
+}
+
+@media (max-width : 600px) {
+    .table-item-name {
+        font-size: 28px !important;
+    }
 }
 
 .table-item-info {
@@ -23,6 +35,12 @@
     font-size: 30px;
     color: green;
     padding: 12px;
+}
+
+@media (max-width : 600px) {
+    .table-item-name {
+        font-size: 20px !important;
+    }
 }
 
 .table-item-details {

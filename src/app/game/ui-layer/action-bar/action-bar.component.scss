@@ -7,6 +7,13 @@
     top: 2px;
 }
 
+@media (max-width : 600px) {
+    .action-bar {
+        height: 100px;
+        top: -40px;
+    }
+}
+
 .party-members {
     display: flex;
 }
