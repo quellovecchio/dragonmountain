@@ -74,6 +74,19 @@ export class UiLayerComponent implements OnInit {
 
   constructor(public runService: RunService, public uiService: UiService, private itemService: ItemService, public dataService: DataService) { }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    if(event.target.innerWidth < 1000) {
+      this.uiService.closeActorInfo();
+      this.uiService.closeInventory();
+    } else {
+      setTimeout(() => {
+      this.uiService.toggleActorInfo(this.runService.getRun().party[0]);
+      this.uiService.openInventory();
+      }, 200);
+    }
+  }
+
   ngOnInit(): void {
     this.inventorySubscription = this.uiService.inventory$.subscribe(items => {
       this.inventoryDataSource.data = items;

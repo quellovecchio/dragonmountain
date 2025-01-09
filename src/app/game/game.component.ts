@@ -14,6 +14,7 @@ import { STARTING_STATS } from '../editor/diy/diy.component'
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { DataService } from '../data.service';
 import { UiService } from './ui-layer/ui.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-game',

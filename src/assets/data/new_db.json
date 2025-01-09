@@ -679,6 +679,7 @@
         {
             "id": 21,
             "name": "Shining Chest",
+            "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
             "loot": [],
             "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
@@ -688,7 +689,7 @@
                     "reactTo": 14,
                     "text": "The trapdoor opened making a terrible noise...",
                     "effect": 1,
-                    "effectTarget": []
+                    "effectTarget": [ 3 ]
                 }
             ]
         },
@@ -1049,7 +1050,7 @@
         {
             "id": 10,
             "name": "Open Backyard",
-            "backgroundPath": "/assets/assets/images/locations/location4-bg.png",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
             "fight": [
                 20,
                 20,

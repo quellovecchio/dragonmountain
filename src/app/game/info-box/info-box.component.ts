@@ -5,7 +5,7 @@ import { RunService } from 'src/app/services/run.service';
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
-  styleUrls: ['./info-box.component.scss']
+  styleUrls: ['./info-box.component.scss'],
 })
 export class InfoBoxComponent {
 

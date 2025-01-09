@@ -17,7 +17,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
         ]),
         transition(':leave', [
           style({ opacity: 1}),
-          animate('500ms', style({ opacity: 0 }))
+          animate('1500ms', style({ opacity: 0 }))
         ])
       ]
     )
@@ -40,7 +40,6 @@ export class TextAreaComponent implements OnInit {
     .pipe(takeWhile(() => true))
     .subscribe(() => {
       var buffer = this.uiService.getTextBuffer();
-      console.log(buffer);
       if(buffer.length > 0) {
         buffer.forEach(element => {
           this.visible = true;

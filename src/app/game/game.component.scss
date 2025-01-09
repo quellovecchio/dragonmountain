@@ -31,6 +31,13 @@
   background-size: contain;
 }
 
+@media (max-width : 1000px) {
+  .viewport {
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+}
+
 .item-use-container {
   width: 30px;
   height: 30px;

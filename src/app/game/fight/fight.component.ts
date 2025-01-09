@@ -85,12 +85,12 @@ export class FightComponent implements OnInit {
   calculateActorsStartingPositions() {
     for (var i = 0; i < this.partyCharacters.length; i++) {
       this.partyData[i].fightPositionX = (this.battlefieldWidth * 0.2) + this.getRandomicity();
-      this.partyData[i].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * i) + this.getRandomicity();
+      this.partyData[i].fightPositionY = 0 - (this.battlefieldHeight/1.7) + (50 * i) + this.getRandomicity();
       console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
     }
     for (var j = 0; j < this.enemyCharacters.length; j++) {
       this.fightData![j].fightPositionX = (this.battlefieldWidth * 0.8) + this.getRandomicity();
-      this.fightData![j].fightPositionY = 0 - (this.battlefieldWidth/7) + (50 * j) + this.getRandomicity();
+      this.fightData![j].fightPositionY = 0 - (this.battlefieldHeight/1.7) + (50 * j) + this.getRandomicity();
       console.log('name : ' + this.fightData![j].name + ' fightPositionX : ' + this.fightData![j].fightPositionX + ' fightPositionY : ' + this.fightData![j].fightPositionY + ' bottom: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().right);
     }
   }

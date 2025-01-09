@@ -106,14 +106,27 @@ export class UiService {
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
+  openInventory() {
+    this.inventoryDisabled = true;
+    this.inventoryOpened = true;
+    setTimeout(() => { this.inventoryDisabled = false; }, 400);
+  }
+
+  closeInventory() {
+    this.inventoryDisabled = true;
+    this.inventoryOpened = false;
+    setTimeout(() => { this.inventoryDisabled = false; }, 400);
+  }
+
   toggleActorInfo(actor: PlayingCharacter) {
     this.displayedActorMenu = actor;
-    if (this.actorMenuOpened) {
-      this.actorMenuOpened = !this.actorMenuOpened;
-    }
     setTimeout(() => {
       this.actorMenuOpened = !this.actorMenuOpened;
     }, 200);
+  }
+
+  closeActorInfo() {
+    this.actorMenuOpened = false;
   }
 
   toggleShop(items?: Item[]) {

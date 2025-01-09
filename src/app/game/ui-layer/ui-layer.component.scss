@@ -30,7 +30,16 @@
     position: relative;
     top: 100px;
     transition: width 2s, height 4s;
+}
 
+@media (max-width : 1000px) {
+    .inventory {
+        height: 60% !important;
+        width: 40% !important;
+        top: 18% !important;
+        z-index: 998;
+        left: 55% !important;
+    }
 }
 
 .actor-menu {
@@ -42,6 +51,16 @@
     top: 100px;
     transition: width 2s, height 4s;
 
+}
+
+@media (max-width : 1000px) {
+    .actor-menu {
+        height: 60% !important;
+        width: 40% !important;
+        top: 18% !important;
+        z-index: 998;
+        right: 55% !important;
+    }
 }
 
 .equip-slot {
@@ -63,6 +82,13 @@
     left: 35%;
     margin: auto;
     transition: width 2s, height 4s;
+}
+
+@media (max-width : 1000px) {
+    .shop {
+        width: 70% !important;
+        left: 15% !important;
+    }
 }
 
 .close-shop-button {
@@ -131,7 +157,8 @@
 
 @media (max-width : 1000px) {
     .text-area {
-        top: 53%;
+        top: 58%;
+        width: 105%;
     }
 }
 

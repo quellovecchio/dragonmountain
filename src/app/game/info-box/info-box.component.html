@@ -1,6 +1,6 @@
 <div *ngIf="!gameOver()" class="pixelated-border spacing">
         <label>level {{runService.getRun().level}}</label>
-        <label style="font-size: 45px;">{{runService.getRun().stage.name}}</label>
+        <label style="font-size: 35px;">{{ runService.getRun().currentLocation ? runService.getRun().currentLocation.name : runService.getRun().stage.name}}</label>
         <label>EXP: {{runService.getRun().experience}}</label>
 </div>
 <div class="pixelated-border spacing" *ngIf="gameOver()">
