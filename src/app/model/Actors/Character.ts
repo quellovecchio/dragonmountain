@@ -10,7 +10,6 @@ export class Character extends Actor {
     classId: number = 0;
     class?: Class;
     skills: Skill[] = [];
-    dead: boolean = false;
 
     // battle purpose variables
     fightPositionX: number = 0;

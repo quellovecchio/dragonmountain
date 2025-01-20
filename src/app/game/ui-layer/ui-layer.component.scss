@@ -8,6 +8,12 @@
     align-items: center;
 }
 
+@media (max-width : 600px) {
+    .ui-layer {
+        padding: 14% 0 0 0 !important;
+    }
+}
+
 .overlay {
     position: absolute;
     display: flex;
@@ -16,6 +22,12 @@
     color: white;
     font-size: 30px;
     width: 90%;
+}
+
+@media (max-width : 600px) {
+    .overlay {
+        margin-top: -12% !important;
+    }
 }
 
 .version {
@@ -66,7 +78,7 @@
 @media (max-width : 600px) {
     .actor-menu-content {
         transform: scale(0.8);
-    }   
+    }
 }
 
 .equip-slot {
