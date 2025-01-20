@@ -166,7 +166,7 @@ export class UiLayerComponent implements OnInit {
         } else {
           let oldEquip = this.runService.getRun().party[characterIndex].equipment[slot];
           this.runService.getRun().party[characterIndex].equipment[slot] = newEquip;
-          this.runService.getRun().inventory.items.push(oldEquip);
+          this.runService.addItemToInventory(oldEquip);
           this.uiService.pushText(newEquip.name + " is equipped by " + this.uiService.displayedActorMenu.name);
           this.uiService.setSelectedItem(undefined);
         }
@@ -198,8 +198,7 @@ export class UiLayerComponent implements OnInit {
     } else {
       this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - item.moneyValue;
       this.uiService.pushText("That's a great deal! It's yours.");
-      this.runService.getRun().inventory.items.push(item);
-      this.uiService.updateInventory(this.runService.getRun().inventory.items);
+      this.runService.addItemToInventory(item);
     }
   }
 

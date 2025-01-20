@@ -12,6 +12,7 @@ export enum EffectType {
     steal = 11,
     taunt = 12,
     vanishes = 13,
+    talk = 14,
     // TODO add interactions
 }
 
