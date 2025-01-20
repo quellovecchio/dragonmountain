@@ -57,7 +57,6 @@ export class FightComponent implements OnInit {
   battlefieldWidth = 0;
   battlefieldHeight = 0;
 
-  @Output() attackSignal = new EventEmitter<any>();
   @Output() useSkillSignal = new EventEmitter<{ skill: Skill, enemyIndex: number, enemy: Actor }>();
 
   selectedEnemyIndex?: number;
@@ -249,53 +248,4 @@ export class FightComponent implements OnInit {
 
     this.menuTrigger?.openMenu();
   }
-
-  /*attack(enemyIndex: number, enemy: Actor) {
-    // TODO change animation to represent the attack
-    const attackSignal$ = new Observable<void>((observer) => {
-      this.attackSignal.subscribe(() => {
-        observer.next();
-        observer.complete();
-      });
-    });
-
-    attackSignal$.subscribe(() => {
-      // is the enemy defeated?
-      if (this.fightManager.lastAttackKilled && this.fightData) {
-        delete this.fightData![enemyIndex];
-        this.fightData = this.fightData!.filter(item => item);
-        this.fightManager.lastAttackKilled = false;
-      }
-    });
-
-    this.attackSignal.emit({ enemyIndex, enemy });
-  }
-
-  useSkillOn(skill: Skill, enemyIndex: number, enemy: Actor) {
-    // TODO change animation to represent the attack
-    const useSkillSignal$ = new Observable<void>((observer) => {
-      this.useSkillSignal.subscribe(() => {
-        observer.next();
-        observer.complete();
-      });
-    });
-
-    useSkillSignal$.subscribe(() => {
-      // is the enemy defeated?
-      if (this.fightManager.lastAttackKilled && this.fightData) {
-        delete this.fightData![enemyIndex];
-        this.fightData = this.fightData!.filter(item => item);
-        this.fightManager.lastAttackKilled = false;
-      }
-    });
-    this.useSkillSignal.emit({ skill: skill, enemyIndex: enemyIndex, enemy: enemy });
-  }
-
-  getBindedActor(index: number) {
-    return this.fightManager.getEnemy(index);
-  }
-
-  getCharacterSkills(character: Character): { "skills": Skill[] } {
-    return { "skills": character.skills };
-  }*/
 }
