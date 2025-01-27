@@ -295,6 +295,7 @@ Milestones:
 				-	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
+			-	
 
 		V	ui update
 		
@@ -351,13 +352,14 @@ Milestones:
 		-	ui update
 			-	if an actor is talking show his image
 			-	final ui impl. retouch everything
-			-	
+			-	text area update
+				-	click to skip text typewriting
+				-	speaking npc portrait on the screen if someone's talking
+				-	introcuce narrator character?
 			- 	midjourney generation of the assets
 			-	evaluate removing static black backgrounds and using all space avaliable
-			-	evaluate using black fog as background for text area content
 			-	evaluate changes in ui weaknesses, contact my pugliese friend for ui consueling
 			-	evaluate a stylish 'swipe left or right' animation to refresh the view when chaning location or hiring someone for drawing animations
-			-	animation when talking to an npc he goes to the center and the others disappear
 			-	animation for appearance of back to stage
 			-	animation for dead actors
 
