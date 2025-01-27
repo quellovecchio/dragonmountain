@@ -14,8 +14,7 @@ export class Actor {
     name: string = "Hero";
     level: number = 1;
     loot: Item[] = [];
-    // todo gives item when interacted
-    gives?: Item[] = [];
+    dead: boolean = false;
     // todo attacks when interacted
     fights?: boolean = false;
     // shop: collection of items that can be bought opening the shop

@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
+import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { RunService } from 'src/app/services/run.service';
 
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
-  styleUrls: ['./info-box.component.scss']
+  styleUrls: ['./info-box.component.scss'],
 })
 export class InfoBoxComponent {
 

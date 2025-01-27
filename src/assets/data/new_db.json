@@ -114,14 +114,14 @@
         },
         {
             "id": 4,
-            "name": "Doll Face",
+            "name": "Putrid Doll Face",
             "effect": {
                 "type": 3,
                 "power": 15
             },
             "description": "A very big doll face.",
             "moneyValue": 600,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item6.png"
         },
         {
             "id": 5,
@@ -243,7 +243,7 @@
                 "type": 3,
                 "power": 50
             },
-            "description": "Heals 30 hp",
+            "description": "Heals 50 hp",
             "moneyValue": 350,
             "thumbnailPath": "assets/images/items/item2.png"
         },
@@ -252,6 +252,13 @@
             "name": "Prison key",
             "description": "Opens the prison door",
             "moneyValue": 0,
+            "thumbnailPath": "assets/images/items/item4.png"
+        },
+        {
+            "id": 20,
+            "name": "Silver Bar",
+            "description": "A silver ingot crafted by slaves",
+            "moneyValue": 800,
             "thumbnailPath": "assets/images/items/item4.png"
         }
     ],
@@ -401,7 +408,8 @@
         },
         {
             "id": 6,
-            "name": "Floating teaspoon",
+            "name": "Cursed Closet",
+            "imagePath": "/assets/images/actors/actor6.png",
             "level": 3,
             "loot": [],
             "interactions": [
@@ -429,7 +437,7 @@
                     ]
                 }
             ],
-            "dialogue": "[why is this teaspoon floating?]"
+            "dialogue": "[why is this wardobe eating itself... And how?]"
         },
         {
             "id": 7,
@@ -753,21 +761,21 @@
                 9
             ],
             "dialogue": [
-                "[sounds uninterested] New face, uh?",
-                "Congratulations, you're welcome to the Thives Guild!",
-                "What? You didn't know about us? I mean, who cares!",
-                "You reached the Dark Sewers, and that's enough.",
-                "Getting here is the entrance test.",
-                "Be ready to hear from us, you'll receive some quests soon."
+                "Be ready to hear from us, you'll receive some quests soon.",
+                "You can shop here, by the way!",
+                "Feel free to serve yourself."
             ],
             "interactions": [
                 {
                     "reactTo": "talk",
                     "locksDoor": "true",
                     "text": [
-                        "Be ready to hear from us, you'll receive some quests soon.",
-                        "You can shop here, by the way!",
-                        "Feel free to serve yourself."
+                        "[sounds uninterested] New face, uh?",
+                        "Congratulations, you're welcome to the Thives Guild!",
+                        "What? You didn't know about us? I mean, who cares!",
+                        "You reached the Dark Sewers, and that's enough.",
+                        "Getting here is the entrance test.",
+                        "Be ready to hear from us, you'll receive some quests soon."
                     ],
                     "effect": 1,
                     "effectTarget": [
@@ -939,6 +947,133 @@
                 "intelligence": 2,
                 "healthPoints": 12
             },
+            "skills": []
+        },
+        {
+            "id": 34,
+            "name": "The Real Heir",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "I owe you my deepest gratitude for slaying those bandits, mercenaries hired by the King.",
+                "As the Real Heir to the Throne, Laura Marie, I will reward you with the sword of my knights.",
+                "That makes you, in fact, a Knight of the New Reign.",
+                "The Truth will be revealed soon, and the King will be dethroned.",
+                "We will now travel to the Fortune Teller Tent to prove my royal bloodline once for all.",
+                "Join us, if you want to make history!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 35,
+            "name": "Laura Marie",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": "That Globe will unveil the Truth.",
+            "skills": []
+        },
+        {
+            "id": 36,
+            "name": "Ecclesius",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 2,
+            "dialogue": [
+                "I am Ecclesius, The Real Heir's Guard.",
+                "The brightest future shines among us."
+            ],
+            "skills": []
+        },
+        {
+            "id": 37,
+            "name": "Fortune Teller",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 2,
+            "rest": true,
+            "dialogue": [
+                "...",
+                "SSSSHHH... I'm concentrating!!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 38,
+            "name": "Crystal Globe",
+            "imagePath": "/assets/images/actors/actor8.png",
+            "level": 2,
+            "dialogue": "[There's a Crystal Globe on a table covered with red linen.]",
+            "skills": []
+        },
+        {
+            "id": 39,
+            "name": "Laura Marie",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "I'm the Real Heir, Laura Marie, and I'm here to claim The Throne!",
+                "Do not oppose resistance upon us and surrend now, or face my Knights!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 40,
+            "name": "The King",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "You really want to take my throne??",
+                "Beware... That's some risky business."
+            ],
+            "stats": {
+                "charisma": 1,
+                "strength": 10,
+                "constitution": 30,
+                "dexterity": 10,
+                "intelligence": 10,
+                "healthPoints": 30
+            },
+            "skills": []
+        },
+        {
+            "id": 41,
+            "name": "Aristocrat",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "I knew I had to stay home today... Could you give this to my family if i die?"
+            ],
+            "interactions": [
+                {
+                    "reactTo": 14,
+                    "text": [
+                        "I knew I had to stay home today... Could you give this to my family if i die?"
+                    ],
+                    "effect": 1,
+                    "effectTarget": [
+                        20
+                    ]
+                }
+            ],
+            "skills": []
+        },
+        {
+            "id": 42,
+            "name": "Ecclesius",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "How you dare betraying our last spark of hope? You will pay for this!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 43,
+            "name": "Laura Marie",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "We finally meet again... I can't stand your betrayal.",
+                "By the powers my royal bloodline gave me, I sentence you to death!"
+            ],
             "skills": []
         }
     ],
@@ -1114,6 +1249,46 @@
             "actors": [
                 32,
                 33
+            ]
+        },
+        {
+            "id": 16,
+            "name": "Forgotten Square",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                34,
+                36
+            ]
+        },
+        {
+            "id": 17,
+            "name": "Fortune Teller Tent",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                35,
+                38,
+                37
+            ]
+        },
+        {
+            "id": 18,
+            "name": "King's court",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                39,
+                40,
+                41
+            ]
+        },
+        {
+            "id": 19,
+            "name": "Black Avenue",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
             ]
         }
     ],

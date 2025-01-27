@@ -9,6 +9,7 @@ import { RunService } from '../../services/run.service';
 import { ItemService } from '../../services/item.service';
 import { Constants } from 'src/assets/constants';
 import { UiService } from '../ui-layer/ui.service';
+import { EffectType } from 'src/app/model/Interaction';
 
 @Component({
   selector: 'app-scene',
@@ -59,67 +60,6 @@ export class SceneComponent implements OnInit {
     }, 3500 / Constants.TEXT_SPEED);
   }
 
-
-  /* OLD CODE TO MOVE
-  attack(data: { enemyIndex: number, enemy: Actor }) {
-    this.animateAttackOn(data.enemy);
-    let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-    // TODO animate defense;
-    let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, false);
-  }
-
-  useSkillOn(data: { skill: Skill, enemyIndex: number, enemy: Actor }) {
-    this.animateAttackOn(data.enemy);
-    if (this.fightManager.deductSkillPoints(data.skill)) {
-      let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-      if (data.skill.effect == EffectType.magicDamage) {
-        let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-        this.uiService.pushText(data.skill.name + "is used on " + defendingCharacter.name + ", so he suffers " + damage + " points of damage!");
-      }
-
-      if (data.skill.effect == EffectType.heal) {
-        // TODO
-      }
-
-      if (data.skill.effect == EffectType.magicDamage) {
-        let defendingCharacter = this.fightManager.getEnemy(data.enemyIndex);
-        let damage = this.fightManager.processAttack(this.fightManager.currentCharacter, defendingCharacter, true);
-        if (defendingCharacter && defendingCharacter.name)
-          this.uiService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
-      }
-
-      if (data.skill.effect == EffectType.steal) {
-        // steal calculates a percentage of probability given the intelligence and charisma of the character
-        let charisma = this.fightManager.currentCharacter.stats.charisma;
-        let intelligence = this.fightManager.currentCharacter.stats.intelligence;
-        let successPerc = charisma + intelligence;
-        let stealSuccess = false;
-        if (successPerc <= 100) {
-          successPerc = successPerc + this.getRandomNumber(0, 20);
-          if (successPerc <= 100) {
-            successPerc = successPerc + 15;
-            let seed = this.getRandomNumber(0, 100);
-            if (successPerc >= seed)
-              stealSuccess = true;
-          }
-        }
-
-        if (stealSuccess) {
-          let enemy = this.fightManager.enemies[data.enemyIndex];
-          let enemyInventory = [...enemy.loot, ...enemy.equipment];
-          let stolenItem = enemyInventory[this.getRandomNumber(0, enemyInventory.length)];
-          this.runService.getRun().inventory.items.push(stolenItem);
-          this.uiService.pushText("you managed to steal a " + stolenItem.name + " to " + defendingCharacter.name + "!");
-        } else
-          this.uiService.pushText("you tried to snuck something under " + defendingCharacter.name + "'s nose, but he wasn't fooled by your tricks");
-      }
-
-      // TODO implement aoe damage,
-    } else {
-      this.uiService.pushText("That man is too tired to use that skill...");
-    }
-  } */
-
   rest() {
     if (this.runService.getRun().inventory.money < 200) {
       this.uiService.pushText("I can make you rest here for 200$, but i don't think you have that much money");
@@ -133,11 +73,19 @@ export class SceneComponent implements OnInit {
   // NPC interactions
   
   talkToActor(a: Actor) {
-    this.uiService.talkToNpcPushText(a.name, a.dialogue);
+    let talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
+    if(talkInteraction) {
+      this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
+      if(talkInteraction.effectTarget) {
+        this.runService.interact({ character: (a as Character), action: talkInteraction });
+      }
+      this.runService.resolveInteraction(a, EffectType.talk);
+    }
+    else
+      this.uiService.talkToNpcPushText(a.name, a.dialogue);
   }
 
   engageFightWith(a: Actor) {
-    console.log(this.runService.getRun().currentLocation?.actors)
     this.uiService.pushText("You engaged combat with " + a.name + ".");
     this.runService.startFight([a as Character]);
   }

@@ -62,9 +62,9 @@ export class RunService {
   }
 
   refreshLocations(fromQuestlineFlag: boolean) {
-    if(!fromQuestlineFlag)
+    if (!fromQuestlineFlag)
       this.getRun().stage.currentLocations = this.getRefreshedLocations();
-    else 
+    else
       this.getRun().stage.currentLocations = this.getNextQuestlineLocations();
   }
 
@@ -116,6 +116,11 @@ export class RunService {
     this.uiService.updateInventory(this.run.inventory.items);
   }
 
+  addItemToInventory(item: Item) {
+    this.run.inventory.items.push(item);
+    this.uiService.updateInventory(this.run.inventory.items);
+  }
+
   setnextQuestlinePhase(location: TreeNode) {
     this.run.nextQuestlinePhase = location;
   }
@@ -129,40 +134,45 @@ export class RunService {
 
   interact(data: { character: Character; action: any }) {
     // If the character reacts to the interaction, activate the specified effect
-    if (data.character.interactions ? data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.id).length > 0 : false) {
-      let interaction = data.character.interactions.filter((interaction: Interaction) => interaction.reactTo == data.action.id)[0];
+    let interaction = this.findInteraction(data.character.interactions, data.action);
+    let effectType = EffectType.resurrect;
+    if (interaction) {
       if (interaction.effect == EffectType.fight) {
+        effectType = EffectType.fight;
         this.uiService.pushText(interaction.text);
         this.startFight(interaction.effectTarget);
       }
       if (interaction.effect == EffectType.giveItem) {
+        effectType = EffectType.giveItem;
         this.uiService.pushText(interaction.text)
         interaction.effectTarget.forEach((el: number) => {
           let newItem = this.dataService.getItemById(el);
-          this.getRun().inventory.items.push(newItem);
+          this.addItemToInventory(newItem);
           this.uiService.pushText(data.character.name + " gave you a " + newItem.name + "!")
           this.uiService.pushText("The item was placed into the inventory");
-          this.uiService.updateInventory(this.getRun().inventory.items);
         });
       }
       if (interaction.effect == EffectType.vanishes) {
+        effectType = EffectType.vanishes;
         this.uiService.pushText(interaction.text);
         let characterIndex = this.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
         delete this.getRun().currentLocation!.actors![characterIndex!];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
       }
+      this.resolveInteraction(data.character, effectType);
     }
     // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
       console.log("reacted with standard interaction");
       switch (data.action.effect.type) {
         case EffectType.heal:
-          // TODO proc heal interaction
           this.uiService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
-          if (data.character.interactions.filter((req) => { return req.reactTo == "heal" }).length > 0) {
-            data.character.interactions = data.character.interactions.filter((req) => { return req.reactTo == "heal" });
+          let healInteraction = this.findInteraction(data.character.interactions, EffectType.heal);
+          if (healInteraction) {
+            this.resolveInteraction(data.character, EffectType.heal);
+            this.interact({ character: data.character, action: healInteraction });
           }
           break;
         default:
@@ -225,10 +235,15 @@ export class RunService {
     this.getRun().currentFight!.forEach(actor => {
       this.loot(actor);
     });
-    this.charactersJoiningAfterBattle.forEach((c: Character) => {
-      this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(el => {
-        el.id != c.id;
-      });
+    
+    
+    this.getRun().currentLocation!.actors.forEach((a: Actor) => {
+      if(this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0 
+          || this.fightService.enemies.findIndex((el: Character) => el.name == a.name) >= 0) {
+        let characterIndex = this.getRun().currentLocation!.actors!.findIndex(el => { return a == el });
+        delete this.getRun().currentLocation!.actors![characterIndex];
+        this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
+      }
     })
     this.fightService.endFight();
     this.getRun().state = RunState.Location;
@@ -290,14 +305,20 @@ export class RunService {
         if (el.name.includes('money')) {
           this.getRun().inventory.money = this.getRun().inventory.money + +el.name.replace(/[^0-9]/g, "");
           this.uiService.pushText("You found " + el.name + "!");
-          this.uiService.pushText("That was placed into the inventory");
         } else {
-          this.getRun().inventory.items.push(el);
+          this.addItemToInventory(el);
           this.uiService.pushText("You found a " + el.name + "!");
-          this.uiService.pushText("The item was placed into the inventory");
         }
       });
       item.loot = [];
     }
+  }
+
+  findInteraction(interactions: Interaction[], type: EffectType | Item) {
+    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
+  }
+
+  resolveInteraction(actor: Actor, type: EffectType | Item) {
+    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
   }
 }

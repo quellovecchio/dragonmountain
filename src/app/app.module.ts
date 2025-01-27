@@ -40,10 +40,10 @@ import { DiyBinderComponent } from './diy-binder/diy-binder.component';
 import { LoadDialogComponent } from './editor/diy/load-dialog/load-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ItemsTableComponent } from './common/items-table/items-table.component';
-import { InfoBoxComponent } from './game/info-box/info-box.component';
 import { ActionBarComponent } from './game/ui-layer/action-bar/action-bar.component';
 import { TextAreaComponent } from './game/ui-layer/text-area/text-area.component';
 import { UiLayerComponent } from './game/ui-layer/ui-layer.component';
+import { InfoBoxComponent } from './game/ui-layer/info-box/info-box.component';
 @NgModule({
   declarations: [
     AppComponent,

@@ -75,12 +75,6 @@ export class LocationComponent implements OnInit {
 
   talk(a: Actor) {
     this.talkSignal.emit(a);
-
-    var talkInteraction = a.interactions.filter((interaction: Interaction) => interaction.reactTo == 'talk');
-    if(talkInteraction.length > 0) {
-      var newRequirements = a.interactions.filter((interaction: Interaction) => interaction.reactTo != 'talk');
-      a.interactions = newRequirements;
-    }
   }
 
   engageCombat(a: Actor): any {

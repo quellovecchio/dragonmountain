@@ -1,0 +1,50 @@
+questlines
+
+
+a fake heir
+
+forgotten quare 16
+34 real heir
+36 ecclesius
+fortune teller tent 17
+35 laura marie
+38 future globe
+37 fortune teller
+King's Court 18 - BOSS 1
+39 lm
+40 king (boss)
+41 courtman
+Black Avenue 19 - BOSS 2
+
+
+thieves guild
+
+dark sewers 12
+
+market square 9
+rework - change thief ring in imperial tax collector, imperial tax collector is defeatable but doesn't join.
+
+imperial prison 15
+
+
+vampires in the city
+
+city hall 13
+
+
+necromancer's tomb 0 - BOSS 1
+
+
+
+mixed locations
+unholy church 1
+haunted shop 2
+mercenaries tavern 3
+sadness boulevard 4
+putrid street 5
+the house of the rising sun 6
+grandma's house 7
+unsettling shop 8
+open backyard 10
+witch's house 11
+battle arena 14

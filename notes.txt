@@ -119,13 +119,19 @@ NEXT STEPS:
 focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
 optionals like aesthetic items.
 
-			LAUNCH MILESTONES:
+
+			POST LAUNCH CONTENT:
 
 DIY UPDATE: (
 - custom run database available
 - community documentation release
 - users
 - dev blog  
+)
+
+UI UPDATE: (
+- Skills tree show up, remembering informations from past runs.
+- The Dragondex: Bestiary, Room of Weapons, Wall of Fame. Shows the player information of actors, enemies ecc ecc from past runs and what they're missing out.
 )
 
 CLASSES UPDATE: (
@@ -144,28 +150,15 @@ STATES UPDATE: (
 - Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
 )
 
-EQUIP UPDATE: (
+Magic & EQUIP UPDATE: (
 - crafting, upgrade items and craft unique items
 - enchant equip to get special effects
+- new skills and spells gets added to the game!
 - The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
 )
 
-MAGIC UPDATE: (
-- skills gets added to the game!
-- make sure they are craftable in db
-- class skill tree and learning levels
-- skills only obtainable thru scrolls
-)
-
-
-			POST LAUNCH CONTENT:
-
-UI UPDATE: (
-- Skills tree show up, remembering informations from past runs. 
-)
-
 DRAGON TOWER UPDATE: (
-- Dragon Tower Mode: Fight in this endless tower mode
+- Dragon Tower Mode: endless tower mode
 )
 
 AUTOBATTLE UPDATE: (
@@ -298,10 +291,6 @@ Milestones:
 				V	change refresh dynamics: you can't leave some rooms if not resolved
 					-	update database
 					V	implement refresh counter and quests logic
-				-	insert places to rest in questlines to balance the game, remove them from the pool
-				-	random encounters (random drops in locations)
-				-	spawn also people (not only locations) during exploration
-				-	example: spawn granny or wanderer seller instead of location
 				-	little choises: example touch or dont touch the relic and what happen if you do or dont
 				-	play questline from bottom to end
 				-	play stage from bottom to end
@@ -317,9 +306,12 @@ Milestones:
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
-			-	revive state, revive spell, revive option from actors
+			-	revive state, revive spell, revive option from actors (priests, witch...)
+			-	
 
 		-	fight update
+			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
+			-	make units disappear when dead (animated)
 			-	implement ranged attacks and missiles logic
 			-	implement collisions between pawns
 			V	fight bugfixes
@@ -343,6 +335,9 @@ Milestones:
 			-	make sure storyline counter scales with stage number
 			-	questlog to track quests
 			-	interactive tutorial (explain stuff while happening via dialogs)
+			-	random encounters (random drops in locations)
+			-	spawn also people (not only locations) during exploration
+				-	example: spawn granny or wanderer seller instead of location
 
 
 ---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
@@ -354,6 +349,9 @@ Milestones:
 			-	evaluate splash art with background instead of no background full pic and card frame
 			- 	traslucency polish
 		-	ui update
+			-	if an actor is talking show his image
+			-	final ui impl. retouch everything
+			-	
 			- 	midjourney generation of the assets
 			-	evaluate removing static black backgrounds and using all space avaliable
 			-	evaluate using black fog as background for text area content
@@ -456,8 +454,8 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 		- a fake heir questline
 
 			you defend a young girl with some people following her from soldiers. she tells you she is the real heir.
-			you encounter her back and she is cheered by people. gives you a sword and makes you her Knight/Ambassador, and she tells you to got to bring her to the fortune teller to prove her royal blood.
-			you go to the Fortune Teller Tent. The Fortune Teller says that the one who will touch the glass ball and the ball will glow is the heir, and the actor 'Glass Bowl' spawns.  
+			gives you a sword and makes you her Knight/Ambassador, and she tells you to got to bring her to the fortune teller to prove her royal blood.
+			you go to the Fortune Teller Tent. The Fortune Teller says that the one who will touch the glass ball and the ball will glow is the heir, and the actor 'Glass Bowl' spawns.
 			you can touch the ball or make the girl touch it. 
 			either way the ball will glow. if you touch it, her followers will accuse you of being a fake and the boss will be her knights (already seen in locations but friends), if the girl touches it the boss will be the King and his knights
 

@@ -18,7 +18,6 @@
     width: 22%;
 }
 
-// force landscape mode on mobile devices
 @media (max-width : 1000px) {
     .actor {
         height: 50vh;
@@ -26,10 +25,23 @@
     }
 }
 
+@media (max-width : 1000px) {
+    .actor {
+        height: 20rem;
+        width: 25vw;
+    }
+}
+
 .actor-row {
     display: flex !important;
     height: 100% !important;
     justify-content: space-evenly !important;
+}
+
+@media (max-width : 600px) {
+    .actor-row {
+        margin-top: 10%;
+    }
 }
 
 .actor-card {

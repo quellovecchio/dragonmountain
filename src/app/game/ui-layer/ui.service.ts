@@ -143,9 +143,9 @@ export class UiService {
       this.pushText("[Merchant]: Thanks for your business.");
   }
 
-  closeShop() {
+  closeShop(message: boolean = true) {
     this.shopOpened = false;
-    this.pushText("[Merchant]: Thanks for your business.");
+    if (message) this.pushText("[Merchant]: Thanks for your business.");
     this.updateShopItems([]);
   }
 }
