@@ -15,14 +15,14 @@ import { Stats } from 'src/app/model/Stats';
 
 // TODO sort of a fast way to do it must be loaded from chosen character
 export const STARTING_STATS: Stats = {
-  strength: 5,
-  dexterity: 5,
+  strength: 10,
+  dexterity: 10,
   constitution: 20,
-  intelligence: 10,
-  wisdom: 5,
-  charisma: 5,
+  intelligence: 20,
+  wisdom: 10,
+  charisma: 10,
   healthPoints: 20,
-  skillPoints: 10
+  skillPoints: 20
 }
 
 @Component({

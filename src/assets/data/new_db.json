@@ -997,10 +997,10 @@
         },
         {
             "id": 38,
-            "name": "Future Globe",
+            "name": "Crystal Globe",
             "imagePath": "/assets/images/actors/actor8.png",
             "level": 2,
-            "dialogue": "[There's a Future Globe on a table, covered in red linen.]",
+            "dialogue": "[There's a Crystal Globe on a table covered with red linen.]",
             "skills": []
         },
         {
@@ -1034,7 +1034,7 @@
             "skills": []
         },
         {
-            "id": 40,
+            "id": 41,
             "name": "Aristocrat",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1052,6 +1052,27 @@
                         20
                     ]
                 }
+            ],
+            "skills": []
+        },
+        {
+            "id": 42,
+            "name": "Ecclesius",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "How you dare betraying our last spark of hope? You will pay for this!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 43,
+            "name": "Laura Marie",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "We finally meet again... I can't stand your betrayal.",
+                "By the powers my royal bloodline gave me, I sentence you to death!"
             ],
             "skills": []
         }
@@ -1236,6 +1257,8 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                34,
+                36
             ]
         },
         {
@@ -1244,19 +1267,25 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                35,
+                38,
+                37
             ]
         },
         {
             "id": 18,
-            "name": "Imperial Prison",
+            "name": "King's court",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                39,
+                40,
+                41
             ]
         },
         {
             "id": 19,
-            "name": "King's court",
+            "name": "Black Avenue",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [

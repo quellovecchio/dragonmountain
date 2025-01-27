@@ -119,13 +119,19 @@ NEXT STEPS:
 focus on scaling & ethic growth. Always state that the game will be forever free-to-play and try to monetize only and foremost via
 optionals like aesthetic items.
 
-			LAUNCH MILESTONES:
+
+			POST LAUNCH CONTENT:
 
 DIY UPDATE: (
 - custom run database available
 - community documentation release
 - users
 - dev blog  
+)
+
+UI UPDATE: (
+- Skills tree show up, remembering informations from past runs.
+- The Dragondex: Bestiary, Room of Weapons, Wall of Fame. Shows the player information of actors, enemies ecc ecc from past runs and what they're missing out.
 )
 
 CLASSES UPDATE: (
@@ -144,29 +150,15 @@ STATES UPDATE: (
 - Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
 )
 
-EQUIP UPDATE: (
+Magic & EQUIP UPDATE: (
 - crafting, upgrade items and craft unique items
 - enchant equip to get special effects
 - new skills and spells gets added to the game!
 - The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
 )
 
-MAGIC UPDATE: (
-
-- make sure they are craftable in db
-- class skill tree and learning levels
-- skills only obtainable thru scrolls
-)
-
-
-			POST LAUNCH CONTENT:
-
-UI UPDATE: (
-- Skills tree show up, remembering informations from past runs. 
-)
-
 DRAGON TOWER UPDATE: (
-- Dragon Tower Mode: Fight in this endless tower mode
+- Dragon Tower Mode: endless tower mode
 )
 
 AUTOBATTLE UPDATE: (
@@ -314,9 +306,12 @@ Milestones:
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
-			-	revive state, revive spell, revive option from actors
+			-	revive state, revive spell, revive option from actors (priests, witch...)
+			-	
 
 		-	fight update
+			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
+			-	make units disappear when dead (animated)
 			-	implement ranged attacks and missiles logic
 			-	implement collisions between pawns
 			V	fight bugfixes

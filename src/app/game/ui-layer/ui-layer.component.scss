@@ -27,6 +27,17 @@
 @media (max-width : 600px) {
     .overlay {
         margin-top: -12% !important;
+        font-size: 16px !important;
+    }
+}
+
+.settings-icon {
+    width: 40px;
+}
+
+@media (max-width : 600px) {
+    .settings-icon {
+        width: 25px;
     }
 }
 
@@ -162,7 +173,7 @@
 @media (max-width : 600px) {
     .info-box {
         width: 90% !important;
-        top: 0% !important;
+        top: -2% !important;
     }
 }
 
@@ -177,6 +188,12 @@
 @media (max-width : 1000px) {
     .action-bar {
         width: 90%;
+    }
+}
+
+@media (max-width : 600px) {
+    .action-bar {
+        top: 70%;
     }
 }
 

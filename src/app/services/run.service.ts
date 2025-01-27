@@ -238,7 +238,8 @@ export class RunService {
     
     
     this.getRun().currentLocation!.actors.forEach((a: Actor) => {
-      if(this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0) {
+      if(this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0 
+          || this.fightService.enemies.findIndex((el: Character) => el.name == a.name) >= 0) {
         let characterIndex = this.getRun().currentLocation!.actors!.findIndex(el => { return a == el });
         delete this.getRun().currentLocation!.actors![characterIndex];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
@@ -313,11 +314,11 @@ export class RunService {
     }
   }
 
-  findInteraction(interactions: Interaction[], type: EffectType) {
-    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type]);
+  findInteraction(interactions: Interaction[], type: EffectType | Item) {
+    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
   }
 
-  resolveInteraction(actor: Actor, type: EffectType) {
-    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type]);
+  resolveInteraction(actor: Actor, type: EffectType | Item) {
+    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
   }
 }
