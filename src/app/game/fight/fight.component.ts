@@ -104,7 +104,7 @@ export class FightComponent implements OnInit {
 
   startFightScene() {
     if(window.innerWidth < 600) {
-      this.uiService.closeShop();
+      this.uiService.closeShop(false);
       this.uiService.closeInventory();
     }
     const intervalId = setInterval(() => {
