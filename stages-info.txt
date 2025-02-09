@@ -1,35 +1,48 @@
 questlines
 
 
-a fake heir
+	A NEW HEIR
 
 forgotten quare 16
 34 real heir
 36 ecclesius
 fortune teller tent 17
 35 laura marie
-38 future globe
+38 crystal globe
 37 fortune teller
 King's Court 18 - BOSS 1
 39 lm
 40 king (boss)
-41 courtman
+41 aristocrat
 Black Avenue 19 - BOSS 2
+42 ecclesius
+43 laura marie - attacks you when you talk to her (program fight effect to talk interaction)
 
 
-thieves guild
+	THIEVES GUILD
 
 dark sewers 12
 
-market square 9
-rework - change thief ring in imperial tax collector, imperial tax collector is defeatable but doesn't join.
+2b imperial prison 15
 
-imperial prison 15
+3b.a - thieves tavern 20: depending on who you decide to kill the children location changes
+thief 44 - yells to the other man saying he owes money to the thieves guild
+sharp dressed man 45 - begs you to kill the thief for money
+
+4b.a.a - dark sewers 21 if you killed the thief
+BOSS - Thieves Guild Master 46, angry at you because you helped the spy to infiltrate the guild and killed the affiliate
+
+4b.a.b - empty square 22 if you killed the other man
+BOSS - Far Land Emissary 47, looking for vegeance on the spy
 
 
-vampires in the city
+
+
+
+	VAMPIRES OF THE CITY	
 
 city hall 13
+
 
 
 necromancer's tomb 0 - BOSS 1
@@ -38,7 +51,7 @@ necromancer's tomb 0 - BOSS 1
 
 mixed locations
 unholy church 1
-haunted shop 2
+haunted shop 2 - TODO add ghost good loot
 mercenaries tavern 3
 sadness boulevard 4
 putrid street 5
@@ -48,3 +61,27 @@ unsettling shop 8
 open backyard 10
 witch's house 11
 battle arena 14
+market square 9
+
+TODO 
+
+-- REST PLACES --
+southern inn - rest
+the hungry journeyman - rest
+
+-- BLESS PLACES --
+numida chapel - bless
+Northern cathedral - bless, join
+shaman shack - bless, loot
+
+-- SHOP PLACES --
+mages guild - shop, join
+
+
+-- DUNGEONS --
+moldening crypt - fight, loot
+scary mine - fight, loot
+bloodshed tavern - fight, loot, full of vampires
+silver mine - fight, loot
+
+

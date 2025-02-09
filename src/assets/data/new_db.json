@@ -1075,6 +1075,56 @@
                 "By the powers my royal bloodline gave me, I sentence you to death!"
             ],
             "skills": []
+        },
+        {
+            "id": 44,
+            "name": "Thief",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "Stop that nonsense, filthy spy!",
+                "Give back what you own to The Guild and you'll be fine."
+            ],
+            "skills": []
+        },
+        {
+            "id": 45,
+            "name": "Sharp dressed man",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "Oh!! It's you! I'm in danger, this man is accusing me!",
+                "You can trust me... Please kill this man! I can pay you well!."
+            ],
+            "skills": []
+        },
+        {
+            "id": 46,
+            "name": "Thieves Guild Master",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "You filthy traitor... You killed our brother!",
+                "Thought you could get away with it? I know everything about my associates...",
+                "But i didn't think you were so stupid to come back here.",
+                "You will pay for this with your blood."
+            ],
+            "skills": []
+        },
+        {
+            "id": 47,
+            "name": "Far Land Emissary",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "Well, well, well... We finally found you.",
+                "Why were we looking for you? Who are we?",
+                "And WHY am i talking in plural? Well...",
+                "You happened to kill one of my ears, my tongues...",
+                "...One of my spies, if you want to me to be clear.",
+                "So... What about i kill you now?."
+            ],
+            "skills": []
         }
     ],
     "locations": [
@@ -1244,6 +1294,9 @@
         {
             "id": 15,
             "name": "Imperial Prison",
+            "children": [
+                20
+            ],
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
@@ -1286,6 +1339,30 @@
         {
             "id": 19,
             "name": "Black Avenue",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+            ]
+        },
+        {
+            "id": 20,
+            "name": "Thieves Tavern",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+            ]
+        },
+        {
+            "id": 21,
+            "name": "Dark Sewers",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+            ]
+        },
+        {
+            "id": 22,
+            "name": "Empty Square",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [

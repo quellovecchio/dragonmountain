@@ -120,40 +120,54 @@ focus on scaling & ethic growth. Always state that the game will be forever free
 optionals like aesthetic items.
 
 
-			POST LAUNCH CONTENT:
-
-DIY UPDATE: (
-- custom run database available
-- community documentation release
+			FUTURE IDEAS / POST LAUNCH CONTENT:
+COMMUNITY: (
 - users
-- dev blog  
+- dev blog
+- chat rooms: quick hints, masterclass, disq
+- global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
+- showcase mode: save your best runs teams to show it on your profile
 )
 
-UI UPDATE: (
+DIY: (
+- custom run database available
+- community documentation release
+- possibility to automatically merge databases
+- gui for custom run creator
+- mod marketplace (maybe monetize on that leaving the possibility to use other people databases?)
+)
+
+QOL / UI: (
 - Skills tree show up, remembering informations from past runs.
 - The Dragondex: Bestiary, Room of Weapons, Wall of Fame. Shows the player information of actors, enemies ecc ecc from past runs and what they're missing out.
 )
 
-CLASSES UPDATE: (
+GAMEPLAY: (
+- gambling: select how much money to gamble, flip a coin impl, dices impl, gambler class with exclusive spells, new joining characters gamblers
+- crafting: npcs can make you craft new items merging them, recipes impl
+- enchanting: enchant equip to get special effects
 - damage type (fire, ice ecc ecc) and type weaknesses
-- classes -> implements typ weaknesses
-- Vampire City stage, Florence inspired city with powerful vampires (class, weak to fire and light) leading the Town Hall.	< - reworked into damned citadel
+- status damage: poisoned, frozen, confused states
+- traps: traps impl, hunter class can place traps on the battlefield and help detect traps exploring
+- subclasses?
+- difficulty settings
+- nuzlocke mode
+- possibility to get up to level 10, with a different boss (maybe hard mode?)
+- multiplayer: 3 player vs 3 player or 1 player vs 1 player
+	the players get in the same dungeon, they have to wander looking for better equip, survive monsters and slay the enemies if 	they find them. the last player or team alive wins
+- aestetics to buy for money (more, this time)
+- during single player mode you can find an item that freezes an item in the inventory to get it in the colection to be
+  used in multiplayer
+- item packs & featured items can be bought to avoid single player grind
+- battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included, ai runs
+- Guild battle, 8 vs 8.
+- community chooses things from marketplace to be usable in multiplayer. the meta changes ever 4 months as some things goes out
+	of rotation while others come in.
+- introducing legacy format, where all items can be used.
 )
 
-STATES UPDATE: (
-- npc can have traps, like damaging health or giving a negative state to a character
-
-- a character can have negative or positive states, debuffing or buffing stats, making it weaker to damage or magic damage
-	or other like poison giving you poison damage every turn.
-		each stat has a counter of the number of turns you will have the effect yet. this counter can incrase or decrease
-		with equips, spells, ecc ecc
+STAGES: (
 - Illness Swamp stage, where farmers place human traps and mosquitoes can get you ill (die in x turns).
-)
-
-Magic & EQUIP UPDATE: (
-- crafting, upgrade items and craft unique items
-- enchant equip to get special effects
-- new skills and spells gets added to the game!
 - The Windum, where mages study, and The Forgotten Mine, where the best steel is forged, stages
 )
 
@@ -168,62 +182,6 @@ AUTOBATTLE UPDATE: (
 POKEMON UPDATE: (
 - monster catcher mode (pokemon)
 )
-
-
-COMMUNITY UPDATE: (
-- chat
-	- rooms: quick hints, masterclass, disq
-- global ranking system. each run gives you a score based on actions and other stuff for a global leaderboard.
-- showcase mode: save your best runs teams to show it on your profile
-)
-
-DIY UPDATE 2: (
-- possibility to automatically merge databases
-- gui for custom run creator
-- mod marketplace (maybe monetize on that leaving the possibility to use other people databases?)
-)
-
-ADVENTURES UPDATE: (
-- 1 new free stage
-- 2 new stages (very low price (0,99?))
-)
-
-ENDGAME UPDATE: (
-- difficulty settings
-- nuzlocke mode
-- possibility to get up to level 10, with a different boss (maybe hard mode?)
-)
-
-ADVENTURES UPDATE 2: (
-- 1 new free stage
-- 2 new stages (very low price (0,99?))
-)
-
-COMMUNITY UPDATE 3: (
-- multiplayer: 3 player vs 3 player or 1 player vs 1 player
-	the players get in the same dungeon, they have to wander looking for better equip, survive monsters and slay the enemies if 	they find them. the last player or team alive wins
-- aestetics to buy for money (more, this time)
-- during single player mode you can find an item that freezes an item in the inventory to get it in the colection to be
-  used in multiplayer
-)
-
-COMMUNITY UDATE 4: (
-- item packs & featured items can be bought to avoid single player grind
-)
-
-
-COMMUNITY UDATE 4: (
-- battle pass giving featured workshop databases, Quests, cheats for single player modes, featured aesthetics included, ai runs
-- Guild battle, 8 vs 8.
-)
-
-COMMUNITY UDATE 6: (
-- community chooses things from marketplace to be usable in multiplayer. the meta changes ever 4 months as some things goes out
-	of rotation while others come in.
-- introducing legacy format, where all items can be used.
-)
-
-
 
 Potential marketing material:
 -	REALLY	FREE	-
@@ -291,11 +249,15 @@ Milestones:
 				V	change refresh dynamics: you can't leave some rooms if not resolved
 					-	update database
 					V	implement refresh counter and quests logic
-				-	little choises: example touch or dont touch the relic and what happen if you do or dont
+					-	little choises: example touch or dont touch the relic and what happen if you do or dont
+					-	other joining conditions (talk, give ecc ecc)
 				-	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
-			-	
+			-	location badges (telling you if there's a fight, rest place ecc ecc)
+			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
+				-	introduce priest class with Bless spell at start
+			-	sell
 
 		V	ui update
 		
@@ -308,7 +270,7 @@ Milestones:
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
 			-	revive state, revive spell, revive option from actors (priests, witch...)
-			-	
+			-	introduce shaman class with summoning spells
 
 		-	fight update
 			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
@@ -354,7 +316,7 @@ Milestones:
 			-	final ui impl. retouch everything
 			-	text area update
 				-	click to skip text typewriting
-				-	speaking npc portrait on the screen if someone's talking
+				-	speaking npc portrait on the screen if someone's talking, substitutes the scene
 				-	introcuce narrator character?
 			- 	midjourney generation of the assets
 			-	evaluate removing static black backgrounds and using all space avaliable
@@ -397,8 +359,8 @@ SPELLS:
 ----------------------------------------------------
 BUG TRACKER
 ----------------------------------------------------
-move damage animation inside of the chartacer in fight component
-
+- move damage animation inside of the chartacer in fight component
+- fix doubled locations spawn - change removeLocationFromPool from exiting a stage to when the stage gets extracted
 	
 PLOT: 
 
