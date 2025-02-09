@@ -45,9 +45,10 @@ export class SceneComponent implements OnInit {
     console.log("----- done updating questline counter -------");
     this.runService.removeLocationFromPool(location.id);
     var questlineCounterCrossed = false;
-    if(this.runService.getRun().questlineCounter >= (1.5 + ((this.runService.getRun().level - 1) * 0.2)))
+    if(this.runService.getRun().questlineCounter >= (1.5 + ((this.runService.getRun().level - 1) * 0.2))) {
+      this.runService.getRun().questlineCounter = 0;
       questlineCounterCrossed = true;
-
+    }
     // if storyline counter crosses the limit go to next questline stage
     // if not, call locations from pool
     this.runService.refreshLocations(questlineCounterCrossed);
