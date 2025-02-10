@@ -257,7 +257,10 @@ Milestones:
 			-	location badges (telling you if there's a fight, rest place ecc ecc)
 			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
 				-	introduce priest class with Bless spell at start
+			-	introduce money drops
 			-	sell
+			-	text goes on with click
+			-	updated intro
 
 		V	ui update
 		
@@ -361,6 +364,8 @@ BUG TRACKER
 ----------------------------------------------------
 - move damage animation inside of the chartacer in fight component
 - fix doubled locations spawn - change removeLocationFromPool from exiting a stage to when the stage gets extracted
+- chests can be opened twice (make them disappear)
+- people is not dying after fight!!
 	
 PLOT: 
 

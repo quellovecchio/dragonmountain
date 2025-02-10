@@ -367,7 +367,7 @@
             "loot": [],
             "interactions": [
                 {
-                    "reactTo": "Holy Water",
+                    "reactTo": 1,
                     "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
                     "effect": 2,
                     "effectTarget": [
@@ -417,6 +417,7 @@
                     "reactTo": 1,
                     "text": "[The teaspoon started smoking and turned into a ghost!]",
                     "effect": 2,
+                    "vanishes": true,
                     "effectTarget": [
                         {
                             "name": "Poltergeist",
@@ -637,7 +638,7 @@
             "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
             "interactions": [
                 {
-                    "reactTo": 13,
+                    "reactTo": "talk",
                     "text": "Thanks so much... My wife will not leave me!",
                     "effect": 1,
                     "effectTarget": [
@@ -690,10 +691,11 @@
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
             "loot": [],
-            "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
+            "dialogue": "[Bad luck... It's locked!]",
             "skills": [],
             "interactions": [
                 {
+                    "vanishes": true,
                     "reactTo": 14,
                     "text": "The trapdoor opened making a terrible noise...",
                     "effect": 1,
@@ -1043,7 +1045,7 @@
             ],
             "interactions": [
                 {
-                    "reactTo": 14,
+                    "reactTo": "talk",
                     "text": [
                         "I knew I had to stay home today... Could you give this to my family if i die?"
                     ],
@@ -1085,6 +1087,30 @@
                 "Stop that nonsense, filthy spy!",
                 "Give back what you own to The Guild and you'll be fine."
             ],
+            "stats": {
+                "charisma": 2,
+                "strength": 2,
+                "constitution": 25,
+                "dexterity": 14,
+                "intelligence": 1,
+                "healthPoints": 25
+            },
+            "interactions": [
+                {
+                    "reactTo": "kill",
+                    "text": [
+                        "Thanks for helping, fellow thief."
+                    ],
+                    "storyChildrenIds": [
+                        22
+                    ],
+                    "effect": 1,
+                    "effectTarget": [
+                        45
+                    ],
+                    "locksDoor": "true"
+                }
+            ],
             "skills": []
         },
         {
@@ -1092,9 +1118,35 @@
             "name": "Sharp dressed man",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
+            "storyChildrenIds": [
+                21
+            ],
             "dialogue": [
                 "Oh!! It's you! I'm in danger, this man is accusing me!",
                 "You can trust me... Please kill this man! I can pay you well!."
+            ],
+            "stats": {
+                "charisma": 8,
+                "strength": 7,
+                "constitution": 20,
+                "dexterity": 11,
+                "intelligence": 1,
+                "healthPoints": 20
+            },
+            "interactions": [
+                {
+                    "reactTo": "kill",
+                    "text": [
+                        "You saved me!! Your reward will be priceless, i swear!",
+                        "But i have to go now... Eheh, see you in another life!!"
+                    ],
+                    "vanishes": true,
+                    "effect": 1,
+                    "effectTarget": [
+                        44
+                    ],
+                    "locksDoor": "true"
+                }
             ],
             "skills": []
         },
@@ -1238,8 +1290,8 @@
             "backgroundPath": "/assets/images/locations/location3-bg.png",
             "fight": [
                 20,
-                20,
-                20
+                21,
+                22
             ],
             "loot": [],
             "actors": [
@@ -1259,6 +1311,9 @@
             "name": "Dark Sewers",
             "backgroundPath": "/assets/images/locations/location5-bg.png",
             "loot": [],
+            "children": [
+                15, 9
+            ],
             "fight": [
                 23,
                 20
@@ -1342,6 +1397,8 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                42,
+                43
             ]
         },
         {
@@ -1350,6 +1407,7 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                44, 45
             ]
         },
         {
@@ -1358,6 +1416,7 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                46
             ]
         },
         {
@@ -1366,6 +1425,7 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                47
             ]
         }
     ],
@@ -1376,22 +1436,7 @@
             "name": "Damned Citadel",
             "bossLocation": 0,
             "questlines": [
-                {
-                    "root": {
-                        "location": 12,
-                        "children": [
-                            15, 9
-                        ]
-                    }
-                },
-                {
-                    "root": {
-                        "location": 10,
-                        "children": [
-                            3
-                        ]
-                    }
-                }
+                12
             ],
             "locations": [
                 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14

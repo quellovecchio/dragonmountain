@@ -1,3 +1,27 @@
+updated intro
+
+	black screen with fog
+	typewriting starts in the center of the screen
+	"Welcome to the DragonMountain Trial, traveller."
+	"You are the chosen one, travelling the Distant Land to slay The Dragon, whose angers mine the Peace of the Land." 
+	"But tell me something about you, first."
+	Choose your character from a pool of three, enter hero's name
+	*this verse is singular to every character (ex. you pick the mage he says "oooh. i see. you are a lady of pure wisdom.")
+	"But you can't go on such a dangerous journey unequipped."
+	"Wait, i can help: Here's a bag where you can carry your needs, and that's your card, where you can have everything under control"
+	*falling animation*
+	"Damn, our time together is over."
+	"But don't worry, will keep guiding you from here!"
+	"Let's see where are we landing this time..."
+	*background changes to stage bg, and upper and lower ui shows up*
+	*start of the game loop*
+
+
+
+
+
+
+
 questlines
 
 
@@ -85,3 +109,5 @@ bloodshed tavern - fight, loot, full of vampires
 silver mine - fight, loot
 
 
+-- TODO --
+add story children to npc interactions to spawn secret storylines
