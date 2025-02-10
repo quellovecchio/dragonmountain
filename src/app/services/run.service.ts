@@ -5,8 +5,6 @@ import { Location } from "../model/Location";
 import { Item } from '../model/items/Item';
 import { Actor } from '../model/Actors/Actor';
 import { Character } from '../model/Actors/Character';
-import { QuestlineTree, TreeNode } from '../model/QuestlineTree';
-import { QuestlineTreeDto, TreeNodeDto } from '../model/QuestlineTreeDto';
 import { STARTING_STATS } from '../editor/diy/diy.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { Interaction, EffectType } from '../model/Interaction';
@@ -14,7 +12,6 @@ import { RunState } from '../model/RunState';
 import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
 import { UiService } from '../game/ui-layer/ui.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,33 +29,6 @@ export class RunService {
 
   setRun(run: Run) {
     this.run = run;
-  }
-
-  getQuestlineTree(questlines: QuestlineTreeDto[]): QuestlineTree[] {
-    const questlineTrees: QuestlineTree[] = [];
-    questlines.forEach(questlineDto => {
-      const rootLocation = this.dataService.getLocationById(questlineDto.root.location);
-      const questlineTree = new QuestlineTree(rootLocation);
-      const queueDto: TreeNodeDto[] = [questlineDto.root];
-      const queue: TreeNode[] = [questlineTree.root];
-
-      while (queueDto.length > 0) {
-        const currentNodeDto = queueDto.shift();
-        const currentNode = queue.shift();
-
-        if (currentNodeDto && currentNode) {
-          currentNodeDto.children.forEach(childDto => {
-            const childLocation = this.dataService.getLocationById(childDto);
-            const childNode = new TreeNode(childLocation);
-            currentNode.addChild(childNode);
-            //queueDto.push(childDto);
-            queue.push(childNode);
-          });
-        }
-      }
-      questlineTrees.push(questlineTree);
-    });
-    return questlineTrees;
   }
 
   refreshLocations(fromQuestlineFlag: boolean) {
@@ -79,21 +49,23 @@ export class RunService {
     }
 
     const result: Location[] = [];
-    for (let i = 0; i < count; i++) {
+    const extractedIds: number[] = [];
+    while (extractedIds.length < count) {
       const randomIndex = Math.floor(Math.random() * this.run.stage.locations.length);
-      result.push(this.run.stage.locations[randomIndex]);
-      // commented because mechanics changed: room is extracted from set when completed
-      //this.run.stage.locations.splice(randomIndex, 1); // Remove the selected element from the list
+      if(extractedIds.length == 0 || !extractedIds.find(el => el === randomIndex)) {
+        result.push(this.run.stage.locations[randomIndex]);
+        extractedIds.push(randomIndex);
+      }
     }
 
     return result;
   }
 
-  getNextQuestlineLocations(): TreeNode[] {
+  getNextQuestlineLocations(): Location[] {
     console.log('getting new locations from the next quesline phase.')
-    var result: TreeNode[] = [];
-    if (this.run.nextQuestlinePhase?.children)
-      result = this.run.nextQuestlinePhase?.children;
+    var result: Location[] = [];
+    if (this.run.nextQuestlinePhase)
+      result = this.run.nextQuestlinePhase;
     return result;
   }
 
@@ -121,8 +93,8 @@ export class RunService {
     this.uiService.updateInventory(this.run.inventory.items);
   }
 
-  setnextQuestlinePhase(location: TreeNode) {
-    this.run.nextQuestlinePhase = location;
+  setNextQuestlinePhase(locations: Location[]) {
+    this.run.nextQuestlinePhase = locations;
   }
 
   useItemOn(item: Item, actor: Actor) {
@@ -152,12 +124,23 @@ export class RunService {
           this.uiService.pushText("The item was placed into the inventory");
         });
       }
+      if (interaction.effect == EffectType.kill) {
+        effectType = EffectType.kill;
+        if (this.getRun().currentLocation && this.getRun().currentLocation!.actors.filter((el: Actor) => el.id == interaction!.effectTarget).length == 0) {
+          this.uiService.pushText(interaction.text);
+        }
+      }
       if (interaction.effect == EffectType.vanishes) {
         effectType = EffectType.vanishes;
         this.uiService.pushText(interaction.text);
         let characterIndex = this.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
         delete this.getRun().currentLocation!.actors![characterIndex!];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
+      }
+      if (interaction.storyChildrenIds && interaction.storyChildrenIds.length > 0) {
+        interaction.storyChildrenIds.forEach((el: number) => {
+          this.getNextQuestlineLocations().push(this.dataService.getLocationById(el));
+        });
       }
       this.resolveInteraction(data.character, effectType);
     }
@@ -221,6 +204,7 @@ export class RunService {
       newCharacter.stats = character.stats;
       newCharacter.skills = character.skills;
       newCharacter.imagePath = character.imagePath;
+      newCharacter.loot = character.loot;
       if (usedCharactersIds.includes(character.id)) {
         newCharacter.name = character.name + ' ' + i;
       } else {
@@ -235,11 +219,11 @@ export class RunService {
     this.getRun().currentFight!.forEach(actor => {
       this.loot(actor);
     });
-    
-    
+
+
     this.getRun().currentLocation!.actors.forEach((a: Actor) => {
-      if(this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0 
-          || this.fightService.enemies.findIndex((el: Character) => el.name == a.name) >= 0) {
+      if (this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0
+        || this.fightService.enemies.findIndex((el: Character) => el.name == a.name) >= 0) {
         let characterIndex = this.getRun().currentLocation!.actors!.findIndex(el => { return a == el });
         delete this.getRun().currentLocation!.actors![characterIndex];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
@@ -261,18 +245,15 @@ export class RunService {
     }
     if (this.getRun().currentLocation) {
       this.getRun().currentLocation!.fight = [];
-      this.explore(this.getRun().currentLocation);
+      this.explore(this.getRun().currentLocation!);
     }
   }
 
-  moveTo(location: any) {
+  moveTo(location: Location) {
     var locationValue = undefined;
-    if (location.children) {
-      this.setnextQuestlinePhase(location as TreeNode);
-      locationValue = location.location;
-    }
-    else
-      locationValue = location;
+    if (location.children && location.children.length > 0)
+      this.setNextQuestlinePhase(this.dataService.getLocationsById(location.children));
+    locationValue = location;
     this.getRun().currentLocation = locationValue;
     this.uiService.pushText("The party has moved to " + locationValue.name + ".");
     if (locationValue.fight && locationValue.fight.length > 0) {
@@ -284,17 +265,10 @@ export class RunService {
     }
   }
 
-  public explore(location: any) {
-    if (location.children) {
-      this.loot((location as TreeNode).location);
-      if ((location as TreeNode).location.actors && (location as TreeNode).location.actors?.length > 0) {
-        this.getRun().state = RunState.Location;
-      }
-    } else {
-      this.loot(location);
-      if (location.actors && location.actors?.length > 0) {
-        this.getRun().state = RunState.Location;
-      }
+  public explore(location: Location) {
+    this.loot(location);
+    if (location.actors && location.actors?.length > 0) {
+      this.getRun().state = RunState.Location;
     }
   }
 
@@ -315,10 +289,10 @@ export class RunService {
   }
 
   findInteraction(interactions: Interaction[], type: EffectType | Item) {
-    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
+    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type as EffectType] || interaction.reactTo == '' + ((type as Item).id));
   }
 
   resolveInteraction(actor: Actor, type: EffectType | Item) {
-    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type as EffectType] || interaction.reactTo == ''+((type as Item).id));
+    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type as EffectType] || interaction.reactTo == '' + ((type as Item).id));
   }
 }

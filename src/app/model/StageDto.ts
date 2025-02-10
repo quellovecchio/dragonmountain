@@ -1,5 +1,3 @@
-import { QuestlineTreeDto } from "./QuestlineTreeDto";
-
 var idCounter = 0;
 
 export class StageDto {
@@ -7,7 +5,7 @@ export class StageDto {
     name: string;
     backgroundPath: string;
     locations: number[];
-    questlines: QuestlineTreeDto[];
+    questlines: number[];
     bossLocation: number;
 
     constructor () {

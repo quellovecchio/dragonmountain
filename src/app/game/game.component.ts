@@ -84,14 +84,14 @@ export class GameComponent implements OnInit {
           this.dataService.setLocations(data.locations);
           // TODO update with chosen random stage;
           newRun.stage.name = data.stages[0].name;
-          newRun.stage.locations = this.dataService.getLocations(data.stages[0].locations);
-          newRun.stage.questlines = this.runService.getQuestlineTree(data.stages[0].questlines);
+          newRun.stage.locations = this.dataService.getLocationsById(data.stages[0].locations);
+          newRun.stage.questlines = this.dataService.getLocationsById(data.stages[0].questlines);
           newRun.stage.bossLocation = this.dataService.getLocationById(data.stages[0].bossLocation);
           newRun.party[0].class = this.dataService.classes[0];
           this.runService.setRun(newRun);
-          newRun.stage.questlines.forEach((questline) => {
-            if (questline)
-              newRun.stage.currentLocations.push(questline.root);
+          newRun.stage.questlines.forEach((questlineLocation) => {
+            if (questlineLocation)
+              newRun.stage.currentLocations.push(questlineLocation);
           });
           console.log("generateRun() - extracted locations:");
           console.log(newRun.stage.currentLocations);

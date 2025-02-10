@@ -5,6 +5,8 @@ export class LocationDto {
     id: number = 0;
     name: string = "location";
     backgroundPath: string = "";
+    // children locations for storyline
+    children: number[] = [];
     fight: number[] = [];
     loot: number[] = [];
     actors: number[] = [];

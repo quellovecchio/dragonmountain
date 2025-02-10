@@ -2,7 +2,6 @@ import { Character } from "./Actors/Character";
 import { PlayingCharacter } from "./Actors/PlayingCharacter";
 import { Item } from "./items/Item";
 import { Location } from "./Location";
-import { QuestlineTree, TreeNode } from "./QuestlineTree";
 import { RunState } from "./RunState";
 import { Stage } from "./Stage";
 
@@ -20,8 +19,7 @@ export class Run {
 
     // questline data
     showNextQuestlinePhase: boolean = true;
-    currentQuestline?: QuestlineTree;
-    nextQuestlinePhase?: TreeNode;
+    nextQuestlinePhase?: Location[];
     questlineCounter: number = 0;
 
 

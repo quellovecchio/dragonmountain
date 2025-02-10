@@ -9,6 +9,8 @@ export class Location {
     id: number = 0;
     name: string = "location";
     backgroundPath: string = "";
+    // children location ids for storyline
+    children: number[] = [];
     fight: Character[] = [];
     loot: Item[] = [];
     actors: Actor[] = [];
@@ -18,9 +20,9 @@ export class Location {
     constructor() {
         this.id = idCounter++;
     }
-    
+
     hasActors() {
-        if(!this.actors)
+        if (!this.actors)
             return false;
         return this.actors.length > 0;
     }

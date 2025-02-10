@@ -76,7 +76,7 @@ export class DataService {
     return r ? r : new Location();
   }
 
-  getLocations(ids: number[]): Location[] {
+  getLocationsById(ids: number[]): Location[] {
     var r: Location[] = [];
     ids.forEach(id => r.push(this.getLocationById(id)));
     return r;
@@ -213,6 +213,9 @@ export class DataService {
       dto.actors.forEach(id => {
         r.actors.push(this.populateCharacter(id))
       })
+    }
+    if (dto.children) {
+      r.children = dto.children;
     }
     return r;
   }

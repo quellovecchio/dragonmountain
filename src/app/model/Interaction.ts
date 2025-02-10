@@ -24,6 +24,8 @@ export class Interaction {
     effectTarget: any;
     // you have to resolve this to go back
     locksDoor: boolean = false;
+    // story children unlocked interacting
+    storyChildrenIds: number[] = [];
 
     constructor() {
     } 
