@@ -80,6 +80,10 @@ export class RunService {
     console.log("------- done updating stage locations -------")
   }
 
+  removeCharacterFromCurrentLocation(characterId: number) {
+    this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors.filter((el: Actor) => el.id != characterId)
+  }
+
   removeItemFromInventory(item: Item) {
     const index = this.run.inventory.items.indexOf(item, 0);
     if (index > -1) {
@@ -112,6 +116,7 @@ export class RunService {
       if (interaction.effect == EffectType.fight) {
         effectType = EffectType.fight;
         this.uiService.pushText(interaction.text);
+        this.removeCharacterFromCurrentLocation(interaction.effectTarget);
         this.startFight(interaction.effectTarget);
       }
       if (interaction.effect == EffectType.giveItem) {
@@ -219,7 +224,6 @@ export class RunService {
     this.getRun().currentFight!.forEach(actor => {
       this.loot(actor);
     });
-
 
     this.getRun().currentLocation!.actors.forEach((a: Actor) => {
       if (this.charactersJoiningAfterBattle.findIndex((el: PlayingCharacter) => el.name == a.name) >= 0

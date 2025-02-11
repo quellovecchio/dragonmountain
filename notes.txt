@@ -260,7 +260,6 @@ Milestones:
 			-	introduce money drops
 			-	sell
 			-	text goes on with click
-			-	updated intro
 
 		V	ui update
 		
@@ -285,6 +284,10 @@ Milestones:
 				-	battle start animation
 			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
+		-	party limit to three
+			-	modal where you can see party elements stat and newcomer for comparison
+		-	updated intro and character selection
+
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
 
@@ -294,7 +297,6 @@ Milestones:
 			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
 				-	go for choises over classic gdr stuff
 			-	implementation of content
-			-	make actors in party swappable
 
 
 		-	gameplay update 2

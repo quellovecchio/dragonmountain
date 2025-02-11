@@ -88,6 +88,7 @@ export class SceneComponent implements OnInit {
 
   engageFightWith(a: Actor) {
     this.uiService.pushText("You engaged combat with " + a.name + ".");
+    this.runService.removeCharacterFromCurrentLocation(a.id);
     this.runService.startFight([a as Character]);
   }
 
