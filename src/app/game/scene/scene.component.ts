@@ -10,6 +10,7 @@ import { ItemService } from '../../services/item.service';
 import { Constants } from 'src/assets/constants';
 import { UiService } from '../ui-layer/ui.service';
 import { EffectType } from 'src/app/model/Interaction';
+import { MusicService } from 'src/app/services/music.service';
 
 @Component({
   selector: 'app-scene',
@@ -22,7 +23,7 @@ export class SceneComponent implements OnInit {
 
   fightManager: FightManagerService;
 
-  constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService) {
+  constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService, private musicService: MusicService) {
     this.fightManager = fightManager;
   }
 
@@ -32,6 +33,7 @@ export class SceneComponent implements OnInit {
   // Location actions
 
   returnToMap(location: Location) {
+    this.musicService.playSound('room-out');
     this.runService.getRun().state = RunState.Exploration;
     this.runService.getRun().currentLocation = undefined;
     if (location) {

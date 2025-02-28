@@ -13,6 +13,7 @@ import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
 import { UiService } from '../game/ui-layer/ui.service';
 import { ItemService } from './item.service';
+import { MusicService } from './music.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class RunService {
   run: Run = new Run(new PlayingCharacter(STARTING_STATS));
   charactersJoiningAfterBattle: PlayingCharacter[] = [];
 
-  constructor(private uiService: UiService, private fightService: FightManagerService, private dataService: DataService, private itemService: ItemService) { }
+  constructor(private uiService: UiService, private fightService: FightManagerService, private dataService: DataService, private itemService: ItemService, private musicService: MusicService) { }
 
   getRun() {
     return this.run;
@@ -94,6 +95,7 @@ export class RunService {
   }
 
   addItemToInventory(item: Item) {
+    this.musicService.playSound('give-item');
     this.run.inventory.items.push(item);
     this.uiService.updateInventory(this.run.inventory.items);
   }

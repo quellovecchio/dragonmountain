@@ -9,6 +9,7 @@ import { Skill } from '../../model/Skill';
 import { Constants } from 'src/assets/constants';
 import { DataService } from 'src/app/data.service';
 import { UiService } from '../ui-layer/ui.service';
+import { MusicService } from 'src/app/services/music.service';
 
 class FightAnimation {
   source: string = '';
@@ -63,7 +64,7 @@ export class FightComponent implements OnInit {
   selectedEnemy?: Actor;
   public currentAttackAnimation: string = '/assets/animations/slash.gif';
 
-  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService, private uiService: UiService) {
+  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService, private uiService: UiService, private musicService: MusicService) {
     this.fightManager = fightManager;
   }
 
@@ -167,6 +168,7 @@ export class FightComponent implements OnInit {
         console.log('cooldown left: ' + actor.actualAttackCooldown);
       } else {
         // attack animations
+        this.musicService.playSound('attack');
         target.damaged = true;
         setTimeout(() => {
           target.damaged = false;

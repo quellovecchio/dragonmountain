@@ -4,6 +4,7 @@ import { Location } from "../../model/Location";
 import { animate, style, transition, trigger } from '@angular/animations';
 import { take } from 'rxjs';
 import { RunService } from 'src/app/services/run.service';
+import { MusicService } from 'src/app/services/music.service';
 
 @Component({
   selector: 'app-location-preview',
@@ -19,7 +20,7 @@ import { RunService } from 'src/app/services/run.service';
             animate('2s ease',
               style({ transform: 'rotateY(1800deg)' }))
           ]
-        )
+        ),
       ]
     )
   ]
@@ -45,10 +46,19 @@ export class LocationPreviewComponent implements OnInit {
 
   animateLocation: boolean = false;
 
-  constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef, private runService: RunService) { }
+  constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef, private runService: RunService, private musicService: MusicService) { }
 
   ngOnInit(): void {
     this.locationData = this.location;
+    this.musicService.playSound('spinning-locations');
+    let spins = 5;
+    var i = setInterval(() => {
+      if (spins === 0) {
+        clearInterval(i);
+      }
+      spins--;
+      this.musicService.playSound('spinning-locations');
+    }, 200);
   }
 
   openMenu() {
@@ -64,6 +74,7 @@ export class LocationPreviewComponent implements OnInit {
   }
 
   moveTo() {
+    this.musicService.playSound('room-in');
     this.runService.moveTo(this.location);
   }
 
