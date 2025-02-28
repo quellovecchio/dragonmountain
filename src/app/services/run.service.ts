@@ -111,12 +111,11 @@ export class RunService {
     this.uiService.setSelectedItem(undefined);
   }
 
-  interact(data: { character: Character; action: Interaction | Item }) {
+  interact(data: { character: Character; action: any }) {
     // If the character reacts to the interaction, activate the specified effect
-    let interaction = data.action;
+    let interaction = this.findInteraction(data.character.interactions, data.action);
     let effectType = EffectType.resurrect;
-    if (!this.itemService.isItem(data.action)) {
-      // not an item -> it's an interaction SIDE EFFECTS LOGIC YAY
+    if (interaction) {
       if (interaction.effect == EffectType.fight) {
         effectType = EffectType.fight;
         this.uiService.pushText(interaction.text);
@@ -135,12 +134,8 @@ export class RunService {
       }
       if (interaction.effect == EffectType.kill) {
         effectType = EffectType.kill;
-        if (this.getRun().currentLocation && this.getRun().currentLocation!.actors.filter((el: Actor) => el.id == (interaction as Interaction)!.effectTarget).length == 0) {
-          this.uiService.talkToNpcPushText(data.character.name, interaction.text);
-          //this.uiService.pushText(interaction.text);
-          // TODO move code from talkto here 
-        } else {
-          this.uiService.talkToNpcPushText(data.character.name, data.character.dialogue);
+        if (this.getRun().currentLocation && this.getRun().currentLocation!.actors.filter((el: Actor) => el.id == interaction!.effectTarget).length == 0) {
+          this.uiService.pushText(interaction.text);
         }
       }
       if (interaction.effect == EffectType.vanishes) {
@@ -150,20 +145,20 @@ export class RunService {
         delete this.getRun().currentLocation!.actors![characterIndex!];
         this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
       }
-      if ((interaction as Interaction).storyChildrenIds && (interaction as Interaction).storyChildrenIds.length > 0) {
-        (interaction as Interaction).storyChildrenIds.forEach((el: number) => {
+      if (interaction.storyChildrenIds && interaction.storyChildrenIds.length > 0) {
+        interaction.storyChildrenIds.forEach((el: number) => {
           this.getNextQuestlineLocations().push(this.dataService.getLocationById(el));
         });
       }
       this.resolveInteraction(data.character, effectType);
     }
+    // If it does not react to the interaction, activate the standard effect of the object
     else if (data.action.effect) {
-    // It's an item, activate the standard effect of the object
       console.log("reacted with standard interaction");
-      switch ((data.action as Item).effect!.type) {
+      switch (data.action.effect.type) {
         case EffectType.heal:
-          this.uiService.pushText(`${data.character.name} healed ${(data.action as Item).effect!.power} HP`);
-          var newHpValue = data.character.stats.healthPoints + (data.action as Item).effect!.power;
+          this.uiService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
+          var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
           let healInteraction = this.findInteraction(data.character.interactions, EffectType.heal);
           if (healInteraction) {
@@ -176,8 +171,8 @@ export class RunService {
           break;
       }
     }
+    // If the object has no effect, send an error message
     else {
-      // If the object has no effect, send an error message
       this.uiService.pushText("Using " + data.action.name + " on " + data.character.name + " had no effect...");
     }
   }
