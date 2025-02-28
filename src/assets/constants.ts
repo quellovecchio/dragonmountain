@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class Constants {
-  static DEBUG_SKIP_INTRO = true;
+  static DEBUG_SKIP_INTRO = false;
   static DEBUG_ROOM = true;
   static TURN_LOGGING = false;
   static DAMAGE_LOGGING = true;
