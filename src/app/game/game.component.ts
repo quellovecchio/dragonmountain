@@ -15,13 +15,86 @@ import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
 import { DataService } from '../data.service';
 import { UiService } from './ui-layer/ui.service';
 import { interval } from 'rxjs';
+import { MusicService } from '../services/music.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  animations: [
+        trigger(
+          'introAnimationMain',
+          [
+            transition(
+              ':enter',
+              [
+                style({ height: 0, top: '1900%' }),
+                animate('13s ease-out',
+                  style({ height: '76%', top: '25%' }))
+              ]
+            )
+          ]
+        ),
+        trigger(
+          'introAnimationClouds2',
+          [
+            transition(
+              ':enter',
+              [
+                style({ top: 0, backgroundPosition: '-100%, 0', height: '900%' }),
+                animate('13s ease-out',
+                  style({ top: '50%', backgroundPosition: '0, 0', height: '32%' }))
+              ]
+            )
+          ]
+        ),
+        trigger(
+          'introAnimationClouds1',
+          [
+            transition(
+              ':enter',
+              [
+                style({ top: 0, backgroundPosition: '-900%, 0', height: '400%' }),
+                animate('13s ease-out',
+                  style({ top: '50%', backgroundPosition: '0, 0', height: '32%' }))
+              ]
+            )
+          ]
+        ),
+        trigger(
+          'introAnimationDragon',
+          [
+            transition(
+              ':enter',
+              [
+                style({top: '-50%', height: '600%', width: '400%'   }),
+                animate('13s ease-out',
+                  style({top: '43%', height: '19%', width: '10%' }))
+              ]
+            )
+          ]
+        ),
+        trigger(
+          'introAnimationLogo',
+          [
+            transition(
+              ':enter',
+              [
+                style({top: '-50%'  }),
+                animate('8s ease-out',
+                  style({top: '15%' }))
+              ]
+            )
+          ]
+        ),
+  ]
 })
 export class GameComponent implements OnInit {
+
+  public isIntro: boolean = true;
+  public introSequencePlaying: boolean = false;
+  public introSequenceFinished: boolean = false;
 
   public innerWidth: any;
 
@@ -53,10 +126,33 @@ export class GameComponent implements OnInit {
     }
   }
 
-  constructor(private http: HttpClient, private runService: RunService, private dataService: DataService, public uiService: UiService) {
+  constructor(private http: HttpClient, private runService: RunService, private dataService: DataService, public uiService: UiService, private musicService: MusicService) {
+  }
+
+  play() {
+    // press any key to start state - initial state -> play intro sequence
+    if(this.isIntro && !this.introSequencePlaying) {
+      this.musicService.loopSong("title-theme");
+      this.introSequencePlaying = true;
+      setInterval(() => {
+        this.introSequenceFinished = true;
+      }, 15000);
+    }
+    // intro sequence playing -> skip intro
+    if(this.isIntro && this.introSequencePlaying) {
+      // TODO: skip intro
+    }
+    // intro finished -> new game
+    if(this.isIntro && this.introSequenceFinished) {
+      this.startGame();
+    }
+  }
+
+  startGame() {
     this.generateRun().then((newRun) => {
       console.log(newRun);
       this.run = newRun;
+      this.isIntro = false;
       if (!this.loadedSavedData) {
         this.greetPlayer();
       }
@@ -84,14 +180,14 @@ export class GameComponent implements OnInit {
           this.dataService.setLocations(data.locations);
           // TODO update with chosen random stage;
           newRun.stage.name = data.stages[0].name;
-          newRun.stage.locations = this.dataService.getLocations(data.stages[0].locations);
-          newRun.stage.questlines = this.runService.getQuestlineTree(data.stages[0].questlines);
+          newRun.stage.locations = this.dataService.getLocationsById(data.stages[0].locations);
+          newRun.stage.questlines = this.dataService.getLocationsById(data.stages[0].questlines);
           newRun.stage.bossLocation = this.dataService.getLocationById(data.stages[0].bossLocation);
           newRun.party[0].class = this.dataService.classes[0];
           this.runService.setRun(newRun);
-          newRun.stage.questlines.forEach((questline) => {
-            if (questline)
-              newRun.stage.currentLocations.push(questline.root);
+          newRun.stage.questlines.forEach((questlineLocation) => {
+            if (questlineLocation)
+              newRun.stage.currentLocations.push(questlineLocation);
           });
           console.log("generateRun() - extracted locations:");
           console.log(newRun.stage.currentLocations);
@@ -109,7 +205,6 @@ export class GameComponent implements OnInit {
 
   greetPlayer() {
     var that = this;
-    this.runService.getRun().state = RunState.Intro;
     setTimeout(() => {
       that.run.state = RunState.Exploration;
     }, 7000 / Constants.TEXT_SPEED);

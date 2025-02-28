@@ -2,9 +2,9 @@
     <div *ngIf="locationData" style="height: 100%;">
         <div class="actor-row">
             <div class="actor" *ngFor="let actor of locationData.actors">
-                <mat-card *ngIf="actor" ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true"
-                    [maxGlare]="0.1" [scale]="1.1" [speed]="300"
-                    class="mat-elevation-z1 pixelated-border space image-bg" (click)="setSelectedActor(actor)">
+                <mat-card *ngIf="actor" ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1"
+                    [scale]="1.1" [speed]="300" class="mat-elevation-z1 pixelated-border space image-bg"
+                    (click)="setSelectedActor(actor)">
                     <div class="actor-card card card__shine">
                         <div ngTiltParallax [distance]="20" style="padding-top: 20px; text-align: center;">
                             {{actor.name}}</div>
@@ -23,7 +23,9 @@
 
 <div #menuTrigger [matMenuTriggerFor]="selectedActor ? menu : ''" style="display: none;"></div>
 <mat-menu #menu="matMenu" class="location-menu pixelated-border" (closed)="clearSelectedActor()">
-    <div *ngIf="!uiService.getSelectedItem() && selectedActor">
+    <div *ngIf="selectedActor">
+        <!-- use action -->
+        <button *ngIf="uiService.getSelectedItem()" mat-menu-item (click)="runService.useItemOn(uiService.getSelectedItem(), selectedActor!)"> use </button>
         <!-- talk action -->
         <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> interact </button>
         <!-- fight action (if is fightable -> has stats)-->
@@ -36,8 +38,8 @@
         <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
         <!-- spells action (if someone in party has spells)-->
     </div>
-    <div *ngIf="uiService.getSelectedItem()">
-        <!-- use action -->
+    <!--<div *ngIf="uiService.getSelectedItem()">
+        !-- use action --
         <button mat-menu-item (click)="runService.useItemOn(uiService.getSelectedItem(), selectedActor!)"> use </button>
-    </div>
+    </div>-->
 </mat-menu>

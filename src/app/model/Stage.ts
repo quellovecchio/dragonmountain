@@ -1,5 +1,4 @@
 import { Location } from './Location';
-import { QuestlineTree, TreeNode } from './QuestlineTree';
 
 var idCounter = 0;
 
@@ -7,7 +6,8 @@ export class Stage {
     id: number = 0;
     name: string;
     locations: Location[];
-    questlines: QuestlineTree[];
+    // starting locations
+    questlines: Location[];
     currentLocations: any[];
     backgroundPath: string;
     bossLocation: Location;

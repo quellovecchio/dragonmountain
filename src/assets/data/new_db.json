@@ -279,7 +279,7 @@
         },
         {
             "id": 1,
-            "name": "Dark Tomb",
+            "name": "Cleaner Tomb",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 2,
             "loot": [],
@@ -288,11 +288,11 @@
             "interactions": [
                 {
                     "reactTo": 1,
-                    "text": "[The water is eroding gold, unveiling a very smellying man, THAT ATTACKS!]",
+                    "text": "[The water is eroding gold, unveiling a smelly man, AND THEN HE ATTACKS!]",
                     "effect": 2,
                     "effectTarget": [
                         {
-                            "name": "Master Necromancer [sinner of the dark city of sin and darkness and misery]",
+                            "name": "Master Necromancer",
                             "level": 1,
                             "imagePath": "/assets/images/actors/enemy2.png",
                             "loot": [],
@@ -367,7 +367,7 @@
             "loot": [],
             "interactions": [
                 {
-                    "reactTo": "Holy Water",
+                    "reactTo": 1,
                     "text": "[Unsettling statue]: AAARGHHHH... THOU... ENRAGED... MEEEEE!",
                     "effect": 2,
                     "effectTarget": [
@@ -379,11 +379,11 @@
                             "dialogue": "hello world",
                             "stats": {
                                 "charisma": 2,
-                                "strength": 8,
-                                "constitution": 40,
+                                "strength": 4,
+                                "constitution": 30,
                                 "dexterity": 3,
                                 "intelligence": 1,
-                                "healthPoints": 40
+                                "healthPoints": 30
                             },
                             "skills": []
                         }
@@ -417,6 +417,7 @@
                     "reactTo": 1,
                     "text": "[The teaspoon started smoking and turned into a ghost!]",
                     "effect": 2,
+                    "vanishes": true,
                     "effectTarget": [
                         {
                             "name": "Poltergeist",
@@ -557,7 +558,6 @@
                 "Leave us alone, dude!"
             ],
             "skills": [],
-            "rest": true,
             "stats": {
                 "charisma": 1,
                 "strength": 3,
@@ -637,7 +637,7 @@
             "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
             "interactions": [
                 {
-                    "reactTo": 13,
+                    "reactTo": "talk",
                     "text": "Thanks so much... My wife will not leave me!",
                     "effect": 1,
                     "effectTarget": [
@@ -690,10 +690,11 @@
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
             "loot": [],
-            "dialogue": "[...There seems to be a trap door under a carpet... It's locked!]",
+            "dialogue": "[Bad luck... It's locked!]",
             "skills": [],
             "interactions": [
                 {
+                    "vanishes": true,
                     "reactTo": 14,
                     "text": "The trapdoor opened making a terrible noise...",
                     "effect": 1,
@@ -1043,7 +1044,7 @@
             ],
             "interactions": [
                 {
-                    "reactTo": 14,
+                    "reactTo": "talk",
                     "text": [
                         "I knew I had to stay home today... Could you give this to my family if i die?"
                     ],
@@ -1073,6 +1074,106 @@
             "dialogue": [
                 "We finally meet again... I can't stand your betrayal.",
                 "By the powers my royal bloodline gave me, I sentence you to death!"
+            ],
+            "skills": []
+        },
+        {
+            "id": 44,
+            "name": "Thief",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "Stop that nonsense, filthy spy!",
+                "Give back what you own to The Guild and you'll be fine."
+            ],
+            "stats": {
+                "charisma": 2,
+                "strength": 2,
+                "constitution": 25,
+                "dexterity": 14,
+                "intelligence": 1,
+                "healthPoints": 25
+            },
+            "interactions": [
+                {
+                    "reactTo": "kill",
+                    "text": [
+                        "Thanks for helping, fellow thief."
+                    ],
+                    "storyChildrenIds": [
+                        22
+                    ],
+                    "effect": 1,
+                    "effectTarget": [
+                        45
+                    ],
+                    "locksDoor": "true"
+                }
+            ],
+            "skills": []
+        },
+        {
+            "id": 45,
+            "name": "Sharp dressed man",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "storyChildrenIds": [
+                21
+            ],
+            "dialogue": [
+                "Oh!! It's you! I'm in danger, this man is accusing me!",
+                "You can trust me... Please kill this man! I can pay you well!."
+            ],
+            "stats": {
+                "charisma": 8,
+                "strength": 7,
+                "constitution": 20,
+                "dexterity": 11,
+                "intelligence": 1,
+                "healthPoints": 20
+            },
+            "interactions": [
+                {
+                    "reactTo": "kill",
+                    "text": [
+                        "You saved me!! Your reward will be priceless, i swear!",
+                        "But i have to go now... Eheh, see you in another life!!"
+                    ],
+                    "vanishes": true,
+                    "effect": 1,
+                    "effectTarget": [
+                        44
+                    ],
+                    "locksDoor": "true"
+                }
+            ],
+            "skills": []
+        },
+        {
+            "id": 46,
+            "name": "Thieves Guild Master",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "You filthy traitor... You killed our brother!",
+                "Thought you could get away with it? I know everything about my associates...",
+                "But i didn't think you were so stupid to come back here.",
+                "You will pay for this with your blood."
+            ],
+            "skills": []
+        },
+        {
+            "id": 47,
+            "name": "Far Land Emissary",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "dialogue": [
+                "Well, well, well... We finally found you.",
+                "Why were we looking for you? Who are we?",
+                "And WHY am i talking in plural? Well...",
+                "You happened to kill one of my ears, my tongues...",
+                "...One of my spies, if you want to me to be clear.",
+                "So... What about i kill you now?."
             ],
             "skills": []
         }
@@ -1188,8 +1289,8 @@
             "backgroundPath": "/assets/images/locations/location3-bg.png",
             "fight": [
                 20,
-                20,
-                20
+                21,
+                22
             ],
             "loot": [],
             "actors": [
@@ -1209,6 +1310,9 @@
             "name": "Dark Sewers",
             "backgroundPath": "/assets/images/locations/location5-bg.png",
             "loot": [],
+            "children": [
+                15, 9
+            ],
             "fight": [
                 23,
                 20
@@ -1244,6 +1348,9 @@
         {
             "id": 15,
             "name": "Imperial Prison",
+            "children": [
+                20
+            ],
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
@@ -1289,6 +1396,35 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [
+                42,
+                43
+            ]
+        },
+        {
+            "id": 20,
+            "name": "Thieves Tavern",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                44, 45
+            ]
+        },
+        {
+            "id": 21,
+            "name": "Dark Sewers",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                46
+            ]
+        },
+        {
+            "id": 22,
+            "name": "Empty Square",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [
+                47
             ]
         }
     ],
@@ -1299,22 +1435,7 @@
             "name": "Damned Citadel",
             "bossLocation": 0,
             "questlines": [
-                {
-                    "root": {
-                        "location": 12,
-                        "children": [
-                            15, 9
-                        ]
-                    }
-                },
-                {
-                    "root": {
-                        "location": 10,
-                        "children": [
-                            3
-                        ]
-                    }
-                }
+                12
             ],
             "locations": [
                 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14

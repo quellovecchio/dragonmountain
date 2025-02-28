@@ -45,9 +45,10 @@ export class SceneComponent implements OnInit {
     console.log("----- done updating questline counter -------");
     this.runService.removeLocationFromPool(location.id);
     var questlineCounterCrossed = false;
-    if(this.runService.getRun().questlineCounter >= (1.5 + ((this.runService.getRun().level - 1) * 0.2)))
+    if(this.runService.getRun().questlineCounter >= (1.5 + ((this.runService.getRun().level - 1) * 0.2))) {
+      this.runService.getRun().questlineCounter = 0;
       questlineCounterCrossed = true;
-
+    }
     // if storyline counter crosses the limit go to next questline stage
     // if not, call locations from pool
     this.runService.refreshLocations(questlineCounterCrossed);
@@ -73,7 +74,9 @@ export class SceneComponent implements OnInit {
   // NPC interactions
   
   talkToActor(a: Actor) {
+    // TODO move this code to interact
     let talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
+    let killInteraction = this.runService.findInteraction(a.interactions, EffectType.kill);
     if(talkInteraction) {
       this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
       if(talkInteraction.effectTarget) {
@@ -81,12 +84,19 @@ export class SceneComponent implements OnInit {
       }
       this.runService.resolveInteraction(a, EffectType.talk);
     }
+    if(killInteraction) {
+      if(killInteraction.effectTarget) {
+        this.runService.interact({ character: (a as Character), action: killInteraction });
+      }
+      this.runService.resolveInteraction(a, EffectType.kill);
+    }
     else
       this.uiService.talkToNpcPushText(a.name, a.dialogue);
   }
 
   engageFightWith(a: Actor) {
     this.uiService.pushText("You engaged combat with " + a.name + ".");
+    this.runService.removeCharacterFromCurrentLocation(a.id);
     this.runService.startFight([a as Character]);
   }
 

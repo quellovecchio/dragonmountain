@@ -11,13 +11,13 @@ import { RunService } from 'src/app/services/run.service';
   styleUrls: ['./location-preview.component.scss'],
   animations: [
     trigger(
-      'reloadLocations', 
+      'reloadLocations',
       [
         transition(
-          ':enter', 
+          ':enter',
           [
-            animate('2s ease', 
-            style({ transform:  'rotateY(1800deg)' }))
+            animate('2s ease',
+              style({ transform: 'rotateY(1800deg)' }))
           ]
         )
       ]
@@ -31,14 +31,14 @@ export class LocationPreviewComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
     // check if the click is inside the box
-    if(this.eRef.nativeElement.contains(event.target)) {
+    if (this.eRef.nativeElement.contains(event.target)) {
       this.contextMenuPosition.x = event.y;
       this.contextMenuPosition.y = event.x;
       this.openMenu();
     }
   }
 
-  contextMenuPosition = {x: 0, y: 0};
+  contextMenuPosition = { x: 0, y: 0 };
 
   locationData?: Location;
   @Input() location!: any;
@@ -48,13 +48,7 @@ export class LocationPreviewComponent implements OnInit {
   constructor(private readonly viewRef: ViewContainerRef, private eRef: ElementRef, private runService: RunService) { }
 
   ngOnInit(): void {
-    if(this.location.children) {
-      // Location is a treenode, questline location
-      this.locationData = this.location.location;
-    } else {
-      // Location is not a treenode, normal location
-      this.locationData = this.location;
-    }
+    this.locationData = this.location;
   }
 
   openMenu() {
@@ -73,10 +67,10 @@ export class LocationPreviewComponent implements OnInit {
     this.runService.moveTo(this.location);
   }
 
-  reloadLocations(){
+  reloadLocations() {
     // animation
     this.animateLocation = true;
-    setTimeout(() => {this.animateLocation = false;}, 400);
+    setTimeout(() => { this.animateLocation = false; }, 400);
     // TODO real logic
   }
 
