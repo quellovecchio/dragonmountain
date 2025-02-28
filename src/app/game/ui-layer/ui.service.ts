@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { Item } from 'src/app/model/items/Item';
+import { MusicService } from 'src/app/services/music.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class UiService {
   textBuffer: string[] = [];
   textAreaVisibility: boolean = false;
 
-  constructor() {
+  constructor(private musicService: MusicService) {
   }
 
   isScreenPortrait(): boolean {
@@ -103,29 +104,34 @@ export class UiService {
   toggleInventory() {
     this.inventoryDisabled = true;
     this.inventoryOpened = !this.inventoryOpened;
+    this.musicService.playSound('open-panel');
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
   openInventory() {
     this.inventoryDisabled = true;
     this.inventoryOpened = true;
+    this.musicService.playSound('open-panel');
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
   closeInventory() {
     this.inventoryDisabled = true;
     this.inventoryOpened = false;
+    this.musicService.playSound('open-panel');
     setTimeout(() => { this.inventoryDisabled = false; }, 400);
   }
 
   toggleActorInfo(actor: PlayingCharacter) {
     this.displayedActorMenu = actor;
+    this.musicService.playSound('open-panel');
     setTimeout(() => {
       this.actorMenuOpened = !this.actorMenuOpened;
     }, 200);
   }
 
   closeActorInfo() {
+    this.musicService.playSound('open-panel');
     this.actorMenuOpened = false;
   }
 
@@ -134,6 +140,7 @@ export class UiService {
     if (items) {
       this.updateShopItems(items);
     }
+    this.musicService.playSound('open-panel');
     this.shopOpened = !this.shopOpened;
     if (this.shopOpened)
       // TODO customizable
@@ -145,6 +152,7 @@ export class UiService {
 
   closeShop(message: boolean = true) {
     this.shopOpened = false;
+    this.musicService.playSound('open-panel');
     if(message) this.pushText("[Merchant]: Thanks for your business.");
     this.updateShopItems([]);
   }

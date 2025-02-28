@@ -11,12 +11,14 @@ export class MusicService {
 
     stopMusic() {
         this.currentlyPlaying.pause();
+        this.currentlyPlaying.src = '';
     }
 
     playSound(soundName: string) {
         let audio = new Audio();
-        audio.src = "../../assets/music/" + soundName + ".mp3";
+        audio.src = "../../assets/sfx/" + soundName + ".mp3";
         audio.load();
+        audio.volume = 0.2;
         audio.play();
     }
 

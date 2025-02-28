@@ -12,6 +12,7 @@ import { Stats } from 'src/app/model/Stats';
 import { DataService } from 'src/app/data.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { MusicService } from 'src/app/services/music.service';
 
 @Component({
   selector: 'app-ui-layer',
@@ -72,7 +73,7 @@ export class UiLayerComponent implements OnInit {
   inventoryDataSource: MatTableDataSource<Item> = new MatTableDataSource();
   shopDataSource: MatTableDataSource<Item> = new MatTableDataSource();
 
-  constructor(public runService: RunService, public uiService: UiService, private itemService: ItemService, public dataService: DataService) { }
+  constructor(public runService: RunService, public uiService: UiService, private itemService: ItemService, public dataService: DataService, private musicService: MusicService) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -136,6 +137,7 @@ export class UiLayerComponent implements OnInit {
   }
 
   boostStat(actor: PlayingCharacter, statName: string) {
+    this.musicService.playSound("power-up");
     this.runService.getRun().experience = this.runService.getRun().experience - 1;
     (actor.stats as any)[statName] = (actor.stats as any)[statName] + 1;
     var newSkillData = actor.class?.skillTree.find((el: { skillId: number; unlockLevel: number; unlockStat: string; }) => { return (el.unlockLevel == (actor.stats as any)[statName] && el.unlockStat == statName) });
@@ -192,10 +194,10 @@ export class UiLayerComponent implements OnInit {
   }
 
   buy(item: any) {
-    // TODO: check money, if not enough error message
     if (this.runService.getRun().inventory.money < item.moneyValue) {
       this.uiService.pushText("[Merchant]: Sorry pal, that's too much money for you!");
     } else {
+      this.musicService.playSound("buy");
       this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - item.moneyValue;
       this.uiService.pushText("That's a great deal! It's yours.");
       this.runService.addItemToInventory(item);
