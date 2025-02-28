@@ -279,7 +279,7 @@
         },
         {
             "id": 1,
-            "name": "Dark Tomb",
+            "name": "Cleaner Tomb",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 2,
             "loot": [],
@@ -288,11 +288,11 @@
             "interactions": [
                 {
                     "reactTo": 1,
-                    "text": "[The water is eroding gold, unveiling a very smellying man, THAT ATTACKS!]",
+                    "text": "[The water is eroding gold, unveiling a smelly man, AND THEN HE ATTACKS!]",
                     "effect": 2,
                     "effectTarget": [
                         {
-                            "name": "Master Necromancer [sinner of the dark city of sin and darkness and misery]",
+                            "name": "Master Necromancer",
                             "level": 1,
                             "imagePath": "/assets/images/actors/enemy2.png",
                             "loot": [],
@@ -379,11 +379,11 @@
                             "dialogue": "hello world",
                             "stats": {
                                 "charisma": 2,
-                                "strength": 8,
-                                "constitution": 40,
+                                "strength": 4,
+                                "constitution": 30,
                                 "dexterity": 3,
                                 "intelligence": 1,
-                                "healthPoints": 40
+                                "healthPoints": 30
                             },
                             "skills": []
                         }

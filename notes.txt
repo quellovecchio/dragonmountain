@@ -256,8 +256,7 @@ Milestones:
 			-	test different gameplay setups
 			-	location badges (telling you if there's a fight, rest place ecc ecc)
 			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
-				-	introduce priest class with Bless spell at start
-			-	introduce money drops
+			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
 			-	sell
 			-	text goes on with click
 
@@ -273,14 +272,17 @@ Milestones:
 			-	actors and enemies can cast spells. 
 			-	revive state, revive spell, revive option from actors (priests, witch...)
 			-	introduce shaman class with summoning spells
+			-	introduce priest class with Bless spell at start
 
 		-	fight update
 			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
+			-	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
 			-	make units disappear when dead (animated)
 			-	implement ranged attacks and missiles logic
 			-	implement collisions between pawns
 			V	fight bugfixes
 			-	refinement to animations
+				-	intro with enemies splash art?
 				-	battle start animation
 			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
 
@@ -312,13 +314,15 @@ Milestones:
 
 0.7
 
-		-	card rarity update
+		-	cards update
 			-	implementation of the card finishes from pokemon in css
 			-	evaluate splash art with background instead of no background full pic and card frame
+				-	evaluate splashes art with transp background and predefinites cards background
 			- 	traslucency polish
 		-	ui update
 			-	if an actor is talking show his image
 			-	final ui impl. retouch everything
+				-	animate name in infobox when changed
 			-	text area update
 				-	click to skip text typewriting
 				-	speaking npc portrait on the screen if someone's talking, substitutes the scene
@@ -329,6 +333,7 @@ Milestones:
 			-	evaluate a stylish 'swipe left or right' animation to refresh the view when chaning location or hiring someone for drawing animations
 			-	animation for appearance of back to stage
 			-	animation for dead actors
+			-	hover window on equips in actor card 
 
 	---------------------------------------------------------------
 		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS

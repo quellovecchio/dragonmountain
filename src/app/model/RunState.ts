@@ -2,6 +2,5 @@ export enum RunState {
     Neutral = "neutral",
     Exploration = "exploration",
     Fight = "fight",
-    Location = "location",
-    Intro = "intro"
+    Location = "location"
 }

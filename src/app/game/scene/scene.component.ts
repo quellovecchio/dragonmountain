@@ -74,13 +74,21 @@ export class SceneComponent implements OnInit {
   // NPC interactions
   
   talkToActor(a: Actor) {
+    // TODO move this code to interact
     let talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
+    let killInteraction = this.runService.findInteraction(a.interactions, EffectType.kill);
     if(talkInteraction) {
       this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
       if(talkInteraction.effectTarget) {
         this.runService.interact({ character: (a as Character), action: talkInteraction });
       }
       this.runService.resolveInteraction(a, EffectType.talk);
+    }
+    if(killInteraction) {
+      if(killInteraction.effectTarget) {
+        this.runService.interact({ character: (a as Character), action: killInteraction });
+      }
+      this.runService.resolveInteraction(a, EffectType.kill);
     }
     else
       this.uiService.talkToNpcPushText(a.name, a.dialogue);

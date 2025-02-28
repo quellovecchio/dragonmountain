@@ -1,11 +1,27 @@
 <div>
-  <div class="centered" style="color: black;">
+  <div *ngIf="isIntro" class="intro" (click)="play()">
+    <div *ngIf="isIntro && !introSequencePlaying" class="blinking"> press any key to start... </div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-sky pixelated"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-moon"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-2" [@introAnimationClouds2]></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-main" [@introAnimationMain]></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-1" [@introAnimationClouds1]></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="dragon-container" [@introAnimationDragon]>
+      <div *ngIf="isIntro && introSequencePlaying" class="dragon"></div>
+    </div>
+    <div *ngIf="isIntro && introSequencePlaying" class="logo" [@introAnimationLogo]>
+      DragonMountain
+      <div *ngIf="isIntro && introSequenceFinished" class="blinking"> press any key to start... </div>
+    </div>
+  </div>
+  <div *ngIf="!isIntro" class="centered" style="color: black;">
     <div class="viewport" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
       <app-ui-layer class="app-ui-layer"></app-ui-layer>
       <app-scene class="app-scene"></app-scene>
     </div>
   </div>
   <div class="item-use-container" *ngIf="uiService.getSelectedItem() != undefined" style="height: 100px;">
-    <img src="{{uiService.getSelectedItem() ? uiService.getSelectedItem().thumbnailPath : ''}}" class="follow-cursor-img" #followCursorImg />
+    <img src="{{uiService.getSelectedItem() ? uiService.getSelectedItem().thumbnailPath : ''}}"
+      class="follow-cursor-img" #followCursorImg />
   </div>
 </div>

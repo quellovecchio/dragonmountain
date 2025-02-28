@@ -60,3 +60,193 @@
   position: absolute;
   transition: transform 0.1s linear;
 }
+
+.intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+  overflow: hidden;
+}
+
+.blinking {
+  color: white;
+  font-size: 40px;
+  animation: blink 2s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.background-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/intro/sky.png');
+  background-size: contain;
+  filter: sepia(0.2) blur(2px) drop-shadow(2px 4px 6px black);
+}
+
+.background-cloud-1 {
+  position: absolute;
+  top: 46%;
+  left: 0;
+  width: 100%;
+  height: 33%;
+  background-image: url('../../assets/intro/cloud-1.png');
+  background-size: contain;
+  animation: moveLeft 360s linear infinite;
+  filter: sepia(0.2) blur(3px) drop-shadow(2px 4px 6px black);
+}
+
+.background-cloud-2 {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 32%;
+  background-image: url('../../assets/intro/cloud-2.png');
+  background-size: contain;
+  animation: moveLeft 90s linear infinite;
+  filter: sepia(0.2) blur(2px) drop-shadow(2px 4px 6px black);
+}
+
+@keyframes moveLeft {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes moveRight {
+  0% {
+    left: 17%;
+  }
+
+  50% {
+    left: 27%;
+  }
+
+  100% {
+    left: 17%;
+  }
+}
+
+@keyframes struggle {
+  0% {
+    background-position: 0 0;
+  }
+
+  25% {
+    background-position: 0 -12%;
+  }
+
+  50% {
+    background-position: -12% 12%;
+  }
+
+  75% {
+    background-position: 12% -6%;
+  }
+
+  100% {
+    background-position: 6% 6%;
+  }
+}
+
+@keyframes struggleLess {
+  0% {
+    background-position: 0 0;
+  }
+
+  25% {
+    background-position: 0 -2%;
+  }
+
+  50% {
+    background-position: -2% 2%;
+  }
+
+  75% {
+    background-position: 2% -1%;
+  }
+
+  100% {
+    background-position: 1% 1%;
+  }
+}
+
+
+.background-moon {
+  filter: sepia(1) blur(20px) drop-shadow(2px 4px 6px black);
+  position: absolute;
+  top: 7%;
+  left: 20%;
+  width: 100%;
+  height: 50%;
+  background-image: url('../../assets/intro/moon.png');
+  background-size: contain;
+}
+
+.background-main {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  height: 76%;
+  background-image: url('../../assets/intro/background-main.png');
+  background-size: contain;
+  animation: moveLeft 60s linear infinite;
+  filter: sepia(0.6) blur(1px) drop-shadow(2px 4px 6px black);
+}
+
+.dot {
+  height: 200px;
+  width: 200px;
+  background: #c4a335;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dragon {
+  height: 100%;
+  width: 100%;
+  background-image: url('../../assets/intro/dragon.gif');
+  background-size: cover;
+  animation: struggle 1s linear infinite;
+  filter: sepia(0.1) blur(0.5px) drop-shadow(2px 4px 6px black);
+}
+
+.dragon-container {
+  position: absolute;
+  top: 43%;
+  left: 17%;
+  width: 10%;
+  height: 19%;
+  animation: moveRight 90s linear infinite;
+}
+
+.logo {
+  position: absolute;
+  top: 15%;
+  left: 8%;
+  width: 100%;
+  height: 100%;
+  font-size: 90px;
+  font-weight: 700;
+}

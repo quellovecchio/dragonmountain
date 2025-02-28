@@ -57,7 +57,7 @@ sharp dressed man 45 - begs you to kill the thief for money
 BOSS - Thieves Guild Master 46, angry at you because you helped the spy to infiltrate the guild and killed the affiliate
 
 4b.a.b - empty square 22 if you killed the other man
-BOSS - Far Land Emissary 47, looking for vegeance on the spy
+BOSS - Far Land Emissary 47, looking for vegeance on the spy: make it drop good as he is the good path
 
 
 
@@ -103,10 +103,12 @@ mages guild - shop, join
 
 
 -- DUNGEONS --
+dark tomb 1 - ALREADY DONE JUST REWORK FROM BOSS STAGE (id 1) 
 moldening crypt - fight, loot
 scary mine - fight, loot
 bloodshed tavern - fight, loot, full of vampires
 silver mine - fight, loot
+dead end road - locked, a thief wants a big bag of money or fight
 
 
 -- TODO --
