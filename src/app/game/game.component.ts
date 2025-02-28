@@ -136,15 +136,19 @@ export class GameComponent implements OnInit {
       this.introSequencePlaying = true;
       setInterval(() => {
         this.introSequenceFinished = true;
-      }, 15000);
+      }, 13000);
     }
     // intro sequence playing -> skip intro
     if(this.isIntro && this.introSequencePlaying) {
-      // TODO: skip intro
+      // TODO skip intro
     }
     // intro finished -> new game
     if(this.isIntro && this.introSequenceFinished) {
       this.startGame();
+    }
+    // skip intro for developers
+    if(Constants.DEBUG_SKIP_INTRO) {
+      this.introSequenceFinished = true;
     }
   }
 
@@ -204,6 +208,7 @@ export class GameComponent implements OnInit {
   }
 
   greetPlayer() {
+    this.musicService.stopMusic();
     var that = this;
     setTimeout(() => {
       that.run.state = RunState.Exploration;

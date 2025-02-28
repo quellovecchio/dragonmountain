@@ -3,15 +3,16 @@
     <div *ngIf="isIntro && !introSequencePlaying" class="blinking"> press any key to start... </div>
     <div *ngIf="isIntro && introSequencePlaying" class="background-sky pixelated"></div>
     <div *ngIf="isIntro && introSequencePlaying" class="background-moon"></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-2" [@introAnimationClouds2]></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-main" [@introAnimationMain]></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-1" [@introAnimationClouds1]></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="dragon-container" [@introAnimationDragon]>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-2" [@introAnimationClouds2] [@.disabled]="introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-main" [@introAnimationMain] [@.disabled]="introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-1" [@introAnimationClouds1] [@.disabled]="introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="dragon-container" [@introAnimationDragon] [@.disabled]="introSequenceFinished">
       <div *ngIf="isIntro && introSequencePlaying" class="dragon"></div>
     </div>
-    <div *ngIf="isIntro && introSequencePlaying" class="logo" [@introAnimationLogo]>
+    <div *ngIf="isIntro && introSequencePlaying" class="logo" [@introAnimationLogo] [@.disabled]="introSequenceFinished">
       DragonMountain
       <div *ngIf="isIntro && introSequenceFinished" class="blinking"> press any key to start... </div>
+      <!-- TODO add new game / load game with gothic 3D cursor-->
     </div>
   </div>
   <div *ngIf="!isIntro" class="centered" style="color: black;">
