@@ -21,11 +21,15 @@ export class MusicService {
         }
     }
 
-    playSound(soundName: string) {
+    playSound(soundName: string, volume?: number) {
         let audio = new Audio();
         audio.src = "../../assets/sfx/" + soundName + ".mp3";
         audio.load();
-        audio.volume = this.dataService.getSettings().fxVolume;
+        if (volume) {
+            audio.volume = volume;
+        } else {
+            audio.volume = this.dataService.getSettings().fxVolume;
+        }
         audio.play();
     }
 

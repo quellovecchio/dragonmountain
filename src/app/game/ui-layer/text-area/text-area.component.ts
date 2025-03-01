@@ -1,8 +1,9 @@
 import { OnInit, Component } from '@angular/core';
-import { interval, takeWhile } from 'rxjs';
+import { interval, switchMap, takeWhile } from 'rxjs';
 import { UiService } from '../ui.service';
 import { DataService } from 'src/app/data.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MusicService } from 'src/app/services/music.service';
 
 @Component({
   selector: 'app-text-area',
@@ -32,7 +33,7 @@ export class TextAreaComponent implements OnInit {
   complete: boolean = true;
   visible: boolean = false;
 
-  constructor(private uiService: UiService, public dataService: DataService) { }
+  constructor(private uiService: UiService, public dataService: DataService, private musicService: MusicService) { }
 
   ngOnInit(): void {
     // TODO change 500 to game speed or something like that
@@ -53,6 +54,15 @@ export class TextAreaComponent implements OnInit {
         this.visible = false;
       }
     });
+    /*interval(800)
+    .pipe(
+      takeWhile(() => true),
+      switchMap(() => interval(Math.random() * 600))
+    )
+    .subscribe(() => {
+      if(!this.complete)
+        this.musicService.playSound('voices/fx_17b', 0.4);
+    });*/
   }
 
   pushText(text: string) {
