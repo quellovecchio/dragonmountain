@@ -87,5 +87,19 @@
                 <input matSliderThumb>
             </mat-slider>
         </div>
+        <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+            MUSIC VOLUME:
+            <mat-slider style="width: 190px;" min="0" max="1" step="0.1"
+                [(ngModel)]="dataService.getSettings().musicVolume" (click)="$event.stopPropagation()">
+                <input matSliderThumb>
+            </mat-slider>
+        </div>
+        <div style="width: 200px; font-size: 20px; color: white; padding:10px" (click)="$event.stopPropagation()">
+            FX VOLUME:
+            <mat-slider style="width: 190px;" min="0" max="1" step="0.1"
+                [(ngModel)]="dataService.getSettings().fxVolume" (click)="$event.stopPropagation()">
+                <input matSliderThumb>
+            </mat-slider>
+        </div>
     </mat-menu>
 </div>

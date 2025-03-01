@@ -374,8 +374,12 @@ BUG TRACKER
 - chests can be opened twice (make them disappear)
 - people is not dying after fight!!
 - merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
-	
+- music volume settings working only when song ended
+
+
+------------------------------------------------------	
 PLOT: 
+------------------------------------------------------
 
 Damned citadel: A corrupted city  holy water, silver bar, demon horn
 ----------------
