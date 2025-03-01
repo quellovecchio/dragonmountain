@@ -9,8 +9,8 @@ export class Constants {
   static TURN_LOGGING = false;
   static DAMAGE_LOGGING = true;
   //static TEXT_SPEED = 10;
-  static TEXT_SPEED = 10;
-  static FIGHT_CLOCK_SPEED = 90;
+  static TEXT_SPEED = 3;
+  static FIGHT_CLOCK_SPEED = 85;
   static MUSIC_VOLUME = 0.5;
   static SOUND_VOLUME = 1;
   // max number of actors or locations to display
