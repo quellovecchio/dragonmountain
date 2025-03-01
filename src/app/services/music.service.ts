@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { DataService } from "../data.service";
 
 @Injectable({
     providedIn: 'root'
@@ -6,19 +7,25 @@ import { Injectable } from "@angular/core";
 export class MusicService {
 
     currentlyPlaying: HTMLAudioElement = new Audio();
+    loopInterval: any;
 
-    constructor() { }
+    constructor(private dataService: DataService) { }
 
     stopMusic() {
         this.currentlyPlaying.pause();
         this.currentlyPlaying.src = '';
+        this.currentlyPlaying.removeEventListener('loadedmetadata', () => { });
+        if (this.loopInterval) {
+            clearInterval(this.loopInterval);
+            this.loopInterval = null;
+        }
     }
 
     playSound(soundName: string) {
         let audio = new Audio();
         audio.src = "../../assets/sfx/" + soundName + ".mp3";
         audio.load();
-        audio.volume = 0.2;
+        audio.volume = this.dataService.getSettings().fxVolume;
         audio.play();
     }
 
@@ -27,18 +34,18 @@ export class MusicService {
         audio.src = "../../assets/music/" + songName + ".mp3";
         audio.load();
         this.currentlyPlaying = audio;
-        this.playSong(audio);
+        this.playSong(this.currentlyPlaying);
 
-        audio.addEventListener('loadedmetadata', () => {
-            setInterval(() => {
+        this.currentlyPlaying.addEventListener('loadedmetadata', () => {
+            this.loopInterval = setInterval(() => {
                 audio.currentTime = 0;
-                this.playSong(audio);
             }, audio.duration * 1000);
         });
     }
 
     playSong(audio: HTMLAudioElement) {
         audio.play();
+        audio.volume = this.dataService.getSettings().musicVolume;
         this.fadeIn(audio, 2000);
     }
 

@@ -209,6 +209,7 @@ export class GameComponent implements OnInit {
 
   greetPlayer() {
     this.musicService.stopMusic();
+    this.musicService.loopSong("exploration");
     var that = this;
     setTimeout(() => {
       that.run.state = RunState.Exploration;

@@ -244,21 +244,21 @@ Milestones:
 			V	the goal of the refactoring will be to let every component manipulate run data through service eliminating signals
 
 		-	gameplay update
+			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
+			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
+			-	sell
+			-	text goes on with click
 			V	fix every people killable		
-			-	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
+			V	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
 				V	change refresh dynamics: you can't leave some rooms if not resolved
 					-	update database
 					V	implement refresh counter and quests logic
+					-	rework interaction in action -> effect
 					-	little choises: example touch or dont touch the relic and what happen if you do or dont
 					-	other joining conditions (talk, give ecc ecc)
 				-	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
-			-	location badges (telling you if there's a fight, rest place ecc ecc)
-			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
-			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
-			-	sell
-			-	text goes on with click
 
 		V	ui update
 		
@@ -373,8 +373,13 @@ BUG TRACKER
 - fix doubled locations spawn - change removeLocationFromPool from exiting a stage to when the stage gets extracted
 - chests can be opened twice (make them disappear)
 - people is not dying after fight!!
-	
+- merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
+- music volume settings working only when song ended
+
+
+------------------------------------------------------	
 PLOT: 
+------------------------------------------------------
 
 Damned citadel: A corrupted city  holy water, silver bar, demon horn
 ----------------
