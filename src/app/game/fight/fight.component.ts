@@ -84,7 +84,10 @@ export class FightComponent implements OnInit {
     console.log('battlefield heigth: ' + this.battlefieldHeight);
     this.battleFieldClicked = fromEvent(this.battlefield.nativeElement, 'click').subscribe(() => {
       // undo action selection
-      if (this.action.actionType != '') this.action.actionType = '';
+      if (this.action.actionType != '') {
+        this.action.actionType = '';
+        //this.musicService.playSound('range-close');
+      }
     });
     this.calculateActorsStartingPositions();
     // Map enemies and party into turnRotation
@@ -152,14 +155,8 @@ export class FightComponent implements OnInit {
   }
 
   generateAiTurn(attackingCharacter: Character) {
-    // extract random player from part to be attacked
     // TODO implement skills on ai turn
-    const randomAllyIndex = Math.floor(Math.random() * this.partyData.length);
-    var defendingCharacter = this.partyData[randomAllyIndex];
-    let damage = this.fightManager.processAttack(attackingCharacter, defendingCharacter, false);
-    this.uiService.pushText("The enemy is attacking!");
-    this.uiService.pushText(defendingCharacter.name + " gets " + damage + " points of damage!");
-    //this.resumeFighLoop();
+    setTimeout(() => this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, this.partyData), 2000)
   }
 
   getRandomicity() {
@@ -266,6 +263,8 @@ export class FightComponent implements OnInit {
       let attackData = this.fightManager.processAttack(actor, target, false);
       //actor.actualAttackCooldown = actor.attackCooldown;
       console.log('damage dealt: ' + attackData.damage);
+      this.uiService.pushText(`${actor.name} attacked ${target.name}, making him lose ${attackData.damage} points!`);
+      this.uiService.shake(100 * attackData.damage);
       if (attackData.killed && this.fightData!.length > 0 && this.partyData.length > 0) {
         if (!friendly) {
           this.partyData[actorIndex].dead = true;
@@ -275,6 +274,7 @@ export class FightComponent implements OnInit {
       }
     } else {
       console.log('actor decided to move');
+      this.uiService.pushText(`${actor.name} moved closer to ${target.name}.`);
       // Calculate the new position of the actor
       const speed = actor.stats.dexterity * 8;
       const distanceX = +(Math.cos(angle) * speed).toFixed(3);
@@ -303,6 +303,7 @@ export class FightComponent implements OnInit {
 
   moveAttackButtonClicked() {
     this.action.actionType = 'attack';
+    this.musicService.playSound('range-open');
   }
 
   getActionRangeDiameter() {
@@ -315,7 +316,8 @@ export class FightComponent implements OnInit {
   enemyClicked(clickedActor: Character) {
     if (this.action.actionType == 'attack') {
       this.moveTowardsOrAttack(this.currentCharacter, this.partyData.indexOf(this.currentCharacter), true, clickedActor);
-      this.nextTurn();
+      this.isEnemyTurn = true;
+      this.resumeFightLoop();
     }
   }
 

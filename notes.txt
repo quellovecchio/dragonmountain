@@ -268,6 +268,9 @@ Milestones:
 				-	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
+			-	party limit to three
+				-	modal where you can see party elements stat and newcomer for comparison
+			-	updated intro and character selection
 
 		V	ui update
 		
@@ -286,22 +289,21 @@ Milestones:
 			-	introduce priest class with Bless spell at start
 
 		-	fight update
-			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
+			V 	make actor move in turns: they make steps instead of moving of one unit, in turn
+				-	fight commentary
 			-	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
 			-	make units disappear when dead (animated)
-			-	implement ranged attacks and missiles logic
-			-	implement collisions between pawns
+			-	implement ranged attacks
+				-	each class has a range modifier
+				-	missile logic. shoot missile when attack or spell range is higher than n
+			-	implement collisions between pawns?
 			V	fight bugfixes
-			-	run button? 
+			-	flee button? 
 				-	think about implications: some fights cannot be skipped (maybe just a flag?)
-			-	refinement to animations
+			-	animations
+				-	earthquake animation
 				-	intro with enemies splash art?
 				-	battle start animation
-			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
-
-		-	party limit to three
-			-	modal where you can see party elements stat and newcomer for comparison
-		-	updated intro and character selection
 
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------

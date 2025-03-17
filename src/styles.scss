@@ -379,3 +379,23 @@ button:disabled {
     opacity: 1;
 
 }
+
+.shake {
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-5px);
+    }
+
+    75% {
+        transform: translateY(5px);
+    }
+}
