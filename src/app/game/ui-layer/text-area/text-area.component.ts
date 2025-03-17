@@ -54,6 +54,7 @@ export class TextAreaComponent implements OnInit {
         this.visible = false;
       }
     });
+    // talk effect TODO
     /*interval(800)
     .pipe(
       takeWhile(() => true),

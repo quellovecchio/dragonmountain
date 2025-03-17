@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class Constants {
   static DEBUG_SKIP_INTRO = true;
   static DEBUG_ROOM = true;
-  static TURN_LOGGING = false;
+  static TURN_LOGGING = true;
   static DAMAGE_LOGGING = true;
   //static TEXT_SPEED = 10;
   static TEXT_SPEED = 10;
   static FIGHT_CLOCK_SPEED = 90;
-  static MUSIC_VOLUME = 0.5;
+  static MUSIC_VOLUME = 0;
   static SOUND_VOLUME = 1;
   // max number of actors or locations to display
   static MAX_STAGE_ELEMENTS = 3;

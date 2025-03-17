@@ -121,6 +121,15 @@ optionals like aesthetic items.
 
 
 			FUTURE IDEAS / POST LAUNCH CONTENT:
+DRAGONMOUNTAIN 2: (
+	you can navigate rooms with your party. rooms are procedurally generated.
+	the exploration, interaction and fight will be in the style of Ultima The False Propet but modernized.
+	player can explore with wasd, while the mouse (or analog) will show a circle around the main character.
+	the user can click within that circle and talk/look/use/take/attack based on what clicked.
+	
+	attacking items in houses causes them to destroy, and guards will be called. Stealth mode to steal, if caught call guards
+)
+
 COMMUNITY: (
 - users
 - dev blog
@@ -267,6 +276,8 @@ Milestones:
 0.5
 
 		-	spells update
+			-	spell ui in battle: when spell range button is clicked, spells will be shown in the range, 
+				each having a segment of the range with angle (360/n. spells)
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
@@ -281,6 +292,8 @@ Milestones:
 			-	implement ranged attacks and missiles logic
 			-	implement collisions between pawns
 			V	fight bugfixes
+			-	run button? 
+				-	think about implications: some fights cannot be skipped (maybe just a flag?)
 			-	refinement to animations
 				-	intro with enemies splash art?
 				-	battle start animation
@@ -375,6 +388,7 @@ BUG TRACKER
 - people is not dying after fight!!
 - merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
 - music volume settings working only when song ended
+- helath bar starts at max when battle starts
 
 
 ------------------------------------------------------	
