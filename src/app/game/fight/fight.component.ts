@@ -167,7 +167,7 @@ export class FightComponent implements OnInit {
 
   generateAiTurn(attackingCharacter: Character) {
     // TODO implement skills on ai turn
-    setTimeout(() => this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, this.partyData), 2000)
+    this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, this.partyData)
   }
 
   getRandomicity() {
@@ -276,7 +276,8 @@ export class FightComponent implements OnInit {
       console.log('damage dealt: ' + attackData.damage);
       this.uiService.pushText(`${actor.name} attacked ${target.name}, making him lose ${attackData.damage} points!`);
       this.uiService.shake(100 * attackData.damage);
-      if (attackData.killed && this.fightData!.length > 0 && this.partyData.length > 0) {
+      if (attackData.killed) {
+        this.musicService.playSound('killed');
         if (!friendly) {
           this.partyData[actorIndex].dead = true;
         } else {

@@ -5,17 +5,20 @@
                 <div class="intro-thumbnail-container">
 
                     <div class="imgA" *ngFor="let actor of partyData; let i = index"
-                        [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"></div>
+                        [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
+                        [ngClass]="partyData.length == 1 ? 'full-portrait' : partyData.length == 2 ? 'half-portrait' : 'third-portrait'">
+                    </div>
                 </div>
             </div>
             <div class="sideRight superSpeed">
                 <div class="intro-thumbnail-container">
                     <div class="imgB" *ngFor="let enemy of fightData; let j = index"
-                        [ngStyle]="{ 'background-image': 'url(' + enemy.imagePath + ')' }"></div>
+                        [ngStyle]="{ 'background-image': 'url(' + enemy.imagePath + ')' }"
+                        [ngClass]="partyData.length == 1 ? 'full-portrait' : partyData.length == 2 ? 'half-portrait' : 'third-portrait'"></div>
                 </div>
             </div>
-            <div class="vs">
-            </div>
+            <div class="vs"></div>
+            <div class="speed-anim"></div>
         </div>
     </div>
     <div class="characters" style="position:absolute; top: 300px;" [style.opacity]="!fightStartAnimation ? 1 : 0">
@@ -24,8 +27,7 @@
             [class.active]="actor.active">
             <div *ngIf="actor" class="party-member pixelated-border space"
                 style="background-position-x: center; background-position-y: top; background-size: 200%; z-index: 1; position: relative;"
-                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
-                [style.visibility]="actor.dead ? 'hidden' : 'auto'">
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
                 <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
                     [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
@@ -61,7 +63,7 @@
             (click)="enemyClicked(actor)">
             <div *ngIf="actor" class="party-member pixelated-border space"
                 style="background-position-x: center; background-position-y: top; background-size: 200%;"
-                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [ngClass]="actor.dead ? 'dead' : ''">
                 <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
                     [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
