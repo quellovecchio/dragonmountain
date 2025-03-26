@@ -1,11 +1,31 @@
 <div #battlefield class="battlefield pixelated-border" style="background-color: rgba(0, 0, 0, 0.304);">
-    <div class="characters" style="position:absolute; top: 300px;">
+    <div [style.opacity]="fightStartAnimation ? 1 : 0" style="height: 100%; width: 100%;" (click)="skipIntro()">
+        <div class="scene">
+            <div class="sideLeft superSpeed">
+                <div class="intro-thumbnail-container">
+
+                    <div class="imgA" *ngFor="let actor of partyData; let i = index"
+                        [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"></div>
+                </div>
+            </div>
+            <div class="sideRight superSpeed">
+                <div class="intro-thumbnail-container">
+                    <div class="imgB" *ngFor="let enemy of fightData; let j = index"
+                        [ngStyle]="{ 'background-image': 'url(' + enemy.imagePath + ')' }"></div>
+                </div>
+            </div>
+            <div class="vs">
+            </div>
+        </div>
+    </div>
+    <div class="characters" style="position:absolute; top: 300px;" [style.opacity]="!fightStartAnimation ? 1 : 0">
         <!-- Template for spawning characters -->
         <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index" [class.damaged]="actor.damaged"
             [class.active]="actor.active">
             <div *ngIf="actor" class="party-member pixelated-border space"
                 style="background-position-x: center; background-position-y: top; background-size: 200%; z-index: 1; position: relative;"
-                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [style.visibility]="actor.dead ? 'hidden' : 'auto'">
+                [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
+                [style.visibility]="actor.dead ? 'hidden' : 'auto'">
                 <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
                     [maxValue]="actor.stats.constitution" [barType]="1">
                 </app-data-bar>
@@ -20,7 +40,8 @@
                         [ngStyle]="{'border-top-left-radius': getActionRangeDiameter().diameter, 'border-bottom-left-radius': getActionRangeDiameter().diameter}">
                         <img class="action-range-icon" src="assets/icons/skill-icon.png">
                     </div>
-                    <div class="action-range-button move-attack-button" (click)="moveAttackButtonClicked(); $event.stopPropagation();"
+                    <div class="action-range-button move-attack-button"
+                        (click)="moveAttackButtonClicked(); $event.stopPropagation();"
                         [ngStyle]="{'border-top-right-radius': getActionRangeDiameter().diameter, 'border-bottom-right-radius': getActionRangeDiameter().diameter}">
                         <img class="action-range-icon" src="assets/icons/attack-icon.png">
                     </div>
@@ -34,10 +55,10 @@
             <i *ngIf="currentCharacter == actor"></i>
         </div>
     </div>
-    <div class="enemies" style="position:absolute; top: 300px;">
+    <div class="enemies" style="position:absolute; top: 300px;" [style.opacity]="!fightStartAnimation ? 1 : 0">
         <!-- Template for spawning enemies -->
-        <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index"
-            [class.damaged]="actor.damaged" (click)="enemyClicked(actor)">
+        <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index" [class.damaged]="actor.damaged"
+            (click)="enemyClicked(actor)">
             <div *ngIf="actor" class="party-member pixelated-border space"
                 style="background-position-x: center; background-position-y: top; background-size: 200%;"
                 [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
@@ -51,12 +72,13 @@
             <i *ngIf="action.actionType != ''"></i>
         </div>
     </div>
-    <div class="animations">
+    <div class="animations" *ngIf="!fightStartAnimation">
         <!-- Template for animations spawn -->
         <div class="animation" *ngFor="let animation of animations; let i = index">
             <img style="width: 75px; height: 75px; position: absolute; bottom: 10px;" [src]="animation.source"
                 [style.transform]="getAnimationTransform(animation)" />
         </div>
     </div>
-    <div *ngIf="action.actionType != ''" class="help">select an enemy to attack, or click on an empty spot of the battlefield to go back</div>
+    <div *ngIf="action.actionType != ''" class="help">select an enemy to attack, or click on an empty spot of the
+        battlefield to go back</div>
 </div>

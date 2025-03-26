@@ -290,7 +290,7 @@ Milestones:
 
 		-	fight update
 			V 	make actor move in turns: they make steps instead of moving of one unit, in turn
-				-	fight commentary
+				V	fight commentary
 			-	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
 			-	make units disappear when dead (animated)
 			-	implement ranged attacks

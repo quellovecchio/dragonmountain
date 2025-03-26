@@ -34,7 +34,7 @@
 
 @keyframes blinking {
     0% {
-        opacity: 0;
+        opacity: 0.3;
     }
 
     50% {
@@ -279,5 +279,214 @@ i {
 
     100% {
         left: 82%
+    }
+}
+
+// battle start animation
+
+.scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: url('../../../assets/animations/speed-vert.gif') no-repeat;
+    background-size: cover;
+    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
+    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+}
+
+.scene .imgA {
+    z-index: 1;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    top: -10%;
+    height: 175px;
+    transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    animation: movementA 2s forwards;
+    -webkit-animation: movementA 2s forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -moz-animation: movementA 2s forwards;
+    right: -27%;
+}
+
+.scene .imgB {
+    z-index: 1;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    top: -10%;
+    height: 175px;
+    transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    animation: movementB 2s forwards;
+    -webkit-animation: movementB 2s forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -moz-animation: movementB 2s forwards;
+}
+
+.scene .imgA, .scene .imgB {
+    mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
+}
+
+.scene .sideLeft {
+    position: fixed;
+    left: 0%;
+    height: 75%;
+    width: 50%;
+    transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+}
+
+.scene .sideRight {
+    position: fixed;
+    right: 0%;
+    height: 75%;
+    width: 50%;
+    transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+}
+
+.superSpeed:after,
+.superSpeed:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.scene .superSpeed {
+    -webkit-animation: speed 1.5s steps(21) infinite;
+    -moz-animation: speed 1.5s steps(21) infinite;
+    animation: speed 1.5s steps(22) infinite;
+}
+
+.sideLeft.superSpeed {
+    background: -moz-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -webkit-gradient(linear, left top, left bottom,
+            color-stop(0%, var(--attack-color)), color-stop(40%, #ffff00), color-stop(60%, #ffff00), color-stop(100%, var(--attack-color)));
+    background: -webkit-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -o-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -ms-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: linear-gradient(to bottom, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--attack-color)', endColorstr='var(--attack-color)', GradientType=0);
+    opacity: .9;
+}
+
+.sideRight.superSpeed {
+    background: var(--skill-color);
+    background: -moz-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--skill-color)),
+            color-stop(40%, #00f6ff), color-stop(60%, #00f6ff), color-stop(100%, var(--skill-color)));
+    background: -webkit-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -o-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -ms-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: linear-gradient(to bottom, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--skill-color)', endColorstr='var(--skill-color)', GradientType=0);
+    opacity: .9;
+}
+
+.intro-thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    height: 100%;
+}
+
+@keyframes movementA {
+    0% {
+        -webkit-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes movementA {
+    0% {
+        -webkit-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes movementA {
+    0% {
+        -moz-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -moz-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes movementB {
+    0% {
+        -webkit-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes movementB {
+    0% {
+        -webkit-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes movementB {
+    0% {
+        -moz-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -moz-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+.vs {
+    background: url(../../../assets/images/vs.png);
+    height: 360px;
+    width: 360px;
+    position: absolute;
+    top: 19%;
+    right: 32%;
+    animation: vs-fall 1s ease-out forwards;
+    transition-delay: 1s;
+}
+
+@keyframes vs-fall {
+    0% {
+        transform: scale(3); /* Start very big */
+    }
+    100% {
+        transform: scale(1); /* Shrink to normal size */
     }
 }

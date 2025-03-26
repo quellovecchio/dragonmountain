@@ -33,6 +33,8 @@ const RAND_SEED = 50;
 })
 export class FightComponent implements OnInit {
 
+  fightStartAnimation: boolean = true;
+
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
   @ViewChild('range') range: HTMLElement | undefined;
 
@@ -74,6 +76,8 @@ export class FightComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.partyData);
+    console.log(this.fightData);
     this.fightData = this.fightManager.enemies;
   }
 
@@ -92,8 +96,15 @@ export class FightComponent implements OnInit {
     this.calculateActorsStartingPositions();
     // Map enemies and party into turnRotation
     this.turnRotation = this.generateTurnRotation();
-    this.resumeFightLoop();
   }
+
+  skipIntro() {
+    if(this.fightStartAnimation) {
+      this.fightStartAnimation = false;
+      this.resumeFightLoop();
+    }
+  }
+
 
   ngOnDestroy() {
     // add this for performance reason
@@ -108,7 +119,7 @@ export class FightComponent implements OnInit {
       this.currentCharacter = this.nextTurnBuffer.pop()!;
       this.isEnemyTurn = this.nextTurn();
     }
-    this.uiService.pushText("Now it's " + this.currentCharacter.name + "'s turn. What will be his next Action?");
+    this.uiService.pushText("It's " + this.currentCharacter.name + "'s turn. What's his next move?");
     this.currentCharacter.active = true;
   }
 
