@@ -3,7 +3,6 @@
         <div class="scene">
             <div class="sideLeft superSpeed">
                 <div class="intro-thumbnail-container">
-
                     <div class="imgA" *ngFor="let actor of partyData; let i = index"
                         [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
                         [ngClass]="partyData.length == 1 ? 'full-portrait' : partyData.length == 2 ? 'half-portrait' : 'third-portrait'">
@@ -14,7 +13,7 @@
                 <div class="intro-thumbnail-container">
                     <div class="imgB" *ngFor="let enemy of fightData; let j = index"
                         [ngStyle]="{ 'background-image': 'url(' + enemy.imagePath + ')' }"
-                        [ngClass]="partyData.length == 1 ? 'full-portrait' : partyData.length == 2 ? 'half-portrait' : 'third-portrait'"></div>
+                        [ngClass]="fightData.length == 1 ? 'full-portrait' : fightData.length == 2 ? 'half-portrait' : 'third-portrait'"></div>
                 </div>
             </div>
             <div class="vs"></div>
@@ -35,7 +34,7 @@
                     [maxValue]="actor.stats.intelligence" [barType]="2">
                 </app-data-bar>
             </div>
-            <div class="action-range"
+            <div class="action-range" *ngIf="actor.active == true"
                 [ngStyle]="{ 'height': getActionRangeDiameter().diameter, 'width': getActionRangeDiameter().diameter, 'left': getActionRangeDiameter().left, 'top': getActionRangeDiameter().top }">
                 <ng-container *ngIf="action.actionType == ''">
                     <div class="action-range-button skill-button"
@@ -72,7 +71,7 @@
                 </app-data-bar>
             </div>
             <i *ngIf="action.actionType != ''"></i>
-        </div>
+        </div> 
     </div>
     <div class="animations" *ngIf="!fightStartAnimation">
         <!-- Template for animations spawn -->

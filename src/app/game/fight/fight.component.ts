@@ -33,6 +33,11 @@ const RAND_SEED = 50;
 })
 export class FightComponent implements OnInit {
 
+  // fight constants
+  distanceMultiplier = 65;
+
+
+
   fightStartAnimation: boolean = true;
 
   @ViewChild(MatMenuTrigger) menuTrigger: MatMenuTrigger | undefined;
@@ -112,6 +117,7 @@ export class FightComponent implements OnInit {
   }
 
   resumeFightLoop() {
+    this.currentCharacter.active = false;
     while (this.isEnemyTurn && this.fightManager.fighting) {
       while (this.nextTurnBuffer.length == 0) {
         this.nextTurnBuffer = this.getNextTurnCharacter();
@@ -177,16 +183,16 @@ export class FightComponent implements OnInit {
   calculateActorsStartingPositions() {
     let scaleFactor = window.innerWidth < 600 ? 1.5 : 1;
     for (var i = 0; i < this.partyCharacters.length; i++) {
-      this.partyData[i].fightPositionX = ((this.battlefieldWidth * 0.2) + this.getRandomicity());
-      this.partyData[i].fightPositionY = 0 - (this.battlefieldHeight / 6 * scaleFactor) + (50 * i) + this.getRandomicity();
+      this.partyData[i].fightPositionX = Math.floor(((this.battlefieldWidth * 0.2) + this.getRandomicity()));
+      this.partyData[i].fightPositionY = Math.floor(0 - (this.battlefieldHeight / 6 * scaleFactor) + (50 * i) + this.getRandomicity());
       console.log('name : ' + this.partyData[i].name + ' fightPositionX : ' + this.partyData[i].fightPositionX + ' fightPositionY : ' + this.partyData[i].fightPositionY + ' bottom: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.partyCharacters.get(i)!.nativeElement.getBoundingClientRect().right);
       this.partyCharacters.get(i)!.nativeElement.style.transform = `translate(${this.partyData[i].fightPositionX}px, ${this.partyData[i].fightPositionY}px)`;
     }
     for (var j = 0; j < this.enemyCharacters.length; j++) {
-      this.fightData![j].fightPositionX = (this.battlefieldWidth * 0.8) + this.getRandomicity();
-      this.fightData![j].fightPositionY = 0 - (this.battlefieldHeight / 1.7 * scaleFactor) + (50 * j) + this.getRandomicity();
+      this.fightData![j].fightPositionX = Math.floor((this.battlefieldWidth * 0.8) + this.getRandomicity());
+      this.fightData![j].fightPositionY = Math.floor(0 - (this.battlefieldHeight / 3 * scaleFactor) + (50 * j) + this.getRandomicity());
       console.log('name : ' + this.fightData![j].name + ' fightPositionX : ' + this.fightData![j].fightPositionX + ' fightPositionY : ' + this.fightData![j].fightPositionY + ' bottom: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().bottom + ' right: ' + this.enemyCharacters.get(j)!.nativeElement.getBoundingClientRect().right);
-      this.enemyCharacters!.get(j)!.nativeElement.style.transform = `translate(${this.fightData![j].fightPositionX}px, ${this.fightData![i].fightPositionY}px)`;
+      this.enemyCharacters!.get(j)!.nativeElement.style.transform = `translate(${this.fightData![j].fightPositionX}px, ${this.fightData![j].fightPositionY}px)`;
     }
   }
 
@@ -243,7 +249,7 @@ export class FightComponent implements OnInit {
     const angle = Math.atan2(dy, dx);
     console.log(actor.name + ' - dx: ' + dx + ' -  dy: ' + dy, ' - angle: ' + angle);
 
-    if (Math.abs(dx) < this.currentCharacter.stats.dexterity * 40 && Math.abs(dy) < this.currentCharacter.stats.dexterity * 40) {
+    if (Math.abs(dx) < this.currentCharacter.stats.dexterity * this.distanceMultiplier && Math.abs(dy) < this.currentCharacter.stats.dexterity * this.distanceMultiplier) {
       console.log('actor decided to attack');
       /*if (actor.actualAttackCooldown >= 0) {
         console.log('...but his cooldown is yet to be resolved');
@@ -322,7 +328,7 @@ export class FightComponent implements OnInit {
     if (!this.action.actionType)
       return { diameter: '200px', top: '-150px', left: '-50px' }
     else
-      return { diameter: (this.currentCharacter.stats.dexterity * 40 + 'px'), top: (-150 + this.currentCharacter.stats.dexterity * -10 + 'px'), left: (-50 + this.currentCharacter.stats.dexterity * -10 + 'px') }
+      return { diameter: (this.currentCharacter.stats.dexterity * this.distanceMultiplier + 'px'), top: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) - 100 + 'px'), left: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) + 'px') }
   }
 
   enemyClicked(clickedActor: Character) {

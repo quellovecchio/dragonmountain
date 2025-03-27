@@ -7,6 +7,13 @@
     height: 75%;
 }
 
+.inner-battlefield {
+    height: 100%;
+    width: 100%;
+    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
+    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+}
+
 .space {
     height: 80%;
     transition: transform .2s;
