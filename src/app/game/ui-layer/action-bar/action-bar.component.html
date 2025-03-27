@@ -1,7 +1,7 @@
 <div class="action-bar pixelated-border" style="background-color: black;">
     <div *ngIf="runService.getRun().party && runService.getRun().party.length > 0" class="party-members" style="width: 100%; padding: 0px;">
         <div *ngFor="let actor of runService.getRun().party; let i = index">
-            <div *ngIf="actor" [ngClass]="actor.active && uiService.isUiEnabled() ? 'glow' : ''"
+            <div *ngIf="actor"
                 class="party-member pixelated-border space dont-disable" (click)="partyMemberClicked(actor)"
                 style="background-position-x: center; background-position-y: top; background-size: 200%;"
                 [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">

@@ -121,6 +121,24 @@ optionals like aesthetic items.
 
 
 			FUTURE IDEAS / POST LAUNCH CONTENT:
+DRAGONMOUNTAIN 2: (
+	you can navigate rooms with your party. rooms are procedurally generated.
+	the exploration, interaction and fight will be in the style of Ultima The False Propet but modernized.
+	player can explore with wasd, while the mouse (or analog) will show a circle around the main character.
+	the user can click within that circle and talk/look/use/take/attack based on what clicked.
+	
+	attacking items in houses causes them to destroy, and guards will be called. Stealth mode to steal, if caught call guards
+)
+
+AI MODE: (
+-	temptative ai impl
+-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
+-	rest api to llm text impl
+-	study how to apply sentiment, maybe good/despicable action system
+	- 	maybe apply difficulty on sentiment??? just a multiplicator on stats with maybe some unlucy stuff happening could be fine
+-	lore information as vectorestate, implementation of lore
+)
+
 COMMUNITY: (
 - users
 - dev blog
@@ -243,22 +261,7 @@ Milestones:
 			V	split code into layers: data layer, ui layer, presentation layer
 			V	the goal of the refactoring will be to let every component manipulate run data through service eliminating signals
 
-		-	gameplay update
-			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
-			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
-			-	sell
-			-	text goes on with click
-			V	fix every people killable		
-			V	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
-				V	change refresh dynamics: you can't leave some rooms if not resolved
-					-	update database
-					V	implement refresh counter and quests logic
-					-	rework interaction in action -> effect
-					-	little choises: example touch or dont touch the relic and what happen if you do or dont
-					-	other joining conditions (talk, give ecc ecc)
-				-	play questline from bottom to end
-				-	play stage from bottom to end
-			-	test different gameplay setups
+
 
 		V	ui update
 		
@@ -267,6 +270,8 @@ Milestones:
 0.5
 
 		-	spells update
+			-	spell ui in battle: when spell range button is clicked, spells will be shown in the range, 
+				each having a segment of the range with angle (360/n. spells)
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
 			-	actors and enemies can cast spells. 
@@ -275,25 +280,57 @@ Milestones:
 			-	introduce priest class with Bless spell at start
 
 		-	fight update
-			- 	make actor move in turns: they make steps instead of moving of one unit, in turn. Commentary goes on in the background. easier to animate cool
-			-	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
-			-	make units disappear when dead (animated)
-			-	implement ranged attacks and missiles logic
-			-	implement collisions between pawns
+			-	enemy range (showing where people gets attacked) 
+			-	possibility to hit enemies check if in range from html element instead of distance
+			V 	make actor move in turns: they make steps instead of moving of one unit, in turn
+				V	fight commentary
+			V	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
+			V	make units disappear when dead (animated)
+			-	implement ranged attacks
+				-	each class has a range modifier
+				-	missile logic. shoot missile when attack or spell range is higher than n
+			-	implement collisions between pawns?
 			V	fight bugfixes
-			-	refinement to animations
-				-	intro with enemies splash art?
-				-	battle start animation
-			-	characters and enemies can attack from distance (missile style damage). classes like ranger and mage has distance missile damage.
+			-	flee button? 
+				-	think about implications: some fights cannot be skipped (maybe just a flag?)
+			-	animations
+				V	earthquake animation
+				-	rework/fix attack animation
+				V	intro with enemies splash art?
+				V	battle start animation
+				-	battle end animation
+			-	battle music?
+			-	bugfix
+				-	range is bugged
+				-	proper locking for 
 
-		-	party limit to three
-			-	modal where you can see party elements stat and newcomer for comparison
-		-	updated intro and character selection
+0.6
+
+		-	gameplay update
+			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
+			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
+			-	sell
+			-	text goes on with click
+			-	rework interaction in action -> effect
+			V	fix every people killable		
+			V	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
+				V	change refresh dynamics: you can't leave some rooms if not resolved
+					-	update database: push story and locations to db
+					V	implement refresh counter and quests logic
+					-	rework interaction in action -> effect
+					-	little choises: example touch or dont touch the relic and what happen if you do or dont
+					-	other joining conditions (talk, give ecc ecc)
+				-	play questline from bottom to end
+				-	play stage from bottom to end
+			-	test different gameplay setups
+			-	party limit to three
+				-	modal where you can see party elements stat and newcomer for comparison
+			-	updated intro and character selection
 
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
 
-0.6
+0.7
 
 		-	content update
 			-	analysis on items, equips, npcs, locations that the game and the damned citadel stage will offer. ask leocorno for help
@@ -312,7 +349,7 @@ Milestones:
 
 ---------------------------------	GAME PLAYABLE!!!!!!!	--------------------------------
 
-0.7
+0.8
 
 		-	cards update
 			-	implementation of the card finishes from pokemon in css
@@ -339,16 +376,6 @@ Milestones:
 		START MARKETING AND LOOK FOR PUBLISHERS/INVESTORS
 	---------------------------------------------------------------
 
-0.8
-
-		-	temptative ai impl
-			-	defined system architecture, most likely llm model running on the background responding to some port and text exchange between game and llm, call Danilo to check if things are ok and suggestions
-			-	rest api to llm text impl
-			-	study how to apply sentiment, maybe good/despicable action system
-				- 	maybe apply difficulty on sentiment??? just a multiplicator on stats with maybe some unlucy stuff happening could be fine
-			-	lore information as vectorestate, implementation of lore
-
-
 0.9		-	web/app wrapper, auth system, payments
 			-	look for investors or funds
 1.0		-	launch version, polish
@@ -369,13 +396,11 @@ SPELLS:
 ----------------------------------------------------
 BUG TRACKER
 ----------------------------------------------------
-- move damage animation inside of the chartacer in fight component
 - fix doubled locations spawn - change removeLocationFromPool from exiting a stage to when the stage gets extracted
 - chests can be opened twice (make them disappear)
-- people is not dying after fight!!
 - merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
 - music volume settings working only when song ended
-
+- health bar starts at max when battle starts
 
 ------------------------------------------------------	
 PLOT: 

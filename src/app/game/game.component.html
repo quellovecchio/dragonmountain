@@ -16,7 +16,7 @@
     </div>
   </div>
   <div *ngIf="!isIntro" class="centered" style="color: black;">
-    <div class="viewport" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
+    <div class="viewport" [ngClass]="uiService.isShaking() ? 'shake' : ''" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">
       <app-ui-layer class="app-ui-layer"></app-ui-layer>
       <app-scene class="app-scene"></app-scene>
     </div>

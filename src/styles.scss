@@ -1,5 +1,14 @@
 :root {
     --color-primary: #F4E0B9;
+    --color-primary-transp: #f4e0b933;
+    --skill-color: #4c7b94;
+    --skill-contrast: #BAD0DA;
+    --skill-color-transp: #4c7b944b;
+    //--attack-color: #d87a4b;
+    --attack-color: #f16c6a;
+    --attack-contrast: #F1C66A;
+    --attack-color-transp: #f16c6a4f;
+    --range-color: #dbdc844d;
 }
 
 @font-face {
@@ -11,12 +20,13 @@
     text-shadow: 2px 1px 2px #7D7463;
     font-family: "Alagard" !important;
     src: local("Alagard"), url(./assets/fonts/Alagard.ttf) format("truetype") !important;
-    /* Add !important to overwrite all elements */
     user-select: none;
     -webkit-user-select: none;
-    /*Safari*/
     -moz-user-select: none;
-    /*Firefox*/
+    transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
 }
 
 body {
@@ -208,6 +218,10 @@ button:disabled {
     animation: resize 2s infinite;
 }
 
+.zoom {
+    transform: scale(1.3) !important;
+}
+
 // CARDS FX //
 
 .card {
@@ -366,4 +380,24 @@ button:disabled {
     mix-blend-mode: overlay;
     opacity: 1;
 
+}
+
+.shake {
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-5px);
+    }
+
+    75% {
+        transform: translateY(5px);
+    }
 }

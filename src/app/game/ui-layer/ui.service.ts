@@ -27,6 +27,8 @@ export class UiService {
   private selectedItemSubject = new BehaviorSubject<Item[]>([]);
   public selectedItem$ = this.selectedItemSubject.asObservable();
 
+  public shaking = false;
+
   enableUi: boolean = false;
 
   textBuffer: string[] = [];
@@ -155,5 +157,14 @@ export class UiService {
     this.musicService.playSound('open-panel');
     if(message) this.pushText("[Merchant]: Thanks for your business.");
     this.updateShopItems([]);
+  }
+
+  shake(time: number) {
+    this.shaking = true;
+    setTimeout(() => {this.shaking = false}, time);
+  }
+
+  isShaking() {
+    return this.shaking;
   }
 }

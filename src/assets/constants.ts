@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class Constants {
   static DEBUG_SKIP_INTRO = false;
   static DEBUG_ROOM = true;
-  static TURN_LOGGING = false;
+  static TURN_LOGGING = true;
   static DAMAGE_LOGGING = true;
   //static TEXT_SPEED = 10;
   static TEXT_SPEED = 3;

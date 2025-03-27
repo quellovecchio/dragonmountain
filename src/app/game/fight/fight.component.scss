@@ -7,25 +7,21 @@
     height: 75%;
 }
 
+.inner-battlefield {
+    height: 100%;
+    width: 100%;
+    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
+    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+}
+
 .space {
     height: 80%;
     transition: transform .2s;
 }
 
-.space:hover {
-    transform: scale(1.03);
-}
-
 .pawn {
-    height: 200px;
-    width: 125px;
-}
-
-@media (max-width : 1000px) {
-    .pawn {
-        height: 125px !important;
-        width: 100px !important;
-    }
+    height: 125px;
+    width: 100px;
 }
 
 .image-bg {
@@ -36,25 +32,503 @@
 
 .hp-bar {
     position: relative;
-    top: 175px;
-}
-
-@media (max-width : 1000px) {
-    .hp-bar {
-        top: 100px;
-    }
+    top: 110px;
 }
 
 .damaged {
     animation: blinking 0.1s infinite;
 }
 
+.dead {
+    opacity: 0;
+    animation: fade-out 1s forwards;
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1; /* Fully visible */
+    }
+    100% {
+        opacity: 0; /* Fully transparent */
+    }
+}
+
 @keyframes blinking {
     0% {
-        opacity: 0;
+        opacity: 0.3;
     }
 
     50% {
         opacity: 1;
+    }
+}
+
+.action-range {
+    border-radius: 50%;
+    position: relative;
+    top: -200px;
+    left: -100px;
+    display: flex;
+}
+
+.action-range-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.move-attack-button {
+    width: 100%;
+    height: 100%;
+    background-color: var(--attack-color-transp);
+}
+
+.skill-button {
+    width: 100%;
+    height: 100%;
+    background-color: var(--skill-color-transp);
+}
+
+.move-attack-button:hover {
+    .action-range-icon {
+        transform: scale(1.2);
+        z-index: 2;
+        padding-left: 0.75rem;
+    }
+
+    background-color: var(--attack-color);
+    transition: all 0.05s ease-in;
+    -moz-transition: all 0.05s ease-in;
+    -webkit-transition: all 0.05s ease-in;
+    -o-transition: all 0.05s ease-in;
+}
+
+.skill-button:hover {
+    .action-range-icon {
+        transform: scale(1.2);
+        z-index: 2;
+        padding-right: 0.75rem;
+    }
+
+    background-color: var(--skill-color);
+    transition: all 0.05s ease-in;
+    -moz-transition: all 0.05s ease-in;
+    -webkit-transition: all 0.05s ease-in;
+    -o-transition: all 0.05s ease-in;
+}
+
+.range {
+    background-color: #dbdc8454;
+    cursor: crosshair;
+}
+
+.range:hover {
+    background-color: #dbdc8454;
+}
+
+.help {
+    background-color: var(--color-primary-transp);
+    color: white;
+}
+
+i {
+    /*   positioning */
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+
+    /*   gradient   */
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 1%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(1%, rgba(255, 255, 255, 0.03)), color-stop(30%, rgba(255, 255, 255, 0.85)), color-stop(50%, rgba(255, 255, 255, 0.85)), color-stop(70%, rgba(255, 255, 255, 0.85)), color-stop(71%, rgba(255, 255, 255, 0.85)), color-stop(100%, rgba(255, 255, 255, 0)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 1%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 1%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 1%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+    /* IE10+ */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.03) 1%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.85) 50%, rgba(255, 255, 255, 0.85) 70%, rgba(255, 255, 255, 0.85) 71%, rgba(255, 255, 255, 0) 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#00ffffff', GradientType=1);
+    /* IE6-9 */
+
+    /*  forming the shine element
+        play around with the width, skew and gradient to get different effects
+      */
+    width: 15%;
+    height: 100%;
+    transform: skew(-10deg, 0deg);
+    -webkit-transform: skew(-10deg, 0deg);
+    -moz-transform: skew(-10deg, 0deg);
+    -ms-transform: skew(-10deg, 0deg);
+    -o-transform: skew(-10deg, 0deg);
+
+    /*  animating it  */
+    animation: move 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+    -webkit-animation: move 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-delay: 1s;
+    -moz-transform: skew(-10deg, 0deg);
+    -moz-animation: move 2s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-delay: 1s;
+    -ms-transform: skew(-10deg, 0deg);
+    -ms-animation: move 2s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-delay: 1s;
+    -o-transform: skew(-10deg, 0deg);
+    -o-animation: move 2s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-delay: 1s;
+}
+
+/*  */
+@keyframes move {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.0
+    }
+
+    48% {
+        opacity: 0.2
+    }
+
+    80% {
+        opacity: 0.0
+    }
+
+    100% {
+        left: 82%
+    }
+}
+
+@-webkit-keyframes move {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.0
+    }
+
+    48% {
+        opacity: 0.2
+    }
+
+    80% {
+        opacity: 0.0
+    }
+
+    100% {
+        left: 82%
+    }
+}
+
+@-moz-keyframes move {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.0
+    }
+
+    48% {
+        opacity: 0.2
+    }
+
+    80% {
+        opacity: 0.0
+    }
+
+    100% {
+        left: 88%
+    }
+}
+
+@-ms-keyframes move {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.0
+    }
+
+    48% {
+        opacity: 0.2
+    }
+
+    80% {
+        opacity: 0.0
+    }
+
+    100% {
+        left: 82%
+    }
+}
+
+@-o-keyframes move {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.0
+    }
+
+    48% {
+        opacity: 0.2
+    }
+
+    80% {
+        opacity: 0.0
+    }
+
+    100% {
+        left: 82%
+    }
+}
+
+// battle start animation
+
+.scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: url('../../../assets/animations/speed-vert.gif') no-repeat;
+    background-size: cover;
+    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
+    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+}
+
+.speed-anim {
+    width: 100%;
+    height: 100%;
+    background: url('../../../assets/animations/speed-vert.gif') no-repeat;
+    background-size: cover;
+    z-index: 1;
+    opacity: 0.03;
+}
+
+.scene .imgA {
+    z-index: 1;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    top: -10%;
+    height: 175px;
+    transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    animation: movementA 2s forwards;
+    -webkit-animation: movementA 2s forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -moz-animation: movementA 2s forwards;
+    right: -27%;
+    margin-top: 3rem;
+}
+
+.scene .imgB {
+    z-index: 1;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    top: -10%;
+    height: 175px;
+    transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    animation: movementB 2s forwards;
+    -webkit-animation: movementB 2s forwards;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+    -moz-animation: movementB 2s forwards;
+    margin-top: 3rem;
+}
+
+.scene .imgA, .scene .imgB {
+    mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
+}
+
+.full-portrait {
+    height: 100% !important;
+}
+
+.half-portrait {
+    height: 50% !important;
+}
+
+.third-portrait {
+    height: 30% !important;
+}
+
+.scene .sideLeft {
+    position: fixed;
+    left: 0%;
+    height: 75%;
+    width: 50%;
+    transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+}
+
+.scene .sideRight {
+    position: fixed;
+    right: 0%;
+    height: 75%;
+    width: 50%;
+    transform: skew(10deg);
+    -webkit-transform: skew(10deg);
+}
+
+.superSpeed:after,
+.superSpeed:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.scene .superSpeed {
+    -webkit-animation: speed 1.5s steps(21) infinite;
+    -moz-animation: speed 1.5s steps(21) infinite;
+    animation: speed 1.5s steps(22) infinite;
+}
+
+.sideLeft.superSpeed {
+    background: -moz-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -webkit-gradient(linear, left top, left bottom,
+            color-stop(0%, var(--attack-color)), color-stop(40%, #ffff00), color-stop(60%, #ffff00), color-stop(100%, var(--attack-color)));
+    background: -webkit-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -o-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: -ms-linear-gradient(top, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    background: linear-gradient(to bottom, var(--attack-color) 0%, #ffff00 40%, #ffff00 60%, var(--attack-color) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--attack-color)', endColorstr='var(--attack-color)', GradientType=0);
+}
+
+.sideRight.superSpeed {
+    background: var(--skill-color);
+    background: -moz-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--skill-color)),
+            color-stop(40%, #00f6ff), color-stop(60%, #00f6ff), color-stop(100%, var(--skill-color)));
+    background: -webkit-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -o-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: -ms-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    background: linear-gradient(to bottom, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--skill-color)', endColorstr='var(--skill-color)', GradientType=0);
+}
+
+.intro-thumbnail-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    height: 100%;
+}
+
+@keyframes movementA {
+    0% {
+        -webkit-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes movementA {
+    0% {
+        -webkit-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes movementA {
+    0% {
+        -moz-transform: translate(-30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -moz-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes movementB {
+    0% {
+        -webkit-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes movementB {
+    0% {
+        -webkit-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -webkit-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes movementB {
+    0% {
+        -moz-transform: translate(30%, 10%) skew(-10deg) translate3d(0, 0, 0) scale(.7);
+        opacity: 0.3;
+    }
+
+    100% {
+        -moz-transform: translate(0%, 8%) skew(-10deg) translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+.vs {
+    background: url(../../../assets/images/vs.png);
+    height: 360px;
+    width: 360px;
+    position: absolute;
+    top: 19%;
+    right: 32%;
+    animation: vs-fall 1s ease-out forwards;
+    transition-delay: 1s;
+}
+
+@keyframes vs-fall {
+    0% {
+        transform: scale(3); /* Start very big */
+    }
+    100% {
+        transform: scale(1); /* Shrink to normal size */
     }
 }

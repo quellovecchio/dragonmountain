@@ -31,8 +31,6 @@ export class Actor {
     attacked: boolean = false;
     // used to handle current turn animations in fights
     active: boolean = false;
-    // placeholder or TODO: define attack range for
-    attackRange: number = 100;
     // deprecated
     //clearanceRequirements: Requirement[] = [];
 

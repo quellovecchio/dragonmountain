@@ -186,6 +186,7 @@ export class RunService {
   }
 
   public startFight(fight: Character[]) {
+    this.uiService.pushText("Enemies are attacking the party!");
     this.getRun().state = RunState.Fight;
     this.getRun().currentFight = this.prepareFight(fight);
     fight.forEach(actor => {
@@ -265,7 +266,6 @@ export class RunService {
     this.uiService.pushText("The party has moved to " + locationValue.name + ".");
     if (locationValue.fight && locationValue.fight.length > 0) {
       // start fight
-      this.uiService.pushText("Enemies are attacking the party!");
       this.startFight(locationValue.fight);
     } else {
       this.explore(location);
