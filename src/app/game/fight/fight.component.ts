@@ -332,8 +332,8 @@ export class FightComponent implements OnInit {
         top: - ((diameter/2) + (h pawn/2))
         left: - ((diameter/2) + (w pawn/2)
 
-        h pawn = 62
-        w pawn = 50
+        h pawn / 4 = 31
+        w pawn / 2= 50
       */
       return { diameter: (actor.stats.dexterity * this.distanceMultiplier + 'px'), top: (((actor.stats.dexterity * this.distanceMultiplier) * (-1/2)) - 31)  + 'px', left: (((actor.stats.dexterity * this.distanceMultiplier) * (-1/2) + 50) + 'px') }
   }
