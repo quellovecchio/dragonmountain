@@ -37,22 +37,22 @@
                     </app-data-bar>
                 </div>
                 <div class="action-range" *ngIf="actor.active == true && actor.id == currentCharacter.id"
-                    [ngStyle]="{ 'height': getActionRangeDiameter().diameter, 'width': getActionRangeDiameter().diameter, 'left': getActionRangeDiameter().left, 'top': getActionRangeDiameter().top }">
+                    [ngStyle]="{ 'height': getActionRangeDiameter(actor).diameter, 'width': getActionRangeDiameter(actor).diameter, 'left': getActionRangeDiameter(actor).left, 'top': getActionRangeDiameter(actor).top }">
                     <ng-container *ngIf="action.actionType == ''">
                         <div class="action-range-button skill-button"
-                            [ngStyle]="{'border-top-left-radius': getActionRangeDiameter().diameter, 'border-bottom-left-radius': getActionRangeDiameter().diameter}">
+                            [ngStyle]="{'border-top-left-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-left-radius': getActionRangeDiameter(actor).diameter}">
                             <img class="action-range-icon" src="assets/icons/skill-icon.png">
                         </div>
                         <div class="action-range-button move-attack-button"
                             (click)="moveAttackButtonClicked(); $event.stopPropagation();"
-                            [ngStyle]="{'border-top-right-radius': getActionRangeDiameter().diameter, 'border-bottom-right-radius': getActionRangeDiameter().diameter}">
+                            [ngStyle]="{'border-top-right-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-right-radius': getActionRangeDiameter(actor).diameter}">
                             <img class="action-range-icon" src="assets/icons/attack-icon.png">
                         </div>
                     </ng-container>
                     <ng-container *ngIf="action.actionType != ''">
                         <div class="range"
                             [ngClass]="action.actionType == 'attack' ? 'move-attack-button' : 'skill-button'"
-                            [ngStyle]="{'border-radius': getActionRangeDiameter().diameter}">
+                            [ngStyle]="{'border-radius': getActionRangeDiameter(actor).diameter}">
                         </div>
                     </ng-container>
                 </div>

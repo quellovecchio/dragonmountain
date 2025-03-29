@@ -324,11 +324,18 @@ export class FightComponent implements OnInit {
     this.musicService.playSound('range-open');
   }
 
-  getActionRangeDiameter() {
+  getActionRangeDiameter(actor: Character) {
     if (!this.action.actionType)
       return { diameter: '200px', top: '-150px', left: '-50px' }
     else
-      return { diameter: (this.currentCharacter.stats.dexterity * this.distanceMultiplier + 'px'), top: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) - 100 + 'px'), left: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) + 'px') }
+      /* 
+        top: - ((diameter/2) + (h pawn/2))
+        left: - ((diameter/2) + (w pawn/2)
+
+        h pawn = 62
+        w pawn = 50
+      */
+      return { diameter: (actor.stats.dexterity * this.distanceMultiplier + 'px'), top: (((actor.stats.dexterity * this.distanceMultiplier) * (-1/2)) - 31)  + 'px', left: (((actor.stats.dexterity * this.distanceMultiplier) * (-1/2) + 50) + 'px') }
   }
 
   enemyClicked(clickedActor: Character) {
