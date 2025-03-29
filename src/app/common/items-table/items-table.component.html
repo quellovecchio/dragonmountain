@@ -2,7 +2,7 @@
     <mat-table #table [dataSource]="dataSource">
 
         <ng-container matColumnDef="icon">
-            <mat-cell *matCellDef="let element" (click)="clickAction(element)">
+            <mat-cell *matCellDef="let element" (click)="clickAction(element); $event.stopPropagation();">
                 <div style="background-size: contain;" class="table-item"
                     [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
                 </div>

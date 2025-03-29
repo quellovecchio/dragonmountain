@@ -318,6 +318,7 @@ Milestones:
 					-	update database: push story and locations to db
 					V	implement refresh counter and quests logic
 					-	rework interaction in action -> effect
+					-	insert skippable stuff (ex: fight with prison guard) using 'charm' spell
 					-	little choises: example touch or dont touch the relic and what happen if you do or dont
 					-	other joining conditions (talk, give ecc ecc)
 				-	play questline from bottom to end
