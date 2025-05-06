@@ -78,6 +78,18 @@
             "id": 3,
             "name": "Beast",
             "skillTree": []
+        },
+        {
+            "id": 4,
+            "attackRange": 200,
+            "name": "Archer",
+            "skillTree": [
+                {
+                    "skillId": 2,
+                    "unlockLevel": 25,
+                    "unlockStat": "constitution"
+                }
+            ]
         }
     ],
     "items": [
@@ -789,7 +801,7 @@
             "id": 25,
             "name": "Clara B. Baade",
             "imagePath": "/assets/images/actors/actor5.png",
-            "classId": 1,
+            "classId": 4,
             "level": 3,
             "loot": [],
             "dialogue": "...",
