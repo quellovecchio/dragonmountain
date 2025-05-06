@@ -16,12 +16,14 @@ export type FightAction = {
 }
 
 class FightAnimation {
-  source: string = '';
-  duration: number = 0;
   id: number = 0;
+  missileImageSource: string = '';
   x: number = 0;
   y: number = 0;
+  target: Actor = new Actor();
   rotationAngle: number = 0;
+  explodeFn: () => void = () => { };
+  nativeElement: HTMLElement = new HTMLElement();
 }
 
 const RAND_SEED = 50;
@@ -54,6 +56,8 @@ export class FightComponent implements OnInit {
 
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
   @ViewChildren('enemyCharacter') enemyCharacters!: QueryList<ElementRef>;
+
+  animationPolling: any;
   animations: FightAnimation[] = [];
 
   @ViewChild('battlefield') battlefield!: ElementRef;
@@ -99,21 +103,53 @@ export class FightComponent implements OnInit {
       }
     });
     this.calculateActorsStartingPositions();
+    this.startAnimationPolling();
     // Map enemies and party into turnRotation
     this.turnRotation = this.generateTurnRotation();
   }
 
+  ngOnDestroy() {
+    if (this.animationPolling) {
+      clearInterval(this.animationPolling);
+      this.animationPolling = undefined;
+    }
+    this.battleFieldClicked.unsubscribe();
+  }
+
   skipIntro() {
-    if(this.fightStartAnimation) {
+    if (this.fightStartAnimation) {
       this.fightStartAnimation = false;
       this.resumeFightLoop();
     }
   }
 
-
-  ngOnDestroy() {
-    // add this for performance reason
-    this.battleFieldClicked.unsubscribe();
+  startAnimationPolling() {
+    this.animationPolling = setInterval(() => {
+      this.animations.forEach((animation: FightAnimation) => {
+        // Calculate the new position of the actor
+        const speed = 33;
+        const dx = (animation.target as Character).fightPositionX - (animation.target as Character).fightPositionX;
+        const dy = (animation.target as Character).fightPositionY - (animation.target as Character).fightPositionY;
+        // Calculate the angle between the actor and the target
+        const angle = Math.atan2(dy, dx);
+        const distanceX = +(Math.cos(angle) * speed).toFixed(3);
+        const distanceY = +(Math.sin(angle) * speed).toFixed(3);
+        //console.log(actor.name + ' - distance to cover x ' + distanceX + ' -  distance to cover y ' + distanceY);
+        //console.log('current X position: ' + actor.fightPositionX + ' - current Y position:  ' + actor.fightPositionY);
+        //if (actor.fightPositionX + distanceX < this.battlefieldWidth && actor.fightPositionX + distanceX > 0 && actor.fightPositionY + distanceY < (this.battlefieldHeight/2) && actor.fightPositionY + distanceY > (this.battlefieldHeight/2*-1)) {
+        // Update the position of the actor
+        animation.x += distanceX;
+        animation.y += distanceY;
+        animation.rotationAngle = angle;
+        //console.log('updated X position: ' + actor.fightPositionX + ' - updated Y position:  ' + actor.fightPositionY);
+        animation.nativeElement.style.transform = `translate(${(animation.x + distanceX)}px, ${animation.y + distanceY}px)`;
+        if (animation.x == (animation.target as Character).fightPositionX && animation.y == (animation.target as Character).fightPositionY) {
+          animation.explodeFn();
+          animation.nativeElement.remove(); // Remove the missile from the DOM
+          this.animations = this.animations.filter(a => a.id !== animation.id);
+        }
+      });
+    }, 1000 / 60); // 60 FPS
   }
 
   resumeFightLoop() {
@@ -259,11 +295,11 @@ export class FightComponent implements OnInit {
       // attack animations
       this.musicService.playSound('attack');
       target.damaged = true;
+      // TODO animation on damaged == true actor
       setTimeout(() => {
         target.damaged = false;
       }, 500);
-      // todo insert source and duration of the animation basing on attack
-      var attackAnimation: FightAnimation = {
+      /*var attackAnimation: FightAnimation = {
         source: '/assets/animations/slash.gif',
         duration: 200,
         id: this.animations.length,
@@ -275,20 +311,22 @@ export class FightComponent implements OnInit {
       setTimeout(() => {
         let r = this.animations.filter(animation => animation.id !== attackAnimation.id);
         this.animations = this.animations.filter(animation => animation.id !== attackAnimation.id);
-      }, 300);
-
-      let attackData = this.fightManager.processAttack(actor, target, false);
-      //actor.actualAttackCooldown = actor.attackCooldown;
-      console.log('damage dealt: ' + attackData.damage);
-      this.uiService.pushText(`${actor.name} attacked ${target.name}, making him lose ${attackData.damage} points!`);
-      this.uiService.shake(100 * attackData.damage);
-      if (attackData.killed) {
-        this.musicService.playSound('killed');
-        if (!friendly) {
-          this.partyData[actorIndex].dead = true;
-        } else {
-          this.fightData![actorIndex].dead = true;
+      }, 300);*/
+      // if the attack is melee calculate damage, if the attack is ranged launch a missile and register the process damage function as explodeFn
+      if (actor.class && actor.class.attackRange) {
+        var missileAnimation: FightAnimation = {
+          missileImageSource: '/assets/animations/slash.gif',
+          id: this.animations.length + 1,
+          x: actor.fightPositionX,
+          y: actor.fightPositionY,
+          target: target,
+          rotationAngle: angle,
+          explodeFn: this.processDamage.bind(this, actor, actorIndex, friendly, target),
+          nativeElement: this.createMissileElement('/assets/animations/slash.gif', actor.fightPositionX, actor.fightPositionY)
         }
+        this.animations.push(missileAnimation);
+      } else {
+        this.processDamage(actor, actorIndex, friendly, target);
       }
     } else {
       console.log('actor decided to move');
@@ -315,6 +353,35 @@ export class FightComponent implements OnInit {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }
 
+  createMissileElement(imageSource: string, x: number, y: number): HTMLElement {
+    const missile = document.createElement('img');
+    missile.src = imageSource;
+    missile.style.position = 'absolute';
+    missile.style.left = `${x}px`;
+    missile.style.top = `${y}px`;
+    missile.style.transform = 'translate(-50%, -50%)'; // Center the missile
+    missile.style.pointerEvents = 'none'; // Prevent interaction
+    missile.style.zIndex = '10'; // Ensure it appears above other elements
+    document.body.appendChild(missile); // Append it to the DOM
+    return missile;
+  }
+
+  processDamage(actor: Character, actorIndex: number, friendly: boolean, target: Character) {
+    let attackData = this.fightManager.processAttack(actor, target, false);
+    //actor.actualAttackCooldown = actor.attackCooldown;
+    console.log('damage dealt: ' + attackData.damage);
+    this.uiService.pushText(`${actor.name} attacked ${target.name}, making him lose ${attackData.damage} points!`);
+    this.uiService.shake(100 * attackData.damage);
+    if (attackData.killed) {
+      this.musicService.playSound('killed');
+      if (!friendly) {
+        this.partyData[actorIndex].dead = true;
+      } else {
+        this.fightData![actorIndex].dead = true;
+      }
+    }
+  }
+
   getAnimationTransform(animation: FightAnimation) {
     return 'translate(' + (animation.x) + 'px, ' + (animation.y - 530) + 'px) rotate(' + animation.rotationAngle + 'rad)';
   }
@@ -324,11 +391,18 @@ export class FightComponent implements OnInit {
     this.musicService.playSound('range-open');
   }
 
-  getActionRangeDiameter() {
+  getActionRangeDiameter(actor: Character) {
     if (!this.action.actionType)
       return { diameter: '200px', top: '-150px', left: '-50px' }
     else
-      return { diameter: (this.currentCharacter.stats.dexterity * this.distanceMultiplier + 'px'), top: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) - 100 + 'px'), left: (this.currentCharacter.stats.dexterity * (this.distanceMultiplier * (-1/3)) + 'px') }
+      /* 
+        top: - ((diameter/2) + (h pawn/2))
+        left: - ((diameter/2) + (w pawn/2)
+
+        h pawn / 4 = 31
+        w pawn / 2= 50
+      */
+      return { diameter: ((actor.stats.dexterity * this.distanceMultiplier) + (actor.class && actor.class.attackRange ? actor.class!.attackRange : 0) + 'px'), top: ((((actor.stats.dexterity * this.distanceMultiplier) + (actor.class && actor.class.attackRange ? actor.class!.attackRange : 0)) * (-1 / 2)) - 31) + 'px', left: ((((actor.stats.dexterity * this.distanceMultiplier) + (actor.class && actor.class.attackRange ? actor.class!.attackRange : 0)) * (-1 / 2) + 50) + 'px') }
   }
 
   enemyClicked(clickedActor: Character) {

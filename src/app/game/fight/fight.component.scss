@@ -1,4 +1,4 @@
-.battlefield {
+.battlefield-wrapper {
     position: relative;
     top: 3%;
     margin-left: auto;
@@ -7,11 +7,16 @@
     height: 75%;
 }
 
+.battlefield {
+    width: 100%;
+    height: 100%;
+    mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
+}
+
 .inner-battlefield {
     height: 100%;
     width: 100%;
-    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
-    -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
 }
 
 .space {
@@ -66,8 +71,6 @@
 .action-range {
     border-radius: 50%;
     position: relative;
-    top: -200px;
-    left: -100px;
     display: flex;
 }
 
@@ -371,11 +374,11 @@ i {
 }
 
 .half-portrait {
-    height: 50% !important;
+    height: 40% !important;
 }
 
 .third-portrait {
-    height: 30% !important;
+    height: 23% !important;
 }
 
 .scene .sideLeft {

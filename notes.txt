@@ -274,9 +274,9 @@ Milestones:
 				each having a segment of the range with angle (360/n. spells)
 			-	introduce spell and spell on actor element
 			-	introduce buffs and debuffs
-			-	actors and enemies can cast spells. 
+			-	actors and enemies can cast spells
 			-	revive state, revive spell, revive option from actors (priests, witch...)
-			-	introduce shaman class with summoning spells
+			-	introduce shaman class with summoning spells (summons are controlled by ai)
 			-	introduce priest class with Bless spell at start
 
 		-	fight update
@@ -297,12 +297,14 @@ Milestones:
 				V	earthquake animation
 				-	rework/fix attack animation
 				V	intro with enemies splash art?
-				V	battle start animation
-				-	battle end animation
+				V	battle start animation 
+				-	battleground opening and closing expanding on the horizontal side
+				-	loot animation (chest opening with items coming out)
 			-	battle music?
+			-	handle dead players
+				-	revive spell
 			-	bugfix
 				-	range is bugged
-				-	proper locking for 
 
 0.6
 
@@ -318,6 +320,7 @@ Milestones:
 					-	update database: push story and locations to db
 					V	implement refresh counter and quests logic
 					-	rework interaction in action -> effect
+					-	insert skippable stuff (ex: fight with prison guard) using 'charm' spell
 					-	little choises: example touch or dont touch the relic and what happen if you do or dont
 					-	other joining conditions (talk, give ecc ecc)
 				-	play questline from bottom to end
