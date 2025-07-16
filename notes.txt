@@ -404,6 +404,8 @@ BUG TRACKER
 - merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
 - music volume settings working only when song ended
 - health bar starts at max when battle starts
+- using items does not consume them
+- ranged attacks not working for enemies
 
 ------------------------------------------------------	
 PLOT: 

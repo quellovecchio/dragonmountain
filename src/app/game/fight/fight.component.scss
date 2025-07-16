@@ -51,10 +51,13 @@
 
 @keyframes fade-out {
     0% {
-        opacity: 1; /* Fully visible */
+        opacity: 1;
+        /* Fully visible */
     }
+
     100% {
-        opacity: 0; /* Fully transparent */
+        opacity: 0;
+        /* Fully transparent */
     }
 }
 
@@ -314,7 +317,7 @@ i {
     display: flex;
     background: url('../../../assets/animations/speed-vert.gif') no-repeat;
     background-size: cover;
-    mask-image: linear-gradient(to right, #000000b0  0%, white 30%, white 70%, #000000b0 100%);
+    mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
     -webkit-mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);
 }
 
@@ -364,7 +367,8 @@ i {
     margin-top: 3rem;
 }
 
-.scene .imgA, .scene .imgB {
+.scene .imgA,
+.scene .imgB {
     mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, white 30%, white 70%, transparent 100%);
 }
@@ -529,9 +533,12 @@ i {
 
 @keyframes vs-fall {
     0% {
-        transform: scale(3); /* Start very big */
+        transform: scale(3);
+        /* Start very big */
     }
+
     100% {
-        transform: scale(1); /* Shrink to normal size */
+        transform: scale(1);
+        /* Shrink to normal size */
     }
 }

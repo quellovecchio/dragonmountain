@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class Constants {
   static DEBUG_SKIP_INTRO = true;
@@ -11,8 +11,8 @@ export class Constants {
   //static TEXT_SPEED = 10;
   static TEXT_SPEED = 10;
   static FIGHT_CLOCK_SPEED = 90;
-  static MUSIC_VOLUME = 0;
-  static SOUND_VOLUME = 1;
+  static MUSIC_VOLUME = 0.99;
+  static SOUND_VOLUME = 0.99;
   // max number of actors or locations to display
   static MAX_STAGE_ELEMENTS = 3;
   static TECH_DEMO_INTRO: string = "Welcome to Dragon Mountain Private Tech Demo!\n\nDragon Mountain is an upcoming text-based rpg rocking a powerful data customizing tool and an intriguing roguelike styled gameplay.\n\nYou can try a little demo to value its fast game loop.\n\nIf you need any hints..."
