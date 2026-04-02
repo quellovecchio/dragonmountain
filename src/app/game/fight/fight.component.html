@@ -27,7 +27,9 @@
             [style.opacity]="!fightStartAnimation ? 1 : 0">
             <!-- Template for spawning characters -->
             <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index"
-                [class.damaged]="actor.damaged" [class.active]="actor.active" style="pointer-events: auto;">
+                [class.damaged]="actor.damaged" [class.active]="actor.active"
+                (click)="partyMemberClicked(actor); $event.stopPropagation();"
+                style="pointer-events: auto;">
                 <div *ngIf="actor" class="party-member pixelated-border space"
                     style="background-position-x: center; background-position-y: top; background-size: 200%; z-index: 30; position: relative;"
                     [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
@@ -42,6 +44,7 @@
                     [ngStyle]="{ 'height': getActionRangeDiameter(actor).diameter, 'width': getActionRangeDiameter(actor).diameter, 'left': getActionRangeDiameter(actor).left, 'top': getActionRangeDiameter(actor).top }">
                     <ng-container *ngIf="action.actionType == ''">
                         <div class="action-range-button skill-button"
+                            (click)="skillButtonClicked(); $event.stopPropagation();"
                             [ngStyle]="{'border-top-left-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-left-radius': getActionRangeDiameter(actor).diameter}">
                             <img class="action-range-icon" src="assets/icons/skill-icon.png">
                         </div>
@@ -51,11 +54,48 @@
                             <img class="action-range-icon" src="assets/icons/attack-icon.png">
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="action.actionType != ''">
+                    <ng-container *ngIf="action.actionType != '' && !(action.actionType == 'skill' && !selectedSkill)">
                         <div class="range"
                             [ngClass]="action.actionType == 'attack' ? 'move-attack-button' : 'skill-button'"
                             [ngStyle]="{'border-radius': getActionRangeDiameter(actor).diameter}">
                         </div>
+                    </ng-container>
+                    <!-- skill wheel: shown after skill button is clicked, before a skill is chosen -->
+                    <ng-container *ngIf="action.actionType == 'skill' && !selectedSkill">
+                        <svg class="skill-wheel" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+                            (click)="$event.stopPropagation()">
+                            <defs>
+                                <clipPath id="skill-wheel-clip">
+                                    <circle cx="100" cy="100" r="100"/>
+                                </clipPath>
+                            </defs>
+                            <g clip-path="url(#skill-wheel-clip)">
+                                <ng-container *ngIf="actor.skills.length > 0; else noSkills">
+                                    <g *ngFor="let slice of getSkillWheelSlices(actor.skills)">
+                                        <path [attr.d]="slice.path" class="skill-slice"
+                                            [class.hovered]="hoveredSkillId === slice.skill.id"
+                                            (mouseenter)="hoveredSkillId = slice.skill.id"
+                                            (mouseleave)="hoveredSkillId = undefined"
+                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                        </path>
+                                        <text [attr.x]="slice.textX" [attr.y]="slice.textY - 7"
+                                            class="skill-slice-label" text-anchor="middle" dominant-baseline="middle"
+                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                            {{ slice.skill.name }}
+                                        </text>
+                                        <text [attr.x]="slice.textX" [attr.y]="slice.textY + 9"
+                                            class="skill-slice-cost" text-anchor="middle" dominant-baseline="middle"
+                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                            {{ slice.skill.cost }} SP
+                                        </text>
+                                    </g>
+                                </ng-container>
+                                <ng-template #noSkills>
+                                    <circle cx="100" cy="100" r="100" class="skill-slice" style="cursor: default;"></circle>
+                                    <text x="100" y="100" class="skill-slice-label" text-anchor="middle" dominant-baseline="middle">No skills</text>
+                                </ng-template>
+                            </g>
+                        </svg>
                     </ng-container>
                 </div>
                 <i *ngIf="currentCharacter == actor"></i>
@@ -84,7 +124,8 @@
                     [style.transform]="getAnimationTransform(animation)" />
             </div>
         </div>
-        <div *ngIf="action.actionType != ''" class="help">select an enemy to attack, or click on an empty spot of the
-            battlefield to go back</div>
+        <div *ngIf="action.actionType == 'attack'" class="help">Select an enemy to attack, or click the battlefield to cancel.</div>
+        <div *ngIf="action.actionType == 'skill' && !selectedSkill" class="help">Select a skill, or click the battlefield to cancel.</div>
+        <div *ngIf="action.actionType == 'skill' && selectedSkill" class="help">{{ selectedSkill.name }} — select a target. Click the battlefield to cancel.</div>
     </div>
 </div>

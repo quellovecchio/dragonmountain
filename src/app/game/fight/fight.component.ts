@@ -10,9 +10,10 @@ import { Constants } from 'src/assets/constants';
 import { DataService } from 'src/app/data.service';
 import { UiService } from '../ui-layer/ui.service';
 import { MusicService } from 'src/app/services/music.service';
+import { RunService } from 'src/app/services/run.service';
 
 export type FightAction = {
-  actionType: '' | 'attack' | 'spell'
+  actionType: '' | 'attack' | 'skill'
 }
 
 class FightAnimation {
@@ -68,10 +69,15 @@ export class FightComponent implements OnInit {
   battlefieldHeight = 0;
   battleFieldClicked: Subscription = new Subscription();
 
-  @Output() useSkillSignal = new EventEmitter<{ skill: Skill, enemyIndex: number, enemy: Actor }>();
+  @Output() useSkillSignal = new EventEmitter<{ skill: Skill, target: Actor }>();
+  @Output() fleeSignal = new EventEmitter<void>();
 
   selectedEnemyIndex?: number;
   selectedEnemy?: Actor;
+  /** Skill chosen by the player in the skill selection phase. */
+  selectedSkill?: Skill;
+  /** ID of the slice currently hovered in the skill wheel. */
+  hoveredSkillId?: number;
   public currentAttackAnimation: string = '/assets/animations/slash.gif';
 
   public turnRotation: { character: Character, speedValue: number }[] = [];
@@ -83,7 +89,7 @@ export class FightComponent implements OnInit {
     actionType: ''
   }
 
-  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService, private uiService: UiService, private musicService: MusicService) {
+  constructor(fightManager: FightManagerService, private eRef: ElementRef, private dataService: DataService, private uiService: UiService, private musicService: MusicService, private runService: RunService) {
     this.fightManager = fightManager;
   }
 
@@ -224,6 +230,8 @@ export class FightComponent implements OnInit {
     var newBuffer: Character[] = [];
     // updates the speedValue of a character by adding its speed value until someones value is 100
     for (let i = 0; i < this.turnRotation.length; i++) {
+      // skip dead characters — they don't act
+      if (this.turnRotation[i].character.dead) continue;
       this.turnRotation[i].speedValue = this.turnRotation[i].speedValue + this.turnRotation[i].character.stats.dexterity;
       if (this.turnRotation[i].speedValue >= 100 && (this.fightData!.includes(this.turnRotation[i].character) || this.partyData.includes(this.turnRotation[i].character as PlayingCharacter))) {
         if (Constants.TURN_LOGGING) {
@@ -263,8 +271,19 @@ export class FightComponent implements OnInit {
   }
 
   generateAiTurn(attackingCharacter: Character) {
-    // TODO implement skills on ai turn
-    this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, this.partyData)
+    const aliveParty = this.partyData.filter(p => !p.dead);
+    if (aliveParty.length === 0) return;
+
+    // Check taunt: if taunted, must target the source character
+    const tauntSourceId = this.fightManager.getTauntSourceId(attackingCharacter);
+    if (tauntSourceId !== undefined) {
+      const tauntTarget = aliveParty.find(p => p.id === tauntSourceId) ?? aliveParty[0];
+      this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, [tauntTarget]);
+      return;
+    }
+
+    // TODO: add probability-based skill casting for enemies
+    this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, aliveParty);
   }
 
   getRandomicity() {
@@ -478,6 +497,7 @@ export class FightComponent implements OnInit {
 
   moveAttackButtonClicked() {
     this.action.actionType = 'attack';
+    this.selectedSkill = undefined;
     this.musicService.playSound('range-open');
   }
 
@@ -502,12 +522,80 @@ export class FightComponent implements OnInit {
     }
   }
 
+  /**
+   * Computes SVG path data for each skill slice in the skill wheel.
+   * Returns one entry per skill with the pie-slice path and label position.
+   */
+  getSkillWheelSlices(skills: Skill[]): { path: string; textX: number; textY: number; skill: Skill }[] {
+    const n = skills.length;
+    if (n === 0) return [];
+    const cx = 100, cy = 100, r = 100;
+    const sliceAngle = (2 * Math.PI) / n;
+    return skills.map((skill, i) => {
+      const midAngle = i * sliceAngle + sliceAngle / 2 - Math.PI / 2;
+      const textR = r * 0.6;
+      const textX = parseFloat((cx + textR * Math.cos(midAngle)).toFixed(2));
+      const textY = parseFloat((cy + textR * Math.sin(midAngle)).toFixed(2));
+      let path: string;
+      if (n === 1) {
+        // Full circle drawn as two half-arcs
+        path = `M 100 0 A 100 100 0 1 1 100 200 A 100 100 0 1 1 100 0 Z`;
+      } else {
+        const startAngle = i * sliceAngle - Math.PI / 2;
+        const endAngle = (i + 1) * sliceAngle - Math.PI / 2;
+        const x1 = parseFloat((cx + r * Math.cos(startAngle)).toFixed(2));
+        const y1 = parseFloat((cy + r * Math.sin(startAngle)).toFixed(2));
+        const x2 = parseFloat((cx + r * Math.cos(endAngle)).toFixed(2));
+        const y2 = parseFloat((cy + r * Math.sin(endAngle)).toFixed(2));
+        const largeArc = sliceAngle > Math.PI ? 1 : 0;
+        path = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+      }
+      return { path, textX, textY, skill };
+    });
+  }
+
   enemyClicked(clickedActor: Character) {
+    if (clickedActor.dead) return;
     if (this.action.actionType == 'attack') {
       this.moveTowardsOrAttack(this.currentCharacter, this.partyData.indexOf(this.currentCharacter), true, clickedActor);
+      this.resetAction();
       this.isEnemyTurn = true;
       this.resumeFightLoop();
+    } else if (this.action.actionType == 'skill' && this.selectedSkill) {
+      this.castSelectedSkill(this.currentCharacter, this.selectedSkill, clickedActor);
     }
+  }
+
+  partyMemberClicked(actor: PlayingCharacter) {
+    if (this.action.actionType == 'skill' && this.selectedSkill) {
+      this.castSelectedSkill(this.currentCharacter, this.selectedSkill, actor);
+    }
+  }
+
+  skillButtonClicked() {
+    this.action.actionType = 'skill';
+    this.selectedSkill = undefined;
+    this.musicService.playSound('range-open');
+  }
+
+  selectSkillFromMenu(skill: Skill) {
+    this.selectedSkill = skill;
+  }
+
+  castSelectedSkill(caster: Character, skill: Skill, target: Character) {
+    const result = this.fightManager.castSkill(caster, skill, target);
+    this.uiService.pushText(result.message);
+    if (result.stolenEquip) {
+      this.runService.addItemToInventory(result.stolenEquip);
+    }
+    this.resetAction();
+    this.isEnemyTurn = true;
+    this.resumeFightLoop();
+  }
+
+  resetAction() {
+    this.action.actionType = '';
+    this.selectedSkill = undefined;
   }
 
 

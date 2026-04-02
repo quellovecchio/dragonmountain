@@ -11,6 +11,7 @@ import { Constants } from 'src/assets/constants';
 import { UiService } from '../ui-layer/ui.service';
 import { EffectType } from 'src/app/model/Interaction';
 import { MusicService } from 'src/app/services/music.service';
+import { Skill } from 'src/app/model/Skill';
 
 @Component({
   selector: 'app-scene',
@@ -76,30 +77,41 @@ export class SceneComponent implements OnInit {
   // NPC interactions
   
   talkToActor(a: Actor) {
-    // TODO move this code to interact
-    let talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
-    let killInteraction = this.runService.findInteraction(a.interactions, EffectType.kill);
-    if(talkInteraction) {
+    const talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
+    const killInteraction = this.runService.findInteraction(a.interactions, EffectType.kill);
+
+    if (talkInteraction) {
       this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
-      if(talkInteraction.effectTarget) {
-        this.runService.interact({ character: (a as Character), action: talkInteraction });
-      }
       this.runService.resolveInteraction(a, EffectType.talk);
+    } else {
+      this.uiService.talkToNpcPushText(a.name, a.dialogue);
     }
-    if(killInteraction) {
-      if(killInteraction.effectTarget) {
-        this.runService.interact({ character: (a as Character), action: killInteraction });
-      }
+
+    if (killInteraction) {
+      this.uiService.pushText(killInteraction.text);
       this.runService.resolveInteraction(a, EffectType.kill);
     }
-    else
-      this.uiService.talkToNpcPushText(a.name, a.dialogue);
   }
 
   engageFightWith(a: Actor) {
     this.uiService.pushText("You engaged combat with " + a.name + ".");
     this.runService.removeCharacterFromCurrentLocation(a.id);
     this.runService.startFight([a as Character]);
+  }
+
+  /**
+   * Called when the fight component emits a skill-use signal for out-of-fight targeting.
+   * Full implementation is part of the out-of-fight skills step (milestone 0.5).
+   */
+  useSkillOn(data: { skill: Skill; target: Actor }) {
+    // TODO: route to RunService.castSkillOnActor() once out-of-fight skill logic is implemented
+    this.uiService.pushText(`${data.skill.name} — that will not do...`);
+  }
+
+  flee() {
+    // TODO: implement flee logic (costs 1 EXP, not available in locked fights)
+    this.uiService.pushText("The party fled from battle!");
+    this.runService.getRun().state = RunState.Location;
   }
 
   getRandomNumber(min: number, max: number) {

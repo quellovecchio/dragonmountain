@@ -41,13 +41,28 @@
             "name": "Hero",
             "skillTree": [
                 {
+                    "skillId": 0,
+                    "unlockLevel": 0,
+                    "unlockStat": "dexterity"
+                },
+                {
                     "skillId": 1,
-                    "unlockLevel": 6,
+                    "unlockLevel": 0,
+                    "unlockStat": "wisdom"
+                },
+                {
+                    "skillId": 2,
+                    "unlockLevel": 0,
+                    "unlockStat": "wisdom"
+                },
+                {
+                    "skillId": 3,
+                    "unlockLevel": 0,
                     "unlockStat": "wisdom"
                 },
                 {
                     "skillId": 4,
-                    "unlockLevel": 6,
+                    "unlockLevel": 0,
                     "unlockStat": "strength"
                 }
             ]

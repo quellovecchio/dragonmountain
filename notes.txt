@@ -269,15 +269,35 @@ Milestones:
 
 0.5
 
-		-	spells update
-			-	spell ui in battle: when spell range button is clicked, spells will be shown in the range, 
-				each having a segment of the range with angle (360/n. spells)
-			-	introduce spell and spell on actor element
-			-	introduce buffs and debuffs
-			-	actors and enemies can cast spells
-			-	revive state, revive spell, revive option from actors (priests, witch...)
-			-	introduce shaman class with summoning spells (summons are controlled by ai)
-			-	introduce priest class with Bless spell at start
+		-	skills update
+			-	introduce skill and skill on actor gameplay element
+			-	actors and enemies can cast skills in battle
+			-	enemies can choose to cast a skill (based on probability) 
+			-	skill ui in battle: when skill range button is clicked, skills will be shown in the range, 
+				each having a segment of the range with angle (360/n. skills). when a skill is selected, 
+				the user then clicks a target and the skill gets cast on the target
+			-	introduce buffs and debuffs skills
+				-	introduce buffs and debuffs in battle
+			- 	introduce magic damage in fights: magic damage ignores armor
+			-	introduce some skills:
+				-	spark: does some magic damage to the opponent (already in db) 
+				-	relief: heals the target (already in db)
+			-	actors in party can cast skills on actors outside the battle
+				-	ui: outside the battle the player can choose a skill from the list coming out when he
+						clicks on the "skills" button in the actor menu, than select the target within the actors in the current room or in the party
+				-	logic: 
+					-	actors in the room can react to certain skills casted on them and have interactions after
+					-	when using a skill on someone who does not have the interaction, the hero will say "that will not do..."
+			-	dead state: when a party member's life is 0 he will not spawn during fights and can't cast skills. 
+				-	while dead, party member cannot be healed (neither from items, spells or rest)
+				-	introduce revive skill: introduce a skill used to revive a party member or a scene actor. he will gain half of its total health points
+				-	introduce revive option from actors: some actors like priests or the witch will revive party members for money (works like the rest option)
+			-	summon skills:
+				-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
+				-	minions will be added to the party during fights and act on their own
+				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
+				-	introduce shaman class: new class with the "summon ghost" spell available at level 0
+					-	introduce an actor spawning in a new room that can join the party and has the shaman class.
 
 		-	fight update
 			-	enemy range (showing where people gets attacked) 
@@ -305,6 +325,7 @@ Milestones:
 				-	revive spell
 			-	bugfix
 				-	range is bugged
+			- 	auto-battle mode you can enable or disable from settings
 
 0.6
 
@@ -403,7 +424,7 @@ BUG TRACKER
 - chests can be opened twice (make them disappear)
 - merchant in old sewers doesnt give you wax key. rework interaction in action -> effect
 - music volume settings working only when song ended
-- health bar starts at max when battle starts
+- health bar always starts at max when battle starts
 - using items does not consume them
 - ranged attacks not working for enemies
 
@@ -474,7 +495,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 
 
 
-
+	Rooms:
 
         Mercenaries Tavern: In a rowdy tavern, you can choose to start a bar brawl taunted by a drunk patron. Win the battle and he'll join your party.
 
@@ -547,7 +568,10 @@ Quest: Uncover the secrets of a reclusive alchemist. The Mad Alchemist may attac
 	The Haunted Theater:
 Slot 1: hunchback - Tells you to hush- music starts, the lights are litten, HERE COME THE PHANTOM OF THE OPERA! HE'S ATTACKING YOU!
 
-	
+	Morbid Chapel:
+	door is locked until the dead rabbit gets revived
+	slot 1: dark adept - gives you a scroll to learn the "bless" spell, says he is in the middle of an initiation ritual but he has to revive the dead rabbit in the room but he isn't powerful enough to use the spell and asks you to do it for him
+	slot 2: dead rabbit - when revived, the dark adept will say thanks and give you money
 
 	
 
@@ -637,3 +661,14 @@ Crowded Bathroom: three students are preparing Polijuice Potion, give them the i
 The Love Potion: A hopeless romantic NPC seeks your help in creating a love potion to win the heart of their crush. Gather rare ingredients and combine them correctly to brew the potion. If you give ingredients to the NPC, he wil make a potion for you too. Love potion makes a fightable enemy join your team
 
 
+
+
+
+
+
+
+What the ai should do --
+improved graphics on talk:
+	when talking with someone, a zoomed out version of his image will show up while giving text
+
+implement rooms

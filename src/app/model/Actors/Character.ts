@@ -1,6 +1,7 @@
 import { Skill } from "../Skill";
 import { Stats } from "../Stats";
 import { Actor } from "./Actor";
+import { Buff } from "../Buff";
 import { Class } from "./Class";
 
 export class Character extends Actor {
@@ -10,6 +11,9 @@ export class Character extends Actor {
     classId: number = 0;
     class?: Class;
     skills: Skill[] = [];
+
+    /** Active buffs and debuffs currently affecting this character in battle. */
+    activeBuffs: Buff[] = [];
 
     // battle purpose variables
     fightPositionX: number = 0;

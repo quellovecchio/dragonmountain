@@ -75,6 +75,7 @@
     border-radius: 50%;
     position: relative;
     display: flex;
+    overflow: hidden;
 }
 
 .action-range-button {
@@ -438,6 +439,47 @@ i {
     background: -ms-linear-gradient(top, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
     background: linear-gradient(to bottom, var(--skill-color) 0%, #00f6ff 40%, #00f6ff 60%, var(--skill-color) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--skill-color)', endColorstr='var(--skill-color)', GradientType=0);
+}
+
+/* ─── Skill Wheel ─────────────────────────────────────────────────────────── */
+
+.skill-wheel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: all;
+    z-index: 10;
+}
+
+.skill-slice {
+    fill: var(--skill-color-transp);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: fill 0.08s ease-in;
+
+    &:hover,
+    &.hovered {
+        fill: var(--skill-color);
+    }
+}
+
+.skill-slice-label {
+    fill: white;
+    font-size: 13px;
+    font-weight: bold;
+    pointer-events: all;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+}
+
+.skill-slice-cost {
+    fill: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    pointer-events: all;
+    cursor: pointer;
 }
 
 .intro-thumbnail-container {

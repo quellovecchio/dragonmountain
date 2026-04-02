@@ -7,7 +7,7 @@ import { Actor } from '../model/Actors/Actor';
 import { Character } from '../model/Actors/Character';
 import { STARTING_STATS } from '../editor/diy/diy.component';
 import { PlayingCharacter } from '../model/Actors/PlayingCharacter';
-import { Interaction, EffectType } from '../model/Interaction';
+import { Interaction, EffectType, GiveItemInteraction, FightInteraction } from '../model/Interaction';
 import { RunState } from '../model/RunState';
 import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
@@ -111,69 +111,84 @@ export class RunService {
     this.uiService.setSelectedItem(undefined);
   }
 
-  interact(data: { character: Character; action: any }) {
-    // If the character reacts to the interaction, activate the specified effect
-    let interaction = this.findInteraction(data.character.interactions, data.action);
-    let effectType = EffectType.resurrect;
+  /**
+   * Central interaction dispatcher.
+   * Finds the matching Interaction on the character (if any) for the given Item cause,
+   * dispatches its effect, then resolves (consumes) the interaction.
+   * Falls back to the Item's own default effect when no matching Interaction is found.
+   */
+  interact(data: { character: Character; action: Item }): void {
+    const interaction = this.findInteraction(data.character.interactions, data.action);
+
     if (interaction) {
-      if (interaction.effect == EffectType.fight) {
-        effectType = EffectType.fight;
-        this.uiService.pushText(interaction.text);
-        this.removeCharacterFromCurrentLocation(interaction.effectTarget);
-        this.startFight(interaction.effectTarget);
-      }
-      if (interaction.effect == EffectType.giveItem) {
-        effectType = EffectType.giveItem;
-        this.uiService.pushText(interaction.text)
-        interaction.effectTarget.forEach((el: number) => {
-          let newItem = this.dataService.getItemById(el);
-          this.addItemToInventory(newItem);
-          this.uiService.pushText(data.character.name + " gave you a " + newItem.name + "!")
-          this.uiService.pushText("The item was placed into the inventory");
-        });
-      }
-      if (interaction.effect == EffectType.kill) {
-        effectType = EffectType.kill;
-        if (this.getRun().currentLocation && this.getRun().currentLocation!.actors.filter((el: Actor) => el.id == interaction!.effectTarget).length == 0) {
-          this.uiService.pushText(interaction.text);
+      this.uiService.pushText(interaction.text);
+
+      switch (interaction.effect) {
+        case EffectType.fight: {
+          const fightInteraction = interaction as FightInteraction;
+          if (fightInteraction.actorVanishes) {
+            this.removeCharacterFromCurrentLocation(data.character.id);
+          }
+          this.startFight(fightInteraction.effectTarget as unknown as Character[]);
+          break;
         }
-      }
-      if (interaction.effect == EffectType.vanishes) {
-        effectType = EffectType.vanishes;
-        this.uiService.pushText(interaction.text);
-        let characterIndex = this.getRun().currentLocation!.actors?.findIndex(el => { return data.character == el as Character });
-        delete this.getRun().currentLocation!.actors![characterIndex!];
-        this.getRun().currentLocation!.actors = this.getRun().currentLocation!.actors!.filter(item => item);
-      }
-      if (interaction.storyChildrenIds && interaction.storyChildrenIds.length > 0) {
-        interaction.storyChildrenIds.forEach((el: number) => {
-          this.getNextQuestlineLocations().push(this.dataService.getLocationById(el));
-        });
-      }
-      this.resolveInteraction(data.character, effectType);
-    }
-    // If it does not react to the interaction, activate the standard effect of the object
-    else if (data.action.effect) {
-      console.log("reacted with standard interaction");
-      switch (data.action.effect.type) {
-        case EffectType.heal:
-          this.uiService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
-          var newHpValue = data.character.stats.healthPoints + data.action.effect.power;
-          data.character.stats.healthPoints = (newHpValue > data.character.stats.constitution) ? data.character.stats.constitution : newHpValue;
-          let healInteraction = this.findInteraction(data.character.interactions, EffectType.heal);
-          if (healInteraction) {
-            this.resolveInteraction(data.character, EffectType.heal);
-            this.interact({ character: data.character, action: healInteraction });
+        case EffectType.giveItem: {
+          const giveInteraction = interaction as GiveItemInteraction;
+          giveInteraction.effectTarget.forEach((itemId: number) => {
+            const newItem = this.dataService.getItemById(itemId);
+            this.addItemToInventory(newItem);
+            this.uiService.pushText(data.character.name + ' gave you a ' + newItem.name + '!');
+            this.uiService.pushText('The item was placed into the inventory');
+          });
+          break;
+        }
+        case EffectType.kill: {
+          // text already pushed above; story beats handled below
+          break;
+        }
+        case EffectType.vanishes: {
+          const actorIndex = this.getRun().currentLocation!.actors
+            .findIndex(a => a === (data.character as unknown as Actor));
+          if (actorIndex !== -1) {
+            this.getRun().currentLocation!.actors.splice(actorIndex, 1);
           }
           break;
+        }
+        case EffectType.talk: {
+          // text already pushed above
+          break;
+        }
+      }
+
+      if (interaction.storyChildrenIds && interaction.storyChildrenIds.length > 0) {
+        interaction.storyChildrenIds.forEach((locationId: number) => {
+          this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+        });
+      }
+
+      this.resolveInteraction(data.character, data.action);
+
+    } else if (data.action.effect) {
+      // No matching interaction — apply the item's own default effect
+      console.log('reacted with standard interaction');
+      switch (data.action.effect.type) {
+        case EffectType.heal: {
+          this.uiService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
+          const newHp = data.character.stats.healthPoints + data.action.effect.power;
+          data.character.stats.healthPoints = Math.min(newHp, data.character.stats.constitution);
+          const healInteraction = this.findInteraction(data.character.interactions, EffectType.heal);
+          if (healInteraction) {
+            this.resolveInteraction(data.character, EffectType.heal);
+            this.uiService.pushText(healInteraction.text);
+          }
+          break;
+        }
         default:
-          console.log("no data found for effect")
+          console.log('no data found for effect');
           break;
       }
-    }
-    // If the object has no effect, send an error message
-    else {
-      this.uiService.pushText("Using " + data.action.name + " on " + data.character.name + " had no effect...");
+    } else {
+      this.uiService.pushText('Using ' + data.action.name + ' on ' + data.character.name + ' had no effect...');
     }
   }
 
@@ -295,11 +310,34 @@ export class RunService {
     }
   }
 
-  findInteraction(interactions: Interaction[], type: EffectType | Item) {
-    return interactions.find((interaction: Interaction) => interaction.reactTo == EffectType[type as EffectType] || interaction.reactTo == '' + ((type as Item).id));
+  /**
+   * Finds an interaction triggered by the given cause.
+   *   Item trigger  → matches interactions whose reactTo equals the item's numeric ID.
+   *   EffectType trigger → matches interactions whose reactTo equals the EffectType name string.
+   */
+  findInteraction(interactions: Interaction[], trigger: EffectType | Item): Interaction | undefined {
+    if (typeof trigger === 'object') {
+      // Item: reactTo is stored as the numeric item ID
+      return interactions.find(i => typeof i.reactTo === 'number' && i.reactTo === trigger.id);
+    } else {
+      // EffectType: reactTo is stored as the enum member name string (e.g. "heal", "talk")
+      return interactions.find(i => typeof i.reactTo === 'string' && i.reactTo === EffectType[trigger]);
+    }
   }
 
-  resolveInteraction(actor: Actor, type: EffectType | Item) {
-    actor.interactions = actor.interactions.filter((interaction: Interaction) => interaction.reactTo != EffectType[type as EffectType] || interaction.reactTo == '' + ((type as Item).id));
+  /**
+   * Consumes (removes) the interaction that was triggered by the given cause.
+   * Fixes the previous OR-logic bug: a matched interaction is now correctly removed.
+   */
+  resolveInteraction(actor: Actor, trigger: EffectType | Item): void {
+    if (typeof trigger === 'object') {
+      actor.interactions = actor.interactions.filter(
+        i => !(typeof i.reactTo === 'number' && i.reactTo === trigger.id)
+      );
+    } else {
+      actor.interactions = actor.interactions.filter(
+        i => !(typeof i.reactTo === 'string' && i.reactTo === EffectType[trigger])
+      );
+    }
   }
 }

@@ -188,6 +188,15 @@ export class GameComponent implements OnInit {
           newRun.stage.questlines = this.dataService.getLocationsById(data.stages[0].questlines);
           newRun.stage.bossLocation = this.dataService.getLocationById(data.stages[0].bossLocation);
           newRun.party[0].class = this.dataService.classes[0];
+          // Grant skills whose unlockLevel is 0 immediately (available from the start)
+          newRun.party[0].class.skillTree
+            .filter((entry: { skillId: number; unlockLevel: number; unlockStat: string }) => entry.unlockLevel === 0)
+            .forEach((entry: { skillId: number; unlockLevel: number; unlockStat: string }) => {
+              const skill = this.dataService.getSkillById(entry.skillId);
+              if (skill && !newRun.party[0].skills.find(s => s.id === skill.id)) {
+                newRun.party[0].skills.push(skill);
+              }
+            });
           this.runService.setRun(newRun);
           newRun.stage.questlines.forEach((questlineLocation) => {
             if (questlineLocation)
