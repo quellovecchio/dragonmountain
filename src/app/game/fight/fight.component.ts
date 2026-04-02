@@ -526,6 +526,10 @@ export class FightComponent implements OnInit {
    * Computes SVG path data for each skill slice in the skill wheel.
    * Returns one entry per skill with the pie-slice path and label position.
    */
+  trackBySkillSlice(_index: number, slice: { skill: Skill }): number {
+    return slice.skill.id;
+  }
+
   getSkillWheelSlices(skills: Skill[]): { path: string; textX: number; textY: number; skill: Skill }[] {
     const n = skills.length;
     if (n === 0) return [];
@@ -579,6 +583,7 @@ export class FightComponent implements OnInit {
   }
 
   selectSkillFromMenu(skill: Skill) {
+    console.log('[SkillWheel] Skill clicked:', skill);
     this.selectedSkill = skill;
   }
 
