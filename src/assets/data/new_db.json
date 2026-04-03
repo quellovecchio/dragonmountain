@@ -294,6 +294,13 @@
             "description": "A silver ingot crafted by slaves",
             "moneyValue": 800,
             "thumbnailPath": "assets/images/items/item4.png"
+        },
+        {
+            "id": 21,
+            "name": "Revive Candle",
+            "description": "A sacred candle used in resurrection rituals.",
+            "moneyValue": 800,
+            "thumbnailPath": "assets/images/items/item2.png"
         }
     ],
     "actors": [
@@ -656,7 +663,8 @@
             "shop": [
                 6,
                 1,
-                10
+                10,
+                21
             ],
             "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
         },
@@ -1211,6 +1219,116 @@
                 "So... What about i kill you now?."
             ],
             "skills": []
+        },
+        {
+            "id": 48,
+            "name": "Frank the Mad Scientist",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": [
+                "Welcome, welcome! Don't mind the smell...",
+                "This is my greatest creation — a Golem, built from pieces of my beloved ones.",
+                "I believe that with the right ritual candle, it could gain a soul.",
+                "If you have a Revive Candle, try using it on my Golem!",
+                "What could possibly go wrong...?"
+            ],
+            "skills": []
+        },
+        {
+            "id": 49,
+            "name": "Experiment Golem",
+            "imagePath": "/assets/images/actors/actor6.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": "[The Golem lies motionless on the laboratory slab...]",
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": 21,
+                    "text": "[The candle flame flickers wildly. The Golem's eyes snap open — and then it roars!]",
+                    "effect": 2,
+                    "actorVanishes": true,
+                    "effectTarget": [
+                        {
+                            "name": "Awakened Golem",
+                            "level": 3,
+                            "imagePath": "/assets/images/actors/enemy2.png",
+                            "loot": [],
+                            "dialogue": "RAAAGHH!",
+                            "stats": {
+                                "charisma": 1,
+                                "strength": 5,
+                                "constitution": 40,
+                                "dexterity": 2,
+                                "wisdom": 1,
+                                "intelligence": 1,
+                                "healthPoints": 40
+                            },
+                            "skills": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 50,
+            "name": "Crouching Hunchback",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "[Ssshhh!] The performance is about to begin! BEHOLD — THE PHANTOM!",
+            "skills": []
+        },
+        {
+            "id": 51,
+            "name": "Dark Adept",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": [
+                "Ah, a visitor. I am in the middle of a sacred initiation ritual.",
+                "I must revive this rabbit as proof of my devotion, but my powers are not enough...",
+                "If you have Holy Water, use it on the rabbit. I will reward you generously."
+            ],
+            "skills": [],
+            "shop": [1]
+        },
+        {
+            "id": 52,
+            "name": "Dead Rabbit",
+            "imagePath": "/assets/images/actors/actor6.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "[A small grey rabbit lies still upon a stone altar. Its fur is cold to the touch.]",
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": 1,
+                    "text": "[You pour holy water over the rabbit. It twitches... and its eyes open! The Adept cheers!]",
+                    "effect": 1,
+                    "effectTarget": [18],
+                    "locksDoor": true
+                }
+            ]
+        },
+        {
+            "id": 53,
+            "name": "Phantom of the Opera",
+            "level": 3,
+            "imagePath": "/assets/images/actors/enemy2.png",
+            "loot": [10],
+            "dialogue": "THE MUSIC OF THE NIGHT!",
+            "stats": {
+                "charisma": 10,
+                "strength": 6,
+                "constitution": 35,
+                "dexterity": 5,
+                "wisdom": 8,
+                "intelligence": 10,
+                "healthPoints": 35
+            },
+            "skills": []
         }
     ],
     "locations": [
@@ -1461,6 +1579,28 @@
             "actors": [
                 47
             ]
+        },
+        {
+            "id": 23,
+            "name": "Mad Scientist's Lab",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [48, 49]
+        },
+        {
+            "id": 24,
+            "name": "The Haunted Theater",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "fight": [53],
+            "loot": [],
+            "actors": [50]
+        },
+        {
+            "id": 25,
+            "name": "Morbid Chapel",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [51, 52]
         }
     ],
     "lastStage": {},
@@ -1473,7 +1613,7 @@
                 12
             ],
             "locations": [
-                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14
+                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 23, 24, 25
             ]
         }
     ]

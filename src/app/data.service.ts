@@ -110,6 +110,9 @@ export class DataService {
     if (actorData.rest) {
       r.rest = actorData.rest;
     }
+    if (actorData.revive) {
+      r.revive = actorData.revive;
+    }
     if (actorData.equipment) {
       actorData.equipment.forEach(id => {
         r.equipment.push(this.getItemById(id) as Equip)
@@ -150,6 +153,9 @@ export class DataService {
     }
     if (actorData.rest) {
       r.rest = actorData.rest;
+    }
+    if (actorData.revive) {
+      r.revive = actorData.revive;
     }
     if (actorData.equipment) {
       actorData.equipment.forEach(id => {

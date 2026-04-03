@@ -11,6 +11,7 @@ export class ActorDto {
     loot: number[] = [];
     shop?: number[] = [];
     rest?: boolean = false;
+    revive?: boolean = false;
     equipment: number[] = [];
     interactions: Interaction[] = [];
     dialogue: string[] = [''];
