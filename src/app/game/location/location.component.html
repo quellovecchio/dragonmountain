@@ -33,8 +33,10 @@
         </button>
         <!-- shop action (if npc has items in shop property) -->
         <button mat-menu-item *ngIf="hasShop(selectedActor!)" (click)="toggleShop(selectedActor!)"> shop </button>
-        <!-- shop action (if npc has items in shop property) -->
+        <!-- rest action (if npc has rest property) -->
         <button mat-menu-item *ngIf="canMakeYouRest(selectedActor!)" (click)="rest()"> rest </button>
+        <!-- revive action (if npc can revive and party has dead members) -->
+        <button mat-menu-item *ngIf="canRevive(selectedActor!)" (click)="revive()"> revive </button>
         <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
         <!-- spells action (if someone in party has spells)-->
     </div>

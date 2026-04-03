@@ -33,6 +33,13 @@
             "name": "Taunt",
             "effect": 12,
             "cost": 3
+        },
+        {
+            "id": 5,
+            "name": "Revive",
+            "effect": 7,
+            "power": 1,
+            "cost": 5
         }
     ],
     "classes": [
@@ -431,7 +438,8 @@
                 "Pouring holy water on top of it should help cleanse that devil,",
                 "but beware of the consequences!"
             ],
-            "skills": []
+            "skills": [],
+            "revive": true
         },
         {
             "id": 6,

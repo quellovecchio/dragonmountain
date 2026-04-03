@@ -270,34 +270,28 @@ Milestones:
 0.5
 
 		-	skills update
-			-	introduce skill and skill on actor gameplay element
-			-	actors and enemies can cast skills in battle
-			-	enemies can choose to cast a skill (based on probability) 
-			-	skill ui in battle: when skill range button is clicked, skills will be shown in the range, 
+			V	introduce skill and skill on actor gameplay element
+			V	actors can cast skills in battle
+			V	enemies can choose to cast a skill (based on probability) 
+			V	skill ui in battle: when skill range button is clicked, skills will be shown in the range, 
 				each having a segment of the range with angle (360/n. skills). when a skill is selected, 
 				the user then clicks a target and the skill gets cast on the target
-			-	introduce buffs and debuffs skills
-				-	introduce buffs and debuffs in battle
-			- 	introduce magic damage in fights: magic damage ignores armor
-			-	introduce some skills:
-				-	spark: does some magic damage to the opponent (already in db) 
-				-	relief: heals the target (already in db)
-			-	actors in party can cast skills on actors outside the battle
+			V	introduce buffs and debuffs skills
+				V	introduce buffs and debuffs in battle
+			V 	introduce magic damage in fights: magic damage ignores armor
+			V	introduce some skills:
+				V	spark: does some magic damage to the opponent (already in db) 
+				V	relief: heals the target (already in db)
+			V	actors in party can cast skills on actors outside the battle
 				-	ui: outside the battle the player can choose a skill from the list coming out when he
 						clicks on the "skills" button in the actor menu, than select the target within the actors in the current room or in the party
-				-	logic: 
-					-	actors in the room can react to certain skills casted on them and have interactions after
-					-	when using a skill on someone who does not have the interaction, the hero will say "that will not do..."
-			-	dead state: when a party member's life is 0 he will not spawn during fights and can't cast skills. 
-				-	while dead, party member cannot be healed (neither from items, spells or rest)
-				-	introduce revive skill: introduce a skill used to revive a party member or a scene actor. he will gain half of its total health points
-				-	introduce revive option from actors: some actors like priests or the witch will revive party members for money (works like the rest option)
-			-	summon skills:
-				-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
-				-	minions will be added to the party during fights and act on their own
-				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
-				-	introduce shaman class: new class with the "summon ghost" spell available at level 0
-					-	introduce an actor spawning in a new room that can join the party and has the shaman class.
+				V	logic: 
+					V	actors in the room can react to certain skills casted on them and have interactions after
+					V	when using a skill on someone who does not have the interaction, the hero will say "that will not do..."
+			V	dead state: when a party member's life is 0 he will not spawn during fights and can't cast skills. 
+				V	while dead, party member cannot be healed (neither from items, spells or rest)
+				V	introduce revive skill: introduce a skill used to revive a party member or a scene actor. he will gain half of its total health points
+				V	introduce revive option from actors: some actors like priests or the witch will revive party members for money (works like the rest option)
 
 		-	fight update
 			-	enemy range (showing where people gets attacked) 
@@ -350,6 +344,12 @@ Milestones:
 			-	party limit to three
 				-	modal where you can see party elements stat and newcomer for comparison
 			-	updated intro and character selection
+						-	summon skills:
+				-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
+				-	minions will be added to the party during fights and act on their own
+				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
+				-	introduce shaman class: new class with the "summon ghost" spell available at level 0
+					-	introduce an actor spawning in a new room that can join the party and has the shaman class.
 
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------

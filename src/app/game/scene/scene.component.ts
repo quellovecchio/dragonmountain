@@ -69,9 +69,30 @@ export class SceneComponent implements OnInit {
       this.uiService.pushText("I can make you rest here for 200$, but i don't think you have that much money");
     } else {
       this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - 200;
-      this.runService.getRun().party.forEach(el => el.stats.healthPoints = el.stats.constitution);
+      this.runService.getRun().party.forEach(el => {
+        if (!el.dead) el.stats.healthPoints = el.stats.constitution;
+      });
       this.uiService.pushText("You and your party wake up well rested after a full night of sleep.");
     }
+  }
+
+  reviveFromActor() {
+    const deadMembers = this.runService.getRun().party.filter(p => p.dead);
+    if (deadMembers.length === 0) {
+      this.uiService.pushText("None of your party members are dead.");
+      return;
+    }
+    const cost = 500;
+    if (this.runService.getRun().inventory.money < cost) {
+      this.uiService.pushText(`I can bring them back for ${cost}$, but I don't think you have that much money.`);
+      return;
+    }
+    this.runService.getRun().inventory.money -= cost;
+    deadMembers.forEach(member => {
+      member.dead = false;
+      member.stats.healthPoints = Math.floor(member.stats.constitution / 2);
+      this.uiService.pushText(`${member.name} has been revived with ${member.stats.healthPoints} HP!`);
+    });
   }
 
   // NPC interactions
@@ -104,8 +125,7 @@ export class SceneComponent implements OnInit {
    * Full implementation is part of the out-of-fight skills step (milestone 0.5).
    */
   useSkillOn(data: { skill: Skill; target: Actor }) {
-    // TODO: route to RunService.castSkillOnActor() once out-of-fight skill logic is implemented
-    this.uiService.pushText(`${data.skill.name} — that will not do...`);
+    this.runService.castSkillOnActor(this.runService.getRun().party[0], data.skill, data.target);
   }
 
   flee() {

@@ -13,6 +13,7 @@ import { FightManagerService } from './fight-manager.service';
 import { DataService } from '../data.service';
 import { UiService } from '../game/ui-layer/ui.service';
 import { ItemService } from './item.service';
+import { Skill } from '../model/Skill';
 import { MusicService } from './music.service';
 
 @Injectable({
@@ -173,6 +174,10 @@ export class RunService {
       console.log('reacted with standard interaction');
       switch (data.action.effect.type) {
         case EffectType.heal: {
+          if (data.character.dead) {
+            this.uiService.pushText(`${data.character.name} is dead and cannot be healed.`);
+            break;
+          }
           this.uiService.pushText(`${data.character.name} healed ${data.action.effect.power} HP`);
           const newHp = data.character.stats.healthPoints + data.action.effect.power;
           data.character.stats.healthPoints = Math.min(newHp, data.character.stats.constitution);
@@ -200,6 +205,10 @@ export class RunService {
     return items;
   }
 
+  getAliveParty(): PlayingCharacter[] {
+    return this.run.party.filter(p => !p.dead);
+  }
+
   public startFight(fight: Character[]) {
     this.uiService.pushText("Enemies are attacking the party!");
     this.getRun().state = RunState.Fight;
@@ -209,7 +218,7 @@ export class RunService {
         this.charactersJoiningAfterBattle.push(actor as PlayingCharacter);
       }
     });
-    this.fightService.startFight(this.getRun().currentFight!, this.getRun().party);
+    this.fightService.startFight(this.getRun().currentFight!, this.getAliveParty());
     const intervalId = setInterval(() => {
       if (this.fightService.isBattleOver()) {
         this.endFight();
@@ -338,6 +347,73 @@ export class RunService {
       actor.interactions = actor.interactions.filter(
         i => !(typeof i.reactTo === 'string' && i.reactTo === EffectType[trigger])
       );
+    }
+  }
+
+  /**
+   * Casts a skill on an actor outside of battle.
+   * Handles heal, resurrect, and interaction-triggered effects.
+   */
+  castSkillOnActor(caster: PlayingCharacter, skill: Skill, target: Actor): void {
+    if (caster.dead) {
+      this.uiService.pushText(`${caster.name} is dead and cannot cast skills.`);
+      return;
+    }
+    if (caster.stats.skillPoints < skill.cost) {
+      this.uiService.pushText(`${caster.name} doesn't have enough skill points to cast ${skill.name}!`);
+      return;
+    }
+    caster.stats.skillPoints -= skill.cost;
+
+    switch (skill.effect) {
+      case EffectType.heal: {
+        const ch = target as Character;
+        if (ch.dead) {
+          caster.stats.skillPoints += skill.cost;
+          this.uiService.pushText(`${target.name} is dead — they cannot be healed.`);
+          return;
+        }
+        if (!ch.stats) {
+          this.uiService.pushText(`${caster.name} tried to cast ${skill.name} on ${target.name}... That will not do.`);
+          return;
+        }
+        const healAmount = Math.max(1, skill.power * caster.stats.wisdom);
+        ch.stats.healthPoints = Math.min(ch.stats.healthPoints + healAmount, ch.stats.constitution);
+        this.uiService.pushText(`${caster.name} cast ${skill.name} on ${target.name}, restoring ${healAmount} HP!`);
+        const healInteraction = this.findInteraction(target.interactions, EffectType.heal);
+        if (healInteraction) {
+          this.uiService.pushText(healInteraction.text);
+          this.resolveInteraction(target, EffectType.heal);
+        }
+        break;
+      }
+      case EffectType.resurrect: {
+        const ch = target as Character;
+        if (!ch.dead) {
+          caster.stats.skillPoints += skill.cost;
+          this.uiService.pushText(`${target.name} is still alive!`);
+          return;
+        }
+        ch.dead = false;
+        ch.stats.healthPoints = Math.floor(ch.stats.constitution / 2);
+        this.uiService.pushText(`${caster.name} cast ${skill.name} — ${target.name} rises with ${ch.stats.healthPoints} HP!`);
+        break;
+      }
+      default: {
+        const interaction = this.findInteraction(target.interactions, skill.effect);
+        if (interaction) {
+          this.uiService.pushText(interaction.text);
+          if (interaction.storyChildrenIds?.length) {
+            interaction.storyChildrenIds.forEach((locationId: number) => {
+              this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+            });
+          }
+          this.resolveInteraction(target, skill.effect);
+        } else {
+          this.uiService.pushText(`${caster.name} tried to cast ${skill.name} on ${target.name}... That will not do.`);
+        }
+        break;
+      }
     }
   }
 }

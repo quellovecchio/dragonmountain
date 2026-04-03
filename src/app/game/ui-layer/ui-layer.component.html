@@ -36,7 +36,19 @@
                         src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
                 </div>
             </div>
-            <button [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
+            <button *ngIf="!uiService.displayedActorMenu.dead && !selectingSkillTarget"
+                [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
+            <span *ngIf="uiService.displayedActorMenu.dead" style="color: gray; font-size: 18px;">dead</span>
+            <!-- out-of-battle skill target selection -->
+            <div *ngIf="selectingSkillTarget" style="display:flex; flex-direction:column; gap:4px;">
+                <div style="color: white; font-size: 16px;">Cast <b>{{outOfBattleSelectedSkill?.name}}</b> on:</div>
+                <button *ngFor="let target of getOutOfBattleTargets()"
+                    (click)="castSkillOnTarget(target)"
+                    style="text-align:left;">
+                    {{target.name}}<span *ngIf="target.dead" style="color:#f66;"> (dead)</span>
+                </button>
+                <button (click)="cancelSkillTargeting()" style="color:#aaa;">Cancel</button>
+            </div>
             <div *ngFor="let stat of getStatsToDisplay(uiService.displayedActorMenu.stats)">
                 <div style="color: white; font-size:23px;">
                     {{stat.name}}: {{stat.value}} <a *ngIf="runService.getRun().experience >= 1"

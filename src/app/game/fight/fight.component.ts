@@ -6,6 +6,7 @@ import { Character } from '../../model/Actors/Character';
 import { PlayingCharacter } from '../../model/Actors/PlayingCharacter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill } from '../../model/Skill';
+import { EffectType } from '../../model/Interaction';
 import { Constants } from 'src/assets/constants';
 import { DataService } from 'src/app/data.service';
 import { UiService } from '../ui-layer/ui.service';
@@ -282,7 +283,17 @@ export class FightComponent implements OnInit {
       return;
     }
 
-    // TODO: add probability-based skill casting for enemies
+    // Probability-based skill casting: 40% chance to use a skill if any are affordable
+    const usableSkills = attackingCharacter.skills.filter(
+      s => attackingCharacter.stats.skillPoints >= s.cost
+    );
+    if (usableSkills.length > 0 && Math.random() < 0.4) {
+      const skill = usableSkills[Math.floor(Math.random() * usableSkills.length)];
+      const isSelfTargeting = skill.effect === EffectType.heal || skill.effect === EffectType.buffStat;
+      const target: Character = isSelfTargeting ? attackingCharacter : aliveParty[Math.floor(Math.random() * aliveParty.length)];
+      this.castSelectedSkill(attackingCharacter, skill, target);
+      return;
+    }
     this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, aliveParty);
   }
 

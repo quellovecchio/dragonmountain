@@ -41,6 +41,7 @@ export class LocationComponent implements OnInit {
   @Output() fightSignal = new EventEmitter<Actor>();
   @Output() openShopSignal = new EventEmitter<Item[]>();
   @Output() restSignal = new EventEmitter<Item[]>();
+  @Output() reviveSignal = new EventEmitter<void>();
 
   selectedActor?: Actor = undefined;
 
@@ -83,6 +84,14 @@ export class LocationComponent implements OnInit {
 
   rest() {
     this.restSignal.emit();
+  }
+
+  canRevive(actor: Actor): boolean {
+    return !!actor.revive && this.runService.getRun().party.some(p => p.dead);
+  }
+
+  revive() {
+    this.reviveSignal.emit();
   }
 
   hasDialogue(a: Actor) {

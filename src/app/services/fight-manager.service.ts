@@ -201,6 +201,9 @@ export class FightManagerService {
       }
 
       case EffectType.heal: {
+        if (target.dead) {
+          return { message: `${target.name} is dead and cannot be healed.` };
+        }
         const healAmount = Math.max(1, skill.power * caster.stats.wisdom);
         const newHp = Math.min(target.stats.healthPoints + healAmount, target.stats.constitution);
         target.stats.healthPoints = newHp;
@@ -210,6 +213,17 @@ export class FightManagerService {
         const inEnemies = this.enemies.find(e => e.id === target.id);
         if (inEnemies) inEnemies.stats.healthPoints = newHp;
         return { message: `${caster.name} cast ${skill.name} on ${target.name}, restoring ${healAmount} HP!` };
+      }
+
+      case EffectType.resurrect: {
+        if (!target.dead) {
+          return { message: `${target.name} is still alive!` };
+        }
+        target.dead = false;
+        target.stats.healthPoints = Math.floor(target.stats.constitution / 2);
+        const inPartyR = this.party.find(p => p.id === target.id);
+        if (inPartyR) { inPartyR.dead = false; inPartyR.stats.healthPoints = target.stats.healthPoints; }
+        return { message: `${caster.name} cast ${skill.name} — ${target.name} rises with ${target.stats.healthPoints} HP!` };
       }
 
       case EffectType.buffStat: {

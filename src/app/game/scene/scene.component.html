@@ -14,10 +14,10 @@
     <div class="location" *ngIf="runService.getRun().state == 'location'">
         <app-location [locationData]="runService.getRun().currentLocation" [selectedItem]="selectedItem"
             (interactSignal)="interact($event)" (backSignal)="returnToMap($event)" (talkSignal)="talkToActor($event)" (fightSignal)="engageFightWith($event)"
-            (restSignal)="rest()"></app-location>
+            (restSignal)="rest()" (reviveSignal)="reviveFromActor()"></app-location>
     </div>
     <div class="fight" *ngIf="runService.getRun().state == 'fight'">
-        <app-fight [fightData]="runService.getRun().currentFight" [partyData]="runService.getRun().party"
+        <app-fight [fightData]="runService.getRun().currentFight" [partyData]="runService.getAliveParty()"
             (useSkillSignal)="useSkillOn($event)" (fleeSignal)="flee()"></app-fight>
     </div>
 </div>
