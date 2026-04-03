@@ -94,6 +94,16 @@ export class LocationComponent implements OnInit {
     this.reviveSignal.emit();
   }
 
+  castSkillOnActor(actor: Actor) {
+    const skill = this.uiService.getSelectedSkill();
+    const caster = this.uiService.getSelectedSkillCaster();
+    if (skill && caster) {
+      this.runService.castSkillOnActor(caster, skill, actor as Character);
+      this.uiService.setSelectedSkill(undefined);
+      this.uiService.setSelectedSkillCaster(undefined);
+    }
+  }
+
   hasDialogue(a: Actor) {
     return a.dialogue ? true : false;
   }

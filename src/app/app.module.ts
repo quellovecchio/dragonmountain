@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -87,6 +88,7 @@ import { InfoBoxComponent } from './game/ui-layer/info-box/info-box.component';
     NgxTypedJsModule,
     NgTiltModule,
     MatSliderModule,
+    MatSlideToggleModule,
     MatIconModule,
     MatTabsModule,
     FormsModule,

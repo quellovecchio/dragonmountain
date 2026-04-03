@@ -26,7 +26,6 @@ export class FightManagerService {
 
   startFight(enemies: Character[], party: PlayingCharacter[]) {
     this.fighting = true;
-    enemies.forEach(enemy => enemy.class = this.dataService.getClassById(enemy.classId));
     this.enemies = enemies;
     this.party = party;
   }

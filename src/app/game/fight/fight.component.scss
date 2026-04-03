@@ -3,11 +3,12 @@
     top: 3%;
     margin-left: auto;
     margin-right: auto;
-    width: 78%;
-    height: 75%;
+    width: 100%;
+    height: 90%;
 }
 
 .battlefield {
+    position: relative;
     width: 100%;
     height: 100%;
     mask-image: linear-gradient(to right, #000000b0 0%, white 30%, white 70%, #000000b0 100%);

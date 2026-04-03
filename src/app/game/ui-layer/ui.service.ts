@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { STARTING_STATS } from 'src/app/editor/diy/diy.component';
 import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { Item } from 'src/app/model/items/Item';
+import { Skill } from 'src/app/model/Skill';
 import { MusicService } from 'src/app/services/music.service';
 
 @Injectable({
@@ -26,6 +27,9 @@ export class UiService {
   private selectedItem?: Item = undefined;
   private selectedItemSubject = new BehaviorSubject<Item[]>([]);
   public selectedItem$ = this.selectedItemSubject.asObservable();
+
+  private selectedSkill?: Skill = undefined;
+  private selectedSkillCaster?: PlayingCharacter = undefined;
 
   public shaking = false;
 
@@ -55,6 +59,22 @@ export class UiService {
 
   public setSelectedItem(item: Item | undefined) {
     this.selectedItem = item;
+  }
+
+  public getSelectedSkill(): Skill | undefined {
+    return this.selectedSkill;
+  }
+
+  public setSelectedSkill(skill: Skill | undefined) {
+    this.selectedSkill = skill;
+  }
+
+  public getSelectedSkillCaster(): PlayingCharacter | undefined {
+    return this.selectedSkillCaster;
+  }
+
+  public setSelectedSkillCaster(caster: PlayingCharacter | undefined) {
+    this.selectedSkillCaster = caster;
   }
 
   isUiEnabled(): boolean {

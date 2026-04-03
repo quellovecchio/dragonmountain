@@ -1,5 +1,5 @@
-<div class="battlefield-wrapper pixelated-border">
-    <div #battlefield class="battlefield" style="background-color: rgba(0, 0, 0, 0.304);">
+<div class="battlefield-wrapper">
+    <div #battlefield class="battlefield">
         <div [style.opacity]="fightStartAnimation ? 1 : 0" style="height: 100%; width: 100%;" (click)="skipIntro()">
             <div class="scene">
                 <div class="sideLeft superSpeed">
@@ -118,12 +118,9 @@
                 <i *ngIf="action.actionType != ''"></i>
             </div>
         </div>
-        <div class="animations" *ngIf="!fightStartAnimation">
-            <!-- Template for animations spawn -->
-            <div class="animation" *ngFor="let animation of animations; let i = index">
-                <img style="width: 75px; height: 75px; position: absolute;" [src]="animation.missileImageSource"
-                    [style.transform]="getAnimationTransform(animation)" />
-            </div>
+        <div class="animations" *ngIf="!fightStartAnimation"
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+            <!-- Missiles are appended here directly via DOM (see createMissileElement) -->
         </div>
         <div *ngIf="action.actionType == 'attack'" class="help">Select an enemy to attack, or click the battlefield to cancel.</div>
         <div *ngIf="action.actionType == 'skill' && !selectedSkill" class="help">Select a skill, or click the battlefield to cancel.</div>

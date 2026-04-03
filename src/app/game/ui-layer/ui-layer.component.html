@@ -36,17 +36,12 @@
                         src="{{uiService.displayedActorMenu.equipment[1].thumbnailPath}}">
                 </div>
             </div>
-            <button *ngIf="!uiService.displayedActorMenu.dead && !selectingSkillTarget"
+            <button *ngIf="!uiService.displayedActorMenu.dead && !uiService.getSelectedSkill()"
                 [matMenuTriggerFor]="skills" [matMenuTriggerData]="getCurrentPlayerSkills()">skills</button>
             <span *ngIf="uiService.displayedActorMenu.dead" style="color: gray; font-size: 18px;">dead</span>
-            <!-- out-of-battle skill target selection -->
-            <div *ngIf="selectingSkillTarget" style="display:flex; flex-direction:column; gap:4px;">
-                <div style="color: white; font-size: 16px;">Cast <b>{{outOfBattleSelectedSkill?.name}}</b> on:</div>
-                <button *ngFor="let target of getOutOfBattleTargets()"
-                    (click)="castSkillOnTarget(target)"
-                    style="text-align:left;">
-                    {{target.name}}<span *ngIf="target.dead" style="color:#f66;"> (dead)</span>
-                </button>
+            <!-- out-of-battle skill targeting feedback -->
+            <div *ngIf="uiService.getSelectedSkill()" style="display:flex; flex-direction:column; gap:4px;">
+                <div style="color: white; font-size: 16px;">Casting <b>{{uiService.getSelectedSkill()?.name}}</b> — click a target</div>
                 <button (click)="cancelSkillTargeting()" style="color:#aaa;">Cancel</button>
             </div>
             <div *ngFor="let stat of getStatsToDisplay(uiService.displayedActorMenu.stats)">
@@ -112,6 +107,10 @@
                 [(ngModel)]="dataService.getSettings().fxVolume" (click)="$event.stopPropagation()">
                 <input matSliderThumb>
             </mat-slider>
+        </div>
+        <div style="width: 200px; font-size: 20px; color: white; padding:10px; display: flex; align-items: center; justify-content: space-between;" (click)="$event.stopPropagation()">
+            AUTO BATTLE:
+            <mat-slide-toggle [(ngModel)]="dataService.getSettings().autoBattle" (click)="$event.stopPropagation()"></mat-slide-toggle>
         </div>
     </mat-menu>
 </div>

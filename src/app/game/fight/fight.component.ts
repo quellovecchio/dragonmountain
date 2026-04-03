@@ -20,12 +20,12 @@ export type FightAction = {
 class FightAnimation {
   id: number = 0;
   missileImageSource: string = '';
-  x: number = 0; // Percentage of battlefield width (0-100)
-  y: number = 0; // Percentage of battlefield height (0-100)
+  x: number = 0; // Pixel x of missile center
+  y: number = 0; // Pixel y of missile center
   target: Actor = new Actor();
   rotationAngle: number = 0;
   explodeFn: () => void = () => { };
-  nativeElement: HTMLElement = new HTMLElement();
+  nativeElement!: HTMLElement;
 }
 
 
@@ -42,6 +42,12 @@ export class FightComponent implements OnInit {
   // fight constants - now using percentage-based system
   baseAttackRange = 15; // Base attack range as percentage of battlefield
   baseMoveSpeed = 8; // Base movement speed as percentage per turn
+
+  // Pawn size in pixels — must match .pawn CSS (100×125px)
+  readonly pawnHalfW = 50;
+  readonly pawnHalfH = 62;
+  // Missile image size in pixels (75×75px)
+  readonly missileHalf = 37;
 
 
 
@@ -62,7 +68,7 @@ export class FightComponent implements OnInit {
   @ViewChildren('partyCharacter') partyCharacters!: QueryList<ElementRef>;
   @ViewChildren('enemyCharacter') enemyCharacters!: QueryList<ElementRef>;
 
-  animationPolling: any;
+  animationPolling: number = 0;
   animations: FightAnimation[] = [];
 
   @ViewChild('battlefield') battlefield!: ElementRef;
@@ -125,10 +131,7 @@ export class FightComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.animationPolling) {
-      clearInterval(this.animationPolling);
-      this.animationPolling = undefined;
-    }
+    cancelAnimationFrame(this.animationPolling);
     this.battleFieldClicked.unsubscribe();
     window.removeEventListener('resize', this.onWindowResize.bind(this));
   }
@@ -164,12 +167,6 @@ export class FightComponent implements OnInit {
       }
     });
 
-    // Update any active missiles
-    this.animations.forEach(animation => {
-      const xPixels = this.percentageToPixels(animation.x, true);
-      const yPixels = this.percentageToPixels(animation.y, false);
-      animation.nativeElement.style.transform = `translate(${xPixels}px, ${yPixels}px) rotate(${animation.rotationAngle}rad)`;
-    });
   }
 
   skipIntro() {
@@ -180,41 +177,37 @@ export class FightComponent implements OnInit {
   }
 
   startAnimationPolling() {
-    this.animationPolling = setInterval(() => {
+    const loop = () => {
+      this.animationPolling = requestAnimationFrame(loop);
       this.animations.forEach((animation: FightAnimation) => {
-        // Calculate the distance to target (in percentage)
-        const speed = 1.5; // Percentage per frame
-        const dx = (animation.target as Character).fightPositionX - animation.x;
-        const dy = (animation.target as Character).fightPositionY - animation.y;
+        const speedPx = 8;
+
+        // Target is the pawn center in pixels — read live from DOM
+        const targetCenter = this.getPawnCenterPx(animation.target as Character);
+        const dx = targetCenter.x - animation.x;
+        const dy = targetCenter.y - animation.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Check if missile has reached target
-        if (distance < speed) {
+        if (distance < speedPx) {
           animation.explodeFn();
           animation.nativeElement.remove();
           this.animations = this.animations.filter(a => a.id !== animation.id);
           return;
         }
 
-        // Calculate movement direction
         const angle = Math.atan2(dy, dx);
-        const distanceX = Math.cos(angle) * speed;
-        const distanceY = Math.sin(angle) * speed;
-
-        // Update missile position (in percentage)
-        animation.x += distanceX;
-        animation.y += distanceY;
+        animation.x += Math.cos(angle) * speedPx;
+        animation.y += Math.sin(angle) * speedPx;
         animation.rotationAngle = angle;
 
-        // Convert percentage to pixels for DOM positioning
-        const xPixels = this.percentageToPixels(animation.x, true);
-        const yPixels = this.percentageToPixels(animation.y, false);
-        animation.nativeElement.style.transform = `translate(${xPixels}px, ${yPixels}px) rotate(${angle}rad)`;
+        animation.nativeElement.style.transform =
+          `translate(${animation.x - this.missileHalf}px, ${animation.y - this.missileHalf}px) rotate(${angle}rad)`;
       });
-    }, 1000 / 60); // 60 FPS
+    };
+    this.animationPolling = requestAnimationFrame(loop);
   }
 
-  resumeFightLoop() {
+  async resumeFightLoop() {
     this.currentCharacter.active = false;
     while (this.isEnemyTurn && this.fightManager.fighting) {
       while (this.nextTurnBuffer.length == 0) {
@@ -222,9 +215,18 @@ export class FightComponent implements OnInit {
       }
       this.currentCharacter = this.nextTurnBuffer.pop()!;
       this.isEnemyTurn = this.nextTurn();
+      if (this.isEnemyTurn && this.fightManager.fighting) {
+        await this.turnDelay();
+      }
     }
     this.uiService.pushText("It's " + this.currentCharacter.name + "'s turn. What's his next move?");
     this.currentCharacter.active = true;
+  }
+
+  private turnDelay(): Promise<void> {
+    const speed = this.dataService.getSettings().fightSpeed;
+    const ms = (101 - speed) * 25; // speed 1 → 2500ms, speed 100 → 25ms
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getNextTurnCharacter() {
@@ -263,6 +265,11 @@ export class FightComponent implements OnInit {
 
   nextTurn() {
     if (!this.fightData!.includes(this.currentCharacter)) {
+      // Player's turn — run AI if auto battle is enabled
+      if (this.dataService.getSettings().autoBattle) {
+        this.generateAiTurn(this.currentCharacter);
+        return true;
+      }
       return false;
     }
     else {
@@ -272,15 +279,26 @@ export class FightComponent implements OnInit {
   }
 
   generateAiTurn(attackingCharacter: Character) {
-    const aliveParty = this.partyData.filter(p => !p.dead);
-    if (aliveParty.length === 0) return;
+    const isPartyMember = this.partyData.includes(attackingCharacter as PlayingCharacter);
+    const aliveTargets: Character[] = isPartyMember
+      ? (this.fightData?.filter(e => !e.dead) ?? [])
+      : this.partyData.filter(p => !p.dead);
 
-    // Check taunt: if taunted, must target the source character
-    const tauntSourceId = this.fightManager.getTauntSourceId(attackingCharacter);
-    if (tauntSourceId !== undefined) {
-      const tauntTarget = aliveParty.find(p => p.id === tauntSourceId) ?? aliveParty[0];
-      this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, [tauntTarget]);
-      return;
+    if (aliveTargets.length === 0) return;
+
+    const actorIndex = isPartyMember
+      ? this.partyData.indexOf(attackingCharacter as PlayingCharacter)
+      : this.fightData!.indexOf(attackingCharacter);
+    const friendly = isPartyMember;
+
+    // Check taunt: only applies to enemy characters being taunted by a party member
+    if (!isPartyMember) {
+      const tauntSourceId = this.fightManager.getTauntSourceId(attackingCharacter);
+      if (tauntSourceId !== undefined) {
+        const tauntTarget = (aliveTargets as PlayingCharacter[]).find(p => p.id === tauntSourceId) ?? aliveTargets[0];
+        this.aggroAndMove(attackingCharacter, actorIndex, friendly, [tauntTarget]);
+        return;
+      }
     }
 
     // Probability-based skill casting: 40% chance to use a skill if any are affordable
@@ -290,11 +308,11 @@ export class FightComponent implements OnInit {
     if (usableSkills.length > 0 && Math.random() < 0.4) {
       const skill = usableSkills[Math.floor(Math.random() * usableSkills.length)];
       const isSelfTargeting = skill.effect === EffectType.heal || skill.effect === EffectType.buffStat;
-      const target: Character = isSelfTargeting ? attackingCharacter : aliveParty[Math.floor(Math.random() * aliveParty.length)];
+      const target: Character = isSelfTargeting ? attackingCharacter : aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
       this.castSelectedSkill(attackingCharacter, skill, target);
       return;
     }
-    this.aggroAndMove(attackingCharacter, this.fightData!.indexOf(attackingCharacter), false, aliveParty);
+    this.aggroAndMove(attackingCharacter, actorIndex, friendly, aliveTargets);
   }
 
   getRandomicity() {
@@ -384,27 +402,50 @@ export class FightComponent implements OnInit {
     this.moveTowardsOrAttack(actor, actorIndex, friendly, closestEnemy)
   }
 
+  /** Returns the pixel coordinates of a pawn's visual center, relative to the battlefield top-left. */
+  getPawnCenterPx(actor: Character): { x: number; y: number } {
+    const partyIdx = this.partyData.indexOf(actor as PlayingCharacter);
+    const element = partyIdx >= 0
+      ? this.partyCharacters.get(partyIdx)?.nativeElement
+      : this.enemyCharacters.get(this.fightData!.indexOf(actor))?.nativeElement;
+
+    if (!element) return { x: 0, y: 0 };
+
+    const pawnRect: DOMRect = element.getBoundingClientRect();
+    const bfRect: DOMRect = this.battlefield.nativeElement.getBoundingClientRect();
+    return {
+      x: pawnRect.left - bfRect.left + pawnRect.width / 2,
+      y: pawnRect.top - bfRect.top + pawnRect.height / 2
+    };
+  }
+
+  /** Returns the attack range for an actor in pixels (matches the visual range circle). */
+  getAttackRangePixels(actor: Character): number {
+    const rangePercent = this.baseAttackRange + (actor.stats.dexterity * 0.5) + (actor.class?.attackRange || 0);
+    return this.percentageToPixels(rangePercent, true);
+  }
+
   calculateDistance(actor: Character, enemy: Character): number {
-    // Calculate the distance between two points using Pythagorean theorem
-    const dx = actor.fightPositionX - enemy.fightPositionX;
-    const dy = actor.fightPositionY - enemy.fightPositionY;
-    return (Math.sqrt(dx * dx + dy * dy));
+    // Calculate pixel distance so it matches the visual range circle
+    const dxPx = (actor.fightPositionX - enemy.fightPositionX) * this.battlefieldWidth / 100;
+    const dyPx = (actor.fightPositionY - enemy.fightPositionY) * this.battlefieldHeight / 100;
+    return Math.sqrt(dxPx * dxPx + dyPx * dyPx);
   }
 
   moveTowardsOrAttack(actor: Character, actorIndex: number = 0, friendly: boolean, target: Character) {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     console.log('actor: ' + actor.name + ' - target ' + target.name);
 
-    // Calculate the distance between the actor and the target (in percentage)
-    const dx = target.fightPositionX - actor.fightPositionX;
-    const dy = target.fightPositionY - actor.fightPositionY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const angle = Math.atan2(dy, dx);
+    // Compute angle and distance in pixel space so they match the visual range circle
+    const dxPx = (target.fightPositionX - actor.fightPositionX) * this.battlefieldWidth / 100;
+    const dyPx = (target.fightPositionY - actor.fightPositionY) * this.battlefieldHeight / 100;
+    const distance = Math.sqrt(dxPx * dxPx + dyPx * dyPx);
+    const angle = Math.atan2(dyPx, dxPx);
 
-    // Calculate attack range based on character stats and class
-    const attackRange = this.baseAttackRange + (actor.stats.dexterity * 0.5) + (actor.class?.attackRange || 0);
+    // Attack range in pixels — same value used by the visual range circle
+    const attackRange = this.getAttackRangePixels(actor);
 
-    console.log(`${actor.name} - distance: ${distance.toFixed(2)}%, attack range: ${attackRange}%`);
+    console.log(`${actor.name} - distance: ${distance.toFixed(0)}px, attack range: ${attackRange.toFixed(0)}px`);
 
     if (distance <= attackRange) {
       console.log('actor decided to attack');
@@ -419,15 +460,16 @@ export class FightComponent implements OnInit {
       // Launch missile for ranged attacks, direct damage for melee
       if (actor.class && actor.class.attackRange > 0) {
         console.log(`${actor.name} is launching a ranged attack with range ${actor.class.attackRange}`);
+        const senderCenter = this.getPawnCenterPx(actor);
         const missileAnimation: FightAnimation = {
           missileImageSource: '/assets/animations/slash.gif',
           id: this.animations.length + 1,
-          x: actor.fightPositionX,
-          y: actor.fightPositionY,
+          x: senderCenter.x,
+          y: senderCenter.y,
           target: target,
           rotationAngle: angle,
           explodeFn: this.processDamage.bind(this, actor, actorIndex, friendly, target),
-          nativeElement: this.createMissileElement('/assets/animations/slash.gif', actor.fightPositionX, actor.fightPositionY)
+          nativeElement: this.createMissileElement('/assets/animations/slash.gif', senderCenter.x, senderCenter.y)
         };
         this.animations.push(missileAnimation);
       } else {
@@ -438,16 +480,16 @@ export class FightComponent implements OnInit {
       console.log('actor decided to move');
       this.uiService.pushText(`${actor.name} moved closer to ${target.name}.`);
 
-      // Calculate movement (percentage-based)
-      const moveSpeed = this.baseMoveSpeed + (actor.stats.dexterity * 0.3);
-      const moveDistance = Math.min(moveSpeed, distance); // Don't overshoot
+      // Move in pixel space, then convert back to percentages for position storage
+      const moveSpeedPx = (this.baseMoveSpeed + (actor.stats.dexterity * 0.3)) / 100 * this.battlefieldWidth;
+      const moveDistancePx = Math.min(moveSpeedPx, distance); // Don't overshoot
 
-      const moveX = Math.cos(angle) * moveDistance;
-      const moveY = Math.sin(angle) * moveDistance;
+      const moveXPx = Math.cos(angle) * moveDistancePx;
+      const moveYPx = Math.sin(angle) * moveDistancePx;
 
       // Update actor position (keeping within battlefield bounds)
-      actor.fightPositionX = Math.max(5, Math.min(95, actor.fightPositionX + moveX));
-      actor.fightPositionY = Math.max(10, Math.min(90, actor.fightPositionY + moveY));
+      actor.fightPositionX = Math.max(5, Math.min(95, actor.fightPositionX + moveXPx / this.battlefieldWidth * 100));
+      actor.fightPositionY = Math.max(10, Math.min(90, actor.fightPositionY + moveYPx / this.battlefieldHeight * 100));
 
       // Update DOM position
       if (friendly) {
@@ -461,49 +503,36 @@ export class FightComponent implements OnInit {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   }
 
-  createMissileElement(imageSource: string, xPercent: number, yPercent: number): HTMLElement {
+  createMissileElement(imageSource: string, centerXPx: number, centerYPx: number): HTMLElement {
     const missile = document.createElement('img');
     missile.src = imageSource;
-    missile.style.position = 'absolute';
-    missile.style.width = '75px';
-    missile.style.height = '75px';
-
-    // Convert percentage to pixels for initial positioning
-    const xPixels = this.percentageToPixels(xPercent, true);
-    const yPixels = this.percentageToPixels(yPercent, false);
-
-    missile.style.left = `${xPixels}px`;
-    missile.style.top = `${yPixels}px`;
-    missile.style.transform = 'translate(-50%, -50%)'; // Center the missile
-    missile.style.pointerEvents = 'none'; // Prevent interaction
-    missile.style.zIndex = '10'; // Ensure it appears above other elements
-
-    // Append to battlefield instead of body for proper positioning context
+    missile.style.cssText = `position:absolute; left:0; top:0; width:75px; height:75px; pointer-events:none; z-index:10;`;
+    missile.style.transform = `translate(${centerXPx - this.missileHalf}px, ${centerYPx - this.missileHalf}px)`;
     this.battlefield.nativeElement.appendChild(missile);
     return missile;
   }
 
   processDamage(actor: Character, actorIndex: number, friendly: boolean, target: Character) {
     let attackData = this.fightManager.processAttack(actor, target, false);
-    //actor.actualAttackCooldown = actor.attackCooldown;
     console.log('damage dealt: ' + attackData.damage);
     this.uiService.pushText(`${actor.name} attacked ${target.name}, making him lose ${attackData.damage} points!`);
     this.uiService.shake(100 * attackData.damage);
     if (attackData.killed) {
       this.musicService.playSound('killed');
-      if (!friendly) {
-        this.partyData[actorIndex].dead = true;
+      if (friendly) {
+        // party member killed an enemy — find the correct enemy by id
+        const deadEnemy = this.fightData?.find(e => e.id === target.id);
+        if (deadEnemy) deadEnemy.dead = true;
       } else {
-        this.fightData![actorIndex].dead = true;
+        // enemy killed a party member — find the correct party member by id
+        const deadMember = this.partyData.find(p => p.id === target.id);
+        if (deadMember) deadMember.dead = true;
       }
     }
   }
 
   getAnimationTransform(animation: FightAnimation) {
-    // Convert percentage coordinates to pixels for CSS transform
-    const xPixels = this.percentageToPixels(animation.x, true);
-    const yPixels = this.percentageToPixels(animation.y, false);
-    return `translate(${xPixels}px, ${yPixels}px) rotate(${animation.rotationAngle}rad)`;
+    return `translate(${animation.x - this.missileHalf}px, ${animation.y - this.missileHalf}px) rotate(${animation.rotationAngle}rad)`;
   }
 
   moveAttackButtonClicked() {
@@ -516,15 +545,11 @@ export class FightComponent implements OnInit {
     if (!this.action.actionType) {
       return { diameter: '200px', top: '-150px', left: '-50px' };
     } else {
-      // Calculate range in percentage, then convert to pixels for display
-      const rangePercent = this.baseAttackRange + (actor.stats.dexterity * 0.5) + (actor.class?.attackRange || 0);
-      const rangePixels = this.percentageToPixels(rangePercent, true); // Use width as reference
-
-      // Calculate positioning to center the range circle
-      const diameter = rangePixels * 2; // Full diameter
-      const top = -diameter / 2 - 31; // Center vertically, offset by pawn height
-      const left = -diameter / 2 + 50; // Center horizontally, offset by pawn width
-
+      // Use getAttackRangePixels so the visual circle exactly matches the logical attack range
+      const rangePixels = this.getAttackRangePixels(actor);
+      const diameter = rangePixels * 2;
+      const top = -diameter / 2 - 31;
+      const left = -diameter / 2 + 50;
       return {
         diameter: `${diameter}px`,
         top: `${top}px`,

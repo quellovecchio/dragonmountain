@@ -283,7 +283,7 @@ Milestones:
 				V	spark: does some magic damage to the opponent (already in db) 
 				V	relief: heals the target (already in db)
 			V	actors in party can cast skills on actors outside the battle
-				-	ui: outside the battle the player can choose a skill from the list coming out when he
+				V	ui: outside the battle the player can choose a skill from the list coming out when he
 						clicks on the "skills" button in the actor menu, than select the target within the actors in the current room or in the party
 				V	logic: 
 					V	actors in the room can react to certain skills casted on them and have interactions after
@@ -300,13 +300,18 @@ Milestones:
 				V	fight commentary
 			V	introduce hit animation: inspired to pokemon crystal, make ui move like earthquake
 			V	make units disappear when dead (animated)
-			-	implement ranged attacks
-				-	each class has a range modifier
-				-	missile logic. shoot missile when attack or spell range is higher than n
+			-	ranged attacks rework
+				-	range is given from equips
+				-	equips will differ from type to type
+					-	armors and shields give defense or hp buffs
+					-	weapons vary for range and attack
+					-	introduce magical staffs, swords, two handed swords (have more range than swords), knives, bows ecc ecc
+					-	each class can only use a given set of weapons
+					-	each character can equip one armor, one shield, one weapon and an accessory (hat, ring ecc ecc)  
+				-	unequipped characters will use bare hands (small range)
+			- 	missile logic bugfix, some spells cast missile
 			-	implement collisions between pawns?
 			V	fight bugfixes
-			-	flee button? 
-				-	think about implications: some fights cannot be skipped (maybe just a flag?)
 			-	animations
 				V	earthquake animation
 				-	rework/fix attack animation
@@ -315,8 +320,8 @@ Milestones:
 				-	battleground opening and closing expanding on the horizontal side
 				-	loot animation (chest opening with items coming out)
 			-	battle music?
-			-	handle dead players
-				-	revive spell
+			V	handle dead players
+				V	revive spell
 			-	bugfix
 				-	range is bugged
 			- 	auto-battle mode you can enable or disable from settings
@@ -350,6 +355,11 @@ Milestones:
 				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
 				-	introduce shaman class: new class with the "summon ghost" spell available at level 0
 					-	introduce an actor spawning in a new room that can join the party and has the shaman class.
+				-	text input
+				-	subclass dynamic
+				-	poison and dispel skills
+				-	money as a rewards
+				-	non combat party join
 
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------

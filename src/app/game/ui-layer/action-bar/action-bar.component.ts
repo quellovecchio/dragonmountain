@@ -21,7 +21,19 @@ export class ActionBarComponent implements OnInit {
   }
 
   partyMemberClicked(actor: Actor) {
-    this.uiService.getSelectedItem() ? this.Interact(actor) : this.uiService.toggleActorInfo(actor as PlayingCharacter)
+    if (this.uiService.getSelectedSkill()) {
+      const caster = this.uiService.getSelectedSkillCaster();
+      const skill = this.uiService.getSelectedSkill();
+      if (caster && skill) {
+        this.runService.castSkillOnActor(caster, skill, actor as Character);
+        this.uiService.setSelectedSkill(undefined);
+        this.uiService.setSelectedSkillCaster(undefined);
+      }
+    } else if (this.uiService.getSelectedItem()) {
+      this.Interact(actor);
+    } else {
+      this.uiService.toggleActorInfo(actor as PlayingCharacter);
+    }
   }
 
   Interact(actor: Actor) {

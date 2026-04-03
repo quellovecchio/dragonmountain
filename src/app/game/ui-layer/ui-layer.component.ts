@@ -5,7 +5,6 @@ import { PlayingCharacter } from 'src/app/model/Actors/PlayingCharacter';
 import { Equip } from 'src/app/model/items/Equip';
 import { Item } from 'src/app/model/items/Item';
 import { Skill } from 'src/app/model/Skill';
-import { Actor } from 'src/app/model/Actors/Actor';
 import { RunState } from 'src/app/model/RunState';
 import { RunService } from 'src/app/services/run.service';
 import { UiService } from './ui.service';
@@ -152,11 +151,6 @@ export class UiLayerComponent implements OnInit {
     }
   }
 
-  /** Out-of-battle skill targeting state */
-  outOfBattleSelectedSkill?: Skill;
-  outOfBattleSelectedCaster?: PlayingCharacter;
-  selectingSkillTarget: boolean = false;
-
   selectSkill(skill: Skill) {
     const caster = this.uiService.displayedActorMenu;
     if (caster.dead) {
@@ -166,30 +160,13 @@ export class UiLayerComponent implements OnInit {
     if (this.runService.getRun().state === RunState.Fight) {
       return; // skills in battle are handled by the fight component
     }
-    this.outOfBattleSelectedSkill = skill;
-    this.outOfBattleSelectedCaster = caster;
-    this.selectingSkillTarget = true;
+    this.uiService.setSelectedSkill(skill);
+    this.uiService.setSelectedSkillCaster(caster);
   }
 
   cancelSkillTargeting() {
-    this.outOfBattleSelectedSkill = undefined;
-    this.outOfBattleSelectedCaster = undefined;
-    this.selectingSkillTarget = false;
-  }
-
-  castSkillOnTarget(target: Actor) {
-    if (!this.outOfBattleSelectedSkill || !this.outOfBattleSelectedCaster) return;
-    this.runService.castSkillOnActor(this.outOfBattleSelectedCaster, this.outOfBattleSelectedSkill, target);
-    this.cancelSkillTargeting();
-  }
-
-  getOutOfBattleTargets(): Actor[] {
-    const party: Actor[] = [...this.runService.getRun().party];
-    const roomActors: Actor[] = this.runService.getRun().state === RunState.Location
-      ? (this.runService.getRun().currentLocation?.actors ?? [])
-      : [];
-    const roomOnly = roomActors.filter(a => !party.some(p => p.id === a.id));
-    return [...party, ...roomOnly];
+    this.uiService.setSelectedSkill(undefined);
+    this.uiService.setSelectedSkillCaster(undefined);
   }
 
   equipItem(slot: number) {

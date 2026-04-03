@@ -238,6 +238,8 @@ export class RunService {
       newCharacter.skills = character.skills;
       newCharacter.imagePath = character.imagePath;
       newCharacter.loot = character.loot;
+      newCharacter.classId = character.classId;
+      newCharacter.class = character.class;
       if (usedCharactersIds.includes(character.id)) {
         newCharacter.name = character.name + ' ' + i;
       } else {

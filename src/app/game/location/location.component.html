@@ -26,6 +26,8 @@
     <div *ngIf="selectedActor">
         <!-- use action -->
         <button *ngIf="uiService.getSelectedItem()" mat-menu-item (click)="runService.useItemOn(uiService.getSelectedItem(), selectedActor!)"> use </button>
+        <!-- cast skill action -->
+        <button *ngIf="uiService.getSelectedSkill()" mat-menu-item (click)="castSkillOnActor(selectedActor!)"> cast {{uiService.getSelectedSkill()?.name}} </button>
         <!-- talk action -->
         <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> interact </button>
         <!-- fight action (if is fightable -> has stats)-->

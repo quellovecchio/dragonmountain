@@ -5,6 +5,7 @@ export class Settings {
     fightSpeed: number = Constants.FIGHT_CLOCK_SPEED;
     musicVolume: number = Constants.MUSIC_VOLUME;
     fxVolume: number = Constants.SOUND_VOLUME;
+    autoBattle: boolean = true;
 
     constructor () {
         }

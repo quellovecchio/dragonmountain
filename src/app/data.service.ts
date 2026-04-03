@@ -178,6 +178,7 @@ export class DataService {
       r.attackCooldown = actorData.attackCooldown;
     }
     if (actorData.classId) {
+      r.classId = actorData.classId;
       r.class = this.getClassById(actorData.classId);
     }
     if (actorData.skills) {
