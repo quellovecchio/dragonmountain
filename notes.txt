@@ -324,12 +324,12 @@ Milestones:
 				V	revive spell
 			-	bugfix
 				-	range is bugged
-			- 	auto-battle mode you can enable or disable from settings
+			V 	auto-battle mode you can enable or disable from settings
 
 0.6
 
 		-	gameplay update
-			-	bless action for npcs (revive people, for priests, shamans ecc ecc)
+			v	bless action for npcs (revive people, for priests, shamans ecc ecc)
 			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
 			-	sell
 			-	text goes on with click
@@ -349,10 +349,10 @@ Milestones:
 			-	party limit to three
 				-	modal where you can see party elements stat and newcomer for comparison
 			-	updated intro and character selection
-						-	summon skills:
-				-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
-				-	minions will be added to the party during fights and act on their own
-				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
+				-	summon skills:
+					-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
+					-	minions will be added to the party during fights and act on their own
+					-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
 				-	introduce shaman class: new class with the "summon ghost" spell available at level 0
 					-	introduce an actor spawning in a new room that can join the party and has the shaman class.
 				-	text input
@@ -360,6 +360,7 @@ Milestones:
 				-	poison and dispel skills
 				-	money as a rewards
 				-	non combat party join
+				-	gambling - poker minigame
 
 
 ----------------------------------	LAST STEPSSSSS COME ONE	--------------------------------
@@ -682,3 +683,6 @@ improved graphics on talk:
 	when talking with someone, a zoomed out version of his image will show up while giving text
 
 implement rooms
+
+
+https://stitch.withgoogle.com/projects/6760134576433649850?pli=1

@@ -36,10 +36,10 @@
         },
         {
             "id": 5,
-            "name": "Revive",
+            "name": "Bless",
             "effect": 7,
             "power": 1,
-            "cost": 5
+            "cost": 7
         }
     ],
     "classes": [
@@ -69,6 +69,11 @@
                 },
                 {
                     "skillId": 4,
+                    "unlockLevel": 0,
+                    "unlockStat": "strength"
+                },
+                {
+                    "skillId": 5,
                     "unlockLevel": 0,
                     "unlockStat": "strength"
                 }
