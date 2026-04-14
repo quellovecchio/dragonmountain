@@ -16,6 +16,7 @@ export enum EffectType {
     taunt = 12,
     vanishes = 13,
     talk = 14,
+    restoreSkillPoints = 15,
 }
 
 /**

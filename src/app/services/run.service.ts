@@ -106,6 +106,7 @@ export class RunService {
   }
 
   useItemOn(item: Item, actor: Actor) {
+    this.uiService.pushText('You used ' + item.name + ' on ' + actor.name + '!');
     this.removeItemFromInventory(item);
     console.log("used " + this.uiService.getSelectedItem()?.name + " on " + actor.name);
     this.interact({ character: actor as Character, action: item });
@@ -188,6 +189,12 @@ export class RunService {
           }
           break;
         }
+        case EffectType.restoreSkillPoints: {
+          this.uiService.pushText(`${data.character.name} restored ${data.action.effect.power} SP`);
+          const newSp = data.character.stats.skillPoints + data.action.effect.power;
+          data.character.stats.skillPoints = newSp;
+          break;
+        }
         default:
           console.log('no data found for effect');
           break;
@@ -240,6 +247,7 @@ export class RunService {
       newCharacter.loot = character.loot;
       newCharacter.classId = character.classId;
       newCharacter.class = character.class;
+      this.dataService.applyClassSkills(newCharacter);
       if (usedCharactersIds.includes(character.id)) {
         newCharacter.name = character.name + ' ' + i;
       } else {
@@ -399,6 +407,17 @@ export class RunService {
         ch.dead = false;
         ch.stats.healthPoints = Math.floor(ch.stats.constitution / 2);
         this.uiService.pushText(`${caster.name} cast ${skill.name} — ${target.name} rises with ${ch.stats.healthPoints} HP!`);
+        break;
+      }
+      case EffectType.steal: {
+        if (target.equipment && target.equipment.length > 0) {
+          const randomIndex = Math.floor(Math.random() * target.equipment.length);
+          const [stolenEquip] = target.equipment.splice(randomIndex, 1);
+          this.uiService.pushText(`${caster.name} cast ${skill.name} on ${target.name} and stole their ${stolenEquip.name}!`);
+          this.addItemToInventory(stolenEquip);
+        } else {
+          this.uiService.pushText(`${caster.name} cast ${skill.name} on ${target.name}, but they had nothing to steal!`);
+        }
         break;
       }
       default: {

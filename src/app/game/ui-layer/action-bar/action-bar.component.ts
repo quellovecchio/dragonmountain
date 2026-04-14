@@ -30,7 +30,7 @@ export class ActionBarComponent implements OnInit {
         this.uiService.setSelectedSkillCaster(undefined);
       }
     } else if (this.uiService.getSelectedItem()) {
-      this.Interact(actor);
+      this.runService.useItemOn(this.uiService.getSelectedItem()!, actor);
     } else {
       this.uiService.toggleActorInfo(actor as PlayingCharacter);
     }

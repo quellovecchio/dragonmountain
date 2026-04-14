@@ -109,11 +109,11 @@
         {
             "id": 4,
             "attackRange": 200,
-            "name": "Archer",
+            "name": "Thief",
             "skillTree": [
                 {
-                    "skillId": 2,
-                    "unlockLevel": 25,
+                    "skillId": 0,
+                    "unlockLevel": 0,
                     "unlockStat": "constitution"
                 }
             ]
@@ -305,6 +305,17 @@
             "name": "Revive Candle",
             "description": "A sacred candle used in resurrection rituals.",
             "moneyValue": 800,
+            "thumbnailPath": "assets/images/items/item2.png"
+        },
+        {
+            "id": 22,
+            "name": "Magic Potion",
+            "effect": {
+                "type": 15,
+                "power": 10
+            },
+            "description": "Restores 10 SP.",
+            "moneyValue": 200,
             "thumbnailPath": "assets/images/items/item2.png"
         }
     ],
@@ -502,7 +513,8 @@
             "shop": [
                 6,
                 1,
-                7
+                7,
+                22
             ]
         },
         {
@@ -637,7 +649,8 @@
                 "Come on man, make it quick: buy or leave, buy or leave"
             ],
             "shop": [
-                0
+                0,
+                22
             ]
         },
         {
@@ -669,7 +682,8 @@
                 6,
                 1,
                 10,
-                21
+                21,
+                22
             ],
             "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
         },
@@ -680,17 +694,19 @@
             "loot": [],
             "shop": [
                 11,
-                12
+                12,
+                22
             ],
             "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
             "interactions": [
                 {
-                    "reactTo": "talk",
-                    "text": "Thanks so much... My wife will not leave me!",
+                    "reactTo": 13,
+                    "text": "Thanks so much... Now my wife will not leave me!",
                     "effect": 1,
                     "effectTarget": [
                         0
-                    ]
+                    ],
+                    "locksDoor": "true"
                 }
             ]
         },
@@ -699,9 +715,10 @@
             "name": "Skid Column",
             "classId": 1,
             "level": 3,
-            "loot": [],
+            "loot": [
+                13
+            ],
             "dialogue": "What?! I stole nothing from that man!",
-            "joinsParty": true,
             "equipment": [
                 13
             ],
@@ -777,7 +794,8 @@
             "shop": [
                 17,
                 6,
-                18
+                18,
+                22
             ],
             "attackCooldown": 1500
         },
@@ -807,7 +825,8 @@
             "shop": [
                 6,
                 14,
-                9
+                9,
+                22
             ],
             "dialogue": [
                 "Be ready to hear from us, you'll receive some quests soon.",
@@ -967,14 +986,12 @@
                 {
                     "reactTo": 14,
                     "text": "Thanks man, i owe you one!",
-                    "effect": 13,
-                    "locksDoor": "true"
+                    "effect": 13
                 },
                 {
                     "reactTo": 19,
                     "text": "Thanks man, i owe you one!",
-                    "effect": 13,
-                    "locksDoor": "true"
+                    "effect": 13
                 }
             ],
             "skills": []
@@ -1235,10 +1252,19 @@
                 "Welcome, welcome! Don't mind the smell...",
                 "This is my greatest creation — a Golem, built from pieces of my beloved ones.",
                 "I believe that with the right ritual candle, it could gain a soul.",
-                "If you have a Revive Candle, try using it on my Golem!",
+                "Here, take this Revive Candle — use it on my Golem!",
                 "What could possibly go wrong...?"
             ],
-            "skills": []
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": "[Frank hands you a Revive Candle with a manic grin]",
+                    "effect": 1,
+                    "effectTarget": [21],
+                    "locksDoor": false
+                }
+            ]
         },
         {
             "id": 49,
@@ -1297,7 +1323,7 @@
                 "If you have Holy Water, use it on the rabbit. I will reward you generously."
             ],
             "skills": [],
-            "shop": [1]
+            "shop": [1, 22]
         },
         {
             "id": 52,

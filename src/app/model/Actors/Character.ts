@@ -10,6 +10,7 @@ export class Character extends Actor {
     joinsParty: boolean = false;
     classId: number = 0;
     class?: Class;
+    // additional skills that are not from the class
     skills: Skill[] = [];
 
     /** Active buffs and debuffs currently affecting this character in battle. */

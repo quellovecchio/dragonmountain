@@ -12,6 +12,7 @@ import { UiService } from '../ui-layer/ui.service';
 import { EffectType } from 'src/app/model/Interaction';
 import { MusicService } from 'src/app/services/music.service';
 import { Skill } from 'src/app/model/Skill';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-scene',
@@ -24,7 +25,7 @@ export class SceneComponent implements OnInit {
 
   fightManager: FightManagerService;
 
-  constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService, private musicService: MusicService) {
+  constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService, private musicService: MusicService, private dataService: DataService) {
     this.fightManager = fightManager;
   }
 
@@ -70,7 +71,10 @@ export class SceneComponent implements OnInit {
     } else {
       this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - 200;
       this.runService.getRun().party.forEach(el => {
-        if (!el.dead) el.stats.healthPoints = el.stats.constitution;
+        if (!el.dead) {
+          el.stats.healthPoints = el.stats.constitution;
+          el.stats.skillPoints = el.stats.intelligence;
+        }
       });
       this.uiService.pushText("You and your party wake up well rested after a full night of sleep.");
     }
@@ -103,6 +107,13 @@ export class SceneComponent implements OnInit {
 
     if (talkInteraction) {
       this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
+      if (talkInteraction.effect === EffectType.giveItem && talkInteraction.effectTarget) {
+        talkInteraction.effectTarget.forEach((itemId: number) => {
+          const newItem = this.dataService.getItemById(itemId);
+          this.runService.addItemToInventory(newItem);
+          this.uiService.pushText(a.name + ' gave you a ' + newItem.name + '!');
+        });
+      }
       this.runService.resolveInteraction(a, EffectType.talk);
     } else {
       this.uiService.talkToNpcPushText(a.name, a.dialogue);

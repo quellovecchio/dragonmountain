@@ -197,7 +197,26 @@ export class DataService {
         r.clearanceRequirements.push(new Requirement(req, ''));
       })
     }*/
+    this.applyClassSkills(r);
     return r;
+  }
+
+  /** Grants a character all skills from their class skill tree that they qualify for
+   *  based on unlockLevel and unlockStat (stat value >= unlockLevel). */
+  applyClassSkills(character: Character): void {
+    if (!character.class) return;
+    for (const entry of character.class.skillTree) {
+      const statValue: number = (character.stats as any)[entry.unlockStat] ?? 0;
+      if (statValue >= entry.unlockLevel) {
+        const alreadyHas = character.skills.some(s => s.id === entry.skillId);
+        if (!alreadyHas) {
+          const skill = this.getSkillById(entry.skillId);
+          if (skill) {
+            character.skills.push(skill);
+          }
+        }
+      }
+    }
   }
 
   populateLocation(dto: LocationDto): Location {

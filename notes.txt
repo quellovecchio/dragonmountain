@@ -502,7 +502,6 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 			you can touch the ball or make the girl touch it. 
 			either way the ball will glow. if you touch it, her followers will accuse you of being a fake and the boss will be her knights (already seen in locations but friends), if the girl touches it the boss will be the King and his knights
 
-		add bonus\secret questline (pacific run & kill all run)
 
 
 
@@ -686,3 +685,5 @@ implement rooms
 
 
 https://stitch.withgoogle.com/projects/6760134576433649850?pli=1
+https://stitch.withgoogle.com/projects/11244247335328410975
+https://stitch.withgoogle.com/projects/12039470432306028148

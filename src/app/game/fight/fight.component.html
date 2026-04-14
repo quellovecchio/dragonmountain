@@ -1,4 +1,4 @@
-<div class="battlefield-wrapper">
+<div class="battlefield-wrapper" [ngClass]="{'pixelated-border': fightStartAnimation}">
     <div #battlefield class="battlefield">
         <div [style.opacity]="fightStartAnimation ? 1 : 0" style="height: 100%; width: 100%;" (click)="skipIntro()">
             <div class="scene">

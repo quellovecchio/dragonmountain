@@ -19,10 +19,11 @@ export class DataBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.oldValue = this.currentValue;
+    this.barWidth = this.maxValue > 0 ? (this.currentValue / this.maxValue) * 100 : 0;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['currentValue'] && changes['currentValue'].previousValue && (changes['currentValue'].currentValue !== changes['currentValue'].previousValue)) {
+    if(changes['currentValue'] && changes['currentValue'].previousValue != null && (changes['currentValue'].currentValue !== changes['currentValue'].previousValue)) {
       this.damage(changes['currentValue'].previousValue - changes['currentValue'].currentValue);
     }
   }
