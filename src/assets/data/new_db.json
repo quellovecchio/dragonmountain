@@ -122,14 +122,16 @@
     "items": [
         {
             "id": 0,
-            "name": "Money"
+            "name": "100$",
+            "rarity": 0
         },
         {
             "id": 1,
             "name": "Holy Water",
             "description": "",
             "moneyValue": 500,
-            "thumbnailPath": "assets/images/items/item3.png"
+            "thumbnailPath": "assets/images/items/item3.png",
+            "rarity": 0
         },
         {
             "id": 2,
@@ -139,7 +141,8 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 1,
             "defense": 0,
-            "buffs": []
+            "buffs": [],
+            "rarity": 1
         },
         {
             "id": 3,
@@ -149,7 +152,8 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 2,
             "defense": 0,
-            "buffs": []
+            "buffs": [],
+            "rarity": 2
         },
         {
             "id": 4,
@@ -160,14 +164,16 @@
             },
             "description": "A very big doll face.",
             "moneyValue": 600,
-            "thumbnailPath": "assets/images/items/item6.png"
+            "thumbnailPath": "assets/images/items/item6.png",
+            "rarity": 1
         },
         {
             "id": 5,
             "name": "Little Horn",
             "description": "",
             "moneyValue": 150,
-            "thumbnailPath": "assets/images/items/item3.png"
+            "thumbnailPath": "assets/images/items/item3.png",
+            "rarity": 0
         },
         {
             "id": 6,
@@ -178,7 +184,8 @@
             },
             "description": "Heals 15 hp",
             "moneyValue": 150,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 0
         },
         {
             "id": 7,
@@ -188,7 +195,8 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 0,
             "defense": 1,
-            "buffs": []
+            "buffs": [],
+            "rarity": 0
         },
         {
             "id": 8,
@@ -198,7 +206,8 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 0,
             "defense": 3,
-            "buffs": []
+            "buffs": [],
+            "rarity": 1
         },
         {
             "id": 9,
@@ -208,7 +217,8 @@
             "thumbnailPath": "assets/images/items/item5.png",
             "attack": 1,
             "defense": 0,
-            "buffs": []
+            "buffs": [],
+            "rarity": 0
         },
         {
             "id": 10,
@@ -218,21 +228,24 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 5,
             "defense": 0,
-            "buffs": []
+            "buffs": [],
+            "rarity": 2
         },
         {
             "id": 11,
             "name": "Steal Scroll",
             "description": "Use it to teach 'Steal' spell to an element of the party",
             "moneyValue": 1000,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 1
         },
         {
             "id": 12,
             "name": "Heal Scroll",
             "description": "Use it to teach 'Heal' spell to an element of the party",
             "moneyValue": 1000,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 1
         },
         {
             "id": 13,
@@ -242,21 +255,24 @@
             "thumbnailPath": "assets/images/items/item2.png",
             "attack": 0,
             "defense": 0,
-            "buffs": []
+            "buffs": [],
+            "rarity": 0
         },
         {
             "id": 14,
             "name": "Wax Key",
             "description": "",
             "moneyValue": 100,
-            "thumbnailPath": "assets/images/items/item4.png"
+            "thumbnailPath": "assets/images/items/item4.png",
+            "rarity": 0
         },
         {
             "id": 15,
             "name": "Broadsword",
             "description": "Heavy sword",
             "moneyValue": 5000,
-            "thumbnailPath": "assets/images/items/item1.png"
+            "thumbnailPath": "assets/images/items/item1.png",
+            "rarity": 2
         },
         {
             "id": 16,
@@ -266,14 +282,16 @@
             "thumbnailPath": "assets/images/items/item3.png",
             "attack": 0,
             "defense": 1,
-            "buffs": []
+            "buffs": [],
+            "rarity": 0
         },
         {
             "id": 17,
             "name": "Poisoned Apple",
             "description": "This lethal apple can kill whoever eats it",
             "moneyValue": 500,
-            "thumbnailPath": "assets/images/items/item1.png"
+            "thumbnailPath": "assets/images/items/item1.png",
+            "rarity": 1
         },
         {
             "id": 18,
@@ -284,28 +302,40 @@
             },
             "description": "Heals 50 hp",
             "moneyValue": 350,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 1
         },
         {
             "id": 19,
             "name": "Prison key",
             "description": "Opens the prison door",
             "moneyValue": 0,
-            "thumbnailPath": "assets/images/items/item4.png"
+            "thumbnailPath": "assets/images/items/item4.png",
+            "rarity": 0
         },
         {
             "id": 20,
             "name": "Silver Bar",
             "description": "A silver ingot crafted by slaves",
             "moneyValue": 800,
-            "thumbnailPath": "assets/images/items/item4.png"
+            "thumbnailPath": "assets/images/items/item4.png",
+            "rarity": 1
         },
         {
             "id": 21,
             "name": "Revive Candle",
             "description": "A sacred candle used in resurrection rituals.",
             "moneyValue": 800,
-            "thumbnailPath": "assets/images/items/item2.png"
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 2
+        },
+        {
+            "id": 22,
+            "name": "Bloodsuck Scroll",
+            "description": "A forbidden scroll. Teaches the Bloodsuck spell to one party member.",
+            "moneyValue": 1500,
+            "thumbnailPath": "assets/images/items/item2.png",
+            "rarity": 3
         }
     ],
     "actors": [
@@ -669,7 +699,8 @@
                 6,
                 1,
                 10,
-                21
+                21,
+                20
             ],
             "dialogue": "[he lowkey looks like a rat] Eh! You here to buy? You here to sell? Make it quick!"
         },
@@ -685,12 +716,13 @@
             "dialogue": "That guy over there stole my Wedding Ring... Could you take it back?",
             "interactions": [
                 {
-                    "reactTo": "talk",
-                    "text": "Thanks so much... My wife will not leave me!",
+                    "reactTo": 13,
+                    "text": "My ring! Oh thank the heavens... My wife will not leave me!",
                     "effect": 1,
                     "effectTarget": [
-                        0
-                    ]
+                        0, 0, 0
+                    ],
+                    "locksDoor": true
                 }
             ]
         },
@@ -777,7 +809,8 @@
             "shop": [
                 17,
                 6,
-                18
+                18,
+                20
             ],
             "attackCooldown": 1500
         },
@@ -864,23 +897,26 @@
             "loot": [],
             "interactions": [
                 {
-                    "reactTo": 1,
-                    "text": "[Assessor n.1]: Oh no... IS THAT... MMMMMAAAAAARGH!!! [The assessor suddenly grows bigger canines and attacks the party!]",
+                    "reactTo": 20,
+                    "text": "[Assessor n.1]: Oh no... IS THAT SILVER... MMMMMAAAAAARGH!!! [The assessor suddenly grows bigger canines and attacks the party!]",
                     "effect": 2,
+                    "actorVanishes": true,
+                    "locksDoor": true,
+                    "storyChildrenIds": [33, 34],
                     "effectTarget": [
                         {
                             "name": "Disguised Vampire",
-                            "level": 1,
+                            "level": 2,
                             "imagePath": "/assets/images/actors/enemy2.png",
-                            "loot": [],
-                            "dialogue": "hello world",
+                            "loot": [0, 0],
+                            "dialogue": "You cannot stop what is coming...",
                             "stats": {
                                 "charisma": 2,
-                                "strength": 10,
-                                "constitution": 30,
+                                "strength": 2,
+                                "constitution": 15,
                                 "dexterity": 6,
                                 "intelligence": 10,
-                                "healthPoints": 30
+                                "healthPoints": 15
                             },
                             "skills": []
                         }
@@ -897,14 +933,25 @@
             "name": "The Mayor",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
-            "loot": [
-                1
-            ],
+            "loot": [1],
             "dialogue": [
                 "This city is truly doomed... The assessor went crazy too...",
-                "Please help him!"
+                "Please help him! Use a Silver Bar — silver burns them."
             ],
-            "skills": []
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": [
+                        "The assessor over there... something is wrong with him.",
+                        "I've heard silver repels these creatures. Take this bar — use it on him.",
+                        "If my suspicions are right, God help us all."
+                    ],
+                    "effect": 1,
+                    "effectTarget": [20],
+                    "locksDoor": true
+                }
+            ]
         },
         {
             "id": 28,
@@ -942,16 +989,30 @@
             "name": "Arena Master",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 3,
-            "dialogue": "Very good fight my brother!! Wait, what?? Who are you?? How did you beat them??"
+            "loot": [],
+            "dialogue": [
+                "Step right up! Think you've got what it takes?",
+                "Three of my best fighters. Beat them and the purse is yours!"
+            ],
+            "skills": []
         },
         {
             "id": 31,
-            "name": "Fan",
+            "name": "Spectator",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
             "loot": [],
-            "dialogue": "I should have bet on you!",
-            "skills": []
+            "dialogue": "You look roughed up. Here, take this.",
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": "You look roughed up. Here, take this.",
+                    "effect": 1,
+                    "effectTarget": [6],
+                    "locksDoor": true
+                }
+            ]
         },
         {
             "id": 32,
@@ -1153,7 +1214,7 @@
                     ],
                     "effect": 1,
                     "effectTarget": [
-                        45
+                        0, 0, 0
                     ],
                     "locksDoor": "true"
                 }
@@ -1190,7 +1251,7 @@
                     "vanishes": true,
                     "effect": 1,
                     "effectTarget": [
-                        44
+                        0, 0, 0
                     ],
                     "locksDoor": "true"
                 }
@@ -1201,20 +1262,30 @@
             "id": 46,
             "name": "Thieves Guild Master",
             "imagePath": "/assets/images/actors/actor1.png",
-            "level": 2,
+            "level": 4,
+            "loot": [0, 0, 0, 9],
             "dialogue": [
                 "You filthy traitor... You killed our brother!",
                 "Thought you could get away with it? I know everything about my associates...",
                 "But i didn't think you were so stupid to come back here.",
                 "You will pay for this with your blood."
             ],
+            "stats": {
+                "charisma": 5,
+                "strength": 6,
+                "constitution": 35,
+                "dexterity": 9,
+                "intelligence": 5,
+                "healthPoints": 35
+            },
             "skills": []
         },
         {
             "id": 47,
             "name": "Far Land Emissary",
             "imagePath": "/assets/images/actors/actor1.png",
-            "level": 2,
+            "level": 4,
+            "loot": [0, 0, 10],
             "dialogue": [
                 "Well, well, well... We finally found you.",
                 "Why were we looking for you? Who are we?",
@@ -1223,6 +1294,14 @@
                 "...One of my spies, if you want to me to be clear.",
                 "So... What about i kill you now?."
             ],
+            "stats": {
+                "charisma": 8,
+                "strength": 7,
+                "constitution": 28,
+                "dexterity": 7,
+                "intelligence": 9,
+                "healthPoints": 28
+            },
             "skills": []
         },
         {
@@ -1332,6 +1411,264 @@
                 "wisdom": 8,
                 "intelligence": 10,
                 "healthPoints": 35
+            },
+            "skills": []
+        },
+        {
+            "id": 54,
+            "name": "Street Kid",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": [
+                "Hey mister... can i see that horn? I'll pay you good.",
+                "I nicked some coins from my mum's purse, she'll never notice!"
+            ],
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": 5,
+                    "text": "[The kid grabs the horn and blows it loudly] HERE YOU GO! Don't tell my mum.",
+                    "effect": 1,
+                    "effectTarget": [0, 0, 0],
+                    "locksDoor": true
+                }
+            ]
+        },
+        {
+            "id": 55,
+            "name": "Dusty Merchant",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 2,
+            "loot": [],
+            "dialogue": [
+                "That man over there... he's bleeding me dry.",
+                "Every week he takes half my earnings or smashes my goods.",
+                "If someone would just get rid of him, I'd make it worth their while."
+            ],
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "kill",
+                    "text": "[The merchant exhales and digs behind the counter] Take this. You've earned it.",
+                    "effect": 1,
+                    "effectTarget": [8],
+                    "locksDoor": true
+                }
+            ]
+        },
+        {
+            "id": 56,
+            "name": "Extortionist",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 2,
+            "loot": [0, 0],
+            "dialogue": [
+                "Move along. Nothing here concerns you.",
+                "[He eyes you with open contempt]"
+            ],
+            "stats": {
+                "charisma": 1,
+                "strength": 4,
+                "constitution": 20,
+                "dexterity": 3,
+                "intelligence": 1,
+                "healthPoints": 20
+            },
+            "skills": []
+        },
+        {
+            "id": 57,
+            "name": "Arena Veteran",
+            "imagePath": "/assets/images/actors/enemy1.png",
+            "level": 2,
+            "loot": [0],
+            "dialogue": "hello world",
+            "stats": {
+                "charisma": 1,
+                "strength": 2,
+                "constitution": 12,
+                "dexterity": 4,
+                "intelligence": 1,
+                "healthPoints": 12
+            },
+            "skills": []
+        },
+        {
+            "id": 58,
+            "name": "Arena Champion",
+            "imagePath": "/assets/images/actors/enemy1.png",
+            "level": 3,
+            "loot": [0, 0],
+            "dialogue": "hello world",
+            "stats": {
+                "charisma": 1,
+                "strength": 3,
+                "constitution": 18,
+                "dexterity": 5,
+                "intelligence": 1,
+                "healthPoints": 18
+            },
+            "skills": []
+        },
+        {
+            "id": 59,
+            "name": "Wandering Pedlar",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "Potions, armour, blades — all at fair prices. Ask me no questions and I'll tell you no lies.",
+            "skills": [],
+            "shop": [6, 7, 9]
+        },
+        {
+            "id": 60,
+            "name": "Lurker",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": [
+                "[A hooded figure watches from the shadows]",
+                "Smart move. That little rat had it coming."
+            ],
+            "skills": []
+        },
+        {
+            "id": 61,
+            "name": "Restless Spirit",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": [
+                "...",
+                "You disturb the dead. Take what you find and leave this place."
+            ],
+            "skills": []
+        },
+        {
+            "id": 62,
+            "name": "Rundown Innkeeper",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "The beds are lumpy and the rats are friendly. But it's shelter.",
+            "skills": [],
+            "rest": true
+        },
+        {
+            "id": 63,
+            "name": "Governor Vasile",
+            "imagePath": "/assets/images/actors/actor1.png",
+            "level": 3,
+            "loot": [],
+            "dialogue": [
+                "[He's pale and trembling, avoiding your eyes]",
+                "Vampires? Preposterous... This city has no such problem.",
+                "Now please leave. I have affairs of state to attend to."
+            ],
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": 20,
+                    "text": "[You hold up the Silver Bar. The Governor's eyes go wide — then red.] NOOOOOO—",
+                    "effect": 2,
+                    "vanishes": true,
+                    "storyChildrenIds": [35],
+                    "effectTarget": [
+                        {
+                            "name": "Vampire Governor",
+                            "level": 3,
+                            "imagePath": "/assets/images/actors/enemy2.png",
+                            "loot": [0, 0, 0],
+                            "dialogue": "The Master... will finish what I could not...",
+                            "stats": {
+                                "charisma": 3,
+                                "strength": 8,
+                                "constitution": 35,
+                                "dexterity": 5,
+                                "intelligence": 8,
+                                "healthPoints": 35
+                            },
+                            "skills": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 64,
+            "name": "Vampire Thrall",
+            "imagePath": "/assets/images/actors/enemy2.png",
+            "level": 2,
+            "loot": [0],
+            "dialogue": "hello world",
+            "stats": {
+                "charisma": 1,
+                "strength": 4,
+                "constitution": 18,
+                "dexterity": 6,
+                "intelligence": 3,
+                "healthPoints": 18
+            },
+            "skills": []
+        },
+        {
+            "id": 65,
+            "name": "Vampire Master",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 4,
+            "loot": [0, 0],
+            "dialogue": [
+                "You are stronger than the others... I like that.",
+                "Join us. Power. Eternity. Everything you could ever want.",
+                "Or die here like the rest."
+            ],
+            "stats": {
+                "charisma": 8,
+                "strength": 7,
+                "constitution": 40,
+                "dexterity": 7,
+                "intelligence": 10,
+                "healthPoints": 40
+            },
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": "[You lower your weapon. The Vampire Master smiles.] A wise choice. Take this — proof of your allegiance.",
+                    "effect": 1,
+                    "effectTarget": [22],
+                    "storyChildrenIds": [18],
+                    "locksDoor": true
+                },
+                {
+                    "reactTo": "kill",
+                    "text": "[The Vampire Master dissolves into mist, hissing:] The Supreme One... will have you for this...",
+                    "effect": 1,
+                    "effectTarget": [0, 0],
+                    "storyChildrenIds": [35],
+                    "locksDoor": true
+                }
+            ]
+        },
+        {
+            "id": 66,
+            "name": "Supreme Vampire",
+            "imagePath": "/assets/images/actors/enemy2.png",
+            "level": 5,
+            "loot": [10, 0, 0, 0],
+            "dialogue": [
+                "Did you truly believe you could stop the dark tide?",
+                "This city is mine. Every soul in it is mine.",
+                "I have waited centuries. I will not be stopped by mortals."
+            ],
+            "stats": {
+                "charisma": 10,
+                "strength": 12,
+                "constitution": 60,
+                "dexterity": 8,
+                "intelligence": 15,
+                "healthPoints": 60
             },
             "skills": []
         }
@@ -1447,8 +1784,8 @@
             "backgroundPath": "/assets/images/locations/location3-bg.png",
             "fight": [
                 20,
-                21,
-                22
+                23,
+                11
             ],
             "loot": [],
             "actors": [
@@ -1492,11 +1829,12 @@
         },
         {
             "id": 14,
-            "name": "Battle Arena",
+            "name": "Rotten Arena",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "fight": [
                 29,
-                29
+                57,
+                58
             ],
             "actors": [
                 30,
@@ -1606,6 +1944,80 @@
             "backgroundPath": "/assets/images/locations/location4-bg.png",
             "loot": [],
             "actors": [51, 52]
+        },
+        {
+            "id": 26,
+            "name": "Rusty Downtown",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "loot": [],
+            "actors": [54]
+        },
+        {
+            "id": 27,
+            "name": "Disgrace Shop",
+            "backgroundPath": "/assets/images/locations/location3-bg.png",
+            "loot": [],
+            "actors": [55, 56]
+        },
+        {
+            "id": 28,
+            "name": "Damp Cellar",
+            "backgroundPath": "/assets/images/locations/location5-bg.png",
+            "fight": [23, 23],
+            "loot": [6],
+            "actors": []
+        },
+        {
+            "id": 29,
+            "name": "Wandering Pedlar",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "loot": [],
+            "actors": [59]
+        },
+        {
+            "id": 30,
+            "name": "Shadowy Alley",
+            "backgroundPath": "/assets/images/locations/location5-bg.png",
+            "fight": [11],
+            "loot": [9],
+            "actors": [60]
+        },
+        {
+            "id": 31,
+            "name": "Collapsed Crypt",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [1, 5],
+            "actors": [61]
+        },
+        {
+            "id": 32,
+            "name": "Rundown Inn",
+            "backgroundPath": "/assets/images/locations/location2-bg.png",
+            "loot": [],
+            "actors": [62]
+        },
+        {
+            "id": 33,
+            "name": "Governor's Mansion",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "fight": [64],
+            "loot": [],
+            "actors": [63]
+        },
+        {
+            "id": 34,
+            "name": "Vampire Hideout",
+            "backgroundPath": "/assets/images/locations/location5-bg.png",
+            "fight": [64, 64],
+            "loot": [],
+            "actors": [65]
+        },
+        {
+            "id": 35,
+            "name": "Damned Plaza",
+            "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "loot": [],
+            "actors": [66]
         }
     ],
     "lastStage": {},
@@ -1615,10 +2027,10 @@
             "name": "Damned Citadel",
             "bossLocation": 0,
             "questlines": [
-                12
+                12, 13
             ],
             "locations": [
-                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 23, 24, 25
+                1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
             ]
         }
     ]

@@ -1,39 +1,125 @@
-<div style="padding: 15px;">
-    <mat-table #table [dataSource]="dataSource">
+<div class="items-list">
 
-        <ng-container matColumnDef="icon">
-            <mat-cell *matCellDef="let element" (click)="clickAction(element); $event.stopPropagation();">
-                <div style="background-size: contain;" class="table-item"
-                    [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
-                </div>
-            </mat-cell>
-        </ng-container>
+  <div *ngFor="let item of dataSource.data"
+       #rowRef
+       class="item-row pixelated-border"
+       [ngClass]="item.rarity !== Rarity.common ? 'rarity-' + getRarityName(item.rarity) : ''"
+       (mouseenter)="onRowMouseEnter(item, rowRef)"
+       (mouseleave)="onRowMouseLeave()">
 
-        <ng-container matColumnDef="details">
-            <mat-cell *matCellDef="let element" class="table-item" (click)="clickAction(element)"
-                [ngStyle]="{ 'background-image': 'url(' + element.thumbnailPath + ')' }">
-                <div class="table-item-name">
-                    {{element.name}}
-                </div>
-                <div class="table-item-info">
-                    <div class="table-item-price"> {{element.moneyValue}} $ </div>
-                    <div class="table-item-details">
-                        <div *ngIf="element.attack">
-                            atk: {{ element.attack }}
-                        </div>
-                        <div *ngIf="element.defense">
-                            def: {{ element.defense }}
-                        </div>
-                        <div *ngIf="element.buffs">
-                            buf: {{ element.buffs? 'X' : 'V' }}
-                        </div>
-                    </div>
-                </div>
-            </mat-cell>
-        </ng-container>
+    <!-- Zone 1 — Thumbnail -->
+    <div class="item-thumb" [class.item-thumb--compact]="compact"
+         [style.border-color]="getRarityColor(item.rarity) + '33'">
+      <img [src]="item.thumbnailPath"
+           [alt]="item.name"
+           class="item-img"
+           [class.item-img--compact]="compact" />
+    </div>
 
-        <mat-row *matRowDef="let row; columns: displayedColumns;" class="card card__shine pixelated-border" ngTilt [disableAxis]="'x'"
-            [maxTilt]="1" [glare]="true" [maxGlare]="0.1" [scale]="1.02" [speed]="300">
-        </mat-row>
-    </mat-table>
+    <!-- Zone 2 — Item info -->
+    <div class="item-info">
+      <div class="item-name-row">
+        <span class="item-name">{{ item.name }}</span>
+        <span class="item-rarity-badge"
+              [style.color]="getRarityColor(item.rarity)"
+              [style.border-color]="getRarityColor(item.rarity) + '55'">
+          {{ getRarityName(item.rarity) }}
+        </span>
+      </div>
+
+      <div class="item-type-badge">
+        {{ getTypeIcon(getItemType(item)) }} {{ getItemType(item) }}
+      </div>
+
+      <div class="item-stats">
+        <span *ngIf="asEquip(item).attack" class="stat-chip stat-atk">
+          atk +{{ asEquip(item).attack }}
+        </span>
+        <span *ngIf="asEquip(item).defense" class="stat-chip stat-def">
+          def +{{ asEquip(item).defense }}
+        </span>
+        <span *ngIf="item.effect?.power" class="stat-chip stat-heal">
+          heal {{ item.effect?.power }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Zone 3 — Price + Action -->
+    <div class="item-action">
+      <span class="item-price" *ngIf="item.moneyValue">{{ item.moneyValue }} $</span>
+
+      <!-- Inventory buttons -->
+      <button *ngIf="inventory"
+              class="action-btn action-btn--use"
+              (click)="onActionClick(item, $event)">
+        {{ isEquipItem(item) ? 'equip' : 'use' }}
+      </button>
+
+      <!-- Shop buttons -->
+      <ng-container *ngIf="!inventory">
+        <button *ngIf="!isBought(item) && canAfford(item)"
+                class="action-btn action-btn--buy"
+                (click)="onBuy(item, $event)">
+          buy
+        </button>
+        <button *ngIf="isBought(item)"
+                class="action-btn action-btn--bought"
+                disabled>
+          bought
+        </button>
+        <button *ngIf="!isBought(item) && !canAfford(item)"
+                class="action-btn action-btn--costly"
+                disabled>
+          too costly
+        </button>
+      </ng-container>
+    </div>
+
+  </div><!-- /item-row -->
+
+</div><!-- /items-list -->
+
+<!-- Tooltip — position: fixed, rendered at viewport coords -->
+<div *ngIf="hoveredItem"
+     class="item-tooltip"
+     [style.top]="tooltipStyle['top']"
+     [style.left]="tooltipStyle['left']"
+     [style.border-color]="getRarityColor(hoveredItem.rarity)"
+     [style.box-shadow]="'0 0 16px ' + getRarityColor(hoveredItem.rarity) + '55, 4px 4px 0 #000'">
+
+  <div class="tooltip-header">
+    <img [src]="hoveredItem.thumbnailPath"
+         [alt]="hoveredItem.name"
+         class="tooltip-thumb" />
+    <div class="tooltip-header-text">
+      <div class="tooltip-name">{{ hoveredItem.name }}</div>
+      <div class="tooltip-meta" [style.color]="getRarityColor(hoveredItem.rarity)">
+        {{ getItemType(hoveredItem) }} · {{ getRarityName(hoveredItem.rarity) | uppercase }}
+      </div>
+    </div>
+  </div>
+
+  <hr class="tooltip-divider"
+      [style.border-color]="getRarityColor(hoveredItem.rarity) + '44'" />
+
+  <div class="tooltip-stats"
+       *ngIf="asEquip(hoveredItem).attack || asEquip(hoveredItem).defense">
+    <span *ngIf="asEquip(hoveredItem).attack" class="tooltip-stat-chip stat-atk">
+      atk +{{ asEquip(hoveredItem).attack }}
+    </span>
+    <span *ngIf="asEquip(hoveredItem).defense" class="tooltip-stat-chip stat-def">
+      def +{{ asEquip(hoveredItem).defense }}
+    </span>
+  </div>
+
+  <div class="tooltip-buffs" *ngIf="asEquip(hoveredItem).buffs?.length">
+    <span *ngFor="let buff of asEquip(hoveredItem).buffs" class="tooltip-buff-tag">
+      {{ buff }}
+    </span>
+  </div>
+
+  <div class="tooltip-price" *ngIf="hoveredItem.moneyValue">
+    {{ hoveredItem.moneyValue }} $
+  </div>
+
 </div>

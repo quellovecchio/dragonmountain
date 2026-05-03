@@ -96,6 +96,12 @@ export class RunService {
   }
 
   addItemToInventory(item: Item) {
+    if (item.id === 0) {
+      this.getRun().inventory.money += 100;
+      this.uiService.pushText("You received $100!");
+      this.musicService.playSound('give-item');
+      return;
+    }
     this.musicService.playSound('give-item');
     this.run.inventory.items.push(item);
     this.uiService.updateInventory(this.run.inventory.items);
@@ -138,8 +144,10 @@ export class RunService {
           giveInteraction.effectTarget.forEach((itemId: number) => {
             const newItem = this.dataService.getItemById(itemId);
             this.addItemToInventory(newItem);
-            this.uiService.pushText(data.character.name + ' gave you a ' + newItem.name + '!');
-            this.uiService.pushText('The item was placed into the inventory');
+            if (newItem.id !== 0) {
+              this.uiService.pushText(data.character.name + ' gave you a ' + newItem.name + '!');
+              this.uiService.pushText('The item was placed into the inventory');
+            }
           });
           break;
         }
@@ -227,6 +235,8 @@ export class RunService {
     }, 2000);
   }
 
+  private _fightIdCounter = 90000;
+
   prepareFight(fight: Character[]): Character[] {
     let newFight: Character[] = [];
     let usedCharactersIds: number[] = [];
@@ -237,14 +247,19 @@ export class RunService {
       newCharacter.stats = character.stats;
       newCharacter.skills = character.skills;
       newCharacter.imagePath = character.imagePath;
-      newCharacter.loot = character.loot;
+      // Inline actors (from fight interactions) have loot as raw number IDs; resolve them.
+      newCharacter.loot = (character.loot ?? []).map((el: any) =>
+        typeof el === 'number' ? this.dataService.getItemById(el) : el
+      );
       newCharacter.classId = character.classId;
       newCharacter.class = character.class;
-      if (usedCharactersIds.includes(character.id)) {
+      const sourceId = character.id ?? (this._fightIdCounter++);
+      if (usedCharactersIds.includes(sourceId)) {
         newCharacter.name = character.name + ' ' + i;
       } else {
-        usedCharactersIds.push(character.id);
+        usedCharactersIds.push(sourceId);
       }
+      newCharacter.id = sourceId;
       newFight.push(newCharacter);
     }
     return newFight;
@@ -309,9 +324,8 @@ export class RunService {
     if (item.loot && item.loot.length > 0) {
       // add loot to party inventory
       item.loot.forEach(el => {
-        if (el.name.includes('money')) {
-          this.getRun().inventory.money = this.getRun().inventory.money + +el.name.replace(/[^0-9]/g, "");
-          this.uiService.pushText("You found " + el.name + "!");
+        if (el.id === 0) {
+          this.addItemToInventory(el); // handled inside: adds $100
         } else {
           this.addItemToInventory(el);
           this.uiService.pushText("You found a " + el.name + "!");
@@ -356,6 +370,40 @@ export class RunService {
    * Casts a skill on an actor outside of battle.
    * Handles heal, resurrect, and interaction-triggered effects.
    */
+  talkTo(actor: Actor): void {
+    const talkInteraction = this.findInteraction(actor.interactions, EffectType.talk);
+    const killInteraction = this.findInteraction(actor.interactions, EffectType.kill);
+
+    if (talkInteraction) {
+      this.uiService.talkToNpcPushText(actor.name, talkInteraction.text);
+      // A talk interaction can carry a giveItem side-effect (effectTarget: number[])
+      const effectTarget = (talkInteraction as any).effectTarget as number[] | undefined;
+      if (Array.isArray(effectTarget)) {
+        effectTarget.forEach((itemId: number) => {
+          const item = this.dataService.getItemById(itemId);
+          this.addItemToInventory(item);
+          if (item.id !== 0) {
+            this.uiService.pushText(actor.name + ' gave you a ' + item.name + '!');
+            this.uiService.pushText('The item was placed into the inventory');
+          }
+        });
+      }
+      if (talkInteraction.storyChildrenIds?.length) {
+        talkInteraction.storyChildrenIds.forEach((locationId: number) => {
+          this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+        });
+      }
+      this.resolveInteraction(actor, EffectType.talk);
+    } else {
+      this.uiService.talkToNpcPushText(actor.name, actor.dialogue);
+    }
+
+    if (killInteraction) {
+      this.uiService.pushText(killInteraction.text as string);
+      this.resolveInteraction(actor, EffectType.kill);
+    }
+  }
+
   castSkillOnActor(caster: PlayingCharacter, skill: Skill, target: Actor): void {
     if (caster.dead) {
       this.uiService.pushText(`${caster.name} is dead and cannot cast skills.`);

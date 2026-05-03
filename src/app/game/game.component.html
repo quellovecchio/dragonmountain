@@ -1,19 +1,21 @@
 <div>
   <div *ngIf="isIntro" class="intro" (click)="play()">
     <div *ngIf="isIntro && !introSequencePlaying" class="blinking"> press any key to start... </div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-sky pixelated"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-sky"></div>
     <div *ngIf="isIntro && introSequencePlaying" class="background-moon"></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-2" [@introAnimationClouds2] [@.disabled]="introSequenceFinished"></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-main" [@introAnimationMain] [@.disabled]="introSequenceFinished"></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-1" [@introAnimationClouds1] [@.disabled]="introSequenceFinished"></div>
-    <div *ngIf="isIntro && introSequencePlaying" class="dragon-container" [@introAnimationDragon] [@.disabled]="introSequenceFinished">
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-2" [class.animate]="introSequencePlaying || introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-main" [class.animate]="introSequencePlaying || introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="background-cloud-1" [class.animate]="introSequencePlaying || introSequenceFinished"></div>
+    <div *ngIf="isIntro && introSequencePlaying" class="dragon-container" [class.animate]="introSequencePlaying || introSequenceFinished">
       <div *ngIf="isIntro && introSequencePlaying" class="dragon"></div>
     </div>
-    <div *ngIf="isIntro && introSequencePlaying" class="logo" [@introAnimationLogo] [@.disabled]="introSequenceFinished">
+    <div *ngIf="isIntro && introSequencePlaying" class="logo" [class.animate]="introSequencePlaying || introSequenceFinished">
       DragonMountain
       <div *ngIf="isIntro && introSequenceFinished" class="blinking"> press any key to start... </div>
       <!-- TODO add new game / load game with gothic 3D cursor-->
     </div>
+    <!-- Blackout overlay shown when intro finishes -->
+    <div *ngIf="introBlackout" class="intro-blackout" [class.animate]="introBlackout"></div>
   </div>
   <div *ngIf="!isIntro" class="centered" style="color: black;">
     <div class="viewport" [ngClass]="uiService.isShaking() ? 'shake' : ''" [ngStyle]="{ 'background-image': 'url(' + getBackgroundImage() + ')' }">

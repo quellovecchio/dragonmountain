@@ -22,79 +22,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-  animations: [
-        trigger(
-          'introAnimationMain',
-          [
-            transition(
-              ':enter',
-              [
-                style({ height: 0, top: '1900%' }),
-                animate('13s ease-out',
-                  style({ height: '76%', top: '25%' }))
-              ]
-            )
-          ]
-        ),
-        trigger(
-          'introAnimationClouds2',
-          [
-            transition(
-              ':enter',
-              [
-                style({ top: 0, backgroundPosition: '-100%, 0', height: '900%' }),
-                animate('13s ease-out',
-                  style({ top: '50%', backgroundPosition: '0, 0', height: '32%' }))
-              ]
-            )
-          ]
-        ),
-        trigger(
-          'introAnimationClouds1',
-          [
-            transition(
-              ':enter',
-              [
-                style({ top: 0, backgroundPosition: '-900%, 0', height: '400%' }),
-                animate('13s ease-out',
-                  style({ top: '50%', backgroundPosition: '0, 0', height: '32%' }))
-              ]
-            )
-          ]
-        ),
-        trigger(
-          'introAnimationDragon',
-          [
-            transition(
-              ':enter',
-              [
-                style({top: '-50%', height: '600%', width: '400%'   }),
-                animate('13s ease-out',
-                  style({top: '43%', height: '19%', width: '10%' }))
-              ]
-            )
-          ]
-        ),
-        trigger(
-          'introAnimationLogo',
-          [
-            transition(
-              ':enter',
-              [
-                style({top: '-50%'  }),
-                animate('8s ease-out',
-                  style({top: '15%' }))
-              ]
-            )
-          ]
-        ),
-  ]
+  // animations removed - using CSS animations via the `.animate` class in SCSS
 })
 export class GameComponent implements OnInit {
 
   public isIntro: boolean = true;
   public introSequencePlaying: boolean = false;
   public introSequenceFinished: boolean = false;
+  public introBlackout: boolean = false;
 
   public innerWidth: any;
 
@@ -134,8 +69,22 @@ export class GameComponent implements OnInit {
     if(this.isIntro && !this.introSequencePlaying) {
       this.musicService.loopSong("title-theme");
       this.introSequencePlaying = true;
-      setInterval(() => {
+      // schedule end of intro: mark finished after 13s
+      setTimeout(() => {
         this.introSequenceFinished = true;
+        // schedule blackout 60s after the intro finishes (total 73s after start)
+        setTimeout(() => {
+          // trigger blackout overlay
+          this.introBlackout = true;
+          // quick blackout then reset everything back to initial state
+          setTimeout(() => {
+            this.introBlackout = false;
+            this.introSequencePlaying = false;
+            this.introSequenceFinished = false;
+            // stop title music when returning to start screen
+            this.musicService.stopMusic();
+          }, 600); // blackout animation duration
+        }, 60000); // wait 60s after intro finishes
       }, 13000);
     }
     // intro sequence playing -> skip intro

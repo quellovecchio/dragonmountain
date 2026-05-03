@@ -61,7 +61,8 @@
     <div [@inOutAnimationShop] *ngIf="uiService.shopOpened" class="shop pixelated-border"
         style="overflow-y: auto; overflow-x: hidden;">
         <div class="close-shop-button pixelated-border" (click)="uiService.closeShop()">CLOSE</div>
-        <app-items-table [dataSource]="shopDataSource" [compact]="false" (clickEvent)="buy($event)">
+        <app-items-table [dataSource]="shopDataSource" [compact]="false"
+            [playerGold]="runService.getRun().inventory.money" (buyEvent)="buy($event)">
         </app-items-table>
     </div>
 

@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dragon Mountain — Design System</title>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  @font-face { font-family: "Alagard"; src: url("fonts/alagard.ttf") format("truetype"); }
+  @font-face { font-family: "Enchanted-Land"; src: url("fonts/Enchanted-Land.otf") format("opentype"); }
+  @font-face { font-family: "PerfectDOS"; src: url("fonts/Perfect_DOS_VGA_437_Win.ttf") format("truetype"); }
+
+  :root {
+    /* ── Brand Palette ── */
+    --color-primary:         #F4E0B9;
+    --color-primary-transp:  #f4e0b933;
+    --color-bg:              #0a0a0b;
+    --color-surface:         #111114;
+    --color-surface-2:       #1a1a1f;
+    --color-border:          #2a2a30;
+    --color-text:            #F4E0B9;
+    --color-text-dim:        #9a8a6a;
+    --color-text-muted:      #5a504a;
+
+    /* ── Semantic Colours ── */
+    --skill-color:           #4c7b94;
+    --skill-contrast:        #BAD0DA;
+    --skill-color-transp:    #4c7b944b;
+    --attack-color:          #f16c6a;
+    --attack-contrast:       #F1C66A;
+    --attack-color-transp:   #f16c6a4f;
+    --range-color:           #dbdc844d;
+    --color-money:           #22c55e;
+    --color-dead:            #666;
+
+    /* ── Data Bar Colours ── */
+    --bar-hp:                #cc5544;
+    --bar-sp:                rgb(49,49,130);
+    --bar-bg:                #ddd;
+    --bar-hit:               rgba(255,255,255,0.6);
+
+    /* ── Typography ── */
+    --font-display:          "Enchanted-Land", serif;
+    --font-body:             "Alagard", monospace;
+    --font-mono:             "PerfectDOS", monospace;
+
+    /* ── Font Sizes ── */
+    --text-xs:   12px;
+    --text-sm:   16px;
+    --text-base: 20px;
+    --text-md:   24px;
+    --text-lg:   30px;
+    --text-xl:   32px;
+    --text-2xl:  40px;
+    --text-3xl:  60px;
+
+    /* ── Spacing ── */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    /* ── Radius ── */
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-full: 9999px;
+
+    /* ── Shadows ── */
+    --shadow-text: 2px 1px 2px #7D7463;
+    --shadow-drop: drop-shadow(2px 4px 6px black);
+
+    /* ── Transitions ── */
+    --transition-fast: all 0.05s ease-in;
+    --transition-base: all 0.2s ease-in-out;
+
+    /* ── Pixelated Border (the iconic CSS box-shadow border) ── */
+    --pixel-border-color:   var(--color-primary);
+    --pixel-border-bg:      black;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    text-shadow: var(--shadow-text);
+    line-height: 1.5;
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 8px; background: #000; }
+  ::-webkit-scrollbar-thumb { background: #444; }
+  ::-webkit-scrollbar-track { background: #111; }
+
+  /* ── Layout ── */
+  .ds-page { max-width: 1280px; margin: 0 auto; padding: 60px 40px 120px; }
+  .ds-section { margin-bottom: 80px; }
+  .ds-section-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 12px;
+    margin-bottom: 36px;
+    text-shadow: var(--shadow-text);
+    letter-spacing: 2px;
+  }
+  .ds-sub-title {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+  .ds-grid { display: grid; gap: 24px; }
+  .ds-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .ds-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .ds-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .ds-grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .ds-flex { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+  .ds-label {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+    margin-top: 8px;
+    text-shadow: none;
+    letter-spacing: 1px;
+  }
+
+  /* ── Hero ── */
+  .ds-hero {
+    padding: 60px 0 80px;
+    margin-bottom: 80px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .ds-hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    text-shadow: none;
+  }
+  .ds-hero-title {
+    font-family: var(--font-display);
+    font-size: 72px;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 16px;
+    text-shadow: 4px 3px 6px #000;
+  }
+  .ds-hero-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-text-dim);
+    text-shadow: none;
+    max-width: 600px;
+  }
+  .ds-version-badge {
+    display: inline-block;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-dim);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    margin-top: 20px;
+    text-shadow: none;
+  }
+
+  /* ── Nav ── */
+  .ds-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,11,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 0;
+    padding: 0 40px;
+    overflow-x: auto;
+  }
+  .ds-nav-item {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: var(--transition-base);
+    text-decoration: none;
+    text-shadow: none;
+    display: block;
+  }
+  .ds-nav-item:hover { color: var(--color-primary); }
+  .ds-nav-item.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  /* ── Color Swatches ── */
+  .swatch-card {
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+  .swatch-block { height: 80px; width: 100%; }
+  .swatch-info {
+    background: var(--color-surface);
+    padding: 10px 12px;
+  }
+  .swatch-name {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-text);
+    display: block;
+    text-shadow: none;
+  }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    display: block;
+    margin-top: 3px;
+  }
+  .swatch-var {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    display: block;
+    margin-top: 2px;
+    opacity: 0.7;
+  }
+
+  /* ── Typography specimens ── */
+  .type-specimen {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 28px 24px;
+  }
+  .type-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* ── Pixelated border (replica of SCSS mixin) ── */
+  .pixelated-border {
+    box-shadow:
+      8px 0 black, -8px 0 black, 0 -8px black, 0 8px black,
+      2px 0 0 4px black, -2px 0 0 4px black, 0 -2px 0 4px black, 0 2px 0 4px black,
+      10px 0 var(--color-primary), -10px 0 var(--color-primary), 0 -10px var(--color-primary), 0 10px var(--color-primary),
+      0 0 0 6px var(--color-primary), 0 4px 0 4px var(--color-primary), 0 -4px 0 4px var(--color-primary),
+      4px 0 0 4px var(--color-primary), -4px 0 0 4px var(--color-primary);
+    margin: 10px;
+  }
+
+  /* ── Components preview area ── */
+  .comp-preview {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    min-height: 140px;
+  }
+  .comp-preview.dark-bg { background: #050506; }
+  .comp-code {
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-dim);
+    text-shadow: none;
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  /* ── Info Box (HUD element) ── */
+  .info-box-demo {
+    background: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 4px 16px;
+    color: black;
+    text-shadow: none;
+    min-width: 400px;
+  }
+  .info-box-demo label { padding: 10px; color: black; font-size: var(--text-lg); }
+
+  /* ── Buttons ── */
+  .dm-button {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    background: var(--color-primary);
+    color: black;
+    border: none;
+    padding: 8px 28px;
+    cursor: pointer;
+    text-shadow: none;
+    transition: var(--transition-base);
+    display: inline-block;
+  }
+  .dm-button:hover { transform: scale(1.04); filter: brightness(1.1); }
+  .dm-button:active { transform: scale(0.97); }
+  .dm-button.pixel { }
+  .dm-button.danger { background: var(--attack-color); color: white; }
+  .dm-button.skill { background: var(--skill-color); color: var(--skill-contrast); }
+  .dm-button.ghost {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+  .dm-button:disabled { filter: grayscale(1); pointer-events: none; }
+
+  /* ── Data Bar ── */
+  .data-bar-demo {
+    box-sizing: border-box;
+    height: 20px;
+    padding: 5px;
+    background: var(--bar-bg);
+    border-radius: 5px;
+    position: relative;
+    width: 200px;
+  }
+  .data-bar-demo .bar { height: 10px; position: relative; transition: width .5s linear; }
+  .data-bar-demo .hit {
+    background: var(--bar-hit);
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    transition: width .5s linear;
+  }
+
+  /* ── Actor / Party Pawn ── */
+  .pawn-demo {
+    width: 95px; height: 95px;
+    background: var(--color-surface-2);
+    background-size: 200%;
+    background-position: center top;
+    position: relative;
+    cursor: pointer;
+    transition: transform .2s;
+  }
+  .pawn-demo:hover { transform: scale(1.15); }
+  .pawn-bars { position: absolute; bottom: 0; left: 0; right: 0; padding: 4px; display: flex; flex-direction: column; gap: 2px; }
+
+  /* ── Equip Slot ── */
+  .equip-slot {
+    background: black;
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+  .equip-slot:hover { background: var(--color-surface-2); }
+  .equip-slot.glow { animation: blinkSlot 2s infinite; }
+  @keyframes blinkSlot { 0%,100% { background: black; } 50% { background: var(--color-surface-2); transform: scale(1.2); } }
+
+  /* ── Action Range buttons ── */
+  .action-range-demo {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+  }
+  .ar-half {
+    width: 50%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+  .ar-skill { background: var(--skill-color-transp); }
+  .ar-skill:hover { background: var(--skill-color); }
+  .ar-attack { background: var(--attack-color-transp); }
+  .ar-attack:hover { background: var(--attack-color); }
+
+  /* ── Text Area (combat log) ── */
+  .text-area-demo {
+    background: rgba(0,0,0,0.75);
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    padding: 20px 28px;
+    text-align: center;
+    border: 1px solid rgba(244,224,185,0.2);
+    min-width: 420px;
+    text-shadow: var(--shadow-text);
+  }
+
+  /* ── Location Card ── */
+  .location-card {
+    background: var(--color-surface);
+    padding: 0;
+    cursor: pointer;
+    transition: transform .2s;
+    overflow: hidden;
+  }
+  .location-card:hover { transform: scale(1.03); filter: brightness(1.1); }
+  .location-card-img {
+    width: 100%; height: 140px;
+    background: #1a1520;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .location-card-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    background: repeating-linear-gradient(45deg, #111 0px, #111 10px, #131313 10px, #131313 20px);
+  }
+  .location-card-name {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--color-primary);
+    text-align: center;
+    padding: 10px;
+    text-shadow: var(--shadow-text);
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    top: 12px; left: 0; right: 0;
+  }
+
+  /* ── Inventory Panel ── */
+  .inventory-panel {
+    background: black;
+    padding: 15px;
+    min-width: 200px;
+    font-size: var(--text-xl);
+    color: white;
+  }
+  .inventory-money {
+    background: black;
+    font-size: var(--text-2xl);
+    color: var(--color-money);
+    padding: 4px 0;
+    font-family: var(--font-body);
+  }
+
+  /* ── Stats list ── */
+  .stat-row {
+    display: flex; align-items: center;
+    font-size: 23px;
+    color: white;
+    padding: 3px 0;
+    font-family: var(--font-body);
+    gap: 8px;
+  }
+  .stat-plus {
+    color: var(--attack-color);
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform .1s;
+  }
+  .stat-plus:hover { transform: scale(1.3); }
+  .stat-val { min-width: 28px; text-align: right; color: var(--skill-contrast); }
+
+  /* ── Skills label ── */
+  .skills-label {
+    background: var(--color-primary);
+    color: black;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: 2px 8px;
+    display: inline-block;
+    text-shadow: none;
+    margin-bottom: 6px;
+  }
+
+  /* ── Menu item ── */
+  .dm-menu-item {
+    display: block;
+    width: 200px;
+    background: black;
+    color: white;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    text-align: left;
+    text-shadow: var(--shadow-text);
+    transition: var(--transition-base);
+  }
+  .dm-menu-item:hover { background: white; color: black; }
+
+  /* ── Animation demos ── */
+  .anim-blink { animation: blinkingText 2s infinite; }
+  @keyframes blinkingText { 0% { background: #000; } 50% { background: #fff; } }
+
+  .anim-shake { animation: shake 0.5s infinite; }
+  @keyframes shake { 0%,100% { transform: translateY(0); } 25% { transform: translateY(-5px); } 75% { transform: translateY(5px); } }
+
+  .anim-zoom { animation: resize 2s infinite; }
+  @keyframes resize { 0% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+  .anim-fade { animation: fadeInAnimation ease 0.1s; animation-fill-mode: forwards; }
+  @keyframes fadeInAnimation { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+  .anim-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .anim-shimmer::after {
+    content: "";
+    position: absolute; top: 0; left: 0;
+    width: 15%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%);
+    transform: skew(-10deg);
+    animation: move 2s infinite;
+    animation-delay: 0.5s;
+  }
+  @keyframes move { 0% { left:0; opacity:0; } 5% { opacity:.05; } 48% { opacity:.2; } 80% { opacity:0; } 100% { left:90%; } }
+
+  .anim-damaged { animation: blinking 0.3s 3; }
+  @keyframes blinking { 0% { opacity:0.3; } 50% { opacity:1; } }
+
+  .anim-demo-chip {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-direction: column;
+    min-width: 150px;
+    min-height: 100px;
+  }
+  .anim-demo-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* ── Token table ── */
+  .token-table { width: 100%; border-collapse: collapse; }
+  .token-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-text-muted);
+    text-shadow: none;
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .token-table td {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-dim);
+    text-shadow: none;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+  .token-table td:first-child { color: var(--color-primary); }
+
+  /* ── States ── */
+  .state-dead { opacity: 0.3; filter: grayscale(1); }
+  .state-active { outline: 2px solid var(--attack-color); outline-offset: 2px; }
+
+  /* ── Rarity ── */
+  :root {
+    --rarity-common:   #9a9a9a;
+    --rarity-uncommon: #22c55e;
+    --rarity-rare:     #4c7b94;
+    --rarity-epic:     #9b59b6;
+    --rarity-legendary:#F1C66A;
+  }
+  .pb-rarity-uncommon {
+    box-shadow: 8px 0 black,-8px 0 black,0 -8px black,0 8px black,2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,10px 0 #22c55e,-10px 0 #22c55e,0 -10px #22c55e,0 10px #22c55e,0 0 0 6px #22c55e,0 4px 0 4px #22c55e,0 -4px 0 4px #22c55e,4px 0 0 4px #22c55e,-4px 0 0 4px #22c55e; margin:10px;
+  }
+  .pb-rarity-rare {
+    box-shadow: 8px 0 black,-8px 0 black,0 -8px black,0 8px black,2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,10px 0 #4c7b94,-10px 0 #4c7b94,0 -10px #4c7b94,0 10px #4c7b94,0 0 0 6px #4c7b94,0 4px 0 4px #4c7b94,0 -4px 0 4px #4c7b94,4px 0 0 4px #4c7b94,-4px 0 0 4px #4c7b94; margin:10px;
+    animation: rarePulse 3s ease-in-out infinite;
+  }
+  .pb-rarity-epic {
+    box-shadow: 8px 0 black,-8px 0 black,0 -8px black,0 8px black,2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,10px 0 #9b59b6,-10px 0 #9b59b6,0 -10px #9b59b6,0 10px #9b59b6,0 0 0 6px #9b59b6,0 4px 0 4px #9b59b6,0 -4px 0 4px #9b59b6,4px 0 0 4px #9b59b6,-4px 0 0 4px #9b59b6; margin:10px;
+    animation: epicPulse 2.5s ease-in-out infinite;
+  }
+  .pb-rarity-legendary {
+    box-shadow: 8px 0 black,-8px 0 black,0 -8px black,0 8px black,2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,10px 0 #F1C66A,-10px 0 #F1C66A,0 -10px #F1C66A,0 10px #F1C66A,0 0 0 6px #F1C66A,0 4px 0 4px #F1C66A,0 -4px 0 4px #F1C66A,4px 0 0 4px #F1C66A,-4px 0 0 4px #F1C66A; margin:10px;
+    animation: legendaryPulse 2s ease-in-out infinite;
+  }
+  @keyframes rarePulse    { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.3) drop-shadow(0 0 6px #4c7b94)} }
+  @keyframes epicPulse    { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.4) drop-shadow(0 0 8px #9b59b6)} }
+  @keyframes legendaryPulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.5) drop-shadow(0 0 12px #F1C66A)} }
+
+  /* item row */
+  .item-row {
+    display: flex; align-items: center; gap: 14px;
+    background: #000; padding: 12px 16px;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+  .item-row:hover { transform: scale(1.015); }
+  .item-thumb {
+    width: 56px; height: 56px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #0a0a0b;
+  }
+  .item-thumb img { width: 48px; height: 48px; image-rendering: pixelated; }
+  .item-type-badge {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--color-text-muted); text-shadow: none;
+  }
+  .item-stat { font-size: 14px; text-shadow: none; }
+  .item-price { font-size: 20px; color: var(--color-money); }
+  .rarity-badge {
+    font-family: var(--font-mono); font-size: 10px; text-shadow: none;
+    padding: 1px 5px; border: 1px solid;
+  }
+  .item-action-btn {
+    font-family: var(--font-body); font-size: 16px;
+    background: var(--color-primary); color: #000;
+    border: none; padding: 4px 14px; cursor: pointer;
+    text-shadow: none; transition: transform 0.1s ease;
+  }
+  .item-action-btn:hover { transform: scale(1.07); }
+  .item-action-btn.skill-btn { background: var(--skill-color); color: var(--skill-contrast); }
+  .item-action-btn:disabled { background: #222; color: #444; cursor: not-allowed; }
+
+  /* tooltip */
+  .item-tooltip {
+    position: absolute; z-index: 99;
+    background: #000; padding: 16px 20px;
+    min-width: 220px; pointer-events: none;
+    font-family: var(--font-body);
+    animation: tooltipIn 0.12s ease-out;
+  }
+  @keyframes tooltipIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:translateX(0)} }
+  .tooltip-stat-chip {
+    display: flex; flex-direction: column; align-items: center;
+    background: #1a1a1f; padding: 4px 10px;
+  }
+  .buff-tag {
+    background: #1a1a1f; border: 1px solid #333;
+    font-size: 11px; color: #BAD0DA;
+    padding: 2px 7px; font-family: var(--font-mono); text-shadow: none;
+  }
+
+  /* ── Scrollspy active ── */
+  .section-anchor { scroll-margin-top: 56px; }
+
+  @media (max-width: 800px) {
+    .ds-grid-4 { grid-template-columns: repeat(2,1fr); }
+    .ds-grid-5 { grid-template-columns: repeat(2,1fr); }
+    .ds-grid-3 { grid-template-columns: repeat(2,1fr); }
+    .ds-grid-2 { grid-template-columns: 1fr; }
+    .ds-hero-title { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="ds-nav" id="ds-nav">
+  <a class="ds-nav-item active" href="#colors">Colors</a>
+  <a class="ds-nav-item" href="#typography">Typography</a>
+  <a class="ds-nav-item" href="#spacing">Spacing & Borders</a>
+  <a class="ds-nav-item" href="#components">Components</a>
+  <a class="ds-nav-item" href="#states">States</a>
+  <a class="ds-nav-item" href="#animations">Animations</a>
+  <a class="ds-nav-item" href="#items">Items</a>
+  <a class="ds-nav-item" href="#tokens">Tokens</a>
+</nav>
+
+<div class="ds-page">
+
+  <!-- HERO -->
+  <header class="ds-hero">
+    <div class="ds-hero-eyebrow">Design System · v0.4</div>
+    <h1 class="ds-hero-title">Dragon Mountain</h1>
+    <p class="ds-hero-sub">The complete visual language for the Dragon Mountain RPG — colors, typography, spacing, components, states, and animations extracted from the Angular source.</p>
+    <span class="ds-version-badge">Angular 14 · SCSS · Material · Alagard / Enchanted-Land / PerfectDOS</span>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════
+       1 · COLORS
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="colors">
+    <h2 class="ds-section-title">Colors</h2>
+
+    <p class="ds-sub-title">Brand / UI</p>
+    <div class="ds-grid ds-grid-5" style="margin-bottom:40px;">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#F4E0B9;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Primary</span>
+          <span class="swatch-hex">#F4E0B9</span>
+          <span class="swatch-var">--color-primary</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#0a0a0b;border:1px solid #222;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Background</span>
+          <span class="swatch-hex">#0a0a0b</span>
+          <span class="swatch-var">--color-bg</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#111114;border:1px solid #222;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Surface</span>
+          <span class="swatch-hex">#111114</span>
+          <span class="swatch-var">--color-surface</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#1a1a1f;border:1px solid #222;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Surface 2</span>
+          <span class="swatch-hex">#1a1a1f</span>
+          <span class="swatch-var">--color-surface-2</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#22c55e;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Money</span>
+          <span class="swatch-hex">#22c55e</span>
+          <span class="swatch-var">--color-money</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="ds-sub-title">Semantic</p>
+    <div class="ds-grid ds-grid-5" style="margin-bottom:40px;">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#f16c6a;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Attack</span>
+          <span class="swatch-hex">#f16c6a</span>
+          <span class="swatch-var">--attack-color</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#F1C66A;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Attack Contrast</span>
+          <span class="swatch-hex">#F1C66A</span>
+          <span class="swatch-var">--attack-contrast</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#f16c6a4f;border:1px solid #333;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Attack Transp.</span>
+          <span class="swatch-hex">#f16c6a 30%</span>
+          <span class="swatch-var">--attack-color-transp</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#4c7b94;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Skill</span>
+          <span class="swatch-hex">#4c7b94</span>
+          <span class="swatch-var">--skill-color</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#BAD0DA;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Skill Contrast</span>
+          <span class="swatch-hex">#BAD0DA</span>
+          <span class="swatch-var">--skill-contrast</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="ds-sub-title">Data Bars</p>
+    <div class="ds-grid ds-grid-4">
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#cc5544;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">HP Bar</span>
+          <span class="swatch-hex">#cc5544</span>
+          <span class="swatch-var">--bar-hp</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:rgb(49,49,130);"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">SP Bar</span>
+          <span class="swatch-hex">rgb(49,49,130)</span>
+          <span class="swatch-var">--bar-sp</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:#ddd;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Bar Background</span>
+          <span class="swatch-hex">#ddd</span>
+          <span class="swatch-var">--bar-bg</span>
+        </div>
+      </div>
+      <div class="swatch-card">
+        <div class="swatch-block" style="background:rgba(255,255,255,0.6); border:1px solid #333;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Bar Hit Flash</span>
+          <span class="swatch-hex">rgba(255,255,255,0.6)</span>
+          <span class="swatch-var">--bar-hit</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       2 · TYPOGRAPHY
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="typography">
+    <h2 class="ds-section-title">Typography</h2>
+
+    <!-- Font families -->
+    <p class="ds-sub-title">Font Families</p>
+    <div class="ds-grid ds-grid-3" style="margin-bottom:48px;">
+      <div class="type-specimen">
+        <div style="font-family:'Enchanted-Land';font-size:42px;color:var(--color-primary);line-height:1.1;">Dragon Mountain</div>
+        <div class="type-meta">Enchanted-Land · Display / Titles<br>--font-display · .otf</div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'Alagard';font-size:28px;color:var(--color-primary);line-height:1.3;">The hero ventures into the Dark Sewers, alone.</div>
+        <div class="type-meta">Alagard · Body / UI<br>--font-body · .ttf</div>
+      </div>
+      <div class="type-specimen">
+        <div style="font-family:'PerfectDOS';font-size:18px;color:var(--color-text-dim);line-height:1.6;">--color-primary: #F4E0B9<br>v0.4 · level 1 · EXP: 5</div>
+        <div class="type-meta">PerfectDOS VGA · Code / Labels / Version<br>--font-mono · .ttf</div>
+      </div>
+    </div>
+
+    <!-- Scale -->
+    <p class="ds-sub-title">Type Scale</p>
+    <div class="ds-grid ds-grid-2">
+      <div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-family:'Enchanted-Land';font-size:72px;color:var(--color-primary);line-height:1;">Game Over!</div>
+          <div class="type-meta">72px · --font-display · Hero/GAME OVER</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:60px;color:red;font-family:'Alagard';">GAME OVER!</div>
+          <div class="type-meta">60px · var(--text-3xl) · blink state</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:40px;color:var(--color-primary);font-family:'Alagard';">Dragon Mountain</div>
+          <div class="type-meta">40px · var(--text-2xl) · h1</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:35px;color:var(--color-primary);font-family:'Alagard';">Dark Sewers</div>
+          <div class="type-meta">35px · Info Bar location label</div>
+        </div>
+      </div>
+      <div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:32px;color:var(--color-primary);font-family:'Alagard';">INVENTORY</div>
+          <div class="type-meta">32px · var(--text-xl) · h2 / Panel headers</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:30px;color:var(--color-primary);font-family:'Alagard';">level 1 · EXP: 5</div>
+          <div class="type-meta">30px · var(--text-lg) · Info box / Buttons</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:25px;color:white;font-family:'Alagard';">Hero</div>
+          <div class="type-meta">25px · Actor class name</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:23px;color:white;font-family:'Alagard';">strength: 8 <span style="color:var(--attack-color)">+</span></div>
+          <div class="type-meta">23px · Stat rows</div>
+        </div>
+        <div class="type-specimen" style="margin-bottom:8px;">
+          <div style="font-size:16px;color:var(--color-text-dim);font-family:'Alagard';">Casting Fireball — click a target</div>
+          <div class="type-meta">16px · var(--text-sm) · Helper / Caption text</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text shadow -->
+    <div style="margin-top:32px;">
+      <p class="ds-sub-title">Text Shadow</p>
+      <div class="ds-flex">
+        <div style="background:var(--color-surface);padding:20px 28px;border:1px solid var(--color-border);">
+          <span style="text-shadow:2px 1px 2px #7D7463;font-size:24px;font-family:'Alagard';color:var(--color-primary);">2px 1px 2px #7D7463</span>
+          <div class="ds-label">--shadow-text · Applied globally to all elements</div>
+        </div>
+        <div style="background:var(--color-surface);padding:20px 28px;border:1px solid var(--color-border);">
+          <span style="text-shadow:none;font-size:24px;font-family:'Alagard';color:var(--color-primary);">No shadow</span>
+          <div class="ds-label">text-shadow: none · Labels, code, meta text</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       3 · SPACING & BORDERS
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="spacing">
+    <h2 class="ds-section-title">Spacing &amp; Borders</h2>
+
+    <p class="ds-sub-title">Spacing Scale</p>
+    <div class="ds-flex" style="align-items:flex-end;margin-bottom:48px;">
+      <div style="text-align:center;" class="ds-label-group">
+        <div style="width:4px;height:4px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">4px<br>--space-1</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:8px;height:8px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">8px<br>--space-2</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:12px;height:12px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">12px<br>--space-3</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:16px;height:16px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">16px<br>--space-4</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:20px;height:20px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">20px<br>--space-5</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:24px;height:24px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">24px<br>--space-6</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:32px;height:32px;background:var(--color-primary);margin:0 auto 4px;"></div>
+        <div class="ds-label">32px<br>--space-8</div>
+      </div>
+    </div>
+
+    <p class="ds-sub-title">Pixelated Border</p>
+    <div class="comp-preview dark-bg" style="margin-bottom:16px;">
+      <div class="pixelated-border" style="background:black;padding:24px 40px;font-family:'Alagard';font-size:28px;color:var(--color-primary);">
+        pixelated-border
+      </div>
+    </div>
+    <div class="comp-code">/* SCSS mixin: other(2px, --color-primary, black) */
+/* Reconstructed as pure CSS box-shadow: */
+.pixelated-border {
+  box-shadow:
+    8px 0 black, -8px 0 black, 0 -8px black, 0 8px black,
+    2px 0 0 4px black, -2px 0 0 4px black, 0 -2px 0 4px black, 0 2px 0 4px black,
+    10px 0 var(--color-primary), -10px 0 var(--color-primary), 0 -10px var(--color-primary), 0 10px var(--color-primary),
+    0 0 0 6px var(--color-primary), 0 4px 0 4px var(--color-primary), 0 -4px 0 4px var(--color-primary),
+    4px 0 0 4px var(--color-primary), -4px 0 0 4px var(--color-primary);
+  margin: 10px;
+}</div>
+
+    <div style="margin-top:40px;">
+      <p class="ds-sub-title">Drop Shadow (filter)</p>
+      <div class="comp-preview dark-bg">
+        <div style="filter:drop-shadow(2px 4px 6px black);background:var(--color-surface-2);padding:24px 32px;font-family:'Alagard';color:var(--color-primary);font-size:24px;">
+          drop-shadow
+        </div>
+      </div>
+      <div class="comp-code">filter: drop-shadow(2px 4px 6px black); /* --shadow-drop, used on .mat-card */</div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <p class="ds-sub-title">Transitions</p>
+      <div class="ds-flex">
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:16px 24px;">
+          <div class="ds-label" style="font-size:12px;color:var(--color-text-dim);">all 0.2s ease-in-out</div>
+          <div class="ds-label">--transition-base · Global default on all elements</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:16px 24px;">
+          <div class="ds-label" style="font-size:12px;color:var(--color-text-dim);">all 0.05s ease-in</div>
+          <div class="ds-label">--transition-fast · Action range hover, combat buttons</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:16px 24px;">
+          <div class="ds-label" style="font-size:12px;color:var(--color-text-dim);">width 0.5s linear</div>
+          <div class="ds-label">Data bars (HP/SP fill animation)</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:16px 24px;">
+          <div class="ds-label" style="font-size:12px;color:var(--color-text-dim);">transform 0.2s</div>
+          <div class="ds-label">Hover scale on pawns, party members, cards</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       4 · COMPONENTS
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="components">
+    <h2 class="ds-section-title">Components</h2>
+
+    <!-- INFO BOX -->
+    <p class="ds-sub-title">Info Box (HUD — top center)</p>
+    <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+      <div class="pixelated-border info-box-demo">
+        <label>level 1</label>
+        <label style="font-size:35px;">Damned Citadel</label>
+        <label>EXP: 5</label>
+      </div>
+    </div>
+    <div class="comp-code">/* app-info-box · info-box.component */
+background-color: var(--color-primary);
+font-size: 30px; /* --text-lg */
+display: flex; align-items: center; justify-content: space-evenly;
+.pixelated-border applied to wrapper</div>
+
+    <!-- DATA BARS -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Data Bar (HP / SP)</p>
+      <div class="comp-preview" style="flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:8px;">
+        <div>
+          <div class="data-bar-demo"><div class="bar" style="background:#cc5544;width:75%;"></div></div>
+          <div class="ds-label">HP bar · barType=1 · #cc5544 · 75%</div>
+        </div>
+        <div>
+          <div class="data-bar-demo"><div class="bar" style="background:rgb(49,49,130);width:45%;"></div><div class="hit" style="width:20%;"></div></div>
+          <div class="ds-label">SP bar · barType=2 · rgb(49,49,130) · 45% + hit flash 20%</div>
+        </div>
+        <div>
+          <div class="data-bar-demo" style="width:80px;transform:scale(0.8);">
+            <div class="bar" style="background:#cc5544;width:60%;"></div>
+          </div>
+          <div class="ds-label">Minimized (in-fight/action-bar) · .shrink · scaleX(0.8) scaleY(0.8)</div>
+        </div>
+      </div>
+      <div class="comp-code">/* app-data-bar */
+height: 20px; padding: 5px; background: #ddd; border-radius: 5px;
+.bar { background: #cc5544 | rgb(49,49,130); transition: width 0.5s linear; }
+.hit { background: rgba(255,255,255,0.6); position: absolute; }
+.shrink { transform: scaleX(0.8) scaleY(0.8); }</div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Buttons</p>
+      <div class="comp-preview" style="margin-bottom:8px;">
+        <div>
+          <button class="dm-button pixel pixelated-border">Back to Stage</button>
+          <div class="ds-label" style="text-align:center;">Default · pixelated-border</div>
+        </div>
+        <div>
+          <button class="dm-button danger pixelated-border">CLOSE</button>
+          <div class="ds-label" style="text-align:center;">Danger · shop close</div>
+        </div>
+        <div>
+          <button class="dm-button skill">skills</button>
+          <div class="ds-label" style="text-align:center;">Skill trigger</div>
+        </div>
+        <div>
+          <button class="dm-button ghost">interact</button>
+          <div class="ds-label" style="text-align:center;">Ghost / Menu item</div>
+        </div>
+        <div>
+          <button class="dm-button pixel" disabled>disabled</button>
+          <div class="ds-label" style="text-align:center;">Disabled · grayscale(1)</div>
+        </div>
+      </div>
+      <div class="comp-code">font-size: 30px; /* global button rule */
+background: var(--color-primary); color: black;
+:hover { transform: scale(1.04); }
+:disabled { filter: grayscale(1); pointer-events: none; }</div>
+    </div>
+
+    <!-- ACTION BAR -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Action Bar (bottom center)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;flex-direction:column;gap:16px;">
+        <div style="background:black;display:flex;align-items:center;gap:8px;padding:12px 16px;" class="pixelated-border">
+          <!-- party members -->
+          <div class="pawn-demo pixelated-border anim-shimmer" style="background:var(--color-surface-2);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:80%;"></div></div>
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:rgb(49,49,130);width:55%;"></div></div>
+            </div>
+          </div>
+          <div class="pawn-demo pixelated-border" style="background:var(--color-surface-2);opacity:0.35;filter:grayscale(1);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:0%;"></div></div>
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:rgb(49,49,130);width:0%;"></div></div>
+            </div>
+          </div>
+          <!-- inventory button -->
+          <div style="width:95px;height:95px;background:var(--color-primary);display:flex;align-items:center;justify-content:center;cursor:pointer;margin-left:auto;" class="pixelated-border">
+            <span style="font-size:32px;text-shadow:none;">🎒</span>
+          </div>
+        </div>
+        <div class="ds-label">Party members (95×95px) + inventory button · background-image portraits</div>
+      </div>
+      <div class="comp-code">/* action-bar.component */
+height: 120px; display: flex; justify-content: space-between;
+background-image: url(/assets/images/0_0.png); /* stone texture */
+.party-member { height: 95px; width: 95px; }
+.party-member:hover { transform: scale(1.15); }
+.inventory-button { height: 95px; width: 95px; background: var(--color-primary); }</div>
+    </div>
+
+    <!-- ACTOR CARD / LOCATION -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Location Card (scene exploration)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;gap:32px;">
+        <div>
+          <div class="location-card pixelated-border" style="width:200px;">
+            <div class="location-card-img">
+              <div class="location-card-img-placeholder">location art</div>
+              <div class="location-card-name">Dark Sewers</div>
+            </div>
+          </div>
+          <div class="ds-label" style="text-align:center;margin-top:12px;">Scene preview card</div>
+        </div>
+        <div>
+          <div class="location-card pixelated-border" style="width:180px;">
+            <div class="location-card-img" style="height:260px;">
+              <div class="location-card-img-placeholder">character art</div>
+              <div class="location-card-name">Merchant Thief</div>
+            </div>
+          </div>
+          <div class="ds-label" style="text-align:center;margin-top:12px;">Actor card (location view)</div>
+        </div>
+      </div>
+      <div class="comp-code">/* location.component */
+.mat-card { background-color: transparent; filter: drop-shadow(2px 4px 6px black); cursor: pointer; }
+.actor-card { font-size: body; padding-top: 20px; text-align: center; }
+ngTilt: maxTilt=8, glare=true, maxGlare=0.1, scale=1.1</div>
+    </div>
+
+    <!-- ACTOR MENU PANEL -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Actor Menu Panel (left sidebar)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;align-items:flex-start;">
+        <div class="pixelated-border" style="background:black;padding:15px;width:220px;display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:30px;color:white;font-family:'Alagard';">Hero</div>
+          <div style="font-size:25px;color:white;font-family:'Alagard';">Hero</div>
+          <div style="background:var(--color-surface-2);width:120px;height:120px;display:flex;align-items:center;justify-content:center;font-family:'PerfectDOS';font-size:10px;color:var(--color-text-muted);text-shadow:none;">portrait</div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <div class="equip-slot pixelated-border"></div>
+            <div class="equip-slot pixelated-border"></div>
+            <div class="equip-slot pixelated-border"></div>
+          </div>
+          <div class="skills-label">skills</div>
+          <div class="stat-row">strength: <span class="stat-val">8</span> <span class="stat-plus">+</span></div>
+          <div class="stat-row">dexterity: <span class="stat-val">6</span> <span class="stat-plus">+</span></div>
+          <div class="stat-row">constitution: <span class="stat-val">15</span> <span class="stat-plus">+</span></div>
+          <div class="stat-row">intelligence: <span class="stat-val">10</span> <span class="stat-plus">+</span></div>
+          <div class="stat-row">wisdom: <span class="stat-val">5</span> <span class="stat-plus">+</span></div>
+          <div class="stat-row">charisma: <span class="stat-val">5</span> <span class="stat-plus">+</span></div>
+        </div>
+        <div class="ds-label">15% width · 70% height · position fixed left · slide-in animation</div>
+      </div>
+    </div>
+
+    <!-- INVENTORY PANEL -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Inventory Panel (right sidebar)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;align-items:flex-start;">
+        <div class="pixelated-border inventory-panel" style="width:200px;">
+          <div style="font-family:'Alagard';font-size:32px;color:white;">INVENTORY</div>
+          <div class="inventory-money">1500 $</div>
+          <div style="margin-top:12px;font-family:'Alagard';font-size:14px;color:var(--color-text-muted);text-shadow:none;">[items list]</div>
+        </div>
+        <div class="ds-label">15% width · 70% height · position fixed right<br>"INVENTORY" font-size: 32px · money color: --color-money (green)</div>
+      </div>
+    </div>
+
+    <!-- ACTION RANGE -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Action Range Wheel (in-fight overlay)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+        <div>
+          <div class="action-range-demo">
+            <div class="ar-half ar-skill">SKILL</div>
+            <div class="ar-half ar-attack">ATK</div>
+          </div>
+          <div class="ds-label" style="text-align:center;">Full wheel · choose action type</div>
+        </div>
+        <div>
+          <div style="width:120px;height:120px;border-radius:50%;background:var(--skill-color-transp);display:flex;align-items:center;justify-content:center;font-family:'Alagard';font-size:14px;color:white;cursor:crosshair;">
+            skill mode
+          </div>
+          <div class="ds-label" style="text-align:center;">Skill mode · crosshair cursor</div>
+        </div>
+        <div>
+          <div style="width:120px;height:120px;border-radius:50%;background:var(--attack-color-transp);display:flex;align-items:center;justify-content:center;font-family:'Alagard';font-size:14px;color:white;cursor:crosshair;">
+            attack mode
+          </div>
+          <div class="ds-label" style="text-align:center;">Attack mode · crosshair cursor</div>
+        </div>
+        <div>
+          <div style="width:120px;height:120px;border-radius:50%;background:rgba(219,220,132,0.33);display:flex;align-items:center;justify-content:center;font-family:'Alagard';font-size:14px;color:white;cursor:crosshair;">
+            range
+          </div>
+          <div class="ds-label" style="text-align:center;">Range indicator · --range-color</div>
+        </div>
+      </div>
+      <div class="comp-code">/* fight.component */
+.action-range { border-radius: 50%; overflow: hidden; display: flex; }
+.skill-button  { background: var(--skill-color-transp);  }   :hover → var(--skill-color)
+.move-attack-button { background: var(--attack-color-transp); }  :hover → var(--attack-color)
+Transition: all 0.05s ease-in (--transition-fast)</div>
+    </div>
+
+    <!-- COMBAT LOG TEXT AREA -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Combat Log / Text Area</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+        <div class="text-area-demo">
+          Clara B. Baade attacked Hero, making him lose 1 points!
+        </div>
+      </div>
+      <div class="comp-code">/* text-area.component */
+background: rgba(0,0,0,0.75); color: var(--color-primary);
+font-size: 30px; text-align: center; padding: 20px 28px;
+position: absolute; top: 62%; z-index: 999;</div>
+    </div>
+
+    <!-- CONTEXT MENU -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Context Menu (mat-menu)</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+        <div class="pixelated-border" style="background:black;overflow:hidden;">
+          <button class="dm-menu-item">interact</button>
+          <button class="dm-menu-item">fight</button>
+          <button class="dm-menu-item">shop</button>
+          <button class="dm-menu-item">rest</button>
+        </div>
+      </div>
+      <div class="comp-code">/* .location-menu + .pixelated-border */
+background-color: black;
+font-family: "Alagard"; font-size: 20px; color: white;
+mat-menu-item:hover { background-color: white !important; color: black !important; }</div>
+    </div>
+
+    <!-- EQUIP SLOTS -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Equipment Slots</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+        <div style="display:flex;gap:8px;">
+          <div class="equip-slot pixelated-border"></div>
+          <div class="equip-slot pixelated-border glow"></div>
+          <div class="equip-slot pixelated-border" style="background:var(--color-surface-2);">
+            <div style="width:40px;height:40px;background:var(--color-surface);display:flex;align-items:center;justify-content:center;font-family:'PerfectDOS';font-size:9px;color:var(--color-text-muted);text-shadow:none;">item</div>
+          </div>
+        </div>
+        <div class="ds-label">Empty · Glow (equippable) · Filled</div>
+      </div>
+      <div class="comp-code">/* .equip-slot */
+background-color: black; margin: 4px; height: 50px; width: 50px;
+.glow: animation blinkingText 2s infinite + scale(1.2) at 50%</div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       5 · STATES
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="states">
+    <h2 class="ds-section-title">States</h2>
+
+    <div class="ds-grid ds-grid-4">
+      <div>
+        <div class="comp-preview dark-bg" style="padding:24px;min-height:120px;">
+          <div class="pawn-demo pixelated-border" style="background:var(--color-surface-2);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:80%;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:8px 0;">Default · hover → scale(1.15)</div>
+      </div>
+      <div>
+        <div class="comp-preview dark-bg" style="padding:24px;min-height:120px;">
+          <div class="pawn-demo pixelated-border state-active" style="background:var(--color-surface-2);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:80%;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:8px 0;">Active turn · outline: 2px solid --attack-color</div>
+      </div>
+      <div>
+        <div class="comp-preview dark-bg" style="padding:24px;min-height:120px;">
+          <div class="pawn-demo pixelated-border anim-damaged" style="background:var(--color-surface-2);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:60%;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:8px 0;">Damaged · opacity blink 0.3↔1 · 0.1s</div>
+      </div>
+      <div>
+        <div class="comp-preview dark-bg" style="padding:24px;min-height:120px;">
+          <div class="pawn-demo pixelated-border state-dead" style="background:var(--color-surface-2);">
+            <div class="pawn-bars">
+              <div class="data-bar-demo" style="width:100%;height:14px;padding:3px;"><div class="bar" style="background:#cc5544;width:0%;"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:8px 0;">Dead · opacity: 0 · grayscale(1) · pointer-events: none</div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">UI Disabled State</p>
+      <div class="comp-preview" style="margin-bottom:8px;">
+        <div style="opacity:0.5;pointer-events:none;font-family:'Alagard';font-size:24px;color:var(--color-primary);">
+          All UI elements disabled
+        </div>
+      </div>
+      <div class="comp-code">/* .disabled class — applied to .ui-layer when UI is locked (e.g. fight intro animation) */
+pointer-events: none;
+/* .dont-disable overrides it for critical interactive elements */
+.dont-disable { pointer-events: auto !important; }</div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <p class="ds-sub-title">Game Over State</p>
+      <div class="comp-preview dark-bg" style="margin-bottom:8px;">
+        <div class="pixelated-border" style="background:var(--color-primary);padding:8px 32px;">
+          <span style="font-size:60px;font-family:'Alagard';animation:blinkerGameOver 1s infinite;color:red;">GAME OVER!</span>
+        </div>
+      </div>
+      <style>@keyframes blinkerGameOver { from,to { color:transparent } 50% { color:red; } }</style>
+      <div class="comp-code">/* info-box — GAME OVER state */
+font-size: 60px; color: red;
+animation: blinker 1s linear infinite;
+@keyframes blinker { from, to { color: transparent } 50% { color: red; } }</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       6 · ANIMATIONS
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="animations">
+    <h2 class="ds-section-title">Animations</h2>
+
+    <div class="ds-grid ds-grid-4">
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:var(--color-surface-2);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;" class="anim-shake">
+          <div style="width:24px;height:24px;background:var(--attack-color);"></div>
+        </div>
+        <div class="anim-demo-label">shake<br>0.5s infinite<br>translateY ±5px</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:var(--color-surface-2);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;" class="anim-zoom">
+          <div style="width:24px;height:24px;background:var(--color-primary);"></div>
+        </div>
+        <div class="anim-demo-label">resize / glow<br>2s infinite<br>scale 1 → 1.2</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-family:'Alagard';font-size:14px;" class="anim-blink">
+          equip
+        </div>
+        <div class="anim-demo-label">blinkingText<br>2s infinite<br>bg #000 → #fff</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:var(--color-surface-2);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;" class="anim-damaged">
+          <div style="width:24px;height:24px;background:var(--attack-color);"></div>
+        </div>
+        <div class="anim-demo-label">blinking (damage)<br>0.1s infinite<br>opacity 0.3 → 1</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:var(--color-surface-2);border:1px solid var(--color-border);position:relative;overflow:hidden;" class="anim-shimmer">
+        </div>
+        <div class="anim-demo-label">shimmer / shine<br>2s infinite<br>pawn highlight</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:var(--color-surface-2);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;opacity:0;" class="anim-fade">
+          <div style="width:24px;height:24px;background:var(--color-primary);"></div>
+        </div>
+        <div class="anim-demo-label">fadeInAnimation<br>0.1s · ease<br>opacity 0 → 1</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:black;display:flex;align-items:center;justify-content:center;font-family:'Alagard';font-size:12px;color:red;animation:blinkerDead 1s infinite;">
+          DEAD
+        </div>
+        <style>@keyframes blinkerDead { from,to{color:transparent} 50%{color:red;} }</style>
+        <div class="anim-demo-label">blinker<br>1s linear infinite<br>color transparent ↔ red</div>
+      </div>
+      <div class="anim-demo-chip">
+        <div style="width:60px;height:60px;background:black;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">
+          <div style="width:100%;height:100%;background:var(--skill-color);animation:fadeOutDead 1.5s forwards;"></div>
+          <style>@keyframes fadeOutDead { 0%{opacity:1;} 100%{opacity:0;} }</style>
+        </div>
+        <div class="anim-demo-label">fade-out (dead)<br>1s forwards<br>opacity 1 → 0</div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <p class="ds-sub-title">Battle Start Intro (skew + slide)</p>
+      <div class="comp-preview dark-bg" style="flex-direction:column;gap:12px;margin-bottom:8px;">
+        <div style="display:flex;gap:4px;width:100%;max-width:500px;">
+          <div style="width:50%;height:80px;background:var(--attack-color);transform:skew(10deg);display:flex;align-items:center;justify-content:center;font-family:'Alagard';color:white;">← Hero</div>
+          <div style="width:50%;height:80px;background:var(--skill-color);transform:skew(10deg);display:flex;align-items:center;justify-content:center;font-family:'Alagard';color:white;">Enemy →</div>
+        </div>
+      </div>
+      <div class="comp-code">/* fight intro: .sideLeft + .sideRight */
+transform: skew(10deg); animation: movementA/B 2s forwards;
+.sideLeft  gradient: var(--attack-color) → #ffff00 → var(--attack-color)
+.sideRight gradient: var(--skill-color)  → #00f6ff → var(--skill-color)
+backdrop: speed-vert.gif at 3% opacity</div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <p class="ds-sub-title">Angular Route Animations (@inOutAnimation)</p>
+      <div class="comp-code">/* inventory and actor-menu panels use Angular @inOutAnimation */
+trigger('inOutAnimation', [
+  transition(':enter', [style({opacity:0}), animate('0.3s ease-out', style({opacity:1}))]),
+  transition(':leave', [style({opacity:1}), animate('0.3s ease-in',  style({opacity:0}))])
+])</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       8 · ITEMS — Inventory & Shop
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="items">
+    <h2 class="ds-section-title">Items — Inventory &amp; Shop</h2>
+
+    <!-- Rarity system -->
+    <p class="ds-sub-title">Rarity Tiers</p>
+    <div class="ds-flex" style="margin-bottom:40px;align-items:stretch;">
+      <div>
+        <div class="pixelated-border item-row" style="width:260px;">
+          <div class="item-thumb" style="border:1px solid #9a9a9a33;"><img src="items/item1.png" alt="potion" /></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:20px;">Crimson Potion</span>
+              <span class="rarity-badge" style="color:#9a9a9a;border-color:#9a9a9a55;">common</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <span class="item-type-badge">⚗ consumable</span>
+              <span class="item-stat" style="color:var(--color-money);">heal 30</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">50 $</span>
+            <button class="item-action-btn">use</button>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:6px 12px;">Common · default pixelated-border (#F4E0B9)</div>
+      </div>
+
+      <div>
+        <div class="pb-rarity-uncommon item-row" style="width:260px;">
+          <div class="item-thumb" style="border:1px solid #22c55e33;"><img src="items/item4.png" alt="key" /></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:20px;">Skeleton Key</span>
+              <span class="rarity-badge" style="color:#22c55e;border-color:#22c55e55;">uncommon</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <span class="item-type-badge">🗝 key</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">200 $</span>
+            <button class="item-action-btn">use</button>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:6px 12px;">Uncommon · border #22c55e</div>
+      </div>
+
+      <div>
+        <div class="pb-rarity-rare item-row" style="width:260px;">
+          <div class="item-thumb" style="border:1px solid #4c7b9433;"><img src="items/item3.png" alt="arcanum" /></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:20px;">Azure Arcanum</span>
+              <span class="rarity-badge" style="color:#4c7b94;border-color:#4c7b9455;">rare</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <span class="item-type-badge">⚗ consumable</span>
+              <span class="item-stat" style="color:var(--skill-contrast);">sp +40</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">280 $</span>
+            <button class="item-action-btn">use</button>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:6px 12px;">Rare · border #4c7b94 · pulse glow</div>
+      </div>
+    </div>
+
+    <div class="ds-flex" style="margin-bottom:40px;align-items:stretch;">
+      <div>
+        <div class="pb-rarity-epic item-row" style="width:260px;">
+          <div class="item-thumb" style="border:1px solid #9b59b633;"><img src="items/item5.png" alt="dagger" /></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:20px;">Shadow Dagger</span>
+              <span class="rarity-badge" style="color:#9b59b6;border-color:#9b59b655;">epic</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <span class="item-type-badge">⚔ weapon</span>
+              <span class="item-stat" style="color:var(--attack-color);">atk +12</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">650 $</span>
+            <button class="item-action-btn">equip</button>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:6px 12px;">Epic · border #9b59b6 · stronger pulse</div>
+      </div>
+
+      <div>
+        <div class="pb-rarity-legendary item-row" style="width:260px;">
+          <div class="item-thumb" style="border:1px solid #F1C66A33;"><img src="items/item6.png" alt="skull" /></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:20px;">Wretched Skull</span>
+              <span class="rarity-badge" style="color:#F1C66A;border-color:#F1C66A55;">legendary</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <span class="item-type-badge">💀 relic</span>
+              <span class="item-stat" style="color:var(--skill-color);">def +6</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">1200 $</span>
+            <button class="item-action-btn">equip</button>
+          </div>
+        </div>
+        <div class="ds-label" style="padding:6px 12px;">Legendary · border #F1C66A · max glow</div>
+      </div>
+    </div>
+
+    <!-- Item Row anatomy -->
+    <p class="ds-sub-title">Item Row — Anatomy</p>
+    <div class="comp-preview dark-bg" style="flex-direction:column;align-items:flex-start;gap:0;padding:32px;margin-bottom:8px;">
+      <div style="position:relative;width:100%;max-width:480px;">
+        <div class="pixelated-border item-row" style="width:100%;">
+          <div class="item-thumb" style="border:1px solid #9b59b633;">
+            <img src="items/item5.png" alt="dagger" />
+          </div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:22px;">Shadow Dagger</span>
+              <span class="rarity-badge" style="color:#9b59b6;border-color:#9b59b655;">epic</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:4px;flex-wrap:wrap;">
+              <span class="item-type-badge">⚔ weapon</span>
+              <span class="item-stat" style="color:var(--attack-color);">atk +12</span>
+              <span class="item-stat" style="color:#BAD0DA;">dexterity +3</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="item-price">650 $</span>
+            <button class="item-action-btn">equip</button>
+          </div>
+        </div>
+        <!-- annotation lines -->
+        <div style="display:flex;gap:24px;padding:8px 12px;flex-wrap:wrap;">
+          <span style="font-family:var(--font-mono);font-size:10px;color:#555;text-shadow:none;">① 56×56 thumb · pixelated</span>
+          <span style="font-family:var(--font-mono);font-size:10px;color:#555;text-shadow:none;">② name 22px + rarity badge</span>
+          <span style="font-family:var(--font-mono);font-size:10px;color:#555;text-shadow:none;">③ type · stats inline</span>
+          <span style="font-family:var(--font-mono);font-size:10px;color:#555;text-shadow:none;">④ price (money green) + action</span>
+        </div>
+      </div>
+    </div>
+    <div class="comp-code">/* item row */
+display: flex; align-items: center; gap: 14px;
+background: #000; padding: 12px 16px;
+:hover { transform: scale(1.015); filter: brightness(1.1) drop-shadow(0 0 8px &lt;rarity-color&gt;66); }
+/* shimmer sweep on hover via ::after */
+/* rarity class on wrapper sets pixelated-border color */</div>
+
+    <!-- Hover tooltip -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Hover Tooltip</p>
+      <div class="comp-preview dark-bg" style="align-items:flex-start;gap:24px;margin-bottom:8px;flex-wrap:nowrap;">
+        <!-- mock tooltip -->
+        <div style="background:#000;border:2px solid #9b59b6;box-shadow:0 0 16px #9b59b655,4px 4px 0 #000;padding:16px 20px;min-width:220px;font-family:var(--font-body);text-shadow:var(--shadow-text);">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <img src="items/item5.png" style="width:40px;height:40px;image-rendering:pixelated;flex-shrink:0;" alt="" />
+            <div>
+              <div style="font-size:20px;color:var(--color-primary);line-height:1.1;">Shadow Dagger</div>
+              <div style="font-size:12px;color:#9b59b6;font-family:var(--font-mono);text-shadow:none;margin-top:2px;">⚔ weapon · EPIC</div>
+            </div>
+          </div>
+          <div style="height:1px;background:#9b59b644;margin-bottom:10px;"></div>
+          <div style="font-size:15px;color:#c8b89a;line-height:1.5;margin-bottom:10px;">A blade forged in shadow. High crit chance.</div>
+          <div style="display:flex;gap:12px;margin-bottom:8px;">
+            <div class="tooltip-stat-chip" style="border:1px solid #f16c6a44;">
+              <span style="font-size:10px;color:#666;font-family:var(--font-mono);text-shadow:none;">ATK</span>
+              <span style="font-size:16px;color:var(--attack-color);text-shadow:none;">+12</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">
+            <span class="buff-tag">dexterity +3</span>
+          </div>
+          <div style="font-size:18px;color:var(--color-money);">650 $</div>
+        </div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:#555;text-shadow:none;line-height:1.8;">
+          · Appears after 180ms hover<br>
+          · Border color = rarity color<br>
+          · Box-shadow glow = rarity color at 33%<br>
+          · Flips left/right to avoid viewport edge<br>
+          · Stat chips: ATK (attack-color) / DEF (skill-color)<br>
+          · Buff tags: bg #1a1a1f · color skill-contrast<br>
+          · Price: color-money green
+        </div>
+      </div>
+      <div class="comp-code">/* tooltip */
+border: 2px solid &lt;rarity-color&gt;;
+box-shadow: 0 0 16px &lt;rarity-color&gt;55, 4px 4px 0 #000;
+animation: tooltipIn 0.12s ease-out;
+@keyframes tooltipIn { from{opacity:0;transform:translateX(-6px)} to{opacity:1;transform:translateX(0)} }</div>
+    </div>
+
+    <!-- Inventory vs Shop modes -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Inventory vs Shop — Action Buttons</p>
+      <div class="ds-grid ds-grid-3" style="margin-bottom:16px;">
+        <div>
+          <div class="comp-preview" style="min-height:80px;">
+            <button class="item-action-btn">use</button>
+          </div>
+          <div class="ds-label" style="padding:6px 0;">Inventory — consumable<br>bg: --color-primary · color: #000</div>
+        </div>
+        <div>
+          <div class="comp-preview" style="min-height:80px;">
+            <button class="item-action-btn">equip</button>
+          </div>
+          <div class="ds-label" style="padding:6px 0;">Inventory — equipment<br>bg: --color-primary · color: #000</div>
+        </div>
+        <div>
+          <div class="comp-preview" style="min-height:80px;">
+            <button class="item-action-btn skill-btn">buy</button>
+          </div>
+          <div class="ds-label" style="padding:6px 0;">Shop — buy<br>bg: --skill-color · color: --skill-contrast</div>
+        </div>
+        <div>
+          <div class="comp-preview" style="min-height:80px;">
+            <button class="item-action-btn" disabled>bought</button>
+          </div>
+          <div class="ds-label" style="padding:6px 0;">Shop — already purchased<br>bg: #222 · color: #444 · not-allowed</div>
+        </div>
+        <div>
+          <div class="comp-preview" style="min-height:80px;">
+            <button class="item-action-btn" disabled>too costly</button>
+          </div>
+          <div class="ds-label" style="padding:6px 0;">Shop — can't afford<br>bg: #222 · color: #444 · not-allowed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type badges -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Item Types</p>
+      <div class="ds-flex">
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:14px 20px;">
+          <span class="item-type-badge" style="font-size:14px;">⚗ consumable</span>
+          <div class="ds-label">Potions, brews — use action</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:14px 20px;">
+          <span class="item-type-badge" style="font-size:14px;">⚔ weapon</span>
+          <div class="ds-label">Swords, daggers — equip action</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:14px 20px;">
+          <span class="item-type-badge" style="font-size:14px;">🗝 key</span>
+          <div class="ds-label">Keys — use action (single use)</div>
+        </div>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:14px 20px;">
+          <span class="item-type-badge" style="font-size:14px;">💀 relic</span>
+          <div class="ds-label">Relics — equip action (offhand)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rarity token table -->
+    <div style="margin-top:48px;">
+      <p class="ds-sub-title">Rarity Tokens</p>
+      <table class="token-table">
+        <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+        <tbody>
+          <tr><td>--rarity-common</td><td>#9a9a9a</td><td>Default pixelated-border (--color-primary). Grey label badge.</td></tr>
+          <tr><td>--rarity-uncommon</td><td>#22c55e</td><td>Green border + label. Same as --color-money.</td></tr>
+          <tr><td>--rarity-rare</td><td>#4c7b94</td><td>Blue border (same as --skill-color). 3s brightness pulse.</td></tr>
+          <tr><td>--rarity-epic</td><td>#9b59b6</td><td>Purple border. 2.5s brightness + drop-shadow pulse.</td></tr>
+          <tr><td>--rarity-legendary</td><td>#F1C66A</td><td>Gold border (same as --attack-contrast). 2s strong glow pulse.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       7 · TOKENS (full reference)
+  ═══════════════════════════════════════════════════ -->
+  <section class="ds-section section-anchor" id="tokens">
+    <h2 class="ds-section-title">Design Tokens Reference</h2>
+
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>--color-primary</td><td>#F4E0B9</td><td>Info bar bg, button bg, pixelated border color, text color base</td></tr>
+        <tr><td>--color-primary-transp</td><td>#f4e0b933</td><td>Help text overlay in fight</td></tr>
+        <tr><td>--color-bg</td><td>#0a0a0b</td><td>Page / app background</td></tr>
+        <tr><td>--color-surface</td><td>#111114</td><td>Panels, cards, menu backgrounds</td></tr>
+        <tr><td>--color-surface-2</td><td>#1a1a1f</td><td>Nested surfaces, equip slots</td></tr>
+        <tr><td>--color-border</td><td>#2a2a30</td><td>Dividers, borders</td></tr>
+        <tr><td>--color-money</td><td>#22c55e</td><td>Currency display (green)</td></tr>
+        <tr><td>--skill-color</td><td>#4c7b94</td><td>Skill action range, SP bar (with blue), intro right-side</td></tr>
+        <tr><td>--skill-contrast</td><td>#BAD0DA</td><td>Text on skill surfaces</td></tr>
+        <tr><td>--skill-color-transp</td><td>#4c7b944b</td><td>Skill range overlay (idle)</td></tr>
+        <tr><td>--attack-color</td><td>#f16c6a</td><td>Attack range, damaged overlay, stat "+" button</td></tr>
+        <tr><td>--attack-contrast</td><td>#F1C66A</td><td>Text/accents on attack surfaces</td></tr>
+        <tr><td>--attack-color-transp</td><td>#f16c6a4f</td><td>Attack range overlay (idle)</td></tr>
+        <tr><td>--attack-color-transp-2</td><td>#f16c6aa8</td><td>Attack range overlay (hover)</td></tr>
+        <tr><td>--range-color</td><td>#dbdc844d</td><td>Movement range highlight</td></tr>
+        <tr><td>--bar-hp</td><td>#cc5544</td><td>HP bar fill</td></tr>
+        <tr><td>--bar-sp</td><td>rgb(49,49,130)</td><td>SP bar fill</td></tr>
+        <tr><td>--bar-bg</td><td>#ddd</td><td>Bar track background</td></tr>
+        <tr><td>--bar-hit</td><td>rgba(255,255,255,0.6)</td><td>Bar hit-flash overlay</td></tr>
+        <tr><td>--font-display</td><td>Enchanted-Land</td><td>Titles, hero text, large headings</td></tr>
+        <tr><td>--font-body</td><td>Alagard</td><td>All body text, UI labels, buttons (global * rule)</td></tr>
+        <tr><td>--font-mono</td><td>PerfectDOS VGA</td><td>Version number, code snippets, data labels</td></tr>
+        <tr><td>--shadow-text</td><td>2px 1px 2px #7D7463</td><td>Global text shadow on all elements</td></tr>
+        <tr><td>--shadow-drop</td><td>drop-shadow(2px 4px 6px black)</td><td>Card/mat-card filter shadow</td></tr>
+        <tr><td>--transition-base</td><td>all 0.2s ease-in-out</td><td>Global transition on all elements (*)</td></tr>
+        <tr><td>--transition-fast</td><td>all 0.05s ease-in</td><td>Action range button hover</td></tr>
+        <tr><td>--text-xs</td><td>12px</td><td>h6</td></tr>
+        <tr><td>--text-sm</td><td>16px</td><td>h5, captions, helper text</td></tr>
+        <tr><td>--text-base</td><td>20px</td><td>h4, body default</td></tr>
+        <tr><td>--text-md</td><td>24px</td><td>h3</td></tr>
+        <tr><td>--text-lg</td><td>30px</td><td>Buttons (global), info box labels</td></tr>
+        <tr><td>--text-xl</td><td>32px</td><td>h2, inventory header</td></tr>
+        <tr><td>--text-2xl</td><td>40px</td><td>h1</td></tr>
+        <tr><td>--text-3xl</td><td>60px</td><td>GAME OVER text</td></tr>
+        <tr><td>--rarity-common</td><td>#9a9a9a</td><td>Common items — default border color</td></tr>
+        <tr><td>--rarity-uncommon</td><td>#22c55e</td><td>Uncommon items — green border (= --color-money)</td></tr>
+        <tr><td>--rarity-rare</td><td>#4c7b94</td><td>Rare items — blue border (= --skill-color) + 3s pulse</td></tr>
+        <tr><td>--rarity-epic</td><td>#9b59b6</td><td>Epic items — purple border + 2.5s pulse glow</td></tr>
+        <tr><td>--rarity-legendary</td><td>#F1C66A</td><td>Legendary items — gold border (= --attack-contrast) + 2s strong glow</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<script>
+  // Simple scrollspy
+  const navItems = document.querySelectorAll('.ds-nav-item');
+  const sections = document.querySelectorAll('.section-anchor');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector('.ds-nav-item[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

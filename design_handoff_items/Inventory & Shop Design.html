@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dragon Mountain — Inventory & Shop</title>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<style>
+  @font-face { font-family:"Alagard"; src:url("fonts/alagard.ttf") format("truetype"); }
+  @font-face { font-family:"Enchanted-Land"; src:url("fonts/Enchanted-Land.otf") format("opentype"); }
+  @font-face { font-family:"PerfectDOS"; src:url("fonts/Perfect_DOS_VGA_437_Win.ttf") format("truetype"); }
+
+  :root {
+    --color-primary:        #F4E0B9;
+    --color-bg:             #0a0a0b;
+    --color-surface:        #111114;
+    --color-surface-2:      #1a1a1f;
+    --color-border:         #2a2a30;
+    --skill-color:          #4c7b94;
+    --skill-contrast:       #BAD0DA;
+    --skill-color-transp:   #4c7b944b;
+    --attack-color:         #f16c6a;
+    --attack-contrast:      #F1C66A;
+    --color-money:          #22c55e;
+    --font-display:         "Enchanted-Land", serif;
+    --font-body:            "Alagard", monospace;
+    --font-mono:            "PerfectDOS", monospace;
+    --shadow-text:          2px 1px 2px #7D7463;
+
+    /* rarity colors */
+    --rarity-common:   #9a9a9a;
+    --rarity-uncommon: #22c55e;
+    --rarity-rare:     #4c7b94;
+    --rarity-epic:     #9b59b6;
+    --rarity-legendary:#F1C66A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--color-bg);
+    font-family: var(--font-body);
+    color: var(--color-primary);
+    text-shadow: var(--shadow-text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+  }
+
+  ::-webkit-scrollbar { width: 6px; background: #000; }
+  ::-webkit-scrollbar-thumb { background: #333; }
+
+  /* pixel border */
+  .pb {
+    box-shadow:
+      8px 0 black,-8px 0 black,0 -8px black,0 8px black,
+      2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,
+      10px 0 var(--color-primary),-10px 0 var(--color-primary),0 -10px var(--color-primary),0 10px var(--color-primary),
+      0 0 0 6px var(--color-primary),0 4px 0 4px var(--color-primary),0 -4px 0 4px var(--color-primary),
+      4px 0 0 4px var(--color-primary),-4px 0 0 4px var(--color-primary);
+    margin: 10px;
+  }
+
+  /* rarity pixel borders */
+  .pb-uncommon {
+    box-shadow:
+      8px 0 black,-8px 0 black,0 -8px black,0 8px black,
+      2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,
+      10px 0 var(--rarity-uncommon),-10px 0 var(--rarity-uncommon),0 -10px var(--rarity-uncommon),0 10px var(--rarity-uncommon),
+      0 0 0 6px var(--rarity-uncommon),0 4px 0 4px var(--rarity-uncommon),0 -4px 0 4px var(--rarity-uncommon),
+      4px 0 0 4px var(--rarity-uncommon),-4px 0 0 4px var(--rarity-uncommon);
+    margin: 10px;
+  }
+  .pb-rare {
+    box-shadow:
+      8px 0 black,-8px 0 black,0 -8px black,0 8px black,
+      2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,
+      10px 0 var(--rarity-rare),-10px 0 var(--rarity-rare),0 -10px var(--rarity-rare),0 10px var(--rarity-rare),
+      0 0 0 6px var(--rarity-rare),0 4px 0 4px var(--rarity-rare),0 -4px 0 4px var(--rarity-rare),
+      4px 0 0 4px var(--rarity-rare),-4px 0 0 4px var(--rarity-rare);
+    margin: 10px;
+    animation: rarePulse 3s ease-in-out infinite;
+  }
+  .pb-epic {
+    box-shadow:
+      8px 0 black,-8px 0 black,0 -8px black,0 8px black,
+      2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,
+      10px 0 var(--rarity-epic),-10px 0 var(--rarity-epic),0 -10px var(--rarity-epic),0 10px var(--rarity-epic),
+      0 0 0 6px var(--rarity-epic),0 4px 0 4px var(--rarity-epic),0 -4px 0 4px var(--rarity-epic),
+      4px 0 0 4px var(--rarity-epic),-4px 0 0 4px var(--rarity-epic);
+    margin: 10px;
+    animation: epicPulse 2.5s ease-in-out infinite;
+  }
+  .pb-legendary {
+    box-shadow:
+      8px 0 black,-8px 0 black,0 -8px black,0 8px black,
+      2px 0 0 4px black,-2px 0 0 4px black,0 -2px 0 4px black,0 2px 0 4px black,
+      10px 0 var(--rarity-legendary),-10px 0 var(--rarity-legendary),0 -10px var(--rarity-legendary),0 10px var(--rarity-legendary),
+      0 0 0 6px var(--rarity-legendary),0 4px 0 4px var(--rarity-legendary),0 -4px 0 4px var(--rarity-legendary),
+      4px 0 0 4px var(--rarity-legendary),-4px 0 0 4px var(--rarity-legendary);
+    margin: 10px;
+    animation: legendaryPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes rarePulse {
+    0%,100% { filter: brightness(1); }
+    50%      { filter: brightness(1.3) drop-shadow(0 0 6px var(--rarity-rare)); }
+  }
+  @keyframes epicPulse {
+    0%,100% { filter: brightness(1); }
+    50%      { filter: brightness(1.4) drop-shadow(0 0 8px var(--rarity-epic)); }
+  }
+  @keyframes legendaryPulse {
+    0%,100% { filter: brightness(1); }
+    50%      { filter: brightness(1.5) drop-shadow(0 0 12px var(--rarity-legendary)); }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useRef, useEffect } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "activeTab": "inventory",
+  "compactMode": false,
+  "showRarityLabel": true,
+  "goldAmount": 1100
+}/*EDITMODE-END*/;
+
+// ── Data ──────────────────────────────────────────────────────────────────────
+const ITEMS = [
+  {
+    id: 1, name: "Crimson Potion", type: "consumable", rarity: "common",
+    thumbnailPath: "items/item1.png", moneyValue: 50,
+    effect: { type: "heal", power: 30 },
+    description: "A vial of crimson fluid. Restores 30 HP when used on an ally.",
+    slot: null, attack: null, defense: null, buffs: []
+  },
+  {
+    id: 2, name: "Brew of Daring", type: "consumable", rarity: "uncommon",
+    thumbnailPath: "items/item2.png", moneyValue: 120,
+    effect: { type: "buff", power: 5 },
+    description: "A potent brew. Grants +5 STR for 3 turns.",
+    slot: null, attack: null, defense: null, buffs: ["strength +5 (3t)"]
+  },
+  {
+    id: 3, name: "Azure Arcanum", type: "consumable", rarity: "rare",
+    thumbnailPath: "items/item3.png", moneyValue: 280,
+    effect: { type: "restore_sp", power: 40 },
+    description: "Glows with arcane energy. Restores 40 SP to target.",
+    slot: null, attack: null, defense: null, buffs: []
+  },
+  {
+    id: 4, name: "Skeleton Key", type: "key", rarity: "uncommon",
+    thumbnailPath: "items/item4.png", moneyValue: 200,
+    effect: null,
+    description: "Opens any lock in the dungeon. Single use.",
+    slot: null, attack: null, defense: null, buffs: []
+  },
+  {
+    id: 5, name: "Shadow Dagger", type: "weapon", rarity: "epic",
+    thumbnailPath: "items/item5.png", moneyValue: 650,
+    effect: null,
+    description: "A blade forged in shadow. High crit chance.",
+    slot: "weapon", attack: 12, defense: 0, buffs: ["dexterity +3"]
+  },
+  {
+    id: 6, name: "Wretched Skull", type: "relic", rarity: "legendary",
+    thumbnailPath: "items/item6.png", moneyValue: 1200,
+    effect: null,
+    description: "A cursed relic. Grants taunt and poisons attackers.",
+    slot: "offhand", attack: 0, defense: 6, buffs: ["taunt", "poison on hit"]
+  },
+];
+
+const SHOP_ITEMS = [
+  { ...ITEMS[0], shopPrice: 60 },
+  { ...ITEMS[1], shopPrice: 150 },
+  { ...ITEMS[2], shopPrice: 340 },
+  { ...ITEMS[3], shopPrice: 250 },
+  { ...ITEMS[4], shopPrice: 800 },
+  { ...ITEMS[5], shopPrice: 1500 },
+];
+
+const RARITY_ORDER = ["common","uncommon","rare","epic","legendary"];
+const RARITY_COLORS = {
+  common:    "#9a9a9a",
+  uncommon:  "#22c55e",
+  rare:      "#4c7b94",
+  epic:      "#9b59b6",
+  legendary: "#F1C66A",
+};
+const TYPE_ICONS = {
+  consumable: "⚗",
+  weapon:     "⚔",
+  relic:      "💀",
+  key:        "🗝",
+};
+
+function rarityClass(r) {
+  if (r === "common")    return "pb";
+  if (r === "uncommon")  return "pb-uncommon";
+  if (r === "rare")      return "pb-rare";
+  if (r === "epic")      return "pb-epic";
+  if (r === "legendary") return "pb-legendary";
+  return "pb";
+}
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+function Tooltip({ item, anchorRef, visible }) {
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const tipRef = useRef(null);
+
+  useEffect(() => {
+    if (!visible || !anchorRef.current || !tipRef.current) return;
+    const rect = anchorRef.current.getBoundingClientRect();
+    const tip  = tipRef.current.getBoundingClientRect();
+    const viewW = window.innerWidth;
+    let left = rect.right + 16;
+    if (left + tip.width > viewW - 12) left = rect.left - tip.width - 16;
+    let top = rect.top + rect.height / 2 - tip.height / 2;
+    if (top < 8) top = 8;
+    setPos({ top, left });
+  }, [visible, item]);
+
+  if (!visible || !item) return null;
+
+  const rc = RARITY_COLORS[item.rarity];
+
+  return (
+    <div ref={tipRef} style={{
+      position: "fixed",
+      top: pos.top,
+      left: pos.left,
+      zIndex: 9999,
+      background: "#000",
+      border: `2px solid ${rc}`,
+      boxShadow: `0 0 16px ${rc}55, 4px 4px 0 #000`,
+      padding: "16px 20px",
+      minWidth: 220,
+      maxWidth: 260,
+      pointerEvents: "none",
+      fontFamily: "var(--font-body)",
+      textShadow: "var(--shadow-text)",
+      animation: "tooltipIn 0.12s ease-out",
+    }}>
+      <style>{`@keyframes tooltipIn { from { opacity:0; transform:translateX(-6px); } to { opacity:1; transform:translateX(0); } }`}</style>
+
+      {/* header */}
+      <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:10 }}>
+        <img src={item.thumbnailPath} style={{ width:40, height:40, imageRendering:"pixelated", flexShrink:0 }} alt={item.name} />
+        <div>
+          <div style={{ fontSize:20, color:"var(--color-primary)", lineHeight:1.1 }}>{item.name}</div>
+          <div style={{ fontSize:12, color: rc, fontFamily:"var(--font-mono)", textShadow:"none", marginTop:2 }}>
+            {TYPE_ICONS[item.type]} {item.type}  ·  {item.rarity.toUpperCase()}
+          </div>
+        </div>
+      </div>
+
+      {/* divider */}
+      <div style={{ height:1, background:`${rc}44`, marginBottom:10 }} />
+
+      {/* description */}
+      <div style={{ fontSize:15, color:"#c8b89a", lineHeight:1.5, marginBottom:10 }}>{item.description}</div>
+
+      {/* stats */}
+      {(item.attack > 0 || item.defense > 0) && (
+        <div style={{ display:"flex", gap:16, marginBottom:8 }}>
+          {item.attack > 0 && <StatChip label="ATK" value={`+${item.attack}`} color="var(--attack-color)" />}
+          {item.defense > 0 && <StatChip label="DEF" value={`+${item.defense}`} color="var(--skill-color)" />}
+        </div>
+      )}
+
+      {/* buffs */}
+      {item.buffs && item.buffs.length > 0 && (
+        <div style={{ display:"flex", flexWrap:"wrap", gap:4, marginBottom:8 }}>
+          {item.buffs.map((b,i) => (
+            <span key={i} style={{
+              background:"#1a1a1f", border:"1px solid #333",
+              fontSize:11, color:"#BAD0DA",
+              padding:"2px 7px", fontFamily:"var(--font-mono)",
+              textShadow:"none",
+            }}>{b}</span>
+          ))}
+        </div>
+      )}
+
+      {/* price */}
+      <div style={{ marginTop:6, fontSize:18, color:"var(--color-money)", fontFamily:"var(--font-body)" }}>
+        {item.moneyValue} $
+      </div>
+    </div>
+  );
+}
+
+function StatChip({ label, value, color }) {
+  return (
+    <div style={{
+      display:"flex", flexDirection:"column", alignItems:"center",
+      background:"#1a1a1f", padding:"4px 10px",
+      border:`1px solid ${color}44`,
+    }}>
+      <span style={{ fontSize:10, color:"#666", fontFamily:"var(--font-mono)", textShadow:"none" }}>{label}</span>
+      <span style={{ fontSize:16, color, textShadow:"none" }}>{value}</span>
+    </div>
+  );
+}
+
+// ── Item Row ──────────────────────────────────────────────────────────────────
+function ItemRow({ item, compact, showRarityLabel, actionLabel, actionColor, onAction, disabled, afforded = true }) {
+  const [hovered, setHovered] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const rowRef = useRef(null);
+  const tooltipTimer = useRef(null);
+  const rc = RARITY_COLORS[item.rarity];
+
+  function handleMouseEnter() {
+    setHovered(true);
+    tooltipTimer.current = setTimeout(() => setTooltipVisible(true), 180);
+  }
+  function handleMouseLeave() {
+    setHovered(false);
+    clearTimeout(tooltipTimer.current);
+    setTooltipVisible(false);
+  }
+
+  return (
+    <>
+      <div
+        ref={rowRef}
+        className={rarityClass(item.rarity)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          display:"flex",
+          alignItems:"center",
+          gap: compact ? 10 : 14,
+          background:"#000",
+          padding: compact ? "8px 12px" : "12px 16px",
+          cursor:"pointer",
+          transition:"transform 0.15s ease, filter 0.15s ease",
+          transform: hovered ? "scale(1.015)" : "scale(1)",
+          filter: hovered ? `brightness(1.1) drop-shadow(0 0 8px ${rc}66)` : "none",
+          opacity: disabled ? 0.4 : 1,
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* shimmer on hover */}
+        {hovered && (
+          <div style={{
+            position:"absolute", top:0, left:"-20%", width:"15%", height:"100%",
+            background:"linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent)",
+            transform:"skew(-10deg)",
+            animation:"shimRow 0.5s ease forwards",
+            pointerEvents:"none",
+          }} />
+        )}
+        <style>{`@keyframes shimRow { from{left:-20%} to{left:110%} }`}</style>
+
+        {/* thumbnail */}
+        <div style={{
+          width: compact ? 44 : 56,
+          height: compact ? 44 : 56,
+          flexShrink: 0,
+          display:"flex", alignItems:"center", justifyContent:"center",
+          background:"#0a0a0b",
+          border:`1px solid ${rc}33`,
+        }}>
+          <img
+            src={item.thumbnailPath}
+            alt={item.name}
+            style={{ width: compact ? 36 : 48, height: compact ? 36 : 48, imageRendering:"pixelated" }}
+          />
+        </div>
+
+        {/* info */}
+        <div style={{ flex:1, minWidth:0 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+            <span style={{ fontSize: compact ? 18 : 22, color:"var(--color-primary)", lineHeight:1.1, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+              {item.name}
+            </span>
+            {showRarityLabel && (
+              <span style={{
+                fontSize:10, color: rc,
+                fontFamily:"var(--font-mono)", textShadow:"none",
+                border:`1px solid ${rc}55`, padding:"1px 5px",
+                flexShrink:0,
+              }}>
+                {item.rarity}
+              </span>
+            )}
+          </div>
+
+          <div style={{ display:"flex", alignItems:"center", gap:12, marginTop:4, flexWrap:"wrap" }}>
+            {/* type badge */}
+            <span style={{ fontSize:12, color:"#555", fontFamily:"var(--font-mono)", textShadow:"none" }}>
+              {TYPE_ICONS[item.type]} {item.type}
+            </span>
+            {/* stats inline */}
+            {item.attack > 0 && (
+              <span style={{ fontSize:14, color:"var(--attack-color)", textShadow:"none" }}>atk +{item.attack}</span>
+            )}
+            {item.defense > 0 && (
+              <span style={{ fontSize:14, color:"var(--skill-color)", textShadow:"none" }}>def +{item.defense}</span>
+            )}
+            {item.effect && (
+              <span style={{ fontSize:14, color:"#BAD0DA", textShadow:"none" }}>
+                {item.effect.type === "heal" ? `heal ${item.effect.power}` :
+                 item.effect.type === "restore_sp" ? `sp +${item.effect.power}` :
+                 item.effect.type === "buff" ? "buff" : ""}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* right side: price + action */}
+        <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-end", gap:6, flexShrink:0 }}>
+          <span style={{ fontSize: compact ? 16 : 20, color:"var(--color-money)", fontFamily:"var(--font-body)" }}>
+            {(item.shopPrice ?? item.moneyValue)} $
+          </span>
+          {actionLabel && (
+            <button
+              onClick={(e) => { e.stopPropagation(); if (!disabled && afforded) onAction(item); }}
+              disabled={disabled || !afforded}
+              style={{
+                fontFamily:"var(--font-body)",
+                fontSize: compact ? 13 : 16,
+                background: (!disabled && afforded) ? actionColor : "#222",
+                color: (!disabled && afforded) ? "#000" : "#444",
+                border:"none",
+                padding: compact ? "3px 10px" : "4px 14px",
+                cursor: (!disabled && afforded) ? "pointer" : "not-allowed",
+                transition:"transform 0.1s ease",
+                textShadow:"none",
+                whiteSpace:"nowrap",
+              }}
+              onMouseEnter={e => { if (!disabled && afforded) e.currentTarget.style.transform = "scale(1.07)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; }}
+            >
+              {!afforded ? "too costly" : actionLabel}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <Tooltip item={item} anchorRef={rowRef} visible={tooltipVisible} />
+    </>
+  );
+}
+
+// ── Section header ─────────────────────────────────────────────────────────────
+function SectionHeader({ title, subtitle }) {
+  return (
+    <div style={{ marginBottom:4 }}>
+      <div style={{
+        background:"var(--color-primary)", color:"#000",
+        fontFamily:"var(--font-body)", fontSize:26,
+        padding:"6px 18px", display:"inline-block",
+        textShadow:"none",
+      }}>{title}</div>
+      {subtitle && (
+        <div style={{ fontSize:13, color:"#555", fontFamily:"var(--font-mono)", textShadow:"none", marginTop:4, paddingLeft:4 }}>
+          {subtitle}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Inventory Panel ────────────────────────────────────────────────────────────
+function InventoryPanel({ items, compact, showRarityLabel, gold }) {
+  const [removed, setRemoved] = useState([]);
+  const visible = items.filter(it => !removed.includes(it.id));
+
+  return (
+    <div style={{ width:"100%", maxWidth:520 }}>
+      <SectionHeader title="INVENTORY" subtitle="Your collected items" />
+      {/* gold */}
+      <div style={{
+        background:"#000", padding:"10px 18px", marginTop:12,
+        display:"flex", alignItems:"baseline", gap:10,
+        borderBottom:"1px solid #1a1a1f",
+      }} className="pb">
+        <span style={{ fontSize:28, color:"#000", fontFamily:"var(--font-body)", background:"var(--color-primary)", padding:"2px 10px", textShadow:"none" }}>
+          {gold} $
+        </span>
+        <span style={{ fontSize:13, color:"#444", fontFamily:"var(--font-mono)", textShadow:"none" }}>gold</span>
+      </div>
+
+      {/* items */}
+      <div style={{ display:"flex", flexDirection:"column", gap:0, marginTop:8 }}>
+        {visible.length === 0 && (
+          <div style={{ padding:"32px", textAlign:"center", color:"#333", fontFamily:"var(--font-mono)", fontSize:13, textShadow:"none" }}>
+            — inventory empty —
+          </div>
+        )}
+        {visible.map(item => (
+          <ItemRow
+            key={item.id}
+            item={item}
+            compact={compact}
+            showRarityLabel={showRarityLabel}
+            actionLabel="use"
+            actionColor="var(--color-primary)"
+            onAction={it => setRemoved(r => [...r, it.id])}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Shop Panel ─────────────────────────────────────────────────────────────────
+function ShopPanel({ items, compact, showRarityLabel, gold, setGold }) {
+  const [bought, setBought] = useState([]);
+
+  function buy(item) {
+    const price = item.shopPrice ?? item.moneyValue;
+    if (gold < price) return;
+    setGold(g => g - price);
+    setBought(b => [...b, item.id]);
+  }
+
+  return (
+    <div style={{ width:"100%", maxWidth:520 }}>
+      <SectionHeader title="SHOP" subtitle="Merchant's wares" />
+
+      {/* gold display */}
+      <div style={{
+        background:"#000", padding:"10px 18px", marginTop:12,
+        display:"flex", alignItems:"baseline", gap:10,
+        borderBottom:"1px solid #1a1a1f",
+      }} className="pb">
+        <span style={{ fontSize:28, color:"#000", fontFamily:"var(--font-body)", background:"var(--color-primary)", padding:"2px 10px", textShadow:"none" }}>
+          {gold} $
+        </span>
+        <span style={{ fontSize:13, color:"#444", fontFamily:"var(--font-mono)", textShadow:"none" }}>available gold</span>
+      </div>
+
+      {/* items */}
+      <div style={{ display:"flex", flexDirection:"column", gap:0, marginTop:8 }}>
+        {items.map(item => {
+          const isBought = bought.includes(item.id);
+          const price = item.shopPrice ?? item.moneyValue;
+          return (
+            <ItemRow
+              key={item.id}
+              item={item}
+              compact={compact}
+              showRarityLabel={showRarityLabel}
+              actionLabel={isBought ? "bought" : "buy"}
+              actionColor="var(--color-primary)"
+              afforded={gold >= price}
+              disabled={isBought}
+              onAction={buy}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Rarity Legend ─────────────────────────────────────────────────────────────
+function RarityLegend() {
+  return (
+    <div style={{
+      display:"flex", gap:16, flexWrap:"wrap",
+      padding:"12px 0", marginBottom:4,
+    }}>
+      {RARITY_ORDER.map(r => (
+        <div key={r} style={{ display:"flex", alignItems:"center", gap:6 }}>
+          <div style={{ width:10, height:10, background: RARITY_COLORS[r], flexShrink:0 }} />
+          <span style={{ fontFamily:"var(--font-mono)", fontSize:11, color:RARITY_COLORS[r], textShadow:"none" }}>
+            {r}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Tab Bar ───────────────────────────────────────────────────────────────────
+function TabBar({ active, onChange }) {
+  return (
+    <div style={{ display:"flex", gap:0, marginBottom:24 }}>
+      {["inventory","shop"].map(tab => (
+        <button
+          key={tab}
+          onClick={() => onChange(tab)}
+          style={{
+            fontFamily:"var(--font-body)",
+            fontSize:22,
+            background: active === tab ? "var(--color-primary)" : "#000",
+            color: active === tab ? "#000" : "var(--color-primary)",
+            border:"none",
+            padding:"8px 28px",
+            cursor:"pointer",
+            textShadow:"none",
+            transition:"all 0.15s ease",
+            borderBottom: active === tab ? "none" : "2px solid var(--color-primary)",
+            outline: active !== tab ? "none" : undefined,
+          }}
+        >
+          {tab.toUpperCase()}
+        </button>
+      ))}
+      <div style={{ flex:1, borderBottom:"2px solid var(--color-primary)" }} />
+    </div>
+  );
+}
+
+// ── App ───────────────────────────────────────────────────────────────────────
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [activeTab, setActiveTab] = useState(TWEAK_DEFAULTS.activeTab);
+  const [gold, setGold] = useState(TWEAK_DEFAULTS.goldAmount);
+
+  // sync tweaks → state (only on external changes, not user-driven)
+  useEffect(() => { if (tweaks.activeTab) setActiveTab(tweaks.activeTab); }, [tweaks.activeTab]);
+  useEffect(() => { if (tweaks.goldAmount !== undefined) setGold(tweaks.goldAmount); }, [tweaks.goldAmount]);
+
+  return (
+    <div style={{ width:"100%", maxWidth:580, position:"relative" }}>
+
+      {/* scene label */}
+      <div style={{
+        fontFamily:"var(--font-display)", fontSize:48,
+        color:"var(--color-primary)", textAlign:"center",
+        marginBottom:8, lineHeight:1,
+        textShadow:"4px 3px 8px #000",
+      }}>
+        Dragon Mountain
+      </div>
+      <div style={{
+        fontFamily:"var(--font-mono)", fontSize:11,
+        color:"#444", textAlign:"center",
+        marginBottom:32, textShadow:"none", letterSpacing:3,
+      }}>
+        ITEM DESIGN · INVENTORY &amp; SHOP
+      </div>
+
+      <RarityLegend />
+      <TabBar active={activeTab} onChange={t => { setActiveTab(t); setTweak("activeTab", t); }} />
+
+      {activeTab === "inventory" ? (
+        <InventoryPanel
+          items={ITEMS}
+          compact={tweaks.compactMode}
+          showRarityLabel={tweaks.showRarityLabel}
+          gold={gold}
+        />
+      ) : (
+        <ShopPanel
+          items={SHOP_ITEMS}
+          compact={tweaks.compactMode}
+          showRarityLabel={tweaks.showRarityLabel}
+          gold={gold}
+          setGold={setGold}
+        />
+      )}
+
+      {/* Tweaks panel */}
+      <TweaksPanel>
+        <TweakSection label="View" />
+        <TweakRadio
+          label="Active Tab"
+          options={["inventory","shop"]}
+          value={activeTab}
+          onChange={v => { setTweak("activeTab", v); setActiveTab(v); }}
+        />
+        <TweakToggle
+          label="Compact Mode"
+          value={tweaks.compactMode}
+          onChange={v => setTweak("compactMode", v)}
+        />
+        <TweakToggle
+          label="Show Rarity Label"
+          value={tweaks.showRarityLabel}
+          onChange={v => setTweak("showRarityLabel", v)}
+        />
+        <TweakSection label="Economy" />
+        <TweakSlider
+          label="Gold"
+          min={0} max={2000} step={50}
+          value={gold}
+          onChange={v => { setTweak("goldAmount", v); setGold(v); }}
+        />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

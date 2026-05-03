@@ -9,7 +9,6 @@ import { RunService } from '../../services/run.service';
 import { ItemService } from '../../services/item.service';
 import { Constants } from 'src/assets/constants';
 import { UiService } from '../ui-layer/ui.service';
-import { EffectType } from 'src/app/model/Interaction';
 import { MusicService } from 'src/app/services/music.service';
 import { Skill } from 'src/app/model/Skill';
 
@@ -98,20 +97,7 @@ export class SceneComponent implements OnInit {
   // NPC interactions
   
   talkToActor(a: Actor) {
-    const talkInteraction = this.runService.findInteraction(a.interactions, EffectType.talk);
-    const killInteraction = this.runService.findInteraction(a.interactions, EffectType.kill);
-
-    if (talkInteraction) {
-      this.uiService.talkToNpcPushText(a.name, talkInteraction.text);
-      this.runService.resolveInteraction(a, EffectType.talk);
-    } else {
-      this.uiService.talkToNpcPushText(a.name, a.dialogue);
-    }
-
-    if (killInteraction) {
-      this.uiService.pushText(killInteraction.text);
-      this.runService.resolveInteraction(a, EffectType.kill);
-    }
+    this.runService.talkTo(a);
   }
 
   engageFightWith(a: Actor) {

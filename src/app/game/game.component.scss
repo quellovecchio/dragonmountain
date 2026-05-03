@@ -80,6 +80,7 @@
   color: white;
   font-size: 40px;
   animation: blink 2s step-start infinite;
+  text-shadow: 10px 5px 10px #7D7463;
 }
 
 @keyframes blink {
@@ -107,7 +108,7 @@
   height: 33%;
   background-image: url('../../assets/intro/cloud-1.png');
   background-size: contain;
-  animation: moveLeft 360s linear infinite;
+  animation: moveLeft 90s both infinite;
   filter: sepia(0.2) blur(3px) drop-shadow(2px 4px 6px black);
 }
 
@@ -119,22 +120,13 @@
   height: 32%;
   background-image: url('../../assets/intro/cloud-2.png');
   background-size: contain;
-  animation: moveLeft 90s linear infinite;
+  animation: moveLeft 120s both infinite;
   filter: sepia(0.2) blur(2px) drop-shadow(2px 4px 6px black);
 }
 
 @keyframes moveLeft {
-  0% {
-    background-position: 0 0;
-  }
-
-  50% {
-    background-position: -100% 0;
-  }
-
-  100% {
-    background-position: -100% 0;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: -100% 0; }
 }
 
 @keyframes moveRight {
@@ -232,7 +224,7 @@
   width: 100%;
   background-image: url('../../assets/intro/dragon.gif');
   background-size: cover;
-  animation: struggle 1s linear infinite;
+  animation: struggle 3s both infinite;
   filter: sepia(0.1) blur(0.5px) drop-shadow(2px 4px 6px black);
 }
 
@@ -242,16 +234,104 @@
   left: 17%;
   width: 10%;
   height: 19%;
-  animation: moveRight 90s linear infinite;
+  animation: moveRight 90s both infinite;
 }
 
+@font-face {
+  font-family: 'Enchanted Land';
+  src: url('../../assets/fonts/Enchanted-Land.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 .logo {
+  font-family: 'Enchanted Land', sans-serif !important;
   position: absolute;
-  top: 15%;
-  left: 8%;
+  top: 6%;
+  left: 6%;
+  font-size: 150px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-shadow: 10px 5px 10px #7D7463;
+}
+
+/* Intro CSS animations (replaces Angular animations) */
+@keyframes introAnimationMain {
+  from { height: 0; top: 1900%; }
+  to   { height: 76%; top: 25%; }
+}
+@keyframes introAnimationClouds2 {
+  from { top: 0; background-position: -100% 0; height: 900%; }
+  to   { top: 50%; background-position: 0 0; height: 32%; }
+}
+@keyframes introAnimationClouds1 {
+  from { top: 0; background-position: -900% 0; height: 400%; }
+  to   { top: 46%; background-position: 0 0; height: 33%; }
+}
+@keyframes introAnimationDragon {
+  from { top: -50%; height: 600%; width: 400%; }
+  to   { top: 43%;  height: 19%;  width: 10%; }
+}
+@keyframes introAnimationLogo {
+  from { top: -50%; }
+  to   { top: 6%; }
+}
+
+/* Apply animations when .animate class is present */
+.background-main.animate {
+  /* Run the intro height/position animation, then start the continuous horizontal movement */
+  animation: introAnimationMain 13s ease-out forwards, moveLeft 60s linear infinite 13s;
+}
+.background-cloud-2.animate {
+  /* intro then start slow continuous movement */
+  animation: introAnimationClouds2 13s ease-out forwards, moveLeft 360s linear infinite 13s;
+  background-size: contain;
+}
+.background-cloud-1.animate {
+  /* intro then start faster continuous movement */
+  animation: introAnimationClouds1 13s ease-out forwards, moveLeft 90s linear infinite 13s;
+  background-size: contain;
+}
+.dragon-container.animate {
+  animation: introAnimationDragon 13s ease-out forwards;
+}
+.logo.animate {
+  animation: introAnimationLogo 8s ease-out forwards;
+}
+
+/* Blackout overlay that quickly flashes to black then back to intro */
+.intro-blackout {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  font-size: 90px;
-  font-weight: 700;
-  text-shadow: 2px 1px 2px #7D7463;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+.intro-blackout.animate {
+  animation: blackoutInOut 600ms ease-in-out forwards;
+}
+@keyframes blackoutInOut {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Extra dragon struggle burst after intro completes (delayed by intro duration 13s)
+   The dragon keeps its regular `struggle` loop, then plays `struggleExtra` a few times. */
+@keyframes struggleExtra {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6%) rotate(-6deg); }
+  50% { transform: translateY(6%) rotate(6deg); }
+  75% { transform: translateY(-4%) rotate(-3deg); }
+ 100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Keep the base `struggle` looping; add a delayed extra burst 3 times after intro */
+.dragon-container.animate .dragon {
+  animation: struggle 3s infinite, struggleExtra 2s ease-in-out 13s 3 both;
 }
