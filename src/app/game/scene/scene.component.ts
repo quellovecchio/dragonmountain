@@ -69,7 +69,10 @@ export class SceneComponent implements OnInit {
     } else {
       this.runService.getRun().inventory.money = this.runService.getRun().inventory.money - 200;
       this.runService.getRun().party.forEach(el => {
-        if (!el.dead) el.stats.healthPoints = el.stats.constitution;
+        if (!el.dead) { 
+          el.stats.healthPoints = el.stats.constitution;
+          el.stats.skillPoints = el.stats.intelligence;
+        }
       });
       this.uiService.pushText("You and your party wake up well rested after a full night of sleep.");
     }

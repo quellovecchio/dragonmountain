@@ -15,7 +15,7 @@ export class Run {
     currentLocation?: Location;
     currentFight?: Character[];
     experience: number = 5;
-    showBossfightLocation: boolean = false;
+    visitedStageIds: number[] = [];
 
     // questline data
     showNextQuestlinePhase: boolean = true;

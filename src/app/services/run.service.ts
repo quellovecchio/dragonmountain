@@ -66,10 +66,16 @@ export class RunService {
 
   getNextQuestlineLocations(): Location[] {
     console.log('getting new locations from the next quesline phase.')
-    var result: Location[] = [];
-    if (this.run.nextQuestlinePhase)
-      result = this.run.nextQuestlinePhase;
-    return result;
+    if (!this.run.nextQuestlinePhase)
+      this.run.nextQuestlinePhase = [];
+    return this.run.nextQuestlinePhase;
+  }
+
+  /** Safely appends a location to nextQuestlinePhase, initialising the array if needed. */
+  private addToNextQuestlinePhase(locationId: number): void {
+    if (!this.run.nextQuestlinePhase) this.run.nextQuestlinePhase = [];
+    const loc = this.dataService.getLocationById(locationId);
+    if (loc) this.run.nextQuestlinePhase.push(loc);
   }
 
   removeLocationFromPool(locationId: number) {
@@ -171,11 +177,11 @@ export class RunService {
 
       if (interaction.storyChildrenIds && interaction.storyChildrenIds.length > 0) {
         interaction.storyChildrenIds.forEach((locationId: number) => {
-          this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+          this.addToNextQuestlinePhase(locationId);
         });
       }
 
-      this.resolveInteraction(data.character, data.action);
+      this.resolveInteraction(data.character, data.action, interaction);
 
     } else if (data.action.effect) {
       // No matching interaction — apply the item's own default effect
@@ -191,9 +197,19 @@ export class RunService {
           data.character.stats.healthPoints = Math.min(newHp, data.character.stats.constitution);
           const healInteraction = this.findInteraction(data.character.interactions, EffectType.heal);
           if (healInteraction) {
-            this.resolveInteraction(data.character, EffectType.heal);
+            this.resolveInteraction(data.character, EffectType.heal, healInteraction);
             this.uiService.pushText(healInteraction.text);
           }
+          break;
+        }
+        case EffectType.resurrect: {
+          if (!data.character.dead) {
+            this.uiService.pushText(`${data.character.name} is still alive — the candle flickers uselessly.`);
+            break;
+          }
+          data.character.dead = false;
+          data.character.stats.healthPoints = Math.floor(data.character.stats.constitution / 2);
+          this.uiService.pushText(`${data.character.name} rises from the dead with ${data.character.stats.healthPoints} HP!`);
           break;
         }
         default:
@@ -260,12 +276,15 @@ export class RunService {
         usedCharactersIds.push(sourceId);
       }
       newCharacter.id = sourceId;
+      newCharacter.boss = (character as any).boss ?? false;
       newFight.push(newCharacter);
     }
     return newFight;
   }
 
   private endFight() {
+    const bossDefeated = this.getRun().currentFight?.some(c => c.boss) ?? false;
+
     this.getRun().currentFight!.forEach(actor => {
       this.loot(actor);
     });
@@ -283,6 +302,23 @@ export class RunService {
     var gainedExperience = (1 * this.getRun().level);
     this.getRun().experience = this.getRun().experience + gainedExperience;
     this.uiService.pushText("You are safe! Enemy is defeated! The party gains " + gainedExperience + " EXP");
+    this.getRun().currentLocation?.actors.forEach((a: Actor) => {
+      const killInteraction = this.findInteraction(a.interactions, EffectType.kill);
+      if (killInteraction) {
+        this.uiService.pushText(killInteraction.text as string);
+        if ((killInteraction as any).effectTarget) {
+          (killInteraction as any).effectTarget.forEach((itemId: number) => {
+            const item = this.dataService.getItemById(itemId);
+            this.addItemToInventory(item);
+            if (item.id !== 0) this.uiService.pushText(a.name + ' gave you a ' + item.name + '!');
+          });
+        }
+        if (killInteraction.storyChildrenIds?.length) {
+          killInteraction.storyChildrenIds.forEach((locationId: number) => this.addToNextQuestlinePhase(locationId));
+        }
+        this.resolveInteraction(a, EffectType.kill, killInteraction);
+      }
+    });
     if (this.charactersJoiningAfterBattle.length > 0) {
       this.charactersJoiningAfterBattle.forEach(actor => {
         actor.stats.healthPoints = actor.stats.constitution;
@@ -296,6 +332,28 @@ export class RunService {
       this.getRun().currentLocation!.fight = [];
       this.explore(this.getRun().currentLocation!);
     }
+
+    if (bossDefeated) {
+      this.advanceToNextStage();
+    }
+  }
+
+  private advanceToNextStage(): void {
+    this.getRun().visitedStageIds.push(this.getRun().stage.id);
+    const next = this.dataService.stages.find(
+      s => !this.getRun().visitedStageIds.includes(s.id)
+    );
+    if (!next) {
+      this.uiService.pushText("There are no more lands to conquer. The world is at peace.");
+      return;
+    }
+    this.getRun().stage = this.dataService.populateStage(next, this.dataService.getLocations());
+    this.getRun().questlineCounter = 0;
+    this.getRun().nextQuestlinePhase = undefined;
+    this.uiService.pushText(`The darkness lifts over the Damned Plaza... A new land beckons: ${this.getRun().stage.name}.`);
+    this.uiService.pushText("Steel yourself — new dangers await.");
+    this.getRun().stage.currentLocations = [...this.getRun().stage.questlines];
+    this.getRun().state = RunState.Exploration;
   }
 
   moveTo(location: Location) {
@@ -352,9 +410,13 @@ export class RunService {
 
   /**
    * Consumes (removes) the interaction that was triggered by the given cause.
-   * Fixes the previous OR-logic bug: a matched interaction is now correctly removed.
+   * Updates actor.dialogue to the resolved interaction's text so subsequent
+   * talks replay what already fired instead of the default dialogue.
    */
-  resolveInteraction(actor: Actor, trigger: EffectType | Item): void {
+  resolveInteraction(actor: Actor, trigger: EffectType | Item, interaction?: Interaction): void {
+    if (interaction) {
+      actor.dialogue = Array.isArray(interaction.text) ? interaction.text : [interaction.text];
+    }
     if (typeof trigger === 'object') {
       actor.interactions = actor.interactions.filter(
         i => !(typeof i.reactTo === 'number' && i.reactTo === trigger.id)
@@ -372,7 +434,6 @@ export class RunService {
    */
   talkTo(actor: Actor): void {
     const talkInteraction = this.findInteraction(actor.interactions, EffectType.talk);
-    const killInteraction = this.findInteraction(actor.interactions, EffectType.kill);
 
     if (talkInteraction) {
       this.uiService.talkToNpcPushText(actor.name, talkInteraction.text);
@@ -390,17 +451,12 @@ export class RunService {
       }
       if (talkInteraction.storyChildrenIds?.length) {
         talkInteraction.storyChildrenIds.forEach((locationId: number) => {
-          this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+          this.addToNextQuestlinePhase(locationId);
         });
       }
-      this.resolveInteraction(actor, EffectType.talk);
+      this.resolveInteraction(actor, EffectType.talk, talkInteraction);
     } else {
       this.uiService.talkToNpcPushText(actor.name, actor.dialogue);
-    }
-
-    if (killInteraction) {
-      this.uiService.pushText(killInteraction.text as string);
-      this.resolveInteraction(actor, EffectType.kill);
     }
   }
 
@@ -433,7 +489,7 @@ export class RunService {
         const healInteraction = this.findInteraction(target.interactions, EffectType.heal);
         if (healInteraction) {
           this.uiService.pushText(healInteraction.text);
-          this.resolveInteraction(target, EffectType.heal);
+          this.resolveInteraction(target, EffectType.heal, healInteraction);
         }
         break;
       }
@@ -455,10 +511,10 @@ export class RunService {
           this.uiService.pushText(interaction.text);
           if (interaction.storyChildrenIds?.length) {
             interaction.storyChildrenIds.forEach((locationId: number) => {
-              this.getNextQuestlineLocations().push(this.dataService.getLocationById(locationId));
+              this.addToNextQuestlinePhase(locationId);
             });
           }
-          this.resolveInteraction(target, skill.effect);
+          this.resolveInteraction(target, skill.effect, interaction);
         } else {
           this.uiService.pushText(`${caster.name} tried to cast ${skill.name} on ${target.name}... That will not do.`);
         }

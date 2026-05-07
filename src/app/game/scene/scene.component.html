@@ -1,14 +1,9 @@
 <div class="view">
-    <div class="map" *ngIf="runService.getRun().state == 'exploration' && !runService.getRun().showBossfightLocation">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration'">
         <div class="locations-row">
             <div class="location-preview" *ngFor="let location of runService.getRun().stage.currentLocations">
                 <app-location-preview [location]="location"></app-location-preview>
             </div>
-        </div>
-    </div>
-    <div class="map" *ngIf="runService.getRun().state == 'exploration' && runService.getRun().showBossfightLocation">
-        <div style="display: flex !important; height: 100% !important; justify-content: space-evenly !important;">
-            <app-location-preview [locationData]="runService.getRun().stage.bossLocation"></app-location-preview>
         </div>
     </div>
     <div class="location" *ngIf="runService.getRun().state == 'location'">

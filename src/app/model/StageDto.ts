@@ -6,14 +6,12 @@ export class StageDto {
     backgroundPath: string;
     locations: number[];
     questlines: number[];
-    bossLocation: number;
 
     constructor () {
             this.id = idCounter++;
             this.name = "stage";
             this.locations =  [];
             this.backgroundPath = '';
-            this.bossLocation = 0;
             this.questlines = [];
         }
 }

@@ -22,7 +22,7 @@ export class DataBarComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['currentValue'] && changes['currentValue'].previousValue && (changes['currentValue'].currentValue !== changes['currentValue'].previousValue)) {
+    if (changes['currentValue'] && changes['currentValue'].previousValue !== undefined && (changes['currentValue'].currentValue !== changes['currentValue'].previousValue)) {
       this.damage(changes['currentValue'].previousValue - changes['currentValue'].currentValue);
     }
   }

@@ -333,20 +333,20 @@ Milestones:
 
 		-	gameplay update
 			v	bless action for npcs (revive people, for priests, shamans ecc ecc)
-			-	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
+			V	introduce money drops (maybe money bags that used gives random money? different sizes? introduce bribing?)
 			-	sell
 			-	text goes on with click
 			-	rework interaction in action -> effect
 			V	fix every people killable		
 			V	defined main quest lines, get to next quest phase completing sidequests. completing three phases get you to Boss. choises in the questlines influence next quest stage location
 				V	change refresh dynamics: you can't leave some rooms if not resolved
-					-	update database: push story and locations to db
+					...	update database: push story and locations to db
 					V	implement refresh counter and quests logic
-					-	rework interaction in action -> effect
-					-	insert skippable stuff (ex: fight with prison guard) using 'charm' spell
+					v	rework interaction in action -> effect
+					v	insert skippable stuff (ex: fight with prison guard) using 'charm' spell
 					-	little choises: example touch or dont touch the relic and what happen if you do or dont
 					-	other joining conditions (talk, give ecc ecc)
-				-	play questline from bottom to end
+				v	play questline from bottom to end
 				-	play stage from bottom to end
 			-	test different gameplay setups
 			-	party limit to three
@@ -419,16 +419,72 @@ Milestones:
 1.0		-	launch version, polish
 
 
+-------------------------------------------------------------------
+---------------------FUCK THE PLAN MAN WE'VE HAD ENOUGH------------
+-------------------------------------------------------------------
 
-SPELLS:
-	poison: ranger basic skill. poisons an enemy (fixed dmg every turn). stacks. aoe version too.
-	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell. aoe version too.
-	steal: during fight, steals an item from attacked enemy. in location does the same but with selection.
-	charm: in location some npc will be affected by this spell. in fight, makes you escape (or debuff??).
-	spark: does 1*wisdom magic dmg
-	warmth: heals 1*wisdom magic dmg
-	blunt: stuns enemy for 1 turn
-	ice storm: magic dmg + stun all enemies
+TODOS:
+
+	- FIGHT STUFF
+			-	enemy range when hovered (showing where people gets attacked) 
+			-	possibility to hit enemies check if in range from html element instead of distance
+			-	animations rework
+				- 	missile logic bugfix, some spells cast missile some has an animation on the unit
+				-	rework/fix attack animation
+				-	battleground opening and closing expanding on the horizontal side
+				-	loot animation (chest opening with items coming out)
+			-	ranged attacks rework
+				-	range is given from equips - not class
+				-	equips will differ from type to type
+					-	armors and shields give defense or hp buffs
+					-	weapons vary for range and attack
+					-	introduce magical staffs, swords, two handed swords (have more range than swords), knives, bows ecc ecc
+					-	each class can only use a given set of weapons
+					-	each character can equip one armor, one shield, one weapon and an accessory (hat, ring ecc ecc)  
+				-	unequipped characters will use bare hands (small range)
+				-	 update any unit in the database to have some kind of weapon
+			-	implement collisions between pawns?
+			-	battle music?
+
+	- ENCICLOPEDIA
+		- introduce Enciclopedia, ui element showing every entry in the game. when clicking on an entry shows additional info
+		- make classes, legends (people who can join), spells, bestiary, locations and stage pages.
+
+	- VARIOUS
+		- When a legend joins, show a relevant data ui element (shows class, equip and stats). animate legends joining.
+			-	party limit to three
+			-	modal where you can see party elements stat and newcomer for comparison
+		-	sell mechanic
+		-	text goes on with click
+		-	other joining conditions (talk, give ecc ecc)
+		-	play stage from bottom to end (all questline ends in advancing to the next stage)
+		V	go to next stage logic
+			-	advanced cutscenes- the party members animating while the narrators tells shit. two phases: when they go away and where they're entering
+				-	 relevant text to be added in the stage (leaveStageText, introduceStageText)
+		-	updated intro and character selection
+		-	change fixed loots to pool of loot for each stage, actor etc etc
+		-	random encounters (random drops in locations)
+		-	spawn also people (not only locations) during exploration
+			-	example: spawn granny or wanderer seller instead of location, a bandit something like that, citizens giving lore info
+
+	- UI
+		-	cards remake
+			-	implement Claude Design UI for cards (actors and locations)
+		 
+
+
+	- LATER
+			-	summon skills:
+				-	some skills will summon minions in battle. introduce "summon ghost" spell as an example
+				-	minions will be added to the party during fights and act on their own
+				-	same as actors, they can move, attack and cast spells but the player has no control on them (they do their turn automatically like enemies)
+			-	introduce shaman class: new class with the "summon ghost" spell available at level 0
+				-	introduce an actor spawning in a new room that can join the party and has the shaman class.
+			-	text input
+			-	subclass dynamic
+			-	poison and dispel skills
+			-	gambling - poker minigame
+		
 
 
 ----------------------------------------------------
@@ -441,6 +497,20 @@ BUG TRACKER
 - health bar always starts at max when battle starts
 - using items does not consume them
 - ranged attacks not working for enemies
+
+---------------------------------------------------
+SPELLS:
+---------------------------------------------------
+
+	poison: ranger basic skill. poisons an enemy (fixed dmg every turn). stacks. aoe version too.
+	taunt: learnt by warriors at level 2. inflicts 'taunt' debuff, taunted enemy can only attack who launched the spell. aoe version too.
+	steal: during fight, steals an item from attacked enemy. in location does the same but with selection.
+	charm: in location some npc will be affected by this spell. in fight, makes you escape (or debuff??).
+	spark: does 1*wisdom magic dmg
+	warmth: heals 1*wisdom magic dmg
+	blunt: stuns enemy for 1 turn
+	ice storm: magic dmg + stun all enemies
+
 
 ------------------------------------------------------	
 PLOT: 
@@ -489,7 +559,7 @@ Damned citadel: A corrupted city  holy water, silver bar, demon horn
 				(2): vampires attack you upon entering. In the room there is the Vampire Master, telling you you can join them and get power and wealth. If you don't join the vampires, he will attack you and when defeated transforms into a bat and flies away manacing to kill the Major. If you join the vampires, he will give you a 'bloodsuck' scroll, used to learn a spell that makes you absorb damage.
 
 				next stages are the King's Court (1) or the Damned Plaza (2)
-				(1): If you joined the vampires you will unlock King's Court where you'll face the King and his guards as the bosses of the Stage.
+				(1): If you joined the vampires you will return to the Municipal Hall when you can fight the Mayor. The fight is Mayor (weak, really slow) and his two guards (one with mage class buff, heal, and offensive spells, high intelligence and wisdom, the other has good strenght and dexterity )
 				(2): If you didn't join the vampire legion you will unlock Damned Plaza. You find out Vampires are attacking the city. In the location there's the Supreme Vampire (boss)
 
 

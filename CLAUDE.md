@@ -70,6 +70,12 @@ Toggle `DEBUG_SKIP_INTRO` when working on gameplay — it skips the typed intro 
 
 Lets players build custom stages, locations, NPCs, items, skills, and classes. Each entity type has its own editor component (`skills-editor`, `npcs-editor`, `locations-editor`, etc.) using Angular Material dialogs. `EditorService` handles editor-specific logic; `FileService` handles JSON import/export.
 
+### Database & Interaction Schema
+
+See **[DB_SCHEMA.md](./DB_SCHEMA.md)** for a full reference on how `new_db.json` is structured:
+items, actors, interactions (`reactTo`, `effect`, `effectTarget`, `locksDoor`, `storyChildrenIds`),
+locations (`children`, `storylineCounter`), stages, and questline progression logic.
+
 ### Known Pitfalls
 
 - **Global ID counters**: Model files use module-level `idCounter` variables. Object creation order matters; be cautious when instantiating models outside the normal data-loading path.

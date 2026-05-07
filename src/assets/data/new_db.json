@@ -327,7 +327,8 @@
             "description": "A sacred candle used in resurrection rituals.",
             "moneyValue": 800,
             "thumbnailPath": "assets/images/items/item2.png",
-            "rarity": 2
+            "rarity": 2,
+            "effect": { "type": 7, "power": 0 }
         },
         {
             "id": 22,
@@ -1009,8 +1010,7 @@
                     "reactTo": "talk",
                     "text": "You look roughed up. Here, take this.",
                     "effect": 1,
-                    "effectTarget": [6],
-                    "locksDoor": true
+                    "effectTarget": [6]
                 }
             ]
         },
@@ -1317,7 +1317,16 @@
                 "If you have a Revive Candle, try using it on my Golem!",
                 "What could possibly go wrong...?"
             ],
-            "skills": []
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": "Ah, a curious soul! Here — take this Revive Candle. I have plenty. Use it on my Golem over there... for science!",
+                    "effect": 1,
+                    "effectTarget": [21],
+                    "locksDoor": true
+                }
+            ]
         },
         {
             "id": 49,
@@ -1405,12 +1414,12 @@
             "dialogue": "THE MUSIC OF THE NIGHT!",
             "stats": {
                 "charisma": 10,
-                "strength": 6,
-                "constitution": 35,
+                "strength": 4,
+                "constitution": 20,
                 "dexterity": 5,
                 "wisdom": 8,
                 "intelligence": 10,
-                "healthPoints": 35
+                "healthPoints": 20
             },
             "skills": []
         },
@@ -1430,8 +1439,7 @@
                     "reactTo": 5,
                     "text": "[The kid grabs the horn and blows it loudly] HERE YOU GO! Don't tell my mum.",
                     "effect": 1,
-                    "effectTarget": [0, 0, 0],
-                    "locksDoor": true
+                    "effectTarget": [0, 0, 0]
                 }
             ]
         },
@@ -1452,8 +1460,7 @@
                     "reactTo": "kill",
                     "text": "[The merchant exhales and digs behind the counter] Take this. You've earned it.",
                     "effect": 1,
-                    "effectTarget": [8],
-                    "locksDoor": true
+                    "effectTarget": [8]
                 }
             ]
         },
@@ -1572,8 +1579,7 @@
                     "reactTo": 20,
                     "text": "[You hold up the Silver Bar. The Governor's eyes go wide — then red.] NOOOOOO—",
                     "effect": 2,
-                    "vanishes": true,
-                    "storyChildrenIds": [35],
+                    "actorVanishes": true,
                     "effectTarget": [
                         {
                             "name": "Vampire Governor",
@@ -1626,10 +1632,10 @@
             "stats": {
                 "charisma": 8,
                 "strength": 7,
-                "constitution": 40,
+                "constitution": 20,
                 "dexterity": 7,
                 "intelligence": 10,
-                "healthPoints": 40
+                "healthPoints": 20
             },
             "skills": [],
             "interactions": [
@@ -1637,19 +1643,67 @@
                     "reactTo": "talk",
                     "text": "[You lower your weapon. The Vampire Master smiles.] A wise choice. Take this — proof of your allegiance.",
                     "effect": 1,
-                    "effectTarget": [22],
-                    "storyChildrenIds": [18],
-                    "locksDoor": true
+                    "effectTarget": [22]
                 },
                 {
                     "reactTo": "kill",
                     "text": "[The Vampire Master dissolves into mist, hissing:] The Supreme One... will have you for this...",
                     "effect": 1,
-                    "effectTarget": [0, 0],
-                    "storyChildrenIds": [35],
-                    "locksDoor": true
+                    "effectTarget": [0, 0]
                 }
             ]
+        },
+        {
+            "id": 67,
+            "name": "Scared Citizen",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "Please... just make it quick.",
+            "skills": [],
+            "interactions": [
+                {
+                    "reactTo": "talk",
+                    "text": [
+                        "I'm sure I'm going to die here... what's the point of keeping this?",
+                        "Take it. It's no use to me now.",
+                        "[He presses a handful of coins into your hand with trembling fingers]"
+                    ],
+                    "effect": 1,
+                    "effectTarget": [0, 0, 0, 0, 0]
+                }
+            ]
+        },
+        {
+            "id": 68,
+            "name": "Vampire Lord",
+            "imagePath": "/assets/images/actors/actor7.png",
+            "level": 5,
+            "loot": [0, 0, 0],
+            "dialogue": [
+                "You are already dead. You simply have not accepted it yet.",
+                "Leave this place, mortal. I will not warn you twice."
+            ],
+            "boss": true,
+            "stats": {
+                "charisma": 8,
+                "strength": 7,
+                "constitution": 35,
+                "dexterity": 6,
+                "wisdom": 3,
+                "intelligence": 12,
+                "healthPoints": 35
+            },
+            "skills": []
+        },
+        {
+            "id": 69,
+            "name": "Crying Child",
+            "imagePath": "/assets/images/actors/actor4.png",
+            "level": 1,
+            "loot": [],
+            "dialogue": "...Mummy? Where are you? I can't find mummy...",
+            "skills": []
         },
         {
             "id": 66,
@@ -2000,6 +2054,7 @@
             "id": 33,
             "name": "Governor's Mansion",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "children": [35],
             "fight": [64],
             "loot": [],
             "actors": [63]
@@ -2008,6 +2063,7 @@
             "id": 34,
             "name": "Vampire Hideout",
             "backgroundPath": "/assets/images/locations/location5-bg.png",
+            "children": [35],
             "fight": [64, 64],
             "loot": [],
             "actors": [65]
@@ -2016,8 +2072,9 @@
             "id": 35,
             "name": "Damned Plaza",
             "backgroundPath": "/assets/images/locations/location4-bg.png",
+            "fight": [64, 64],
             "loot": [],
-            "actors": [66]
+            "actors": [67, 68, 69]
         }
     ],
     "lastStage": {},
@@ -2025,13 +2082,24 @@
         {
             "id": 0,
             "name": "Damned Citadel",
-            "bossLocation": 0,
             "questlines": [
                 12, 13
             ],
             "locations": [
                 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 14, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32
-            ]
+            ],
+            "backgroundPath": "/assets/images/stages/stage1-bg.png" 
+        },
+        {
+            "id": 1,
+            "name": "Forsaken Highlands",
+            "questlines": [
+                3
+            ],
+            "locations": [
+                7, 29, 32, 26, 28, 30, 31
+            ],
+            "backgroundPath": "/assets/images/stages/stage2-bg.png" 
         }
     ]
 }

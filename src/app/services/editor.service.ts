@@ -154,7 +154,6 @@ export class EditorService {
       dto.name = el.name;
       dto.backgroundPath = el.backgroundPath;
       dto.locations = el.locations.map((el: Location) => el.id);
-      dto.bossLocation = el.bossLocation.id;
       r.push(dto);
     });
     return r;

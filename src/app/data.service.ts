@@ -25,6 +25,7 @@ export class DataService {
   actors: ActorDto[] = [];
   classes: Class[] = [];
   locations: Location[] = [];
+  stages: StageDto[] = [];
 
   constructor() { }
 
@@ -71,6 +72,14 @@ export class DataService {
     this.locations = this.populateLocations(dtos);
   }
 
+  getLocations(): Location[] {
+    return this.locations;
+  }
+
+  setStages(stages: StageDto[]): void {
+    this.stages = stages;
+  }
+
   getLocationById(id: number): Location {
     var r = this.locations.find(l => l.id === id);
     return r ? r : new Location();
@@ -112,6 +121,9 @@ export class DataService {
     }
     if (actorData.revive) {
       r.revive = actorData.revive;
+    }
+    if (actorData.boss) {
+      r.boss = actorData.boss;
     }
     if (actorData.equipment) {
       actorData.equipment.forEach(id => {
@@ -156,6 +168,9 @@ export class DataService {
     }
     if (actorData.revive) {
       r.revive = actorData.revive;
+    }
+    if (actorData.boss) {
+      r.boss = actorData.boss;
     }
     if (actorData.equipment) {
       actorData.equipment.forEach(id => {
@@ -239,16 +254,18 @@ export class DataService {
     var r = new Stage();
     r.id = dto.id;
     r.name = dto.name;
-    r.backgroundPath = dto.backgroundPath;
+    if (dto.backgroundPath) r.backgroundPath = dto.backgroundPath;
     if (dto.locations) {
       dto.locations.forEach(id => {
         var data = locations.find(el => el.id === id);
-        r.locations.push(data!);
+        if (data) r.locations.push(data);
       })
     }
-    if (dto.bossLocation) {
-      var data = locations.find(el => el.id === dto.bossLocation);
-      r.bossLocation = data!;
+    if (dto.questlines) {
+      dto.questlines.forEach(id => {
+        var data = locations.find(el => el.id === id);
+        if (data) r.questlines.push(data);
+      })
     }
     return r;
   }
