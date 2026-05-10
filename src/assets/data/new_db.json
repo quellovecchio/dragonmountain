@@ -342,6 +342,7 @@
     "actors": [
         {
             "id": 0,
+            "rarity": "common",
             "name": "Domestic Goblin",
             "imagePath": "/assets/images/actors/enemy3.png",
             "level": 2,
@@ -356,6 +357,7 @@
         },
         {
             "id": 1,
+            "rarity": "common",
             "name": "Cleaner Tomb",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 2,
@@ -393,6 +395,7 @@
         },
         {
             "id": 2,
+            "rarity": "common",
             "name": "Headless animated mannequin",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 2,
@@ -419,6 +422,7 @@
         },
         {
             "id": 3,
+            "rarity": "common",
             "name": "Lesser Demon",
             "level": 1,
             "imagePath": "/assets/images/actors/enemy1.png",
@@ -438,6 +442,7 @@
         },
         {
             "id": 4,
+            "rarity": "common",
             "name": "Unsettling statue",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 3,
@@ -471,6 +476,7 @@
         },
         {
             "id": 5,
+            "rarity": "uncommon",
             "name": "Priest",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -486,6 +492,7 @@
         },
         {
             "id": 6,
+            "rarity": "common",
             "name": "Cursed Closet",
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 3,
@@ -520,6 +527,7 @@
         },
         {
             "id": 7,
+            "rarity": "common",
             "name": "Troubled Merchant",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -538,6 +546,7 @@
         },
         {
             "id": 8,
+            "rarity": "common",
             "name": "Innkeeper",
             "level": 1,
             "loot": [],
@@ -547,6 +556,7 @@
         },
         {
             "id": 9,
+            "rarity": "uncommon",
             "name": "Hairy Thomas",
             "classId": 2,
             "imagePath": "/assets/images/actors/actor2.png",
@@ -571,6 +581,7 @@
         },
         {
             "id": 10,
+            "rarity": "common",
             "name": "Skinny beggar",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -610,6 +621,7 @@
         },
         {
             "id": 11,
+            "rarity": "common",
             "name": "thielf",
             "level": 1,
             "imagePath": "/assets/images/actors/enemy1.png",
@@ -626,6 +638,7 @@
         },
         {
             "id": 12,
+            "rarity": "common",
             "name": "Scary man",
             "level": 1,
             "loot": [
@@ -651,6 +664,7 @@
         },
         {
             "id": 13,
+            "rarity": "common",
             "name": "Woman",
             "level": 1,
             "loot": [],
@@ -662,6 +676,7 @@
         },
         {
             "id": 14,
+            "rarity": "common",
             "name": "Very fast woman",
             "level": 1,
             "dialogue": [
@@ -673,6 +688,7 @@
         },
         {
             "id": 15,
+            "rarity": "common",
             "name": "Hooker",
             "level": 1,
             "loot": [],
@@ -684,6 +700,7 @@
         },
         {
             "id": 16,
+            "rarity": "common",
             "name": "Granny",
             "level": 1,
             "loot": [],
@@ -693,6 +710,7 @@
         },
         {
             "id": 17,
+            "rarity": "common",
             "name": "Unsettling merchant",
             "level": 3,
             "loot": [],
@@ -707,6 +725,7 @@
         },
         {
             "id": 18,
+            "rarity": "common",
             "name": "Street Merchant",
             "level": 3,
             "loot": [],
@@ -729,6 +748,7 @@
         },
         {
             "id": 19,
+            "rarity": "uncommon",
             "name": "Skid Column",
             "classId": 1,
             "level": 3,
@@ -751,6 +771,7 @@
         },
         {
             "id": 20,
+            "rarity": "common",
             "name": "Goblin",
             "imagePath": "/assets/images/actors/enemy3.png",
             "level": 1,
@@ -767,6 +788,7 @@
         },
         {
             "id": 21,
+            "rarity": "common",
             "name": "Shining Chest",
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
@@ -785,6 +807,7 @@
         },
         {
             "id": 22,
+            "rarity": "rare",
             "name": "The Witch",
             "imagePath": "/assets/images/actors/actor3.png",
             "level": 3,
@@ -817,6 +840,7 @@
         },
         {
             "id": 23,
+            "rarity": "common",
             "name": "Large Rat",
             "classId": "3",
             "imagePath": "/assets/images/actors/enemy4.png",
@@ -834,6 +858,7 @@
         },
         {
             "id": 24,
+            "rarity": "uncommon",
             "name": "Merchant Thief",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 3,
@@ -869,6 +894,7 @@
         },
         {
             "id": 25,
+            "rarity": "legendary",
             "name": "Clara B. Baade",
             "imagePath": "/assets/images/actors/actor5.png",
             "classId": 4,
@@ -892,6 +918,7 @@
         },
         {
             "id": 26,
+            "rarity": "common",
             "name": "Assessor n.1",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 3,
@@ -931,6 +958,7 @@
         },
         {
             "id": 27,
+            "rarity": "rare",
             "name": "The Mayor",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -956,6 +984,7 @@
         },
         {
             "id": 28,
+            "rarity": "common",
             "name": "Assessor n.2",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -968,6 +997,7 @@
         },
         {
             "id": 29,
+            "rarity": "common",
             "name": "Gladiator",
             "level": 1,
             "imagePath": "/assets/images/actors/enemy1.png",
@@ -987,6 +1017,7 @@
         },
         {
             "id": 30,
+            "rarity": "uncommon",
             "name": "Arena Master",
             "imagePath": "/assets/images/actors/actor2.png",
             "level": 3,
@@ -999,6 +1030,7 @@
         },
         {
             "id": 31,
+            "rarity": "common",
             "name": "Spectator",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1016,6 +1048,7 @@
         },
         {
             "id": 32,
+            "rarity": "common",
             "name": "Sharp dressed prisoner",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1042,6 +1075,7 @@
         },
         {
             "id": 33,
+            "rarity": "common",
             "name": "Imperial guard",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1061,6 +1095,7 @@
         },
         {
             "id": 34,
+            "rarity": "rare",
             "name": "The Real Heir",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1076,6 +1111,7 @@
         },
         {
             "id": 35,
+            "rarity": "common",
             "name": "Laura Marie",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1084,6 +1120,7 @@
         },
         {
             "id": 36,
+            "rarity": "uncommon",
             "name": "Ecclesius",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 2,
@@ -1095,6 +1132,7 @@
         },
         {
             "id": 37,
+            "rarity": "common",
             "name": "Fortune Teller",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 2,
@@ -1107,6 +1145,7 @@
         },
         {
             "id": 38,
+            "rarity": "uncommon",
             "name": "Crystal Globe",
             "imagePath": "/assets/images/actors/actor8.png",
             "level": 2,
@@ -1115,6 +1154,7 @@
         },
         {
             "id": 39,
+            "rarity": "common",
             "name": "Laura Marie",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1126,6 +1166,7 @@
         },
         {
             "id": 40,
+            "rarity": "epic",
             "name": "The King",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1145,6 +1186,7 @@
         },
         {
             "id": 41,
+            "rarity": "common",
             "name": "Aristocrat",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1167,6 +1209,7 @@
         },
         {
             "id": 42,
+            "rarity": "common",
             "name": "Ecclesius",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1177,6 +1220,7 @@
         },
         {
             "id": 43,
+            "rarity": "common",
             "name": "Laura Marie",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1188,6 +1232,7 @@
         },
         {
             "id": 44,
+            "rarity": "common",
             "name": "Thief",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1223,6 +1268,7 @@
         },
         {
             "id": 45,
+            "rarity": "common",
             "name": "Sharp dressed man",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1260,6 +1306,7 @@
         },
         {
             "id": 46,
+            "rarity": "epic",
             "name": "Thieves Guild Master",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 4,
@@ -1282,6 +1329,7 @@
         },
         {
             "id": 47,
+            "rarity": "epic",
             "name": "Far Land Emissary",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 4,
@@ -1306,6 +1354,7 @@
         },
         {
             "id": 48,
+            "rarity": "uncommon",
             "name": "Frank the Mad Scientist",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1330,6 +1379,7 @@
         },
         {
             "id": 49,
+            "rarity": "common",
             "name": "Experiment Golem",
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 2,
@@ -1366,6 +1416,7 @@
         },
         {
             "id": 50,
+            "rarity": "common",
             "name": "Crouching Hunchback",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1375,6 +1426,7 @@
         },
         {
             "id": 51,
+            "rarity": "uncommon",
             "name": "Dark Adept",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 2,
@@ -1389,6 +1441,7 @@
         },
         {
             "id": 52,
+            "rarity": "common",
             "name": "Dead Rabbit",
             "imagePath": "/assets/images/actors/actor6.png",
             "level": 1,
@@ -1407,6 +1460,7 @@
         },
         {
             "id": 53,
+            "rarity": "rare",
             "name": "Phantom of the Opera",
             "level": 3,
             "imagePath": "/assets/images/actors/enemy2.png",
@@ -1425,6 +1479,7 @@
         },
         {
             "id": 54,
+            "rarity": "common",
             "name": "Street Kid",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1445,6 +1500,7 @@
         },
         {
             "id": 55,
+            "rarity": "common",
             "name": "Dusty Merchant",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 2,
@@ -1466,6 +1522,7 @@
         },
         {
             "id": 56,
+            "rarity": "common",
             "name": "Extortionist",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 2,
@@ -1486,6 +1543,7 @@
         },
         {
             "id": 57,
+            "rarity": "common",
             "name": "Arena Veteran",
             "imagePath": "/assets/images/actors/enemy1.png",
             "level": 2,
@@ -1503,6 +1561,7 @@
         },
         {
             "id": 58,
+            "rarity": "common",
             "name": "Arena Champion",
             "imagePath": "/assets/images/actors/enemy1.png",
             "level": 3,
@@ -1520,6 +1579,7 @@
         },
         {
             "id": 59,
+            "rarity": "common",
             "name": "Wandering Pedlar",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1530,6 +1590,7 @@
         },
         {
             "id": 60,
+            "rarity": "common",
             "name": "Lurker",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1542,6 +1603,7 @@
         },
         {
             "id": 61,
+            "rarity": "common",
             "name": "Restless Spirit",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 1,
@@ -1554,6 +1616,7 @@
         },
         {
             "id": 62,
+            "rarity": "common",
             "name": "Rundown Innkeeper",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 1,
@@ -1564,6 +1627,7 @@
         },
         {
             "id": 63,
+            "rarity": "rare",
             "name": "Governor Vasile",
             "imagePath": "/assets/images/actors/actor1.png",
             "level": 3,
@@ -1603,6 +1667,7 @@
         },
         {
             "id": 64,
+            "rarity": "common",
             "name": "Vampire Thrall",
             "imagePath": "/assets/images/actors/enemy2.png",
             "level": 2,
@@ -1620,6 +1685,7 @@
         },
         {
             "id": 65,
+            "rarity": "epic",
             "name": "Vampire Master",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 4,
@@ -1655,6 +1721,7 @@
         },
         {
             "id": 67,
+            "rarity": "common",
             "name": "Scared Citizen",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1676,6 +1743,7 @@
         },
         {
             "id": 68,
+            "rarity": "legendary",
             "name": "Vampire Lord",
             "imagePath": "/assets/images/actors/actor7.png",
             "level": 5,
@@ -1698,6 +1766,7 @@
         },
         {
             "id": 69,
+            "rarity": "common",
             "name": "Crying Child",
             "imagePath": "/assets/images/actors/actor4.png",
             "level": 1,
@@ -1707,6 +1776,7 @@
         },
         {
             "id": 66,
+            "rarity": "legendary",
             "name": "Supreme Vampire",
             "imagePath": "/assets/images/actors/enemy2.png",
             "level": 5,

@@ -17,6 +17,18 @@
     --rarity-rare:      #4c7b94;
     --rarity-epic:      #9b59b6;
     --rarity-legendary: #F1C66A;
+    --font-display:     'Enchanted-Land';
+    --font-body:        'Alagard';
+    --font-mono:        'PerfectDOS';
+    --bar-hp:           #cc5544;
+    --bar-sp:           rgb(49,49,130);
+    --color-text-dim:   #9a8a6a;
+    --color-text-muted: #5a504a;
+}
+
+@font-face {
+    font-family: "Enchanted-Land";
+    src: local("Enchanted-Land"), url(./assets/fonts/Enchanted-Land.otf) format("opentype");
 }
 
 @font-face {
@@ -146,6 +158,13 @@ h6 {
 .rarity-rare      { animation: rarePulse 3s ease-in-out infinite; }
 .rarity-epic      { animation: epicPulse 2.5s ease-in-out infinite; }
 .rarity-legendary { animation: legendaryPulse 2s ease-in-out infinite; }
+
+// Card pixel-border classes used by char-card and loc-card
+.pb-common    { @include other(2px, #9a9a9a, black); margin: 12px; }
+.pb-uncommon  { @include other(2px, #22c55e, black); margin: 12px; }
+.pb-rare      { @include other(2px, #4c7b94, black); margin: 12px; animation: rarePulse 3s ease-in-out infinite; }
+.pb-epic      { @include other(2px, #9b59b6, black); margin: 12px; animation: epicPulse 2.5s ease-in-out infinite; }
+.pb-legendary { @include other(2px, #F1C66A, black); margin: 12px; animation: legendaryPulse 2s ease-in-out infinite; }
 
 @keyframes rarePulse {
     0%, 100% { filter: brightness(1); }

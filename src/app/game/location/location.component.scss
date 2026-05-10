@@ -7,15 +7,12 @@
     transition: transform .2s;
 }
 
-.space:hover {
-    transform: scale(1.02);
-    filter: none;
-    -webkit-filter: none;
-}
-
 .actor {
     height: 107%;
     width: 22%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width : 1000px) {
@@ -25,7 +22,7 @@
     }
 }
 
-@media (max-width : 1000px) {
+@media (max-width : 600px) {
     .actor {
         height: 20rem;
         width: 25vw;
@@ -36,19 +33,13 @@
     display: flex !important;
     height: 100% !important;
     justify-content: space-evenly !important;
+    align-items: center;
 }
 
 @media (max-width : 600px) {
     .actor-row {
         margin-top: 10%;
     }
-}
-
-.actor-card {
-    display: flex !important;
-    flex-direction: column;
-    height: 100% !important;
-    justify-content: space-evenly !important;
 }
 
 .back-button {
@@ -77,8 +68,161 @@
     }
 }
 
-.image-bg {
-    background-size: contain;
+// ─── Character Card ───────────────────────────────────────────────────────────
+
+.char-card {
+    position: relative;
+    width: 240px;
+    height: 340px;
+    background: #0a0a0c;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.layer-content {
+    pointer-events: auto;
+}
+
+.layer-bg-gradient {
+    background: linear-gradient(to bottom, #0d0b10 0%, #13101a 40%, #0a0810 100%);
+}
+
+.layer-effect {
+    background-size: cover;
+    mix-blend-mode: screen;
+    opacity: 0.10;
+
+    &.effect-epic      { opacity: 0.18; }
+    &.effect-legendary { opacity: 0.22; }
+}
+
+.layer-rarity-tint {
+    mix-blend-mode: screen;
+}
+
+.layer-art {
+    inset: -8%;
+    background-size: 82%;
+    background-position: center 8%;
     background-repeat: no-repeat;
-    background-position: center;
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.layer-bottom-fade {
+    background: linear-gradient(to bottom,
+        transparent 0%, transparent 42%,
+        rgba(0,0,0,0.7) 64%, rgba(0,0,0,0.97) 100%);
+}
+
+.layer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 14px 14px;
+}
+
+// ─── Content typography ───────────────────────────────────────────────────────
+
+.rarity-badge {
+    font-family: "PerfectDOS" !important;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: none !important;
+    margin-bottom: 4px;
+}
+
+.char-name {
+    font-family: "Enchanted-Land" !important;
+    font-size: 22px;
+    color: var(--color-primary);
+    text-shadow: 2px 2px 6px #000, 0 0 12px rgba(0,0,0,0.9) !important;
+    line-height: 1.1;
+    margin-bottom: 2px;
+}
+
+.class-level {
+    font-family: "PerfectDOS" !important;
+    font-size: 10px;
+    color: var(--color-text-dim);
+    letter-spacing: 1px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    text-shadow: none !important;
+
+    .dot { color: var(--color-text-muted); }
+}
+
+.stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.bar-label {
+    font-size: 9px;
+    font-family: "PerfectDOS" !important;
+    text-shadow: none !important;
+    min-width: 16px;
+    text-align: right;
+    &.hp-label { color: var(--bar-hp); }
+    &.sp-label { color: var(--skill-contrast); }
+}
+
+.bar-val {
+    font-size: 9px;
+    font-family: "PerfectDOS" !important;
+    color: var(--color-text-muted);
+    text-shadow: none !important;
+    min-width: 28px;
+    text-align: right;
+}
+
+.bar-track {
+    height: 8px;
+    flex: 1;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    &.hp { background: var(--bar-hp); width: 100%; }
+    &.sp { background: var(--bar-sp); width: 100%; }
+}
+
+.stat-chips {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.stat-chip {
+    padding: 2px 8px;
+    font-size: 9px;
+    font-family: "PerfectDOS" !important;
+    text-shadow: none !important;
+
+    &.atk {
+        background: rgba(241,108,106,0.15);
+        border: 1px solid rgba(241,108,106,0.35);
+        color: var(--attack-color);
+    }
+
+    &.def {
+        background: rgba(76,123,148,0.15);
+        border: 1px solid rgba(76,123,148,0.35);
+        color: var(--skill-contrast);
+    }
 }

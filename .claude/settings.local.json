@@ -3,7 +3,12 @@
     "allow": [
       "Bash(npx tsc *)",
       "mcp__Claude_in_Chrome__tabs_context_mcp",
-      "mcp__Claude_in_Chrome__computer"
+      "mcp__Claude_in_Chrome__computer",
+      "Bash(Select-String -Path \"D:\\\\Progetti Angular\\\\dragon-mountain\\\\src\\\\assets\\\\data\\\\new_db.json\" -Pattern '\"rarity\"')",
+      "Bash(Measure-Object)",
+      "Bash(Select-Object -ExpandProperty Count)",
+      "Bash(npx ng *)",
+      "Bash(python -c ' *)"
     ]
   }
 }

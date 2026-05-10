@@ -3,6 +3,7 @@ import { Interaction } from "../Interaction";
 import { Equip } from "../items/Equip";
 import { Item } from "../items/Item";
 import { Requirement } from "../Requirement";
+import { Rarity } from "../common/Rarity";
 
 var idCounter = 0;
 
@@ -10,7 +11,7 @@ export class Actor {
 
     id = 0;
     imagePath: string = "/assets/images/actors/actor1.png";
-    rarity: number = 0;
+    rarity: Rarity = 'common';
     name: string = "Hero";
     level: number = 1;
     loot: Item[] = [];

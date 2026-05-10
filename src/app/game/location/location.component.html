@@ -2,15 +2,61 @@
     <div *ngIf="locationData" style="height: 100%;">
         <div class="actor-row">
             <div class="actor" *ngFor="let actor of locationData.actors">
-                <mat-card *ngIf="actor" ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1"
-                    [scale]="1.1" [speed]="300" class="mat-elevation-z1 pixelated-border space image-bg"
+                <div *ngIf="actor" ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
+                    [scale]="1.06" [speed]="300"
+                    class="char-card pb-{{ actor.rarity }}"
                     (click)="setSelectedActor(actor)">
-                    <div class="actor-card card card__shine">
-                        <div ngTiltParallax [distance]="20" style="padding-top: 20px; text-align: center;">
-                            {{actor.name}}</div>
-                        <img style="height: 500; width: 500;" ngTiltParallax [distance]="20" [src]="actor.imagePath" />
+
+                    <!-- L0: dark BG gradient -->
+                    <div class="layer layer-bg-gradient"></div>
+
+                    <!-- L1: effect texture — depth 0.5 (±3px on cursor edge) -->
+                    <div [parallaxLayer]="0.5" class="layer layer-effect"
+                         [class.effect-epic]="actor.rarity === 'epic'"
+                         [class.effect-legendary]="actor.rarity === 'legendary'"
+                         [style.background-image]="'url(assets/cards-effects/' + effect + '.png)'"></div>
+
+                    <!-- L1.5: rarity radial tint (static) -->
+                    <div class="layer layer-rarity-tint"
+                         [style.background]="'radial-gradient(ellipse at 50% 60%, ' + getRarityColor(actor.rarity) + '1a 0%, transparent 70%)'"></div>
+
+                    <!-- L2: character art — depth 1.0 (±6px on cursor edge) -->
+                    <div [parallaxLayer]="1.0" class="layer layer-art"
+                         [style.background-image]="'url(' + actor.imagePath + ')'"
+                         [style.filter]="'drop-shadow(0 8px 20px rgba(0,0,0,0.95)) drop-shadow(0 0 12px ' + getRarityColor(actor.rarity) + '44)'"></div>
+
+                    <!-- L2.5: bottom fade (static) -->
+                    <div class="layer layer-bottom-fade"></div>
+
+                    <!-- L3: text content — depth 1.8 (±10.8px on cursor edge) -->
+                    <div [parallaxLayer]="1.8" class="layer layer-content">
+                        <span class="rarity-badge" [style.color]="getRarityColor(actor.rarity)">{{ actor.rarity }}</span>
+                        <div class="char-name">{{ actor.name }}</div>
+                        <div class="class-level">
+                            <ng-container *ngIf="$any(actor).class?.name">
+                                <span>{{ $any(actor).class?.name }}</span>
+                                <span class="dot">·</span>
+                            </ng-container>
+                            <span>Lv.{{ actor.level }}</span>
+                        </div>
+                        <ng-container *ngIf="isFightable($any(actor))">
+                            <div class="stat-bar">
+                                <span class="bar-label hp-label">HP</span>
+                                <div class="bar-track"><div class="bar-fill hp"></div></div>
+                                <span class="bar-val">{{ $any(actor).stats?.healthPoints }}</span>
+                            </div>
+                            <div class="stat-bar">
+                                <span class="bar-label sp-label">SP</span>
+                                <div class="bar-track"><div class="bar-fill sp"></div></div>
+                                <span class="bar-val">{{ $any(actor).stats?.skillPoints }}</span>
+                            </div>
+                            <div class="stat-chips">
+                                <span class="stat-chip atk">ATK {{ $any(actor).stats?.strength }}</span>
+                                <span class="stat-chip def">DEF {{ $any(actor).stats?.constitution }}</span>
+                            </div>
+                        </ng-container>
                     </div>
-                </mat-card>
+                </div>
             </div>
         </div>
     </div>
@@ -31,7 +77,7 @@
         <!-- talk action -->
         <button mat-menu-item *ngIf="hasDialogue(selectedActor!)" (click)="talk(selectedActor!)"> interact </button>
         <!-- fight action (if is fightable -> has stats)-->
-        <button mat-menu-item *ngIf="isFightable(selectedActor!)" (click)="engageCombat(selectedActor!)"> fight
+        <button mat-menu-item *ngIf="isFightable($any(selectedActor!))" (click)="engageCombat(selectedActor!)"> fight
         </button>
         <!-- shop action (if npc has items in shop property) -->
         <button mat-menu-item *ngIf="hasShop(selectedActor!)" (click)="toggleShop(selectedActor!)"> shop </button>
@@ -39,11 +85,5 @@
         <button mat-menu-item *ngIf="canMakeYouRest(selectedActor!)" (click)="rest()"> rest </button>
         <!-- revive action (if npc can revive and party has dead members) -->
         <button mat-menu-item *ngIf="canRevive(selectedActor!)" (click)="revive()"> revive </button>
-        <!-- steal action (if someone in party is rogue or has steal spell and the npc has items to loot or to shop. Steal attempt could cause element stole or fight) -->
-        <!-- spells action (if someone in party has spells)-->
     </div>
-    <!--<div *ngIf="uiService.getSelectedItem()">
-        !-- use action --
-        <button mat-menu-item (click)="runService.useItemOn(uiService.getSelectedItem(), selectedActor!)"> use </button>
-    </div>-->
 </mat-menu>

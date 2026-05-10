@@ -1,10 +1,43 @@
 <div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
 
-<mat-card [@reloadLocations] [ngStyle]="{ 'background-image': 'url(' + locationData!.backgroundPath + ')' }"
-    style="background-position: center;" class="mat-elevation-z1 space pixelated-border"
-    ngTilt [disableAxis]="'y'" [maxTilt]="8" [glare]="true" [maxGlare]="0.1" [scale]="1.1" [speed]="300">
-    <div class="header" ngTiltParallax [distance]="1" style="text-shadow: 2px 2px 2px #000000; padding-top: 20px; text-align: center;">{{locationData!.name}}</div>
-</mat-card>
+<div [@reloadLocations] ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
+    [scale]="1.05" [speed]="300"
+    class="loc-card pb-{{ locationData!.rarity }}">
+
+    <!-- L0: scene background — depth 0.25 (±1.5px on cursor edge) -->
+    <div [parallaxLayer]="0.25" class="layer layer-scene-bg"
+         [style.background-image]="'url(' + locationData!.backgroundPath + ')'"></div>
+
+    <!-- L0.5: atmospheric vignette (static) -->
+    <div class="layer layer-loc-vignette"></div>
+
+    <!-- L0.6: top atmosphere rarity tint (static) -->
+    <div class="layer layer-loc-top-atmosphere"
+         [style.background]="'linear-gradient(to bottom, ' + rarityColor + '18 0%, transparent 100%)'"></div>
+
+    <!-- L1: effect texture — depth 0.65 (±3.9px on cursor edge) -->
+    <div [parallaxLayer]="0.65" class="layer layer-effect"
+         [class.effect-epic]="locationData!.rarity === 'epic'"
+         [class.effect-legendary]="locationData!.rarity === 'legendary'"
+         [style.background-image]="'url(assets/cards-effects/' + effect + '.png)'"></div>
+
+    <!-- L2-top: location name — depth 1.4 (±8.4px on cursor edge) -->
+    <div [parallaxLayer]="1.4" class="layer layer-loc-title">
+        <h3 class="loc-name">{{ locationData!.name }}</h3>
+    </div>
+
+    <!-- L2-bottom: description, tags, rarity label — depth 1.4 -->
+    <div [parallaxLayer]="1.4" class="layer layer-loc-info">
+        <p class="loc-desc" *ngIf="locationData!.description">{{ locationData!.description }}</p>
+        <div class="loc-tags" *ngIf="locationData!.tags?.length">
+            <span class="loc-tag" *ngFor="let t of locationData!.tags"
+                  [style.color]="rarityColor"
+                  [style.border-color]="rarityColor + '55'"
+                  [style.background-color]="rarityColor + '11'">{{ t }}</span>
+        </div>
+        <div class="loc-rarity" [style.color]="rarityColor">{{ locationData!.rarity }}</div>
+    </div>
+</div>
 
 <mat-menu #menu="matMenu" class="location-menu pixelated-border">
     <button mat-menu-item (click)="moveTo()">Explore</button>

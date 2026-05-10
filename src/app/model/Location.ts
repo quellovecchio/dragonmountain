@@ -1,6 +1,7 @@
 import { Actor } from "./Actors/Actor";
 import { Character } from "./Actors/Character";
 import { Item } from "./items/Item";
+import { Rarity } from "./common/Rarity";
 
 var idCounter = 0;
 
@@ -16,6 +17,9 @@ export class Location {
     actors: Actor[] = [];
     bindedLocation?: Location[];
     storylineCounter: number = 0.5; //default value
+    rarity: Rarity = 'common';
+    description?: string;
+    tags?: string[];
 
     constructor() {
         this.id = idCounter++;

@@ -45,10 +45,12 @@ import { ActionBarComponent } from './game/ui-layer/action-bar/action-bar.compon
 import { TextAreaComponent } from './game/ui-layer/text-area/text-area.component';
 import { UiLayerComponent } from './game/ui-layer/ui-layer.component';
 import { InfoBoxComponent } from './game/ui-layer/info-box/info-box.component';
+import { ParallaxLayerDirective } from './directives/parallax-layer.directive';
 @NgModule({
   declarations: [
     AppComponent,
     InfoBoxComponent,
+    ParallaxLayerDirective,
     SceneComponent,
     TextAreaComponent,
     LocationPreviewComponent,

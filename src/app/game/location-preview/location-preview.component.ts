@@ -85,4 +85,14 @@ export class LocationPreviewComponent implements OnInit {
     // TODO real logic
   }
 
+  readonly effect = 'cosmos-middle-trans';
+
+  get rarityColor(): string {
+    const map: Record<string, string> = {
+      common: '#9a9a9a', uncommon: '#22c55e', rare: '#4c7b94',
+      epic: '#9b59b6', legendary: '#F1C66A'
+    };
+    return map[this.locationData?.rarity ?? 'common'] ?? '#9a9a9a';
+  }
+
 }

@@ -1,13 +1,108 @@
-.space {
-    height: 80%;
-    background-size: cover;
-    transition: transform .2s;
-    //filter: blur(50px);
-    //-webkit-filter: blur(2px);  
+// ─── Location Card ────────────────────────────────────────────────────────────
+
+.loc-card {
+    position: relative;
+    width: 260px;
+    height: 360px;
+    background: #0a0a0c;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
-.space:hover {
-    transform: scale(1.1);
-    filter: none;
-    -webkit-filter: none;
+.layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.layer-scene-bg {
+    inset: -10%;
+    background-size: cover;
+    background-position: center;
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.layer-loc-vignette {
+    background: linear-gradient(to bottom,
+        rgba(0,0,0,0.1) 0%, transparent 30%,
+        transparent 50%, rgba(0,0,0,0.65) 75%,
+        rgba(0,0,0,0.95) 100%);
+}
+
+.layer-loc-top-atmosphere {
+    mix-blend-mode: screen;
+}
+
+.layer-effect {
+    background-size: cover;
+    mix-blend-mode: screen;
+    opacity: 0.08;
+
+    &.effect-epic      { opacity: 0.15; }
+    &.effect-legendary { opacity: 0.20; }
+}
+
+.layer-loc-title {
+    position: absolute;
+    inset: 0;
+    bottom: auto;
+    height: auto;
+    padding: 16px 14px 8px;
+}
+
+.layer-loc-info {
+    position: absolute;
+    inset: 0;
+    top: auto;
+    height: auto;
+    padding: 0 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+.loc-name {
+    font-family: "Enchanted-Land" !important;
+    font-size: 26px;
+    color: var(--color-primary);
+    text-shadow: 2px 2px 8px #000, 0 0 20px rgba(0,0,0,0.95) !important;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.loc-desc {
+    font-size: 13px;
+    color: var(--color-text-dim);
+    text-shadow: 1px 1px 3px #000 !important;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.loc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.loc-tag {
+    font-size: 9px;
+    font-family: var(--font-mono);
+    border: 1px solid;
+    padding: 1px 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: none !important;
+}
+
+.loc-rarity {
+    font-size: 9px;
+    font-family: var(--font-mono);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: none !important;
 }

@@ -105,6 +105,9 @@ export class DataService {
     r.id = actorData.id;
     r.name = actorData.name;
     r.imagePath = actorData.imagePath;
+    if (actorData.rarity) {
+      r.rarity = actorData.rarity;
+    }
     if (actorData.loot) {
       actorData.loot.forEach(id => {
         r.loot.push(this.getItemById(id))
@@ -152,6 +155,9 @@ export class DataService {
     r.id = actorData.id;
     r.name = actorData.name;
     r.imagePath = actorData.imagePath;
+    if (actorData.rarity) {
+      r.rarity = actorData.rarity;
+    }
     if (actorData.loot) {
       actorData.loot.forEach(id => {
         r.loot.push(this.getItemById(id))
@@ -221,6 +227,9 @@ export class DataService {
     r.name = dto.name;
     r.backgroundPath = dto.backgroundPath;
     r.storylineCounter = dto.storylineCounter ? dto.storylineCounter : 0.5;
+    if (dto.rarity) r.rarity = dto.rarity;
+    if (dto.description) r.description = dto.description;
+    if (dto.tags) r.tags = dto.tags;
     if (dto.fight) {
       dto.fight.forEach(id => {
         r.fight.push(this.populateCharacter(id))
