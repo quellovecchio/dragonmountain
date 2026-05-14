@@ -1,6 +1,6 @@
 <div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
 
-<div class="card-anim-wrapper" [style.animation-delay]="cardIndex * 130 + 'ms'">
+<div class="card-anim-wrapper" [style.animation-delay]="(cardIndex * 130) + 'ms, ' + (cardIndex * 130 + 850) + 'ms'">
 <div ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
     [scale]="1.05" [speed]="300"
     class="loc-card pb-{{ locationData!.rarity }}">
