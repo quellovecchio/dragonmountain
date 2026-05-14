@@ -12,7 +12,7 @@
             (restSignal)="rest()" (reviveSignal)="reviveFromActor()"></app-location>
     </div>
     <div class="fight" *ngIf="runService.getRun().state == 'fight'">
-        <app-fight [fightData]="runService.getRun().currentFight" [partyData]="runService.getAliveParty()"
+        <app-fight [fightData]="runService.getRun().currentFight" [partyData]="runService.getAliveParty()" [locationName]="runService.getRun().currentLocation.name"
             (useSkillSignal)="useSkillOn($event)" (fleeSignal)="flee()"></app-fight>
     </div>
 </div>

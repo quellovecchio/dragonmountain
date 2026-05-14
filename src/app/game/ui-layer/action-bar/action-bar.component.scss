@@ -55,11 +55,10 @@
 
 .dead-icon {
     position: absolute;
-    top: 4px;
     left: 50%;
     transform: translateX(-50%);
-    width: 36px;
-    height: 36px;
+    width: 80%;
+    height: 80%;
     pointer-events: none;
     z-index: 10;
 }

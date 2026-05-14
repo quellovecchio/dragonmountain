@@ -1,64 +1,135 @@
 <div class="battlefield-wrapper">
-    <div #battlefield class="battlefield">
-        <div [style.opacity]="fightStartAnimation ? 1 : 0" style="height: 100%; width: 100%;" (click)="skipIntro()">
-            <div class="scene">
-                <div class="sideLeft superSpeed">
-                    <div class="intro-thumbnail-container">
-                        <div class="imgA" *ngFor="let actor of partyData; let i = index"
-                            [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
-                            [ngClass]="partyData.length == 1 ? 'full-portrait' : partyData.length == 2 ? 'half-portrait' : 'third-portrait'">
+    <div #battlefield class="battlefield" style="overflow: hidden;">
+
+        <!-- ── Persistent battlefield mist ──────────────────────────────────── -->
+        <div class="battle-mist"></div>
+
+        <!-- ── New intro overlay ──────────────────────────────────────────── -->
+        <div *ngIf="fightStartAnimation"
+             class="intro-overlay"
+             [class.phase-fading]="introPhase === 3"
+             (click)="skipIntro()">
+            <div class="intro-underlay"></div>
+            <div class="intro-mist"></div>
+
+            <div class="intro-zoom-content">
+                <!-- Party thumbs left, enemy thumbs right -->
+                <div class="intro-portraits">
+                    <div class="intro-party-side">
+                        <div *ngFor="let actor of partyData; let i = index"
+                             class="intro-thumb party"
+                             [class.hidden]="introPhase < 1"
+                             [class.visible]="introPhase >= 1"
+                             [ngStyle]="{
+                                 'background-image': 'url(' + actor.imagePath + ')',
+                                 'transition-delay': (i * 0.08) + 's'
+                             }">
+                        </div>
+                    </div>
+                    <div class="intro-enemy-side">
+                        <div *ngFor="let actor of fightData; let i = index"
+                             class="intro-thumb enemy"
+                             [class.hidden]="introPhase < 1"
+                             [class.visible]="introPhase >= 1"
+                             [ngStyle]="{
+                                 'background-image': 'url(' + actor.imagePath + ')',
+                                 'transition-delay': (i * 0.08) + 's'
+                             }">
                         </div>
                     </div>
                 </div>
-                <div class="sideRight superSpeed">
-                    <div class="intro-thumbnail-container">
-                        <div class="imgB" *ngFor="let enemy of fightData; let j = index"
-                            [ngStyle]="{ 'background-image': 'url(' + enemy.imagePath + ')' }"
-                            [ngClass]="fightData.length == 1 ? 'full-portrait' : fightData.length == 2 ? 'half-portrait' : 'third-portrait'">
-                        </div>
-                    </div>
+
+                <!-- Title strike -->
+                <div class="intro-title" [class.hidden]="introPhase < 2" [class.visible]="introPhase >= 2">
+                    <div class="intro-eyebrow">BATTLE BEGINS</div>
+                    <div class="intro-location-name title-font">{{ locationName }}</div>
                 </div>
-                <div class="vs"></div>
-                <div class="speed-anim"></div>
             </div>
+
+            <div class="intro-skip">CLICK TO SKIP</div>
         </div>
+
+        <!-- ── Battlefield actors ─────────────────────────────────────────── -->
         <div class="battlefield-actors"
-            style="position:absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"
-            [style.opacity]="!fightStartAnimation ? 1 : 0">
-            <!-- Template for spawning characters -->
-            <div #partyCharacter class="pawn" *ngFor="let actor of partyData; let i = index"
-                [class.damaged]="actor.damaged" [class.active]="actor.active"
-                (click)="partyMemberClicked(actor); $event.stopPropagation();"
-                style="pointer-events: auto;">
-                <div *ngIf="actor" class="party-member pixelated-border space"
-                    style="background-position-x: center; background-position-y: top; background-size: 200%; z-index: 30; position: relative;"
-                    [style.pointer-events]="action.actionType == 'skill' && !selectedSkill ? 'none' : 'auto'"
-                    [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }" [class.disabled]="actor.dead">
-                    <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
-                        [maxValue]="actor.stats.constitution" [barType]="1">
-                    </app-data-bar>
-                    <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.skillPoints"
-                        [maxValue]="actor.stats.intelligence" [barType]="2">
-                    </app-data-bar>
+             style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"
+             [style.opacity]="!fightStartAnimation ? 1 : 0">
+
+            <!-- Party members -->
+            <div #partyCharacter class="pawn"
+                 *ngFor="let actor of partyData; let i = index"
+                 (click)="partyMemberClicked(actor); $event.stopPropagation();"
+                 style="pointer-events: auto;">
+
+                <!-- Standee -->
+                <div class="pawn-standee-wrapper"
+                     [class.standee-damaged]="actor.damaged"
+                     [class.standee-dead]="actor.dead">
+
+                    <!-- Buff badges -->
+                    <div class="buff-stack" *ngIf="actor.activeBuffs && actor.activeBuffs.length > 0">
+                        <div *ngFor="let buff of actor.activeBuffs; let bi = index"
+                             class="buff-badge"
+                             [style.border-color]="getBuffColor(buff.type)"
+                             [style.color]="getBuffColor(buff.type)"
+                             [style.animation-delay]="(bi * 0.08) + 's'"
+                             [title]="buff.type">
+                            {{ getBuffIcon(buff.type) }}
+                        </div>
+                    </div>
+
+                    <div class="pawn-standee-shadow"></div>
+                    <div class="pawn-standee-glow" *ngIf="actor.active && actor.id === currentCharacter.id"></div>
+
+                    <!-- Standee body (pentagon portrait) -->
+                    <div class="pawn-standee-body"
+                         [class.standee-active]="actor.active && actor.id === currentCharacter.id"
+                         [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+                    </div>
+
+                    <!-- HP / SP bars -->
+                    <div class="pawn-standee-bars"
+                         [style.pointer-events]="action.actionType === 'skill' && !selectedSkill ? 'none' : 'auto'">
+                        <div class="standee-hp-bar">
+                            <div class="standee-bar-fill hp" [style.width.%]="getHpPct(actor)"></div>
+                        </div>
+                        <div class="standee-sp-bar">
+                            <div class="standee-bar-fill sp" [style.width.%]="getSpPct(actor)"></div>
+                        </div>
+                    </div>
+
+                    <div class="pawn-standee-base"
+                         [class.standee-active]="actor.active && actor.id === currentCharacter.id"></div>
+                    <div class="pawn-standee-name">{{ actor.name.toUpperCase() }}</div>
                 </div>
-                <div class="action-range" *ngIf="actor.active == true && actor.id == currentCharacter.id"
-                    [ngStyle]="{ 'height': getActionRangeDiameter(actor).diameter, 'width': getActionRangeDiameter(actor).diameter, 'left': getActionRangeDiameter(actor).left, 'top': getActionRangeDiameter(actor).top }">
-                    <ng-container *ngIf="action.actionType == ''">
+
+                <!-- Action wheel / skill wheel / range circle -->
+                <div class="action-range"
+                     *ngIf="actor.active === true && actor.id === currentCharacter.id"
+                     [ngStyle]="{
+                         'height': getActionRangeDiameter(actor).diameter,
+                         'width':  getActionRangeDiameter(actor).diameter,
+                         'left':   getActionRangeDiameter(actor).left,
+                         'top':    getActionRangeDiameter(actor).top
+                     }">
+
+                    <!-- Default: attack / skill split buttons -->
+                    <ng-container *ngIf="action.actionType === ''">
                         <div class="action-range-button skill-button"
-                            (click)="skillButtonClicked(); $event.stopPropagation();"
-                            [ngStyle]="{'border-top-left-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-left-radius': getActionRangeDiameter(actor).diameter}">
+                             (click)="skillButtonClicked(); $event.stopPropagation();"
+                             [ngStyle]="{'border-top-left-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-left-radius': getActionRangeDiameter(actor).diameter}">
                             <img class="action-range-icon" src="assets/icons/skill-icon.png">
                         </div>
                         <div class="action-range-button move-attack-button"
-                            (click)="moveAttackButtonClicked(); $event.stopPropagation();"
-                            [ngStyle]="{'border-top-right-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-right-radius': getActionRangeDiameter(actor).diameter}">
+                             (click)="moveAttackButtonClicked(); $event.stopPropagation();"
+                             [ngStyle]="{'border-top-right-radius': getActionRangeDiameter(actor).diameter, 'border-bottom-right-radius': getActionRangeDiameter(actor).diameter}">
                             <img class="action-range-icon" src="assets/icons/attack-icon.png">
                         </div>
                     </ng-container>
-                    <!-- skill wheel: shown after skill button is clicked, before a skill is chosen -->
-                    <ng-container *ngIf="action.actionType == 'skill' && !selectedSkill">
+
+                    <!-- Skill wheel -->
+                    <ng-container *ngIf="action.actionType === 'skill' && !selectedSkill">
                         <svg class="skill-wheel" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
-                            (click)="$event.stopPropagation()">
+                             (click)="$event.stopPropagation()">
                             <defs>
                                 <clipPath id="skill-wheel-clip">
                                     <circle cx="100" cy="100" r="100"/>
@@ -68,62 +139,240 @@
                                 <ng-container *ngIf="actor.skills.length > 0; else noSkills">
                                     <g *ngFor="let slice of getSkillWheelSlices(actor.skills); trackBy: trackBySkillSlice">
                                         <path [attr.d]="slice.path" class="skill-slice"
-                                            [class.hovered]="hoveredSkillId === slice.skill.id"
-                                            (mouseenter)="hoveredSkillId = slice.skill.id"
-                                            (mouseleave)="hoveredSkillId = undefined"
-                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                              [class.hovered]="hoveredSkillId === slice.skill.id"
+                                              (mouseenter)="hoveredSkillId = slice.skill.id"
+                                              (mouseleave)="hoveredSkillId = undefined"
+                                              (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
                                         </path>
                                         <text [attr.x]="slice.textX" [attr.y]="slice.textY - 7"
-                                            class="skill-slice-label" text-anchor="middle" dominant-baseline="middle"
-                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                              class="skill-slice-label" text-anchor="middle" dominant-baseline="middle"
+                                              (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
                                             {{ slice.skill.name }}
                                         </text>
                                         <text [attr.x]="slice.textX" [attr.y]="slice.textY + 9"
-                                            class="skill-slice-cost" text-anchor="middle" dominant-baseline="middle"
-                                            (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
+                                              class="skill-slice-cost" text-anchor="middle" dominant-baseline="middle"
+                                              (click)="selectSkillFromMenu(slice.skill); $event.stopPropagation()">
                                             {{ slice.skill.cost }} SP
                                         </text>
                                     </g>
                                 </ng-container>
                                 <ng-template #noSkills>
-                                    <circle cx="100" cy="100" r="100" class="skill-slice" style="cursor: default;"></circle>
+                                    <circle cx="100" cy="100" r="100" class="skill-slice" style="cursor:default;"></circle>
                                     <text x="100" y="100" class="skill-slice-label" text-anchor="middle" dominant-baseline="middle">No skills</text>
                                 </ng-template>
                             </g>
                         </svg>
                     </ng-container>
-                    <ng-container *ngIf="action.actionType != '' && !(action.actionType == 'skill' && !selectedSkill)">
+
+                    <!-- Range circle overlay -->
+                    <ng-container *ngIf="action.actionType !== '' && !(action.actionType === 'skill' && !selectedSkill)">
                         <div class="range"
-                            [ngClass]="action.actionType == 'attack' ? 'move-attack-button' : 'skill-button'"
-                            [ngStyle]="{'border-radius': getActionRangeDiameter(actor).diameter}">
+                             [ngClass]="action.actionType === 'attack' ? 'move-attack-button' : 'skill-button'"
+                             [ngStyle]="{'border-radius': getActionRangeDiameter(actor).diameter}">
                         </div>
                     </ng-container>
                 </div>
-                <i *ngIf="currentCharacter == actor"></i>
             </div>
-            <!-- Template for spawning enemies -->
-            <div #enemyCharacter class="pawn" *ngFor="let actor of fightData; let i = index"
-                [class.damaged]="actor.damaged" (click)="enemyClicked(actor)" style="pointer-events: auto;">
-                <div *ngIf="actor" class="party-member pixelated-border space"
-                    style="background-position-x: center; background-position-y: top; background-size: 200%;  z-index: 30"
-                    [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }"
-                    [ngClass]="actor.dead ? 'dead' : ''">
-                    <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.healthPoints"
-                        [maxValue]="actor.stats.constitution" [barType]="1">
-                    </app-data-bar>
-                    <app-data-bar [minimized]="true" class="hp-bar" [currentValue]="actor.stats.skillPoints"
-                        [maxValue]="actor.stats.intelligence" [barType]="2">
-                    </app-data-bar>
+
+            <!-- Enemies -->
+            <div #enemyCharacter class="pawn"
+                 *ngFor="let actor of fightData; let i = index"
+                 [class.damaged]="actor.damaged"
+                 (click)="enemyClicked(actor)"
+                 style="pointer-events: auto; transform-origin: center center;">
+
+                <!-- Standee (mirrored via parent transform in TS) -->
+                <div class="pawn-standee-wrapper"
+                     [class.standee-damaged]="actor.damaged"
+                     [class.standee-dead]="actor.dead"
+                     style="transform: scaleX(-1);">
+
+                    <div class="buff-stack" *ngIf="actor.activeBuffs && actor.activeBuffs.length > 0">
+                        <div *ngFor="let buff of actor.activeBuffs; let bi = index"
+                             class="buff-badge"
+                             [style.border-color]="getBuffColor(buff.type)"
+                             [style.color]="getBuffColor(buff.type)"
+                             [style.animation-delay]="(bi * 0.08) + 's'"
+                             [title]="buff.type">
+                            {{ getBuffIcon(buff.type) }}
+                        </div>
+                    </div>
+
+                    <div class="pawn-standee-shadow"></div>
+
+                    <div class="pawn-standee-body"
+                         [ngStyle]="{ 'background-image': 'url(' + actor.imagePath + ')' }">
+                    </div>
+
+                    <div class="pawn-standee-bars">
+                        <div class="standee-hp-bar">
+                            <div class="standee-bar-fill hp" [style.width.%]="getHpPct(actor)"></div>
+                        </div>
+                        <div class="standee-sp-bar">
+                            <div class="standee-bar-fill sp" [style.width.%]="getSpPct(actor)"></div>
+                        </div>
+                    </div>
+
+                    <div class="pawn-standee-base"></div>
+                    <div class="pawn-standee-name">{{ actor.name.toUpperCase() }}</div>
                 </div>
-                <i *ngIf="action.actionType != ''"></i>
+
+                <i *ngIf="action.actionType !== ''"></i>
             </div>
         </div>
+
+        <!-- ── Animations layer (missiles + FX) ──────────────────────────── -->
         <div class="animations" *ngIf="!fightStartAnimation"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
-            <!-- Missiles are appended here directly via DOM (see createMissileElement) -->
+             style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:30;">
+
+            <!-- Floating damage numbers -->
+            <div *ngFor="let dn of damageNumbers"
+                 class="damage-number"
+                 [class.is-heal]="dn.kind === 'heal'"
+                 [class.is-crit]="dn.kind === 'crit'"
+                 [style.left.px]="dn.x"
+                 [style.top.px]="dn.y">
+                {{ dn.kind === 'heal' ? '+' : '' }}{{ dn.amount }}
+            </div>
+
+            <!-- Clash bursts -->
+            <svg *ngFor="let cb of clashBursts"
+                 class="clash-burst"
+                 viewBox="0 0 100 100"
+                 width="90" height="90"
+                 [style.left.px]="cb.x"
+                 [style.top.px]="cb.y"
+                 [style.filter]="'drop-shadow(0 0 10px ' + cb.color + 'cc)'">
+                <path d="M50 5 L58 42 L95 50 L58 58 L50 95 L42 58 L5 50 L42 42 Z"
+                      [attr.fill]="cb.color" stroke="#000" stroke-width="2"/>
+                <circle cx="50" cy="50" r="10" fill="#fff"/>
+                <path d="M20 20 L32 32 M80 20 L68 32 M20 80 L32 68 M80 80 L68 68"
+                      stroke="#000" stroke-width="4"/>
+            </svg>
+
+            <!-- Shatter particles -->
+            <div *ngFor="let ss of shatterSets"
+                 class="shatter-set"
+                 [style.left.px]="ss.x"
+                 [style.top.px]="ss.y">
+                <div *ngFor="let p of ss.particles"
+                     class="shatter-particle"
+                     [attr.style]="getShatterParticleStyle(p)">
+                </div>
+            </div>
         </div>
-        <div *ngIf="action.actionType == 'attack'" class="help">Select an enemy to attack, or click the battlefield to cancel.</div>
-        <div *ngIf="action.actionType == 'skill' && !selectedSkill" class="help">Select a skill, or click the battlefield to cancel.</div>
-        <div *ngIf="action.actionType == 'skill' && selectedSkill" class="help">{{ selectedSkill.name }} — select a target. Click the battlefield to cancel.</div>
+
+        <!-- ── Vertical Ladder timeline ───────────────────────────────────── -->
+        <div class="timeline-ladder" *ngIf="!fightStartAnimation && turnQueue.length > 0">
+            <div class="timeline-label">NEXT</div>
+            <ng-container *ngFor="let slot of turnQueue; let i = index; let last = last">
+                <div class="timeline-thumb"
+                     [class.is-current]="slot.isCurrent"
+                     [class.is-next]="slot.isNext"
+                     [class.is-enemy]="!isPartyMemberChar(slot.character)"
+                     [class.is-faded]="i > 2"
+                     [style.width.px]="getTimelineThumbSize(i)"
+                     [style.height.px]="getTimelineThumbSize(i)"
+                     [ngStyle]="{ 'background-image': 'url(' + slot.character.imagePath + ')' }">
+                    <!-- HP sliver -->
+                    <div class="timeline-hp-sliver">
+                        <div class="timeline-hp-sliver-fill" [style.width.%]="getHpPct(slot.character)"></div>
+                    </div>
+                    <!-- Name label -->
+                    <div class="timeline-name" [class.is-current]="slot.isCurrent">
+                        {{ slot.character.name.toUpperCase() }}
+                    </div>
+                </div>
+                <div *ngIf="!last" class="timeline-connector"></div>
+            </ng-container>
+        </div>
+
+        <!-- ── Commentary banner ──────────────────────────────────────────── -->
+        <div *ngIf="commentary && !fightStartAnimation"
+             class="commentary-banner"
+             [ngClass]="'commentary-' + commentary.kind">
+            {{ commentary.text }}
+        </div>
+
+        <!-- ── Help text (target selection hint) ─────────────────────────── -->
+        <div *ngIf="action.actionType === 'attack'" class="help">Select an enemy to attack, or click the battlefield to cancel.</div>
+        <div *ngIf="action.actionType === 'skill' && !selectedSkill" class="help">Select a skill, or click the battlefield to cancel.</div>
+        <div *ngIf="action.actionType === 'skill' && selectedSkill" class="help">{{ selectedSkill.name }} — select a target. Click the battlefield to cancel.</div>
+
+        <!-- ── Black flash overlay ────────────────────────────────────────── -->
+        <div *ngIf="blackFlashKey" class="black-flash-overlay"></div>
+
+        <!-- ── Victory overlay ───────────────────────────────────────────── -->
+        <div *ngIf="showVictory" class="victory-overlay"
+             [class.victory-clickable]="lootItems.length === 0 && victoryPhase >= 2"
+             (click)="lootItems.length === 0 && victoryPhase >= 2 && onVictoryDone()">
+
+            <!-- White flash on entry -->
+            <div class="white-flash-overlay"></div>
+
+            <!-- Mist -->
+
+            <!-- Dimmer -->
+            <div class="victory-dimmer" [class.visible]="victoryPhase >= 1"></div>
+
+            <!-- ── No-loot path: title stays, click overlay to dismiss ── -->
+            <ng-container *ngIf="lootItems.length === 0">
+                <div class="intro-mist"></div>
+                <div *ngIf="victoryPhase >= 1" class="victory-title title-font">Victory</div>
+                <div *ngIf="victoryPhase >= 1" class="victory-subtitle">The foes lie broken</div>
+                <div *ngIf="victoryPhase >= 2" class="victory-click-hint">click to continue</div>
+
+            </ng-container>
+
+            <!-- ── Loot path: title clears at phase 3, chest + button appear ── -->
+            <ng-container *ngIf="lootItems.length > 0">
+                <div class="intro-mist"></div>
+                <div *ngIf="victoryPhase >= 1 && victoryPhase < 3" class="victory-title title-font">Victory</div>
+                <div *ngIf="victoryPhase >= 1 && victoryPhase < 3" class="victory-subtitle">The foes lie broken</div>
+
+
+                <div *ngIf="victoryPhase >= 2" class="victory-loot-area">
+
+                    <!-- Loot items bounce in (phase 4) -->
+                    <div *ngIf="victoryPhase >= 4" class="victory-loot-items">
+                        <div *ngFor="let item of lootItems; let i = index"
+                             class="loot-item"
+                             [style.left]="'calc(50% + ' + getLootItemOffset(i, lootItems.length) + 'px)'"
+                             [style.animation-delay]="(i * 0.12) + 's'">
+                            <div class="loot-item-box">
+                                <img [src]="item.thumbnailPath" [alt]="item.name">
+                            </div>
+                            <div class="loot-item-name" [style.color]="item.rarity === 'legendary' ? '#F1C66A' : item.rarity === 'rare' ? '#4c7b94' : '#F4E0B9'">
+                                {{ item.name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chest -->
+                    <div class="victory-chest">
+                        <div class="chest-base">
+                            <div class="chest-band top"></div>
+                            <div class="chest-band bottom"></div>
+                            <div class="chest-divider"></div>
+                            <div class="chest-lock" [class.locked]="victoryPhase < 4" [class.unlocked]="victoryPhase >= 4"></div>
+                        </div>
+                        <div class="chest-lid"
+                             [class.closed]="victoryPhase < 4"
+                             [class.open]="victoryPhase >= 4"
+                             [class.shaking]="victoryPhase === 3">
+                            <div class="chest-lid-band"></div>
+                            <div class="chest-divider"></div>
+                        </div>
+                        <div *ngIf="victoryPhase >= 4" class="chest-glow"></div>
+                    </div>
+                </div>
+
+                <!-- Take All button — stops click propagating to the overlay -->
+                <div *ngIf="victoryPhase >= 4" (click)="$event.stopPropagation()">
+                    <button class="victory-btn" (click)="onVictoryDone()">Take All &amp; Continue</button>
+                </div>
+            </ng-container>
+        </div>
+
     </div>
 </div>

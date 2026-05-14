@@ -259,7 +259,11 @@ export class FightManagerService {
     return this.enemies[enemyIndex];
   }
 
+  /** Set to true to pause RunService from detecting battle-over (used by victory overlay). */
+  holdFightEnd: boolean = false;
+
   isBattleOver() {
+    if (this.holdFightEnd) return false;
     return (this.enemies.reduce((sum, current) => sum + current.stats.healthPoints, 0) <= 0);
   }
 

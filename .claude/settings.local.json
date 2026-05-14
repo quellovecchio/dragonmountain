@@ -8,7 +8,27 @@
       "Bash(Measure-Object)",
       "Bash(Select-Object -ExpandProperty Count)",
       "Bash(npx ng *)",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "WebFetch(domain:claude.ai)",
+      "mcp__Claude_in_Chrome__tabs_create_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "mcp__Claude_in_Chrome__read_network_requests",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "Bash(node receive-design.js)",
+      "Bash(fuser -k 3456/tcp)",
+      "Bash(nohup node \"D:\\\\Progetti Angular\\\\dragon-mountain\\\\receive-design.js\")",
+      "Bash(curl -si http://127.0.0.1:3456 -X OPTIONS)",
+      "Bash(cat /tmp/receiver2.log)",
+      "Bash(cmd /c \"netstat -ano | findstr :3456\")",
+      "PowerShell(Start-Process -NoNewWindow -FilePath \"node\" -ArgumentList \"receive-design.js\" -WorkingDirectory \"D:\\\\Progetti Angular\\\\dragon-mountain\" -PassThru)",
+      "PowerShell($job = Start-Job -ScriptBlock { Set-Location \"D:\\\\Progetti Angular\\\\dragon-mountain\"; node receive-design.js }; Start-Sleep 2; Receive-Job $job; $job.Id)",
+      "PowerShell($p = Start-Process -FilePath \"node.exe\" -ArgumentList '\"D:\\\\Progetti Angular\\\\dragon-mountain\\\\receive-design.js\"' -WindowStyle Hidden -PassThru; Start-Sleep 2; $p.Id; netstat -ano | Select-String \":3456\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \"const db = require\\('./src/assets/data/new_db.json'\\); const items = db.items || []; const first = items.slice\\(0,3\\); console.log\\(JSON.stringify\\(first.map\\(i => \\({id:i.id, name:i.name, thumbnailPath:i.thumbnailPath, imagePath:i.imagePath}\\)\\), null, 2\\)\\);\")",
+      "Bash(Get-Item \"C:\\\\Users\\\\Luca\\\\.claude\\\\projects\\\\D--Progetti-Angular-dragon-mountain\\\\2c4cd732-b57d-4d4d-936c-a9a3c454fb59.jsonl\")",
+      "Bash(Select-Object Length, LastWriteTime)",
+      "PowerShell(\\(Get-Item \"C:\\\\Users\\\\Luca\\\\.claude\\\\projects\\\\D--Progetti-Angular-dragon-mountain\\\\2c4cd732-b57d-4d4d-936c-a9a3c454fb59.jsonl\"\\).Length)"
     ]
   }
 }
