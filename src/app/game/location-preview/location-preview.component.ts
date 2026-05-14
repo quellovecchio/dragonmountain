@@ -6,6 +6,7 @@ import { take } from 'rxjs';
 import { RunService } from 'src/app/services/run.service';
 import { MusicService } from 'src/app/services/music.service';
 
+
 @Component({
   selector: 'app-location-preview',
   templateUrl: './location-preview.component.html',
@@ -41,6 +42,8 @@ export class LocationPreviewComponent implements OnInit {
 
   contextMenuPosition = { x: 0, y: 0 };
 
+  @Output() exploreClick = new EventEmitter<Location>();
+
   locationData?: Location;
   @Input() location!: any;
 
@@ -75,7 +78,7 @@ export class LocationPreviewComponent implements OnInit {
 
   moveTo() {
     this.musicService.playSound('room-in');
-    this.runService.moveTo(this.location);
+    this.exploreClick.emit(this.locationData!);
   }
 
   reloadLocations() {

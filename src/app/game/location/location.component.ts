@@ -44,6 +44,7 @@ export class LocationComponent implements OnInit {
   @Output() reviveSignal = new EventEmitter<void>();
 
   selectedActor?: Actor = undefined;
+  isExiting = false;
 
   constructor(private eRef: ElementRef, public uiService: UiService, public runService: RunService) { }
 
@@ -71,7 +72,11 @@ export class LocationComponent implements OnInit {
   }
 
   goBackToScene() {
-    this.backSignal.emit(this.locationData);
+    this.isExiting = true;
+    setTimeout(() => {
+      this.isExiting = false;
+      this.backSignal.emit(this.locationData);
+    }, 480);
   }
 
   talk(a: Actor) {

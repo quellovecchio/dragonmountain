@@ -1,8 +1,11 @@
 <div class="view">
-    <div class="map" *ngIf="runService.getRun().state == 'exploration'">
+    <div class="map" *ngIf="runService.getRun().state == 'exploration' || isAnimatingEntry">
         <div class="locations-row">
-            <div class="location-preview" *ngFor="let location of runService.getRun().stage.currentLocations">
-                <app-location-preview [location]="location"></app-location-preview>
+            <div class="location-preview"
+                 *ngFor="let location of runService.getRun().stage.currentLocations"
+                 [class.loc-entering]="isAnimatingEntry && selectedLocationId === location.id"
+                 [class.loc-dimming]="isAnimatingEntry && selectedLocationId !== location.id">
+                <app-location-preview [location]="location" (exploreClick)="onExplore($event)"></app-location-preview>
             </div>
         </div>
     </div>

@@ -1,7 +1,8 @@
-<div class="container-space">
+<div class="container-space" [class.location-exiting]="isExiting">
     <div *ngIf="locationData" style="height: 100%;">
         <div class="actor-row">
-            <div class="actor" *ngFor="let actor of locationData.actors">
+            <div class="actor" *ngFor="let actor of locationData.actors; let i = index"
+                 [style.animation-delay]="(i * 120) + 'ms'">
                 <div *ngIf="actor" ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
                     [scale]="1.06" [speed]="300"
                     class="char-card pb-{{ actor.rarity }}"

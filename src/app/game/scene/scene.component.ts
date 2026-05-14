@@ -18,16 +18,30 @@ import { Skill } from 'src/app/model/Skill';
   styleUrls: ['./scene.component.scss']
 })
 export class SceneComponent implements OnInit {
-  
+
   @Output() itemBoughtSignal = new EventEmitter<Item>();
 
   fightManager: FightManagerService;
+
+  isAnimatingEntry = false;
+  selectedLocationId: number | null = null;
 
   constructor(fightManager: FightManagerService, public runService: RunService, public itemService: ItemService, private uiService: UiService, private musicService: MusicService) {
     this.fightManager = fightManager;
   }
 
   ngOnInit(): void {
+  }
+
+  onExplore(location: Location) {
+    if (this.isAnimatingEntry) return;
+    this.isAnimatingEntry = true;
+    this.selectedLocationId = location.id;
+    setTimeout(() => {
+      this.isAnimatingEntry = false;
+      this.selectedLocationId = null;
+      this.runService.moveTo(location);
+    }, 680);
   }
 
   // Location actions

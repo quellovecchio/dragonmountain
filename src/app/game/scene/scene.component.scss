@@ -61,3 +61,24 @@ img {
 .map {
     height: 100%;
 }
+
+.location-preview.loc-dimming {
+    animation: loc-dim-out 0.38s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.location-preview.loc-entering {
+    animation: loc-zoom-in 0.62s cubic-bezier(0.32, 0, 0.67, 0) forwards;
+    z-index: 100;
+    position: relative;
+}
+
+@keyframes loc-dim-out {
+    from { opacity: 1; transform: scale(1)    translateY(0);    }
+    to   { opacity: 0; transform: scale(0.88) translateY(14px); }
+}
+
+@keyframes loc-zoom-in {
+    0%   { transform: scale(1);   opacity: 1; }
+    62%  { transform: scale(2.0); opacity: 1; }
+    100% { transform: scale(4.0); opacity: 0; }
+}
