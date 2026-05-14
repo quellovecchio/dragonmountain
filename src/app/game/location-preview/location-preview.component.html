@@ -1,6 +1,7 @@
 <div #menuTrigger [matMenuTriggerFor]="menu" style="display: none;"></div>
 
-<div [@reloadLocations] ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
+<div class="card-anim-wrapper" [style.animation-delay]="cardIndex * 130 + 'ms'">
+<div ngTilt [maxTilt]="5" [glare]="true" [maxGlare]="0.11"
     [scale]="1.05" [speed]="300"
     class="loc-card pb-{{ locationData!.rarity }}">
 
@@ -37,6 +38,7 @@
         </div>
         <div class="loc-rarity" [style.color]="rarityColor">{{ locationData!.rarity }}</div>
     </div>
+</div>
 </div>
 
 <mat-menu #menu="matMenu" class="location-menu pixelated-border">

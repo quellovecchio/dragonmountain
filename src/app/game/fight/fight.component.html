@@ -304,8 +304,8 @@
 
         <!-- ── Victory overlay ───────────────────────────────────────────── -->
         <div *ngIf="showVictory" class="victory-overlay"
-             [class.victory-clickable]="lootItems.length === 0 && victoryPhase >= 2"
-             (click)="lootItems.length === 0 && victoryPhase >= 2 && onVictoryDone()">
+             [class.victory-clickable]="victoryPhase >= 2 && (lootItems.length === 0 || victoryPhase >= 4)"
+             (click)="victoryPhase >= 2 && (lootItems.length === 0 || victoryPhase >= 4) && onVictoryDone()">
 
             <!-- White flash on entry -->
             <div class="white-flash-overlay"></div>
@@ -367,10 +367,7 @@
                     </div>
                 </div>
 
-                <!-- Take All button — stops click propagating to the overlay -->
-                <div *ngIf="victoryPhase >= 4" (click)="$event.stopPropagation()">
-                    <button class="victory-btn" (click)="onVictoryDone()">Take All &amp; Continue</button>
-                </div>
+                <div *ngIf="victoryPhase >= 4" class="victory-click-hint">click to continue</div>
             </ng-container>
         </div>
 

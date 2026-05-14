@@ -2,10 +2,10 @@
     <div class="map" *ngIf="runService.getRun().state == 'exploration' || isAnimatingEntry">
         <div class="locations-row">
             <div class="location-preview"
-                 *ngFor="let location of runService.getRun().stage.currentLocations"
+                 *ngFor="let location of runService.getRun().stage.currentLocations; let i = index"
                  [class.loc-entering]="isAnimatingEntry && selectedLocationId === location.id"
                  [class.loc-dimming]="isAnimatingEntry && selectedLocationId !== location.id">
-                <app-location-preview [location]="location" (exploreClick)="onExplore($event)"></app-location-preview>
+                <app-location-preview [location]="location" [cardIndex]="i" (exploreClick)="onExplore($event)"></app-location-preview>
             </div>
         </div>
     </div>

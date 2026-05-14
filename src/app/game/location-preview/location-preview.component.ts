@@ -1,30 +1,14 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { Location } from "../../model/Location";
-import { animate, style, transition, trigger } from '@angular/animations';
 import { take } from 'rxjs';
 import { RunService } from 'src/app/services/run.service';
 import { MusicService } from 'src/app/services/music.service';
-
 
 @Component({
   selector: 'app-location-preview',
   templateUrl: './location-preview.component.html',
   styleUrls: ['./location-preview.component.scss'],
-  animations: [
-    trigger(
-      'reloadLocations',
-      [
-        transition(
-          ':enter',
-          [
-            animate('2s ease',
-              style({ transform: 'rotateY(1800deg)' }))
-          ]
-        ),
-      ]
-    )
-  ]
 })
 export class LocationPreviewComponent implements OnInit {
 
@@ -46,6 +30,7 @@ export class LocationPreviewComponent implements OnInit {
 
   locationData?: Location;
   @Input() location!: any;
+  @Input() cardIndex: number = 0;
 
   animateLocation: boolean = false;
 

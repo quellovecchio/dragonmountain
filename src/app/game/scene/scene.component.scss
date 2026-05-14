@@ -28,6 +28,15 @@ img {
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
+    perspective: 1200px;
+    animation: table-land 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) 920ms both;
+}
+
+@keyframes table-land {
+    0%, 100% { transform: translateY(0);    }
+    20%      { transform: translateY(-6px); }
+    50%      { transform: translateY(4px);  }
+    75%      { transform: translateY(-2px); }
 }
 
 .location-preview {
